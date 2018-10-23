@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "主页面";
+}
+<h2>主页面</h2>
+<p>列表详细信息</p>
+<div id="partialDiv"></div>
+<script>
+    $('#partialDiv').load('@Url.Action("ListPage", "MyAjax")')
+</script>
+

@@ -1,0 +1,375 @@
+﻿
+@{
+    ViewBag.Title = "EQP UPm UUm Report";
+}
+
+<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+
+<script type="text/javascript">
+
+
+        /**选中的元素向右移动**/
+         function moveRight()
+        {
+            var selectElement = document.getElementById("eqpid_select");
+            var optionElements = selectElement.getElementsByTagName("option");
+            var len = optionElements.length;
+
+
+            if(!(selectElement.selectedIndex==-1))   //如果没有选择元素，那么selectedIndex就为-1
+            {
+
+                //得到第二个select对象
+                var selectElement2 = document.getElementById("selectedeqpid_select");
+
+                    // 向右移动
+                    for(var i=0;i<len ;i++)
+                    {
+                        selectElement2.appendChild(optionElements[selectElement.selectedIndex]);
+                    }
+            } else
+            {
+                alert("您还没有选择需要移动的元素！");
+            }
+        }
+
+        //移动所有的到右边
+        function moveAll()
+        {
+            //得到第一个select对象
+            var selectElement = document.getElementById("eqpid_select");
+            var optionElements = selectElement.getElementsByTagName("option");
+            var len = optionElements.length;
+            //alert(len);
+
+            //将第一个selected中的数组翻转
+            var firstOption = new Array();
+            for(var k=len-1;k>=0;k--)
+            {
+                firstOption.push(optionElements[k]);
+
+            }
+            var lens = firstOption.length;
+                //得到第二个select对象
+            var selectElement2 = document.getElementById("selectedeqpid_select");
+            for(var j=lens-1;j>=0;j--)
+            {
+                selectElement2.appendChild(firstOption[j]);
+            }
+        }
+
+        //移动选中的元素到左边
+        function moveLeft()
+        {
+            //首先得到第二个select对象
+            var selectElement = document.getElementById("selectedeqpid_select");
+            var optionElement = selectElement.getElementsByTagName("option");
+            var len = optionElement.length;
+
+            //再次得到第一个元素
+            if(!(selectElement.selectedIndex==-1))
+            {
+                var firstSelectElement = document.getElementById("eqpid_select");
+                for(i=0;i<len;i++)
+                {
+                    firstSelectElement.appendChild(optionElement[selectElement.selectedIndex]);//被选中的那个元素的索引
+                }
+            }else
+            {
+                alert("您还没有选中要移动的项目!");
+            }
+        }
+
+        //全部向左移
+        function moveAllLeft()
+        {
+            var selectElement = document.getElementById("selectedeqpid_select");
+            var optionElements = selectElement.getElementsByTagName("option");
+            var len = optionElements.length;
+
+            var optionEls = new Array();
+            for(var i=len-1;i>=0;i--)
+            {
+                optionEls.push(optionElements[i]);
+            }
+            var lens = optionEls.length;
+
+            var firstSelectElement = document.getElementById("eqpid_select");
+            for(var j=lens-1;j>=0;j--)
+            {
+                firstSelectElement.appendChild(optionEls[j]);
+            }
+    }
+
+    //定义获取表单数据的函数,注意返回json对象
+    function formData() {
+        return {
+            selectedeqpid: checkselect("selectedeqpid_select"),
+            type: $("input[name='radioDateCategory']:checked").val(),
+            from: $("#datepicker_from").val(),
+            to: $("#datepicker_to").val(),
+            eqptype: checkselectoption("eqptype_select"),
+            frame: $("#time_frame_select").val(),
+        };
+    }
+
+    //获取select所有项
+    function checkselect(objname) {
+        o = document.getElementById(objname);
+        var intvalue = "";
+        for (i = 0; i < o.options.length; i++) {
+                intvalue += o.options[i].value + ",";
+        }
+        //alert(intvalue);
+        return intvalue.substr(0, intvalue.length - 1);
+    }
+
+    //获取select所有选中项
+    function checkselectoption(objname) {
+        o = document.getElementById(objname);
+        var intvalue = "";
+        for (i = 0; i < o.options.length; i++) {
+            if (o.options[i].selected) {
+                intvalue += o.options[i].value + ",";
+            }
+        }
+        return intvalue.substr(0, intvalue.length - 1);
+    }
+
+    //定义注册功能的函数
+    function query() {
+        var url = "GetTableByAllConditions";
+        var data = formData();
+        //clearMsg();
+        $.ajax({
+            type: 'POST', //自动会把json对象转换为查询字符串附在url后面如：http://localhost:49521/Register.ashx?id=a&pwd=b&name=c
+            url: url,
+            dataType: 'html', //要求服务器返回一个json类型的数据,如：{"success":true,"message":"注册成功"}
+            contentType: 'application/json',//发送信息给服务器时，内容编码的类型
+            data: JSON.stringify(data), //提交给服务器的数据,直接使用json对象的数据,如:{"id":"a","pwd":"b","name":"c"}　（如果要求json格式的字符串，可使用用JSON.stringify(data)）
+            success: function (responseData) {//如果响应成功（即200）
+                    $("#tableDiv").html("");
+                $("#tableDiv").html(responseData);
+            },
+            error: function () {
+                //要求为Function类型的参数，请求失败时被调用的函数。该函数有3个参数，即XMLHttpRequest对象、错误信息、捕获的错误对象(可选)。ajax事件函数如下：
+                //function(XMLHttpRequest, textStatus, errorThrown){
+                //通常情况下textStatus和errorThrown只有其中一个包含信息
+                //this;   //调用本次ajax请求时传递的options参数
+                alert(arguments[1]);
+                //alert("3");
+            }
+        });//ajax
+    }
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        function MoveItem(fromId, toId) {
+            $("#" + fromId + " option:selected").each(function () {
+                $(this).appendTo($("#" + toId + ":not(:has(option[value=" + $(this).val() + "]))"));
+            });
+            $("#" + fromId + " option:selected").remove();
+        }
+         //双击左边选项
+         $('#eqpid_select').dblclick(function () {
+            var toId = "selectedeqpid_select";
+            var fromId = "eqpid_select";
+            MoveItem(fromId, toId);
+        });
+        //双击右边选项
+        $('#selectedeqpid_select').dblclick(function () {
+            var fromId = "selectedeqpid_select";
+            var toId = "eqpid_select";
+            MoveItem(fromId, toId);
+        });
+        $("#radio_date").click(function () {
+            $("#radio_range").attr("checked", "true");
+            $("#datepicker_from").get(0).setAttribute("type", "date"); 
+            $("#datepicker_to").get(0).setAttribute("type", "date");
+        });
+        $("#radio_week").click(function () {
+            $("#radio_range").attr("checked", "true");
+            $("#datepicker_from").get(0).setAttribute("type", "week");
+            $("#datepicker_to").get(0).setAttribute("type", "week");
+        });
+        $("#radio_month").click(function () {
+            $("#radio_range").attr("checked", "true");
+            $("#datepicker_from").get(0).setAttribute("type", "month");
+            $("#datepicker_to").get(0).setAttribute("type", "month");
+        });
+        $("#radio_frame").click(function () {
+            $("#radio_frame_value").attr("checked", "true");
+        });
+        $("#radio_frame_value").click(function () {
+            $("#radio_frame").attr("checked", "true");
+        });
+        $("#radio_range").click(function () {
+            $("#radio_date").attr("checked", "true");
+            $("#datepicker_from").get(0).setAttribute("type", "date");
+            $("#datepicker_to").get(0).setAttribute("type", "date");
+        });
+
+        $("#module_select").change(function () {
+            var module = checkselectoption("#module_select");
+            $.ajax({
+                url: "GetSelectListByModule",
+                dataType: "html",
+                data: { 'selectedmodule': module },
+                type: "POST",
+                success: function (data) {
+                    $("#eqptypeDiv").html("");
+                    $("#eqptypeDiv").html(data);
+                    },
+
+                error: function (e) {
+
+                }
+            });
+        });
+    });
+
+</script>
+
+
+<style>
+    header {
+        font-size: 62.5%;
+    }
+    .top {
+        float: left;
+        margin: 20px 0 0 20px;
+    }
+
+    select {
+        min-width: 100px;
+    }
+
+    button {
+        min-width: 80px;
+        margin: 30px 0 0 0;
+    }
+
+    textarea {
+        width: 100px;
+        height: 100px;
+        resize: none;
+    }
+
+    form {
+        margin: 20px 0 0 0;
+    }
+    #tableDiv table {
+        border-right: 1px solid #808080;
+        border-bottom: 1px solid #808080;
+        font-size: smaller;
+    }
+
+        #tableDiv table th {
+            border-left: 1px solid #808080;
+            border-top: 1px solid #808080;
+            font-weight: 200;
+            background-color: aquamarine;
+        }
+
+        #tableDiv table td {
+            border-left: 1px solid #808080;
+            border-top: 1px solid #808080;
+            font: 400;
+        } 
+
+</style>
+
+<header style="background-color:darkgoldenrod">
+    <div class="top">
+        <div style="margin:0 0 40px 0">
+            <label>Module</label>
+            <br />
+            <select name="ModuleSelect" id="module_select">
+                @foreach (string str in ViewBag.Modules)
+                {
+                    <option value="@str">@str</option>
+                }
+            </select>
+        </div>
+
+        <div id="eqptypeDiv">
+            <label>EQPType</label>
+            <br />
+            <select name="EQPTypeSelect" id="eqptype_select">
+                @foreach (string str in ViewBag.EqpTypes)
+                {
+                    <option>@str</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="top" id="AvailableEqpIDDiv">
+        <label>Available EqpID</label>
+        <br />
+        <select name="EqpIDSelect" id="eqpid_select" multiple="True" style="height:100px">
+            @foreach (string str in ViewBag.EqpID)
+            {
+                <option>@str</option>
+            }
+        </select>
+    </div>
+    <div class="top" style="height:100px;margin: 20px 0 0 10px">
+        <button onclick="moveAll()">>></button>
+        <br />
+        <button onclick="moveAllLeft()"><<</button>
+    </div>
+    <div class="top">
+        <label>Selected EqpID</label>
+        <br />
+        <select name="SelectedEqpIDSelect" id="selectedeqpid_select" multiple style="height:100px">
+
+        </select>
+    </div>
+    <div class="top">
+        <form class="DateClass">
+            <label class="single"><input type="radio" name="radioDateCategory" id="radio_date" value="date" checked="true" /> by Date  <br /></label>
+            <label class="single"><input type="radio" name="radioDateCategory" id="radio_week" value="week" /> by Week  <br /></label>
+            <label class="single"><input type="radio" name="radioDateCategory" id="radio_month" value="month" /> by Month  <br /></label>
+            <label class="single"><input type="radio" name="radioDateCategory" id="radio_frame" value="frame" /> by Frame  <br /></label>
+        </form>
+    </div>
+    <div class="top">
+        <form class="DateClass">
+            <input type="radio" name="radioDateValue" value="range" id="radio_range" checked="checked" style="float:left" />
+            <div style="float:left;margin:0 20px 0 0">
+                From<br />
+                <input type="date" id="datepicker_from" />
+            </div>
+            <div style="float:left">
+                To  <br />
+                <input type="date" id="datepicker_to" />
+            </div>
+            <br />
+            <div >
+                <input type="radio" name="radioDateValue" value="frame" id="radio_frame_value" style="float:left;" />
+                <div style="float:left;">
+                    TimeFrame  <br />
+                               <select name="TimeFrameSelect" id="time_frame_select">
+                                   <option value="date">Date</option>
+                                   <option value="week">Week</option>
+                                   <option value="month">Month</option>
+                               </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="top">
+        <button id="query" onclick="query()" >Query</button>
+    </div>
+</header>
+
+
+<div id="tableDiv">
+
+
+</div>
+
+
+

@@ -1,0 +1,9 @@
+﻿@model  List<AMS.CIM.Caojin.RPTWebApp.Models.ReqRpt018EqpTypeListViewModel>
+<label>EQPType</label>
+<br />
+<select name="EQPTypeSelect" id="eqptype_select">
+    @foreach (var item in Model)
+    {
+        <option value="@item.EqpTypeValue">@item.EpqType</option>
+    }
+</select>

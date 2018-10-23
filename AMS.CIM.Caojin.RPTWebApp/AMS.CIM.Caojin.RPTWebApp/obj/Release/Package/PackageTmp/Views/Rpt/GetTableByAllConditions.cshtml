@@ -1,0 +1,107 @@
+﻿@model AMS.CIM.Caojin.RPTWebApp.Models.ReqRpt018TableViewModel
+<div style="border:thin;align-content:center;margin:200px 0 0 10px;font-size:62.5%">
+    <p>@Model.querycontent </p>
+</div>
+<style>
+    .table table {
+        border-right: 1px solid #F00;
+        border-bottom: 1px solid #F00;
+        font-size: smaller;
+    }
+
+        .table table th {
+            border-left: 1px solid #F00;
+            border-top: 1px solid #F00;
+            font-weight: 200;
+            background-color: aquamarine
+        }
+
+        .table table td {
+            border-left: 1px solid #F00;
+            border-top: 1px solid #F00;
+            font: 400;
+        }
+</style>
+<div class="col-md-2">
+    <input type="button" onClick="exportDataToExcel()" value="导出到Excel"
+           class="btn btn-primary">
+    <a id="dlink" style="display: none;"></a>
+</div>
+<table id="table" class="table">
+    <thead>
+        <tr>
+            <th colspan="2" rowspan="2">EQPID</th>
+            @foreach (string item in Model.Dates)
+            {
+                <th colspan="4">@item</th>
+            }
+        </tr>
+        <tr>
+            @foreach (string item in Model.Dates)
+            {
+                <th>UPm(%)</th>
+                <th>UUm(%)</th>
+                <th>SD(%)</th>
+                <th>UD(%)</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.entities)
+        {
+            <tr>
+                <td><input type="radio" name="tableRadio" /></td>
+                <td>@item.EqpID</td>
+                @foreach (var datas in item.Datas)
+                {
+                    <td>@datas.strUPm</td>
+                    <td>@datas.strUUm</td>
+                    <td>@datas.strSD</td>
+                    <td>@datas.strUD</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+<script type="text/javascript">
+    function exportDataToExcel() {
+
+        var sheetName = "sheet1";
+        var fileName = "EQPUPmUUmReport.xls";
+        tableToExcel("table", sheetName, fileName, "dlink");
+    }
+
+    var base64 = function (s) {
+        return window.btoa(unescape(encodeURIComponent(s)));
+    };
+    //替换table数据和worksheet名字
+    var format = function (s, c) {
+        return s.replace(/{(\w+)}/g,
+            function (m, p) {
+                return c[p];
+            });
+    }
+    function tableToExcel(tableid, sheetName,fileName,linkId) {
+        var uri = 'data:application/vnd.ms-excel;base64,';
+        var template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"' +
+            'xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>'
+            + '<x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets>'
+            + '</x:ExcelWorkbook></xml><![endif]-->' +
+            ' <style type="text/css">' +
+           'table th td{'+
+                'border-right: 1px solid #F00;'+
+        'border - bottom: 1px solid #F00;'+
+        'font - size: smaller;'+
+        '}'+
+            '</style>' +
+            '</head><body ><table class="excelTable">{table}</table></body></html>';
+        if (!tableid.nodeType) tableid = document.getElementById(tableid);
+        var ctx = { worksheet: sheetName || 'Worksheet', table: tableid.innerHTML };
+        var dlinkInfo = document.getElementById(linkId);
+        dlinkInfo.href = uri + base64(format(template, ctx));
+        dlinkInfo.download = fileName;
+        dlinkInfo.click();
+    }
+
+</script>
+
