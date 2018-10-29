@@ -46,11 +46,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.Data.DB2.EntityFramework, Version=10.5.5.6, Culture=neutral, PublicKeyToken=7c307b91aa13d208, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.IBM.DB2.6.0.7\lib\net40\IBM.Data.DB2.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -159,22 +170,11 @@
     <Compile Include="Helpers\FTPClientHelper.cs" />
     <Compile Include="Helpers\FTPHelper.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
-    <Compile Include="Models\BLL\ReqRpt018GroupModel.cs" />
+    <Compile Include="Models\ReqRpt018EqpIDListViewModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt018EqpTypeListViewModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt018MainViewModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt018PostViewModel.cs" />
-    <Compile Include="Models\DB2DataCatcher.cs" />
-    <Compile Include="Models\DLL\FHESCHSModel.cs" />
-    <Compile Include="Models\DLL\FREQPModel.cs" />
-    <Compile Include="Models\DB2Entities.cs" />
-    <Compile Include="Models\BLL\ReqRpt018EqpStatusEntity.cs" />
-    <Compile Include="Models\DLL\FRCodeModel.cs" />
-    <Compile Include="Models\DLL\FRUserModel.cs" />
-    <Compile Include="Models\BLL\ReqRpt018Model.cs" />
-    <Compile Include="Models\BLL\ReqRpt018ViewModel.cs" />
-    <Compile Include="Models\BLL\ReqRpt018DataBase.cs" />
-    <Compile Include="Models\BLL\ReqRpt018TableEntity.cs" />
     <Compile Include="Models\ViewModel\ReqRpt018TableViewModel.cs" />
-    <Compile Include="Models\ShareDataEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +205,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\xcConfirm.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -224,6 +225,7 @@
     <Content Include="Views\Rpt\ReqRpt018.cshtml" />
     <Content Include="Views\Rpt\GetTableByAllConditions.cshtml" />
     <Content Include="Views\Rpt\GetSelectListByModule.cshtml" />
+    <Content Include="Views\Rpt\GetSelectListByEqpType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -240,6 +242,15 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AMS.CIM.Caojin.RPTLibrary\AMS.CIM.Caojin.RPTLibrary.csproj">
+      <Project>{d2d95cc9-d226-4db6-9f45-40a3755825db}</Project>
+      <Name>AMS.CIM.Caojin.RPTLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

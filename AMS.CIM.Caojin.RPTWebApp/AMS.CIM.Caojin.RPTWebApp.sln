@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS.CIM.Caojin.RPTWebApp", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{097CA827-BC3B-408F-91DB-64353ACB18A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS.CIM.Caojin.RPTDataUpdateService", "AMS.CIM.Caojin.RPTDataUpdateService\AMS.CIM.Caojin.RPTDataUpdateService.csproj", "{01B9DFED-AD38-4484-B9A5-8425351DACB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS.CIM.Caojin.RPTLibrary", "AMS.CIM.Caojin.RPTLibrary\AMS.CIM.Caojin.RPTLibrary.csproj", "{D2D95CC9-D226-4DB6-9F45-40A3755825DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{097CA827-BC3B-408F-91DB-64353ACB18A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{097CA827-BC3B-408F-91DB-64353ACB18A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{097CA827-BC3B-408F-91DB-64353ACB18A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01B9DFED-AD38-4484-B9A5-8425351DACB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01B9DFED-AD38-4484-B9A5-8425351DACB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01B9DFED-AD38-4484-B9A5-8425351DACB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01B9DFED-AD38-4484-B9A5-8425351DACB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2D95CC9-D226-4DB6-9F45-40A3755825DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2D95CC9-D226-4DB6-9F45-40A3755825DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2D95CC9-D226-4DB6-9F45-40A3755825DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2D95CC9-D226-4DB6-9F45-40A3755825DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,8 +10,8 @@ namespace TestProject
     {
         static void Main(string[] args)
         {
-            TestDate.Test();
-            Console.Write("ok");
+            TestLibrary.Test();
+            //TestEF.Test();
             Console.ReadKey();
         }
     }

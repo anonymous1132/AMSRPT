@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using AMS.CIM.Caojin.RPTLibrary.Models;
+using AMS.CIM.Caojin.RPTLibrary;
+using System.Data.Entity;
 
 namespace AMS.CIM.Caojin.RPTWebApp.Models
 {
@@ -25,6 +27,25 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
         private string Type;
         private string Frame;
         private string selectedeqptype;
+        private Tuple<DateTime, DateTime> _maxAndMinDate;
+        private Tuple<DateTime, DateTime> MaxAndMinDate
+        {
+            get
+            {
+                if (_maxAndMinDate != null)
+                {
+                    return _maxAndMinDate;
+                }
+                else
+                {
+                    using (RPTContext db = new RPTContext())
+                    {
+                        return Tuple.Create<DateTime, DateTime>(db.EQP_UPm_018.Max(m=>m.Date), db.EQP_UPm_018.Min(m=>m.Date));
+                    }
+                }
+            }
+        }
+
         public string querycontent
         {
             get { return selectedeqptype + " " + Dates.FirstOrDefault() + "~ " + Dates.LastOrDefault() + " " + " UPm(%);UUm(%);SD(%);UD(%)"; }
@@ -76,8 +97,8 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
             }
             else if (Type == "frame")
             {
-                StartDay = ShareDataEntity.GetSingleEntity().Rpt018.Rpt018GroupModel.ReqRpt018Models.Min(m => m.SomeDay);
-                EndDay= ShareDataEntity.GetSingleEntity().Rpt018.Rpt018GroupModel.ReqRpt018Models.Max(m => m.SomeDay);
+                StartDay = MaxAndMinDate.Item2;
+                EndDay= MaxAndMinDate.Item1;
                 if (Frame == "date")
                 {
                     while (StartDay <= EndDay)
@@ -146,25 +167,37 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
         private ReqRpt018DataBase GetEntityByDayRange(string EqpID, DateTime firstDay, DateTime lastDay)
         {
             ReqRpt018DataBase entity = new ReqRpt018DataBase();
-            var ssd = ShareDataEntity.GetSingleEntity().Rpt018.Rpt018GroupModel.ReqRpt018Models;
-            var list= ShareDataEntity.GetSingleEntity().Rpt018.Rpt018GroupModel.ReqRpt018Models.Where(w => w.EqpID == EqpID && w.SomeDay.Date >= firstDay && w.SomeDay.Date <= lastDay).ToList();
-            double pr = list.Sum(s=>s.PRDTimeSpan);
-            double ns = list.Sum(s=>s.NSTTimeSpan);
-            double sb = list.Sum(s=>s.SBYTimeSpan);
-            double sd = list.Sum(s=>s.SDTTimeSpan);
-            double ud = list.Sum(s=>s.UDTTimeSpan);
-            double en = list.Sum(s=>s.ENGTimeSpan);
-            double ot = pr + sb + sd + ud + en;
-            double ut = pr + sb;
-            if(ot+ns>0)
+            using (RPTContext db = new RPTContext())
             {
-                entity.UPm = ot == 0 ? 0 : (pr + sb) / ot;
-                entity.UUm = ut == 0 ? 0 : pr / ut;
-                entity.SD = ot == 0?0: sd / ot;
-                entity.UD = ot == 0?0:ud / ot;
+                var list = db.EQP_UPm_018.Where(w => w.EqpID == EqpID && DbFunctions.TruncateTime(w.Date) >= firstDay && DbFunctions.TruncateTime(w.Date) <= lastDay).ToList();
+                double pr = list.Sum(s => s.PRDMin);
+                double ns = list.Sum(s => s.NSTMin);
+                double sb = list.Sum(s => s.SBYMin);
+                double sd = list.Sum(s => s.SDTMin);
+                double ud = list.Sum(s => s.UDTMin);
+                double en = list.Sum(s => s.ENGMin);
+                double ot = pr + sb + sd + ud + en;
+                double ut = pr + sb;
+                double pdtest = list.Sum(s=>s.PRDTestMin);
+                double pm = list.Sum(s=>s.PMMin);
+                if (ot + ns > 0)
+                {
+                    entity.UPm = ot == 0 ? 0 : (pr + sb) / ot;
+                    entity.UUm = ut == 0 ? 0 : pr / ut;
+                    entity.SD = ot == 0 ? 0 : sd / ot;
+                    entity.UD = ot == 0 ? 0 : ud / ot;
+                    entity.PRDHour = pr / 60;
+                    entity.SBYHour = sb / 60;
+                    entity.SDTHour = sd / 60;
+                    entity.UDTHour = ud / 60;
+                    entity.NSTHour = ns / 60;
+                    entity.ENGHour = en / 60;
+                    entity.PRDTestHour = pdtest / 60;
+                    entity.PMHour = pm / 60;
+                }
+                return entity;
             }
-
-            return entity;   
+ 
         }
 
         private void GetEntitiesByType()

@@ -12,11 +12,20 @@
     <File Include="ApplicationInsights.config">
       <publishTime>10/16/2018 08:59:20</publishTime>
     </File>
+    <File Include="bin/AMS.CIM.Caojin.RPTLibrary.dll">
+      <publishTime>10/29/2018 15:29:52</publishTime>
+    </File>
+    <File Include="bin/AMS.CIM.Caojin.RPTLibrary.dll.config">
+      <publishTime>10/25/2018 09:50:35</publishTime>
+    </File>
+    <File Include="bin/AMS.CIM.Caojin.RPTLibrary.pdb">
+      <publishTime>10/29/2018 15:29:52</publishTime>
+    </File>
     <File Include="bin/AMS.CIM.Caojin.RPTWebApp.dll">
-      <publishTime>10/22/2018 14:13:38</publishTime>
+      <publishTime>10/29/2018 15:29:53</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTWebApp.pdb">
-      <publishTime>10/22/2018 14:13:38</publishTime>
+      <publishTime>10/29/2018 15:29:53</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>09/10/2013 16:29:20</publishTime>
@@ -26,6 +35,21 @@
     </File>
     <File Include="bin/ApplicationInsights.config">
       <publishTime>10/16/2018 08:59:20</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>09/11/2013 09:10:04</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>09/11/2013 09:10:04</publishTime>
+    </File>
+    <File Include="bin/IBM.Data.DB2.dll">
+      <publishTime>09/15/2017 00:10:12</publishTime>
+    </File>
+    <File Include="bin/IBM.Data.DB2.EntityFramework.dll">
+      <publishTime>06/07/2017 21:11:24</publishTime>
+    </File>
+    <File Include="bin/log4net.dll">
+      <publishTime>03/08/2017 19:26:22</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>06/27/2017 12:59:34</publishTime>
@@ -339,6 +363,9 @@
     <File Include="Scripts/modernizr-2.8.3.js">
       <publishTime>10/16/2018 08:59:17</publishTime>
     </File>
+    <File Include="Scripts/xcConfirm.js">
+      <publishTime>10/29/2018 13:08:57</publishTime>
+    </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>10/16/2018 08:58:46</publishTime>
     </File>
@@ -348,11 +375,14 @@
     <File Include="Views/Home/Index.cshtml">
       <publishTime>10/16/2018 08:58:46</publishTime>
     </File>
+    <File Include="Views/Rpt/GetSelectListByEqpType.cshtml">
+      <publishTime>10/25/2018 16:46:37</publishTime>
+    </File>
     <File Include="Views/Rpt/GetSelectListByModule.cshtml">
-      <publishTime>10/19/2018 15:14:55</publishTime>
+      <publishTime>10/25/2018 16:41:22</publishTime>
     </File>
     <File Include="Views/Rpt/GetTableByAllConditions.cshtml">
-      <publishTime>10/22/2018 14:10:24</publishTime>
+      <publishTime>10/29/2018 15:19:42</publishTime>
     </File>
     <File Include="Views/Rpt/Index.cshtml">
       <publishTime>10/17/2018 15:17:19</publishTime>
@@ -361,7 +391,7 @@
       <publishTime>10/18/2018 14:50:16</publishTime>
     </File>
     <File Include="Views/Rpt/ReqRpt018.cshtml">
-      <publishTime>10/22/2018 09:59:45</publishTime>
+      <publishTime>10/29/2018 15:27:07</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>10/16/2018 08:58:46</publishTime>
@@ -385,7 +415,7 @@
       <publishTime>10/16/2018 10:35:34</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/19/2018 16:09:24</publishTime>
+      <publishTime>10/29/2018 15:29:54</publishTime>
     </File>
   </ItemGroup>
 </Project>

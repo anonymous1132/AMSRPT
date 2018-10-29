@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AMS.CIM.Caojin.RPTLibrary.Models;
 using AMS.CIM.Caojin.RPTWebApp.Models;
-using System.Threading;
-using System.Web.Services;
 
 namespace AMS.CIM.Caojin.RPTWebApp.Controllers
 {
@@ -17,16 +16,15 @@ namespace AMS.CIM.Caojin.RPTWebApp.Controllers
             return View();
         }
 
+        private ReqRpt018MainViewModel Rpt018MainViewModel=new ReqRpt018MainViewModel();
         public ActionResult ReqRpt018()
         {
-   
             try
             {
-                ViewBag.Modules = ShareDataEntity.GetSingleEntity().Rpt018.Modules;
-                ViewBag.EqpTypes = ShareDataEntity.GetSingleEntity().Rpt018.EqpType;
-                ViewBag.EqpID = ShareDataEntity.GetSingleEntity().Rpt018.EqpID;
-                ViewBag.QueryContent = ShareDataEntity.GetSingleEntity().Rpt018.SelectedContent;
-                return View();
+                ViewBag.Modules =Rpt018MainViewModel.Modules;
+                ViewBag.EqpTypes = Rpt018MainViewModel.EqpType;
+                ViewBag.EqpID = Rpt018MainViewModel.EqpID;
+                return View(ViewBag);
             }
             catch (Exception)
             {
@@ -55,16 +53,46 @@ namespace AMS.CIM.Caojin.RPTWebApp.Controllers
         {
             try
             {
-                var test = ShareDataEntity.GetSingleEntity().FRUserCatcher.GetEntities().EntityList;
-                var ownerlist = ShareDataEntity.GetSingleEntity().FRUserCatcher.GetEntities().EntityList.Where(w => w.Department == module).Select(s => s.Owner_ID).Distinct().ToList();
-                var eqptypelist = ShareDataEntity.GetSingleEntity().Rpt018.Rpt018GroupModel.ReqRpt018EqpStatusEntities.Where(w => !string.IsNullOrEmpty(w.EQP_Type) && ownerlist.Contains(w.Owner_ID)).Select(s => s.EQP_Type).Distinct().ToList();
-                EqpTypeListViewModel = eqptypelist.Select(f => new ReqRpt018EqpTypeListViewModel { EqpTypeValue = f, EpqType = f }).ToList();
-
+                if (module.ToUpper() == "ALL")
+                {
+                    EqpTypeListViewModel = Rpt018MainViewModel.EqpType.Select(s => new ReqRpt018EqpTypeListViewModel() { EpqType = s, EqpTypeValue = s }).ToList();
+                }
+                else
+                {
+                    EqpTypeListViewModel = Rpt018MainViewModel.db.EQPType_Department_Mapping.Where(w => w.Department == module).Select(s=>new ReqRpt018EqpTypeListViewModel() { EpqType=s.EqpType,EqpTypeValue=s.EqpType}).Distinct().ToList();
+                    EqpTypeListViewModel.Insert(0, new ReqRpt018EqpTypeListViewModel() { EpqType = "ALL", EqpTypeValue = "ALL" });
+                }
                 return PartialView(EqpTypeListViewModel);
             }
             catch (Exception)
             { return null; }
         }
+
+        private List<ReqRpt018EqpIDListViewModel> EqpIDListViewModel;
+        public PartialViewResult GetSelectListByEqpType(string eqpType,string module)
+        {
+            try
+            {
+                if (eqpType.ToUpper() == "ALL")
+                {
+                    if (module.ToUpper() == "ALL") EqpIDListViewModel = Rpt018MainViewModel.EqpID.Select(s => new ReqRpt018EqpIDListViewModel() { EqpID = s, EqpIDValue = s }).ToList();
+                    else
+                    {
+                        var eqptypelist = Rpt018MainViewModel.db.EQPType_Department_Mapping.Where(w => w.Department == module).Select(s => s.EqpType).Distinct().ToList();
+                        EqpIDListViewModel = Rpt018MainViewModel.db.EQP_UPm_018.Where(w => eqptypelist.Contains(w.EqpType)).Select(s => new ReqRpt018EqpIDListViewModel() { EqpID = s.EqpID, EqpIDValue = s.EqpID }).Distinct().ToList();
+                    } 
+                }
+                else
+                {
+
+                    EqpIDListViewModel = Rpt018MainViewModel.db.EQP_UPm_018.Where(w => w.EqpType == eqpType).Select(s => new ReqRpt018EqpIDListViewModel() { EqpID = s.EqpID, EqpIDValue = s.EqpID }).Distinct().ToList();
+                }
+                return PartialView(EqpIDListViewModel);
+            }
+            catch (Exception)
+            { return null; }
+        }
+
     }
 
 
