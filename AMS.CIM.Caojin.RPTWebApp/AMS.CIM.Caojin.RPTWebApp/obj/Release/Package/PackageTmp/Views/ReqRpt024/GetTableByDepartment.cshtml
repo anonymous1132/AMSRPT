@@ -1,0 +1,217 @@
+﻿@model AMS.CIM.Caojin.RPTWebApp.Models.ReqRpt024TableViewModel
+<div style="border:thin;align-content:center;font-size:62.5%;">
+    <p>Selected Departments: <span id="SelectedDepartment">@string.Join(",", Model.ItemDepartments)</span> </p>
+    <br />
+    <style>
+        .table table {
+            font-size: smaller;
+            border-collapse:collapse;
+        }
+
+
+        .table th {
+            border-left: 1px solid #808080;
+            border-top: 1px solid #808080;
+            border-right: 1px solid #808080;
+            border-bottom: 1px solid #808080;
+            font-weight: 200;
+            background-color: aquamarine
+        }
+
+        .table td {
+            border-left: 1px solid #808080;
+            border-top: 1px solid #808080;
+            border-right: 1px solid #808080;
+            border-bottom: 1px solid #808080;
+            font: 400;
+        }
+    </style>
+
+    <div class="col-md-2">
+        <input type="button" onClick="exportDataToExcel()" value="导出到Excel"
+               class="btn btn-primary" />
+        <a id="dlink" style="display: none;"></a>
+    </div>
+    <br />
+    <table id="tableProd" class="table">
+        <caption>Wait For Scrap</caption>
+        <thead>
+            <tr>
+                <th colspan="2" rowspan="1"></th>
+                @foreach (string item in Model.ItemDepartments)
+                {
+                    <th>@item</th>
+                }
+                <th>@Model.TotalEntity.Department</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th rowspan="2">Prod</th>
+                <th>Lot</th>
+                @foreach (var item in Model.entities)
+                {
+                    <td><a href="#" onclick="QueryDetailLot('Prod','@item.Department');return false;">@item.strProd_Lot</a></td>
+                }
+                <td><a href="#" onclick="QueryDetailLot('Prod','Total'); return false;">@Model.TotalEntity.strProd_Lot</a></td>
+            </tr>
+            <tr>
+                <th>Pcs</th>
+                @foreach (var item in Model.entities)
+                {
+                    <td>@item.strProd_Pcs</td>
+                }
+                <td>@Model.TotalEntity.strProd_Pcs</td>
+            </tr>
+            <tr>
+                <th rowspan="2">SEM</th>
+                <th>Lot</th>
+                @foreach (var item in Model.entities)
+                {
+                    <td><a href="#" onclick="QueryDetailLot('SEM','@item.Department');return false;">@item.strSem_Lot</a></td>
+                }
+                <td><a href="#" onclick="QueryDetailLot('SEM','Total'); return false;">@Model.TotalEntity.strSem_Lot</a></td>
+            </tr>
+            <tr>
+                <th>Pcs</th>
+                @foreach (var item in Model.entities)
+                {
+                    <td>@item.strSem_Pcs</td>
+                }
+                <td>@Model.TotalEntity.strProd_Pcs</td>
+            </tr>
+            <tr>
+                <th rowspan="2">Total</th>
+                <th>Lot</th>
+                @foreach (var item in Model.entities)
+                {
+                <td>
+                    <a href="#" onclick= "QueryDetailLot('PS','@item.Department'); return false;">
+                        @item.strTotal_Prod_Lot
+                    </a>
+                </td>
+                }
+                <td><a href="#" onclick="QueryDetailLot('PS','Total'); return false;">@Model.TotalEntity.strTotal_Prod_Lot</a></td>
+            </tr>
+            <tr>
+                <th>Pcs</th>
+                @foreach (var item in Model.entities)
+                {
+                    <td>@item.strTotal_Prod_Pcs</td>
+                }
+                <td>@Model.TotalEntity.strTotal_Prod_Pcs</td>
+            </tr>
+        </tbody>
+
+        <tr style="height:40px">
+        </tr>
+        <thead>
+            <tr>
+                <th colspan="2" rowspan="1"></th>
+                @foreach (string item in Model.ItemDepartments)
+                {
+                    <th>@item</th>
+                }
+                <th>@Model.TotalEntity.Department</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th rowspan="2">SL</th>
+                <th>Lot</th>
+                @foreach (var item in Model.entities)
+                {
+                    <td><a href="#" onclick="QueryDetailLot('SL','@item.Department');return false;">@item.strSl_Lot</td>
+                }
+                <td><a href="#" onclick="QueryDetailLot('SL','Total'); return false;">@Model.TotalEntity.strSl_Lot</a></td>
+            </tr>
+            <tr>
+                <th>Pcs</th>
+                @foreach (var item in Model.entities)
+                {
+                    <td>@item.strSl_Pcs</td>
+                }
+                <td>@Model.TotalEntity.strSl_Pcs</td>
+            </tr>
+            <tr>
+                <th rowspan="2">NPW</th>
+                <th>Lot</th>
+                @foreach (var item in Model.entities)
+                {
+                    <td><a href="#" onclick="QueryDetailLot('NPW','@item.Department');return false;">@item.strNpw_Lot</td>
+                }
+                 <td><a href="#" onclick="QueryDetailLot('NPW','Total'); return false;">@Model.TotalEntity.strNpw_Lot</a></td>
+            </tr>
+            <tr>
+                <th>Pcs</th>
+                @foreach (var item in Model.entities)
+                {
+                    <td>@item.strNpw_Pcs</td>
+                }
+                <td>@Model.TotalEntity.strNpw_Pcs</td>
+            </tr>
+            <tr>
+                <th rowspan="2">Total</th>
+                <th>Lot</th>
+                @foreach (var item in Model.entities)
+                {
+                    <td><a href="#" onclick="QueryDetailLot('SN','@item.Department'); return false;">@item.strTotal_Npw_Lot</a></td>
+                }
+                <td><a href="#" onclick="QueryDetailLot('SN','Total'); return false;">@Model.TotalEntity.strTotal_Npw_Lot</a></td>
+            </tr>
+            <tr>
+                <th>Pcs</th>
+                @foreach (var item in Model.entities)
+                {
+                    <td>@item.strTotal_Npw_Pcs</td>
+                }
+                <td>@Model.TotalEntity.strTotal_Npw_Pcs</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <script type="text/javascript">
+        function exportDataToExcel() {
+
+            var sheetName = "sheet1";
+            var fileName = "WaitForScrapReport.xls";
+            tableToExcel("tableProd", sheetName, fileName, "dlink");
+        }
+
+        var base64 = function (s) {
+            return window.btoa(unescape(encodeURIComponent(s)));
+        };
+        //替换table数据和worksheet名字
+        var format = function (s, c) {
+            return s.replace(/{(\w+)}/g,
+                function (m, p) {
+                    return c[p];
+                });
+        }
+
+        function tableToExcel(tableid, sheetName, fileName, linkId) {
+            var uri = 'data:application/vnd.ms-excel;base64,';
+            var template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"' +
+                'xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>'
+                + '<x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets>'
+                + '</x:ExcelWorkbook></xml><![endif]-->' +
+                ' <style type="text/css">' +
+                'table th td{' +
+                'border-right: 1px solid #F00;' +
+                'border - bottom: 1px solid #F00;' +
+                'font - size: smaller;' +
+                '}' +
+                '</style>' +
+                '</head><body ><table class="excelTable">{table}</table></body></html>';
+            if (!tableid.nodeType) tableid = document.getElementById(tableid);
+            var ctx = { worksheet: sheetName || 'Worksheet', table: tableid.innerHTML };
+            var dlinkInfo = document.getElementById(linkId);
+            dlinkInfo.href = uri + base64(format(template, ctx));
+            dlinkInfo.download = fileName;
+            dlinkInfo.click();
+        }
+    </script>
+</div>
+
+

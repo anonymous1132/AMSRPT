@@ -27,7 +27,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
         private string Type;
         private string Frame;
         private string selectedeqptype;
-        private Tuple<DateTime, DateTime> _maxAndMinDate;
+        private readonly Tuple<DateTime, DateTime> _maxAndMinDate;
         private Tuple<DateTime, DateTime> MaxAndMinDate
         {
             get

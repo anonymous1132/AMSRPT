@@ -13,19 +13,19 @@
       <publishTime>10/16/2018 08:59:20</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTLibrary.dll">
-      <publishTime>10/29/2018 15:29:52</publishTime>
+      <publishTime>11/14/2018 17:28:03</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTLibrary.dll.config">
       <publishTime>10/25/2018 09:50:35</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTLibrary.pdb">
-      <publishTime>10/29/2018 15:29:52</publishTime>
+      <publishTime>11/14/2018 17:28:03</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTWebApp.dll">
-      <publishTime>10/29/2018 15:29:53</publishTime>
+      <publishTime>11/15/2018 09:28:33</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTWebApp.pdb">
-      <publishTime>10/29/2018 15:29:53</publishTime>
+      <publishTime>11/15/2018 09:28:33</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>09/10/2013 16:29:20</publishTime>
@@ -324,6 +324,9 @@
     <File Include="Scripts/bootstrap.min.js">
       <publishTime>10/16/2018 08:59:06</publishTime>
     </File>
+    <File Include="Scripts/jquery-1.4.min.js">
+      <publishTime>11/12/2018 12:37:03</publishTime>
+    </File>
     <File Include="Scripts/jquery-3.3.1.js">
       <publishTime>10/16/2018 08:59:08</publishTime>
     </File>
@@ -375,6 +378,15 @@
     <File Include="Views/Home/Index.cshtml">
       <publishTime>10/16/2018 08:58:46</publishTime>
     </File>
+    <File Include="Views/ReqRpt024/GetLotDetail.cshtml">
+      <publishTime>11/14/2018 15:52:06</publishTime>
+    </File>
+    <File Include="Views/ReqRpt024/GetTableByDepartment.cshtml">
+      <publishTime>11/14/2018 17:27:05</publishTime>
+    </File>
+    <File Include="Views/ReqRpt024/Index.cshtml">
+      <publishTime>11/14/2018 17:03:24</publishTime>
+    </File>
     <File Include="Views/Rpt/GetSelectListByEqpType.cshtml">
       <publishTime>10/25/2018 16:46:37</publishTime>
     </File>
@@ -391,7 +403,7 @@
       <publishTime>10/18/2018 14:50:16</publishTime>
     </File>
     <File Include="Views/Rpt/ReqRpt018.cshtml">
-      <publishTime>10/29/2018 15:27:07</publishTime>
+      <publishTime>11/12/2018 12:37:36</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>10/16/2018 08:58:46</publishTime>

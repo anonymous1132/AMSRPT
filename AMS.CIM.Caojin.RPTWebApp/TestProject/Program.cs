@@ -10,8 +10,10 @@ namespace TestProject
     {
         static void Main(string[] args)
         {
-            TestLibrary.Test();
+            // TestLibrary.Test();
             //TestEF.Test();
+            TestCollection test = new TestCollection();
+            test.Test();
             Console.ReadKey();
         }
     }

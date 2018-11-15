@@ -1,0 +1,270 @@
+﻿@model AMS.CIM.Caojin.RPTWebApp.Models.ReqRpt024MainViewModel
+@{
+    ViewBag.Title = "Wait For Scrap Report";
+}
+<script type="text/javascript" src="~/Scripts/jquery-1.4.min.js"></script>
+
+<style>
+    header {
+        font-size: 62.5%;
+    }
+
+    button {
+        min-width: 80px;
+        margin: 30px 0 0 0;
+    }
+
+    .top {
+        float: left;
+        margin: 20px 0 0 20px;
+    }
+
+    select {
+        min-width: 100px;
+    }
+
+
+    .black_overlay {
+        display: none;
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        z-index: 1001;
+        opacity: .100;
+        filter: alpha(opacity=88);
+    }
+
+    .white_content {
+        display: none;
+        position: absolute;
+        top: 15%;
+        left: 5%;
+        width: 90%;
+        height: 70%;
+        padding: 20px;
+        border: 10px solid orange;
+        background-color: white;
+        z-index: 1002;
+        overflow: auto;
+        font-size: 62.5%;
+    }
+
+    .loading {
+        width: 160px;
+        height: 56px;
+        position: absolute;
+        top: 50%;
+        left: 40%;
+        line-height: 56px;
+        color: #fff;
+        padding-left: 60px;
+        font-size: 15px;
+        background: #000 url(http://img.my.csdn.net/uploads/201211/14/1352886927_7549.gif) no-repeat 10px 50%;
+        opacity: 0.7;
+        z-index: 9999;
+        -moz-border-radius: 20px;
+        -webkit-border-radius: 20px;
+        border-radius: 20px;
+        filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70);
+        display: none;
+    }
+</style>
+
+<div class="MainBody" style="width:100%;height:200px">
+    <header style="background-color:darkgoldenrod">
+        <div class="top">
+            <lable>Available Department</lable><br />
+            <select name="DepartmentSelect" id="department_select" style="height:100px" multiple>
+                @foreach (var item in Model.DepartmentOptions)
+                {
+                    <option value="@item.Value">@item.Key</option>
+                }
+            </select>
+        </div>
+        <div class="top" style="height:100px;margin: 20px 0 0 10px">
+            <button onclick="moveAll()">>></button>
+            <br />
+            <button onclick="moveAllLeft()"><<</button>
+        </div>
+        <div class="top">
+            <label>Selected Department</label>
+            <br />
+            <select name="SelectedDepartment" id="selectedDepartment_select" multiple style="height:100px"></select>
+        </div>
+        <div class="top">
+            <button id="query" onclick="query()">Query</button><br />
+        </div>
+        <div class="top" style="margin-left:10%">
+            <p>开发者：曹晋（0279）</p>
+            <p>需求者：陈舒（0353）</p>
+        </div>
+    </header>
+
+</div>
+
+<div id="tableDiv" style="margin-top:0px">
+
+
+</div>
+
+<div id="light" class="white_content">
+
+</div>
+<div id="fade" class="black_overlay"></div>
+<div id="loading" class="loading">正在全力查询中...</div>
+
+
+<script>
+    //移动所有的到右边
+    function moveAll() {
+        //得到第一个select对象
+        var selectElement = document.getElementById("department_select");
+        var optionElements = selectElement.getElementsByTagName("option");
+        var len = optionElements.length;
+        //alert(len);
+
+        //将第一个selected中的数组翻转
+        var firstOption = new Array();
+        for (var k = len - 1; k >= 0; k--) {
+            firstOption.push(optionElements[k]);
+
+        }
+        var lens = firstOption.length;
+        //得到第二个select对象
+        var selectElement2 = document.getElementById("selectedDepartment_select");
+        for (var j = lens - 1; j >= 0; j--) {
+            selectElement2.appendChild(firstOption[j]);
+        }
+    }
+
+    //全部向左移
+    function moveAllLeft() {
+        var selectElement = document.getElementById("selectedDepartment_select");
+        var optionElements = selectElement.getElementsByTagName("option");
+        var len = optionElements.length;
+
+        var optionEls = new Array();
+        for (var i = len - 1; i >= 0; i--) {
+            optionEls.push(optionElements[i]);
+        }
+        var lens = optionEls.length;
+
+        var firstSelectElement = document.getElementById("department_select");
+        for (var j = lens - 1; j >= 0; j--) {
+            firstSelectElement.appendChild(optionEls[j]);
+        }
+    }
+
+    //获取select所有项
+    function checkselect(objname) {
+        o = document.getElementById(objname);
+        var intvalue = "";
+        for (i = 0; i < o.options.length; i++) {
+            intvalue += o.options[i].value + ",";
+        }
+        //alert(intvalue);
+        return intvalue.substr(0, intvalue.length - 1);
+    }
+
+    //获取select所有选中项
+    function checkselectoption(objname) {
+        o = document.getElementById(objname);
+        var intvalue = "";
+        for (i = 0; i < o.options.length; i++) {
+            if (o.options[i].selected) {
+                intvalue += o.options[i].value + ",";
+            }
+        }
+        return intvalue.substr(0, intvalue.length - 1);
+    }
+
+    function formData() {
+        return {
+            selectedDepartment: checkselect("selectedDepartment_select")
+        };
+    }
+
+
+    //定义注册功能的函数
+    function query() {
+        var url = "GetTableByDepartment";
+        var data = formData();
+        document.getElementById('loading').style.display = "block";
+        $.ajax({
+            type: 'POST', //自动会把json对象转换为查询字符串附在url后面如：http://localhost:49521/Register.ashx?id=a&pwd=b&name=c
+            url: url,
+            dataType: 'html', //要求服务器返回一个json类型的数据,如：{"success":true,"message":"注册成功"}
+            contentType: 'application/json',//发送信息给服务器时，内容编码的类型
+            data: JSON.stringify(data), //提交给服务器的数据,直接使用json对象的数据,如:{"id":"a","pwd":"b","name":"c"}　（如果要求json格式的字符串，可使用用JSON.stringify(data)）
+            success: function (responseData) {//如果响应成功（即200）
+                $("#tableDiv").html("");
+                $("#tableDiv").html(responseData);
+                document.getElementById('loading').style.display = "none";
+            },
+            error: function () {
+                //要求为Function类型的参数，请求失败时被调用的函数。该函数有3个参数，即XMLHttpRequest对象、错误信息、捕获的错误对象(可选)。ajax事件函数如下：
+                //function(XMLHttpRequest, textStatus, errorThrown){
+                //通常情况下textStatus和errorThrown只有其中一个包含信息
+                //this;   //调用本次ajax请求时传递的options参数
+                alert(arguments[1]);
+                document.getElementById('loading').style.display = "none";
+            }
+        });//ajax
+    }
+
+
+    function QueryDetailLot(category, department) {
+        var url = "GetLotDetail";
+        var data = { Category: category, Department: department, SelectedDepartment: $("#SelectedDepartment").text() };
+        document.getElementById('loading').style.display = "block";
+        $.ajax({
+            type: 'POST',
+            url: url,
+            dataType: 'html', //要求服务器返回一个json类型的数据,如：{"success":true,"message":"注册成功"}
+            contentType: 'application/json',//发送信息给服务器时，内容编码的类型
+            data: JSON.stringify(data), //提交给服务器的数据,直接使用json对象的数据,如:{"id":"a","pwd":"b","name":"c"}　（如果要求json格式的字符串，可使用用JSON.stringify(data)）
+            success: function (responseData) {//如果响应成功（即200）
+                $("#light").html("");
+                $("#light").html(responseData);
+                document.getElementById('loading').style.display = "none";
+                if (responseData) { PopUp(); }
+               
+            },
+            error: function () {
+                alert(arguments[1]);
+                document.getElementById('loading').style.display = "none";
+            }
+        });//ajax
+    }
+
+    function PopUp() {
+        document.getElementById('light').style.display = 'block'; document.getElementById('fade').style.display = 'block';
+    }
+
+    $(document).ready(function () {
+        function MoveItem(fromId, toId) {
+            $("#" + fromId + " option:selected").each(function () {
+                $(this).appendTo($("#" + toId + ":not(:has(option[value=" + $(this).val() + "]))"));
+            });
+            $("#" + fromId + " option:selected").remove();
+        }
+
+        //双击左边选项
+        $('#department_select').dblclick(function () {
+            var toId = "selectedDepartment_select";
+            var fromId = "department_select";
+            MoveItem(fromId, toId);
+        });
+        //双击右边选项
+        $('#selectedDepartment_select').dblclick(function () {
+            var fromId = "selectedDepartment_select";
+            var toId = "department_select";
+            MoveItem(fromId, toId);
+        });
+
+    });
+
+</script>

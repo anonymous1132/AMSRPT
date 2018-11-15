@@ -159,6 +159,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReqRpt023Controller.cs" />
+    <Compile Include="Controllers\ReqRpt024Controller.cs" />
     <Compile Include="Controllers\RptController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -170,7 +172,13 @@
     <Compile Include="Helpers\FTPClientHelper.cs" />
     <Compile Include="Helpers\FTPHelper.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
-    <Compile Include="Models\ReqRpt018EqpIDListViewModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt024LotDetailQueryPostViewModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt024LotDetailTableViewModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt024MainViewModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt024PostViewModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt024TableEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt024TableViewModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt018EqpIDListViewModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt018EqpTypeListViewModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt018MainViewModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt018PostViewModel.cs" />
@@ -193,6 +201,7 @@
     </Content>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.4.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -226,6 +235,10 @@
     <Content Include="Views\Rpt\GetTableByAllConditions.cshtml" />
     <Content Include="Views\Rpt\GetSelectListByModule.cshtml" />
     <Content Include="Views\Rpt\GetSelectListByEqpType.cshtml" />
+    <Content Include="Views\ReqRpt024\Index.cshtml" />
+    <Content Include="Views\ReqRpt024\GetTableByDepartment.cshtml" />
+    <Content Include="Views\ReqRpt024\GetLotDetail.cshtml" />
+    <Content Include="Views\ReqRpt023\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
