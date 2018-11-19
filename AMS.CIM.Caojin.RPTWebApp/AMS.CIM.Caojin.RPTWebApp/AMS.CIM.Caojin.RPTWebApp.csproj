@@ -165,13 +165,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\CsvHelper.cs" />
-    <Compile Include="Helpers\DB2Helper.cs" />
-    <Compile Include="Helpers\Encrypt.cs" />
-    <Compile Include="Helpers\FileHelper.cs" />
-    <Compile Include="Helpers\FTPClientHelper.cs" />
-    <Compile Include="Helpers\FTPHelper.cs" />
-    <Compile Include="Helpers\XmlHelper.cs" />
+    <Compile Include="Models\ReqRpt023LotDetailQueryPostModel.cs" />
+    <Compile Include="Models\ReqRpt023LotDetailTableViewModel.cs" />
+    <Compile Include="Models\ReqRpt023MainViewModel.cs" />
+    <Compile Include="Models\ReqRpt023PostViewModel.cs" />
+    <Compile Include="Models\ReqRpt023TableEntity.cs" />
+    <Compile Include="Models\ReqRpt023TableViewModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt024LotDetailQueryPostViewModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt024LotDetailTableViewModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt024MainViewModel.cs" />
@@ -186,6 +185,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\ams.caojin.rpt.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -194,6 +194,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Media\btn_close.png" />
+    <Content Include="Media\btn_close_active.png" />
+    <Content Include="Media\btn_close_hover.png" />
+    <Content Include="Scripts\ams.commontool.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -239,6 +243,8 @@
     <Content Include="Views\ReqRpt024\GetTableByDepartment.cshtml" />
     <Content Include="Views\ReqRpt024\GetLotDetail.cshtml" />
     <Content Include="Views\ReqRpt023\Index.cshtml" />
+    <Content Include="Views\ReqRpt023\GetTableByAllCondition.cshtml" />
+    <Content Include="Views\ReqRpt023\GetLotDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

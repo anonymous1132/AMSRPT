@@ -1,7 +1,157 @@
-﻿
+﻿@model  AMS.CIM.Caojin.RPTWebApp.Models.ReqRpt023MainViewModel
 @{
     ViewBag.Title = "Scrap Summarized Report";
 }
 
-<h2>Index</h2>
+<div class="MainBody" style="width:100%;height:200px">
+    <header style="background-color:darkgoldenrod">
+        <div class="top">
+            <lable>Available LotType</lable><br />
+            <select name="LotTypeSelect" id="lottype_select" style="height:100px" multiple>
+                @foreach (var item in Model.LotType)
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
+        </div>
+        <div class="top" style="height:100px;margin: 20px 0 0 10px">
+            <button onclick="moveAll('lottype_select','lottype_selected')">>></button>
+            <br />
+            <button onclick="moveAll('lottype_selected','lottype_select')"><<</button>
+        </div>
+        <div class="top">
+            <label>Selected LotType</label>
+            <br />
+            <select name="SelectedLotType" id="lottype_selected" multiple style="height:100px"></select>
+        </div>
+        <div class="top">
+            <label>Available Department</label>
+            <br />
+            <select name="DepartmentSelect" id="department_select" style="height:100px" multiple>
+                @foreach (var item in Model.DepartmentOptions)
+                {
+                    <option value="@item.Value">@item.Key</option>
+                }
+            </select>
+        </div>
+        <div class="top" style="height:100px;margin: 20px 0 0 10px">
+            <button onclick="moveAll('department_select','department_selected')">>></button>
+            <br />
+            <button onclick="moveAll('department_selected','department_select')"><<</button>
+        </div>
+        <div class="top">
+            <label>Selected Department</label>
+            <br />
+            <select name="SelectedDepartment" id="department_selected" style="height:100px" multiple></select>
+        </div>
+        <div class="top">
+        <div>
+            <label>Select Product</label>
+            <br />
+            <input id="product_input" type="text" list="ProductList" style="width:150px" spellcheck="false"/>
+            <datalist id="ProductList">
+                @foreach (var item in Model.Product)
+                {
+                    <option value="@item"></option>
+                }
+            </datalist>
+        </div>
 
+        <div >
+            <label>From</label><br/>
+            <input type="datetime-local" id="datepicker_from" min="2018-01-01T00:00" style="width:150px" />
+        </div>
+
+        <div>
+            <label>To</label><br/>
+            <input type="datetime-local" id="datepicker_to" min="2018-01-01T00:00" style="width:150px"/>
+        </div>
+        </div>
+
+        <div class="top">
+            <button id="query" onclick="Query()">Query</button><br />
+        </div>
+        <div class="top" style="margin-left:3%">
+            <p>开发者：曹晋（0279）</p>
+            <p>需求者：陈舒（0353）</p>
+        </div>
+    </header>
+
+</div>
+
+<div id="tableDiv" style="margin-top:0px">
+
+
+</div>
+
+<div id="light" class="white_content">
+    <a class="close-img" href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">
+        <img src="~/Media/btn_close.png" />
+    </a>
+</div>
+<div id="fade" class="black_overlay"></div>
+<div id="loading" class="loading">正在全力查询中...</div>
+<script>
+    
+    $("#datepicker_from").ready(function () {
+        $("#datepicker_from").val(today() + "T08:00");
+    });
+    $("#datepicker_to").ready(function () {
+        $("#datepicker_to").val(today()+"T"+currentTime());
+    });
+    $('#lottype_select').dblclick(function () {
+        var fromId = "lottype_select";
+        var toId = "lottype_selected";
+        MoveItem(fromId, toId);
+    });
+    $('#lottype_selected').dblclick(function () {
+        var fromId = "lottype_selected";
+        var toId = "lottype_select";
+        MoveItem(fromId, toId);
+    });
+    $('#department_select').dblclick(function () {
+        var fromId = "department_select";
+        var toId = "department_selected";
+        MoveItem(fromId, toId);
+    });
+    $('#department_selected').dblclick(function () {
+        var fromId = "department_selected";
+        var toId = "department_select";
+        MoveItem(fromId, toId);
+    });
+
+    function formData() {
+        return {
+            Departments: checkselect("department_selected"),
+            LotTypes: checkselect("lottype_selected"),
+            Product: $('#product_input').val(),
+            FromDateTime: $('#datepicker_from').val(),
+            ToDateTime: $('#datepicker_to').val()
+        }
+    }
+
+    function Query() {
+        if (checkselect("department_selected") && checkselect("lottype_selected")) {
+            var url = "GetTableByAllCondition";
+            var data = formData();
+            var tableDiv = $('#tableDiv');
+            PostAjax(data, url, tableDiv);
+        }
+        else
+        {
+            alert("Must Select Department And LotType!");
+        }
+    }
+
+    function QueryDetailLot(department,reason) {
+        var url = "GetLotDetail";
+        var data = {
+            Reason: reason, Department: department, SelectedDepartment: $("#SelectedDepartment").text(),
+            SelectedLotType: $("#SelectedLotTypes").text(), SelectedProduct: $("#Production").text(),
+            SelectedFrom: $("#FromTime").text(), SelectedTo: $("#ToTime").text()
+        };
+        var obj = $("#light");
+        PostAjax(data,url,obj);
+      
+    }
+</script>

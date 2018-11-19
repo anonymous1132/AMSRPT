@@ -1,0 +1,54 @@
+﻿@model AMS.CIM.Caojin.RPTWebApp.Models.ReqRpt023LotDetailTableViewModel
+<div style="float:right">
+    <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">关闭</a>
+</div>
+
+<p>
+    <table id="tableLotDetail" class="table">
+        <caption>Lot Detail View</caption>
+        <thead>
+            <tr>
+                <td>No</td>
+                <td>Lot ID</td>
+                <td>Ope Category</td>
+                <td>Claim Time</td>
+                <td>Cur Wafer Qty</td>
+                <td>Ope No</td>
+                <td>ModulePD</td>
+                <td>Ope Name</td>
+                <td>Claim User ID</td>
+                <td>Eqp ID</td>
+                <td>Recipe</td>
+                <td>Reticle ID</td>
+                <td>Reason Code</td>
+                <td>Reason Description</td>
+                <td>Cast ID</td>
+                <td>Product</td>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 1; i <= Model.entities.Count; i++)
+            {
+            <tr>
+                <td>@i</td>
+                <td>@Model.entities[i - 1].Lot_ID</td>
+                <td>@Model.entities[i - 1].Ope_Category</td>
+                <td>@Model.entities[i - 1].Claim_Time.ToString("yyyy/MM/dd HH:mm:ss")</td>
+                <td>@Model.entities[i - 1].Cur_Wafer_Qty.ToString()</td>
+                <td>@Model.entities[i - 1].Ope_No</td>
+                <td>@Model.entities[i - 1].ModulePD_ID</td>
+                <td>@Model.entities[i - 1].PD_Name</td>
+                <td>@Model.entities[i - 1].Claim_User_ID</td>
+                <td>@Model.entities[i - 1].Eqp_ID</td>
+                <td>@Model.entities[i - 1].Recipe_ID</td>
+                <td>@Model.entities[i - 1].Reticle_ID</td>
+                <td>@Model.entities[i - 1].Reason_Code</td>
+                <td>@Model.entities[i - 1].Reason_Description</td>
+                <td>@Model.entities[i - 1].Cast_ID</td>
+                <td>@Model.entities[i - 1].ProdSpec_ID</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</p>
+
