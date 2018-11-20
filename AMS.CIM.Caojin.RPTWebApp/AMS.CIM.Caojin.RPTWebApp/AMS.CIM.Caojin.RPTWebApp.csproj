@@ -159,18 +159,18 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ReqRpt023Controller.cs" />
-    <Compile Include="Controllers\ReqRpt024Controller.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt023Controller.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt024Controller.cs" />
     <Compile Include="Controllers\RptController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ReqRpt023LotDetailQueryPostModel.cs" />
-    <Compile Include="Models\ReqRpt023LotDetailTableViewModel.cs" />
-    <Compile Include="Models\ReqRpt023MainViewModel.cs" />
-    <Compile Include="Models\ReqRpt023PostViewModel.cs" />
-    <Compile Include="Models\ReqRpt023TableEntity.cs" />
-    <Compile Include="Models\ReqRpt023TableViewModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt023LotDetailQueryPostModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt023LotDetailTableViewModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt023MainViewModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt023PostViewModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt023TableEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt023TableViewModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt024LotDetailQueryPostViewModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt024LotDetailTableViewModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt024MainViewModel.cs" />

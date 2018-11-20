@@ -3,7 +3,6 @@
     ViewBag.Title = "EQP UPm UUm Report";
 }
 
-<script type="text/javascript" src="~/Scripts/jquery-1.4.min.js"></script>
 
 <script type="text/javascript">
 
@@ -46,30 +45,6 @@
         for (var j = lens - 1; j >= 0; j--) {
             firstSelectElement.appendChild(optionEls[j]);
         }
-    }
-
-
-    //获取select所有项
-    function checkselect(objname) {
-        o = document.getElementById(objname);
-        var intvalue = "";
-        for (i = 0; i < o.options.length; i++) {
-            intvalue += o.options[i].value + ",";
-        }
-        //alert(intvalue);
-        return intvalue.substr(0, intvalue.length - 1);
-    }
-
-    //获取select所有选中项
-    function checkselectoption(objname) {
-        o = document.getElementById(objname);
-        var intvalue = "";
-        for (i = 0; i < o.options.length; i++) {
-            if (o.options[i].selected) {
-                intvalue += o.options[i].value + ",";
-            }
-        }
-        return intvalue.substr(0, intvalue.length - 1);
     }
 
     //定义获取表单数据的函数,注意返回json对象
@@ -116,12 +91,6 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        function MoveItem(fromId, toId) {
-            $("#" + fromId + " option:selected").each(function () {
-                $(this).appendTo($("#" + toId + ":not(:has(option[value=" + $(this).val() + "]))"));
-            });
-            $("#" + fromId + " option:selected").remove();
-        }
 
         function EqpTypeSelected() {
             var type = $("#eqptype_select option:selected").val();
@@ -221,100 +190,20 @@
 
 </script>
 
-
 <style>
-    header {
-        font-size: 62.5%;
-    }
-
-    .top {
-        float: left;
-        margin: 20px 0 0 20px;
-    }
-
-    select {
-        min-width: 100px;
-    }
-
-    button {
-        min-width: 80px;
-        margin: 30px 0 0 0;
-    }
-
-    textarea {
-        width: 100px;
-        height: 100px;
-        resize: none;
-    }
-
-    form {
-        margin: 20px 0 0 0;
-    }
-
-    #tableDiv table {
-        border-right: 1px solid #808080;
-        border-bottom: 1px solid #808080;
-        font-size: smaller;
-    }
-
-        #tableDiv table th {
-            border-left: 1px solid #808080;
-            border-top: 1px solid #808080;
-            font-weight: 200;
-            background-color: aquamarine;
-        }
-
-        #tableDiv table td {
-            border-left: 1px solid #808080;
-            border-top: 1px solid #808080;
-            font: 400;
-        }
-
-    .black_overlay {
-        display: none;
-        position: absolute;
-        top: 0%;
-        left: 0%;
-        width: 100%;
-        height: 100%;
-        background-color: black;
-        z-index: 1001;
-        opacity: .100;
-        filter: alpha(opacity=88);
-    }
-
     .white_content {
         display: none;
         position: absolute;
-        top: 25%;
-        left: 25%;
-        width: 55%;
-        height: 55%;
+        top: 20%;
+        left: 20%;
+        width: 60%;
+        height: 60%;
         padding: 20px;
         border: 10px solid orange;
         background-color: white;
         z-index: 1002;
         overflow: auto;
-    }
-
-    .loading {
-        width: 160px;
-        height: 56px;
-        position: absolute;
-        top: 50%;
-        left: 40%;
-        line-height: 56px;
-        color: #fff;
-        padding-left: 60px;
-        font-size: 15px;
-        background: #000 url(http://img.my.csdn.net/uploads/201211/14/1352886927_7549.gif) no-repeat 10px 50%;
-        opacity: 0.7;
-        z-index: 9999;
-        -moz-border-radius: 20px;
-        -webkit-border-radius: 20px;
-        border-radius: 20px;
-        filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70);
-        display:none;
+        font-size: 62.5%;
     }
 </style>
 
@@ -413,9 +302,11 @@
 
 </div>
 
-<div id="light" class="white_content">
+<div id="light" class="white_content" >
     Formula Def.
-    <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">关闭</a>
+    <a class="close-img" style="float:right" href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">
+        <img src="~/Media/btn_close.png" />
+    </a>
     <p>
         <ul>
             <li>UPm (%)＝（PRD+SBY）/SUM(PRD+SBY+ENG+SDT+UDT)</li>
