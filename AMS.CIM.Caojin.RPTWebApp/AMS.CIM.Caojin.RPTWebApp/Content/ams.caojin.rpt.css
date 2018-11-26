@@ -45,6 +45,8 @@ select {
     font-size: 62.5%;
 }
 
+
+
 .loading {
     width: 160px;
     height: 56px;
@@ -54,8 +56,8 @@ select {
     line-height: 56px;
     color: #fff;
     padding-left: 60px;
-    font-size: 15px;
-    background: #000 url(http://img.my.csdn.net/uploads/201211/14/1352886927_7549.gif) no-repeat 10px 50%;
+    font-size: 10px;
+    background: #000 url(../Media/loading.gif) no-repeat 10px 50%;
     opacity: 0.7;
     z-index: 9999;
     -moz-border-radius: 20px;
@@ -101,6 +103,7 @@ form {
 .close-img {
     float:right;
 }
-    .close-img:hover img{
+.close-img:hover img{
         content:url(../Media/btn_close_hover.png);
     }
+

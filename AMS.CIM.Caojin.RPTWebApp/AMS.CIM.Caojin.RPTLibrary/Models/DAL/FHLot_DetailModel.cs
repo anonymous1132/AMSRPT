@@ -20,7 +20,7 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
 
         public string Lot_Type { get; set; }
 
-        public DateTime Claim_Time { get; set; }
+        public DateTime Claim_Time {  get; set; }
 
         public int Cur_Wafer_Qty { get; set; }
 
@@ -43,5 +43,6 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
         public string Reason_Description { get; set; }
 
         public string ProdSpec_ID { get; set; }
+
     }
 }

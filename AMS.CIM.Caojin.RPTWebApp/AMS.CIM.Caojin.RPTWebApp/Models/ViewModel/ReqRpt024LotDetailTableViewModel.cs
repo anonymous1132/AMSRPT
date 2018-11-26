@@ -34,7 +34,16 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
             if (string.IsNullOrEmpty(LotIDFilter)) { throw new Exception("没有找到lot"); }
             dB2Data.Conditions = string.Format("where Lot_ID in ({0})",LotIDFilter);
             var db2 = dB2Data.GetEntities();
-            entities = db2.EntityList.OrderBy(o=>o.Lot_ID).ThenBy(o=>o.Claim_Time).ToList();
+            //改为只取最后一笔
+            //entities = db2.EntityList.OrderBy(o=>o.Lot_ID).ThenBy(o=>o.Claim_Time).ToList();
+            //新修改代码如下
+            var group = db2.EntityList.GroupBy(g => g.Lot_ID).Select(s => new { Lot_ID = s.Key, Claim_Time = s.Max(item => item.Claim_Time) });
+            foreach (var item in group)
+            {
+                FHLot_DetailModel model = db2.EntityList.Where(w => w.Lot_ID == item.Lot_ID && w.Claim_Time == item.Claim_Time).LastOrDefault();
+                entities.Add(model);
+            }
+           
         }
 
         private void GetFiterByDepartment()

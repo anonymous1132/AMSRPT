@@ -1,8 +1,27 @@
 ﻿@model AMS.CIM.Caojin.RPTWebApp.Models.ReqRpt023LotDetailTableViewModel
 <div style="float:right">
-    <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">关闭</a>
+    <a class="close-img" style="float:right" href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">
+        <img src="~/Media/btn_close.png" />
+    </a>
 </div>
+<style>
+    .up {
+        background: #FFFFCC no-repeat right 5px;
+    }
 
+    .down {
+        background: #FFFFCC no-repeat right 5px;
+    }
+
+    .hov {
+        background: #F0EFE5;
+    }
+
+    .topColumn {
+        background: #CCCCCC;
+        cursor: pointer;
+    }
+</style>
 <p>
     <table id="tableLotDetail" class="table">
         <caption>Lot Detail View</caption>

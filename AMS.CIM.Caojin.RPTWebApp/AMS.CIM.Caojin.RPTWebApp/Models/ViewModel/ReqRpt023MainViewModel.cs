@@ -19,7 +19,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         public List<string> LotType=new List<string>();
 
-        public List<string> Product { get; set; } = new List<string>();
+        //public List<string> Product { get; set; } = new List<string>();
 
         private void Initialize()
         {
@@ -31,12 +31,12 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                 LotType.Add(dr[0].ToString());
             }
 
-            sql = "select distinct prodspec_id from mmview.frlot order by prodspec_id";
-            db2.GetSomeData(sql);
-            foreach (DataRow dr in db2.dt.Rows)
-            {
-                Product.Add(dr[0].ToString());
-            }
+            //sql = "select distinct prodspec_id from mmview.frlot order by prodspec_id";
+            //db2.GetSomeData(sql);
+            //foreach (DataRow dr in db2.dt.Rows)
+            //{
+            //    Product.Add(dr[0].ToString());
+            //}
         }
     }
 }

@@ -3,7 +3,9 @@
     ViewBag.Title = "Wait For Scrap Report";
 }
 
-
+<link rel="stylesheet" type="text/css" href="~/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="~/themes/icon.css">
+<script type="text/javascript" src="~/Scripts/jquery.easyui.min.js"></script>
 
 <div class="MainBody" style="width:100%;height:200px">
     <header style="background-color:darkgoldenrod">
@@ -42,11 +44,47 @@
 
 </div>
 
-<div id="light" class="white_content">
 
+<div id="richWindow" class="easyui-window" title="Detail Lot Information" data-options="modal:true,closed:true" style="width:80%;height:600px;display:none">
+    <table id="tableLotDetail" class="easyui-datagrid" style="width:100%;height:100%"
+           data-options="
+                singleSelect:true,
+                rownumbers:true,
+                toolbar:'#tb',
+                remoteSort:false
+			">
+        <thead>
+            <tr>
+                <th data-options="field:'Lot_ID',width:100" sortable="true">Lot ID</th>
+                <th data-options="field:'Cast_ID',width:100">Foup</th>
+                <th data-options="field:'Status',width:100">Status</th>
+                <th data-options="field:'Location',width:100">Location</th>
+                <th data-options="field:'Ope_Category',width:100">Ope Category</th>
+                <th data-options="field:'strClaim_Time',width:100" sortable="true">Claim_Time</th>
+                <th data-options="field:'Cur_Wafer_Qty',width:100">Cur Wafer Qty</th>
+                <th data-options="field:'Ope_No',width:100">Ope No</th>
+                <th data-options="field:'ModulePD_ID',width:100">ModulePD</th>
+                <th data-options="field:'PD_Name',width:100">Ope Name</th>
+                <th data-options="field:'Claim_User_ID',width:100">Claim_User_ID</th>
+                <th data-options="field:'Eqp_ID',width:100">Eqp ID</th>
+                <th data-options="field:'Recipe_ID',width:100">Recipe</th>
+                <th data-options="field:'Reticle_ID',width:100">Reticle ID</th>
+                <th data-options="field:'Reason_Code',width:100">Reason Code</th>
+                <th data-options="field:'Reason_Description',width:100">Reason_Description</th>
+                <th data-options="field:'ProdSpec_ID',width:100">Product</th>
+
+            </tr>
+        </thead>
+    </table>
+    <div id="tb" style="padding:5px;height:auto">
+        <div style="margin-bottom:5px">
+            <a href="#" onclick="JsonToExcel('tableLotDetail');return false;" class="easyui-linkbutton" iconCls="icon-excel" plain="true"></a>
+        </div>
+        <a id="dlink2" style="display: none;"></a>
+    </div>
 </div>
-<div id="fade" class="black_overlay"></div>
-<div id="loading" class="loading">正在全力查询中...</div>
+
+<div id="loading" class="loading"><span style="font-size:10px;padding-right:60px">正在全力查询中...</span></div>
 
 
 <script>
@@ -127,24 +165,50 @@
         var url = "GetLotDetail";
         var data = { Category: category, Department: department, SelectedDepartment: $("#SelectedDepartment").text() };
         document.getElementById('loading').style.display = "block";
-        $.ajax({
-            type: 'POST',
-            url: url,
-            dataType: 'html', //要求服务器返回一个json类型的数据,如：{"success":true,"message":"注册成功"}
-            contentType: 'application/json',//发送信息给服务器时，内容编码的类型
-            data: JSON.stringify(data), //提交给服务器的数据,直接使用json对象的数据,如:{"id":"a","pwd":"b","name":"c"}　（如果要求json格式的字符串，可使用用JSON.stringify(data)）
-            success: function (responseData) {//如果响应成功（即200）
-                $("#light").html("");
-                $("#light").html(responseData);
-                document.getElementById('loading').style.display = "none";
-                if (responseData) { PopUp(); }
-               
-            },
-            error: function () {
-                alert(arguments[1]);
-                document.getElementById('loading').style.display = "none";
-            }
-        });//ajax
+        PostAjaxGetJson(data, url, function (responseData) {
+            $('#richWindow').css('display', 'block');
+            $('#richWindow').window('open');
+            $('#tableLotDetail').datagrid('loadData', responseData);
+            document.getElementById('loading').style.display = "none";
+        }, function () {
+            document.getElementById('loading').style.display = "none";
+        });
+    }
+
+    function JsonToExcel(tableid) {
+        var uri = 'data:application/vnd.ms-excel;base64,';
+        var template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"' +
+            'xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>'
+            + '<x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets>'
+            + '</x:ExcelWorkbook></xml><![endif]-->' +
+            ' <style type="text/css">' +
+            'table th td{' +
+            'border-right: 1px solid #F00;' +
+            'border - bottom: 1px solid #F00;' +
+            'font - size: smaller;' +
+            '}' +
+            '</style>' +
+            '</head><body ><table class="excelTable">{table}</table></body></html>';
+        if (!tableid.nodeType) tableid = document.getElementById(tableid);
+
+        var rows = $('#tableLotDetail').datagrid('getRows');
+        var innertxt = tableid.innerHTML;
+        innertxt = innertxt + '<tbody>';
+        for (var i = 0; i < rows.length; i++)
+        {
+            var rowhtml = '<tr><td>' + rows[i].Lot_ID + '</td><td>' + rows[i].Cast_ID + '</td><td>' + rows[i].Status + '</td><td>' +
+                rows[i].Location + '</td><td>' + rows[i].Ope_Category + '</td><td>' + rows[i].strClaim_Time + '</td><td>' + rows[i].Cur_Wafer_Qty +
+                '</td><td>' + rows[i].Ope_No + '</td><td>' + rows[i].ModulePD_ID + '</td><td>' + rows[i].PD_Name + '</td><td>' + rows[i].Claim_User_ID +
+                '</td><td>' + rows[i].Eqp_ID + '</td><td>' + rows[i].Recipe_ID + '</td><td>' + rows[i].Reticle_ID + '</td><td>' + rows[i].Reason_Code +
+                '</td><td>' + rows[i].Reason_Description + '</td><td>' + rows[i].ProdSpec_ID + '</td></tr>';
+            innertxt = innertxt+rowhtml;
+        }
+        innertxt = innertxt + '</tbody>';
+        var ctx = { worksheet: 'sheet1' || 'Worksheet', table: innertxt };
+        var dlinkInfo = document.getElementById('dlink2');
+        dlinkInfo.href = uri + base64(format(template, ctx));
+        dlinkInfo.download = 'WaitForScrap_LotDetail.xls';
+        dlinkInfo.click();
     }
 
     $(document).ready(function () {
