@@ -166,10 +166,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ReqRpt023GetProdListPostModel.cs" />
-    <Compile Include="Models\ReqRpt023GetProdListViewModel.cs" />
+    <Compile Include="Models\ReqRpt030DeleteSpecialLotResultModel.cs" />
+    <Compile Include="Models\ReqRpt030GetDetailModel.cs" />
+    <Compile Include="Models\ReqRpt030SetSpecialLotPostModel.cs" />
+    <Compile Include="Models\ReqRpt030UpdateRemarkPurposePostModel.cs" />
+    <Compile Include="Models\ReqRpt030UpdateRemarkPurposeResultModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt023GetProdListPostModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt023GetProdListViewModel.cs" />
     <Compile Include="Models\ReqRpt030MainViewModel.cs" />
-    <Compile Include="Models\EasyUITableView.cs" />
+    <Compile Include="Models\ReqRpt030SetSpecialLotResultModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt023LotDetailQueryPostModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt023LotDetailTableViewModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt023MainViewModel.cs" />
@@ -213,6 +218,7 @@
     <Content Include="Media\datagrid_data.json" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\FileSaver.js" />
     <Content Include="Scripts\jquery-1.4.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -220,6 +226,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.easyui.min.js" />
+    <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />

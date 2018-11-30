@@ -75,6 +75,7 @@
     <Compile Include="Models\DAL\FRLot_HoldRecordModel.cs" />
     <Compile Include="Models\DAL\FRLot_ScrapModel.cs" />
     <Compile Include="Models\DAL\FRUserModel.cs" />
+    <Compile Include="Models\DAL\Report_SpecialDetail.cs" />
     <Compile Include="Models\DAL\Rpt_WIP_SpecialLotModel.cs" />
     <Compile Include="Models\DAL\ScrapSummarizedModel.cs" />
     <Compile Include="Models\DB2DataCatcher.cs" />

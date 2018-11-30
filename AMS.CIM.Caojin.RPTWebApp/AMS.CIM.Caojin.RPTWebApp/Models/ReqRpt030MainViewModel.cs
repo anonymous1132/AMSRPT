@@ -17,7 +17,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
             db2.GetSomeData("select lot_id from istrpt.rpt_wip_special_lot");
             foreach (DataRow dr in db2.dt.Rows)
             {
-                Lot_ID.Add(dr.ToString());
+                Lot_ID.Add(dr[0].ToString());
             }
         }
     }

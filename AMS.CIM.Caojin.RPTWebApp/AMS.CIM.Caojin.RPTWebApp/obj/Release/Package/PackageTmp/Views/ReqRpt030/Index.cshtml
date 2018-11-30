@@ -2,6 +2,13 @@
 @{
     ViewBag.Title = "View Or Compose My Special Lot";
 }
+<script type="text/javascript">
+    var jQuery_1_4 = $.noConflict(true);
+</script>
+<link rel="stylesheet" type="text/css" href="~/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="~/themes/icon.css">
+<script type="text/javascript" src="~/Scripts/jquery.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.easyui.min.js"></script>
 
 <div class="MainBody" style="width:100%;height:200px">
     <header style="background-color:darkgoldenrod">
@@ -14,8 +21,12 @@
                 }
             </select>
         </div>
-        <div class="top" style="height:300px;margin: 100px 0 0 10px">
+        <div class="top" style="height:300px;margin: 60px 0 0 10px">
             <button onclick="moveAll('lotid_select','lotid_selected')">>></button>
+            <br />
+            <button id="moveRight">></button>
+            <br />
+            <button id="moveLeft"><</button>
             <br />
             <button onclick="moveAll('lotid_selected','lotid_select')"><<</button>
         </div>
@@ -24,23 +35,27 @@
             <br />
             <select name="SelectedLotID" id="lotid_selected" multiple style="height:300px"></select>
         </div>
-        <div class="top" style="margin-top:80px">
+        <div class="top" style="margin-top:40px">
             <style>
                 .btn {
                     width: 105px;
-                    font-size:50%;
+                    font-size: 50%;
                 }
             </style>
             <button class="btn" id="query" onclick="Query()">Query</button><br />
-            <button class="btn" id="load" onclick="Query()">Load From TXT</button><br />
+            <button class="btn" id="load" onclick="$('#files').click()">Load From TXT</button><br />
+            <input type="file" id="files" style="display:none" onchange="importFile();" />
+            <button class="btn" id="loadKeyIn">Load By Key In</button><br />
+            <button class="btn" id="delete">Delete Selected</button><br />
             <button class="btn" id="load" onclick="DownLoad()">Demo File</button><br />
         </div>
         <div class="top" style="margin-left:3%">
             <p>开发者：曹晋（0279）</p>
             <p>需求者：陈舒（0353）</p>
         </div>
+        <div id="errorLot" class="top" style="color:red;width:150px;height:300px">
+        </div>
     </header>
-
 </div>
 
 <div id="tableDiv" style="margin-top:0px">
@@ -48,20 +63,343 @@
 
 </div>
 
-<div id="loading" class="loading">正在全力查询中...</div>
+<div id="win" class="easyui-window" title="Input Special LotID One by One" closed="true" style="width:350px;height:180px;display:none">
+    <form style="padding:10px 20px 10px 40px;">
+        <p style="text-align:center">LotID: <input id="lotid" type="text"></p>
+        <div style="padding:10px;text-align:center;">
+            <style>
+                .easyui-linkbutton {
+                    width: 100px;
+                }
+            </style>
+            <a href="#" onclick="ConfirmDialog();return false;" class="easyui-linkbutton" icon="icon-ok">Ok</a>
+            <a href="#" onclick="CancelDialog();return false;" class="easyui-linkbutton" icon="icon-cancel">Cancel</a>
+        </div>
+    </form>
+</div>
 
+<div id="win_del" class="easyui-window" title="Attention" closed="true" style="width:350px;display:none">
+    <form style="padding:10px 20px 10px 20px">
+        <p style="text-align:left">LotID below will be deleted from DB. Are you sure?</p>
+        <p id="waitDelete" style="text-align:left;word-break:break-word"></p>
+        <div style="padding:10px;text-align:center;">
+            <style>
+                .easyui-linkbutton {
+                    width: 100px;
+                }
+            </style>
+            <a href="#" onclick="DelConfirmDialog();return false;" class="easyui-linkbutton" icon="icon-ok">Ok</a>
+            <a href="#" onclick="$('#win_del').window('close');return false;" class="easyui-linkbutton" icon="icon-cancel">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<div id="win_detail" class="easyui-window" title="My Special Lot Detail" closed="true" style="width:80%;height:600px;display:none">
+    <table id="tableLotDetail" class="easyui-datagrid" style="width:100%;height:100%"
+           data-options="
+                singleSelect:true,
+                rownumbers:true,
+                toolbar:'#tb',
+                remoteSort:false,
+                onClickRow: onClickRow
+			">
+        <thead>
+            <tr>
+                <th data-options="field:'Eqp_Type',width:100" sortable="true">EQP_Type</th>
+                <th data-options="field:'Priority',width:100" sortable="true">Priority</th>
+                <th data-options="field:'Ope_No',width:100">OPE_NO</th>
+                <th data-options="field:'Desc',width:100">DESC</th>
+                <th data-options="field:'Product',width:100" sortable="true">Product</th>
+                <th data-options="field:'Special_Lot_ID',width:100" sortable="true">Lot_ID</th>
+                <th data-options="field:'Foup',width:100">Foup</th>
+                <th data-options="field:'Location',width:100">Location</th>
+                <th data-options="field:'Status',width:100">Foup Status</th>
+                <th data-options="field:'Lot_Hold_State',width:100" sortable="true">Lot Hold State</th>
+                <th data-options="field:'Remark',width:150,editor:'textbox'">Remark</th>
+                <th data-options="field:'Purpose',width:150,editor:'textbox'">Purpose</th>
+                <th data-options="field:'Hold_Reason_ID',width:100">Hold Reason</th>
+                <th data-options="field:'Hold_Claim_Memo',width:300">Hold Reason Description</th>
+                <th data-options="field:'Qty',width:100" sortable="true">QTY</th>
+                <th data-options="field:'Queue',width:100" sortable="true">Queue</th>
+                <th data-options="field:'Sty',width:100" sortable="true">STY</th>
+                <th data-options="field:'Chg_User_ID',width:100" sortable="true">CHG User ID</th>
+                <th data-options="field:'Chg_User_Name',width:100" sortable="true">CHG User Name</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="tb" style="padding:5px;height:auto">
+        <div style="margin-bottom:5px">
+            <a href="#" onclick="JsonToExcel('tableLotDetail');return false;" class="easyui-linkbutton" iconCls="icon-excel" plain="true">Export</a>
+            <a href="#" onclick="accept();return false;" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true">Save</a>
+        </div>
+        <a id="dlink" style="display: none;"></a>
+    </div>
+</div>
+
+<div id="loading" class="loading">正在全力查询中...</div>
+<script type="text/javascript" src="~/Scripts/FileSaver.js" charset="utf-8"></script>
 <script>
     $('#lotid_select').dblclick(function () {
         var fromId = "lotid_select";
         var toId = "lotid_selected";
-        MoveItem(fromId, toId);
+        moveItem(fromId, toId);
+    });
+    $('#moveRight').click(function () {
+        var fromId = "lotid_select";
+        var toId = "lotid_selected";
+        moveItem(fromId, toId);
+    });
+    $('#moveLeft').click(function () {
+        var fromId = "lotid_selected";
+        var toId = "lotid_select";
+        moveItem(fromId, toId);
     });
     $('#lotid_selected').dblclick(function () {
         var fromId = "lotid_selected";
         var toId = "lotid_select";
-        MoveItem(fromId, toId);
+        moveItem(fromId, toId);
     });
-    function DownLoad() {
-        window.open("/Media/ImportMySpecialLot.txt");
+    $('#loadKeyIn').click(function () {
+        $('#win').css('display', 'block');
+        $('#win').window('open');
+    });
+    $('#delete').click(DeleteSelectedLotID);
+
+    function moveItem(fromId, toId) {
+        jQuery_1_4("#" + fromId + " option:selected").each(function () {
+            jQuery_1_4(this).appendTo(jQuery_1_4("#" + toId + ":not(:has(option[value=" + jQuery_1_4(this).val() + "]))"));
+        });
+        jQuery_1_4("#" + fromId + " option:selected").remove();
     }
+
+    function DownLoad() {
+        $.ajax({
+            type: 'GET',
+            url: "/Media/ImportMySpecialLot.txt",
+            dataType: 'text',
+            success: function (responseData) {
+                var blob = new Blob([responseData], { type: "text/plain;charset=utf-8" });
+                saveAs(blob, "ImportMySpecialLot.txt");
+            },
+            error: function () {
+                alert("从服务器上获取文件失败");
+            }
+        });
+    }
+
+    function importFile() {
+        var selectedFile = document.getElementById("files").files[0];//获取读取的File对象
+        if (!selectedFile) return;
+        var reader = new FileReader();//这里是核心！！！读取操作就是由它完成的。
+        reader.readAsText(selectedFile);//读取文件的内容
+        reader.onload = function () {
+            var data = { LotID: this.result, Mode: "AddMore" };
+            var url = "ReSetMySpecialLot";
+            PostAjaxGetJson(data, url, function (responseData) {
+                if (responseData.AllIn) {
+                    alert("success");
+                    $('#errorLot').html("");
+                    Initialize();
+                } else {
+                    alert("something error");
+                    var content = "<p>不存在的LotID有：</p><p><ol>";
+                    for (var i = 0; i < responseData.ErrorID.length; i++) {
+                        content = content + "<li>" + responseData.ErrorID[i] + "</li>"
+                    }
+                    content = content + "</ol></p><p>重复的LotID有：</p><p><ol>"
+                    for (var i = 0; i < responseData.RepeatID.length; i++) {
+                        content = content + "<li>" + responseData.RepeatID[i] + "</li>"
+                    }
+                    content = content + "</ol></p>"
+                    $('#errorLot').html(content);
+                    Initialize();
+                }
+            });
+        }
+    }
+
+    function Initialize() {
+        $('#files').val("");
+        $.ajax({
+            type: 'GET',
+            url: "GetAllSpecialLot",
+            dataType: 'json',
+            success: function (responseData) {
+                var content = "";
+                for (var i = 0; i < responseData.Lot_ID.length; i++) {
+                    content = content + '<option value="' + responseData.Lot_ID[i] + '">' + responseData.Lot_ID[i] + '</option>';
+                }
+                $('#lotid_selected').html("");
+                $('#lotid_select').html(content);
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+    function CancelDialog() {
+        $('#lotid').attr('value', '');
+        $('#win').window('close');
+    }
+
+    function ConfirmDialog() {
+        var lotid = $('#lotid').val();
+        if (!lotid) { CancelDialog(); return; }
+        var data = { LotID: lotid, Mode: "AddMore" };
+        var url = "ReSetMySpecialLot";
+        PostAjaxGetJson(data, url, function (responseData) {
+            if (responseData.AllIn) {
+                alert("success");
+                $('#errorLot').html("");
+                Initialize();
+            } else {
+                alert("failed");
+                var content = "<p>不存在的LotID有：</p><p><ol>";
+                for (var i = 0; i < responseData.ErrorID.length; i++) {
+                    content = content + "<li>" + responseData.ErrorID[i] + "</li>"
+                }
+                content = content + "</ol></p><p>重复的LotID有：</p><p><ol>"
+                for (var i = 0; i < responseData.RepeatID.length; i++) {
+                    content = content + "<li>" + responseData.RepeatID[i] + "</li>"
+                }
+                content = content + "</ol></p>"
+                $('#errorLot').html(content);
+                Initialize();
+            }
+        });
+        CancelDialog();
+    }
+
+    function DeleteSelectedLotID() {
+        var LotID = checkselect("lotid_selected");
+        if (!LotID) return;
+        $('#waitDelete').html(LotID);
+        $('#win_del').css('display', 'block');
+        $('#win_del').window('open');
+    }
+
+    function DelConfirmDialog() {
+        var lotid = $('#waitDelete').html();
+        var data = { LotID: lotid };
+        var url = "DeleteSpecialLotID";
+        PostAjaxGetJson(data, url, function (responseData) {
+            alert(responseData.message);
+            if (responseData.message == "success") {
+                Initialize();
+            }
+        });
+        $('#win_del').window('close');
+    }
+
+    function Query() {
+        var LotID = checkselect("lotid_selected");
+        if (!LotID) return;
+        document.getElementById('loading').style.display = "block";
+        var url = "GetDetailByLotID";
+        var data = { LotID: LotID };
+        PostAjaxGetJson(data, url, function (responseData) {
+            $('#win_detail').css('display', 'block');
+            $('#win_detail').window('open');
+            $('#tableLotDetail').datagrid('loadData', responseData);
+            document.getElementById('loading').style.display = "none";
+        }, function () {
+            document.getElementById('loading').style.display = "none";
+        });
+    }
+
+
+    var editIndex = undefined;
+    function endEditing() {
+        //alert(editIndex);
+        if (editIndex == undefined) { return true }
+        if ($('#tableLotDetail').datagrid('validateRow', editIndex)) {
+            $('#tableLotDetail').datagrid('endEdit', editIndex);
+            editIndex = undefined;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function onClickRow(index) {
+        if (editIndex != index) {
+            if (endEditing()) {
+                $('#tableLotDetail').datagrid('selectRow', index)
+                    .datagrid('beginEdit', index);
+                editIndex = index;
+            } else {
+                $('#tableLotDetail').datagrid('selectRow', editIndex);
+            }
+        }
+    }
+
+    function accept() {
+        if (endEditing()) {
+            var rows = $('#tableLotDetail').datagrid('getChanges');
+            if (rows.length) {
+                var lot = "";
+                var remark = "";
+                var purpose="";
+                for (var i = 0; i < rows.length; i++) {
+                    lot = lot+ rows[i].Special_Lot_ID+'%#';
+                    remark = remark + rows[i].Remark + '%#';
+                    purpose = purpose + rows[i].Purpose + '%#';
+                }
+                lot = lot.substr(0, lot.length - 2);
+                remark = remark.substr(0, remark.length - 2);
+                purpose = purpose.substr(0, purpose.length - 2);
+                if (!remark) { remark = "%#"; }
+                if (!purpose) { purpose = "%#"; }
+                var data = { LotID: lot, Remark: remark, Purpose: purpose };
+                var url = 'UpdateRemarkPurpose';
+                PostAjaxGetJson(data, url, function (responseData) {
+                    if (responseData.success) {
+                        $('#dg').datagrid('acceptChanges');
+                    } else {
+                        alert('Failed' + responseData.message);
+                        $('#dg').datagrid('rejectChanges');
+                    }
+                }, function (responseData) { alert('Filed:' + responseData.message); $('#dg').datagrid('rejectChanges');});
+            }
+            
+        }
+    }
+
+    function JsonToExcel(tableid) {
+        var uri = 'data:application/vnd.ms-excel;base64,';
+        var template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"' +
+            'xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>'
+            + '<x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets>'
+            + '</x:ExcelWorkbook></xml><![endif]-->' +
+            ' <style type="text/css">' +
+            'table th td{' +
+            'border-right: 1px solid #F00;' +
+            'border - bottom: 1px solid #F00;' +
+            'font - size: smaller;' +
+            '}' +
+            '</style>' +
+            '</head><body ><table class="excelTable">{table}</table></body></html>';
+        if (!tableid.nodeType) tableid = document.getElementById(tableid);
+
+        var rows = $(tableid).datagrid('getRows');
+        var innertxt = tableid.innerHTML;
+        innertxt = innertxt + '<tbody>';
+        for (var i = 0; i < rows.length; i++) {
+            var rowhtml = '<tr><td>' + rows[i].Eqp_Type + '</td><td>' + rows[i].Priority + '</td><td>' + rows[i].Ope_No + '</td><td>' +
+                rows[i].Desc + '</td><td>' + rows[i].Product + '</td><td>' + rows[i].Special_Lot_ID + '</td><td>' + rows[i].Foup +
+                '</td><td>' + rows[i].Location + '</td><td>' + rows[i].Status + '</td><td>' + rows[i].Lot_Hold_State + '</td><td>' + rows[i].Remark +
+                '</td><td>' + rows[i].Purpose + '</td><td>' + rows[i].Hold_Reason_ID + '</td><td>' + rows[i].Hold_Claim_Memo + '</td><td>' + rows[i].Qty +
+                '</td><td>' + rows[i].Queue + '</td><td>' + rows[i].Sty + '</td><td>'+rows[i].Chg_User_ID+'</td><td>'+rows[i].Chg_User_Name+'</td></tr>';
+            innertxt = innertxt + rowhtml;
+        }
+        innertxt = innertxt + '</tbody>';
+        var ctx = { worksheet: 'sheet1' || 'Worksheet', table: innertxt };
+        var dlinkInfo = document.getElementById('dlink');
+        dlinkInfo.href = uri + base64(format(template, ctx));
+        dlinkInfo.download = 'MySpecialLot_LotDetail.xls';
+        dlinkInfo.click();
+    }
+
 </script>

@@ -27,7 +27,7 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
             {
                 entities.EntityList.Clear();
                 T t = new T();
-                string columns =string.Join(",", t.GetType().GetProperties().Select(s => s.Name).ToList()) ;
+                string columns =string.Join(",", t.GetType().GetProperties().Where(w=>w.CanWrite).Select(s => s.Name).ToList()) ;
                 return string.Format("select {1} from {0} {2}", entities.TableName,columns,Conditions);
             }
         }

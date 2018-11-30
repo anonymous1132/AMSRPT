@@ -140,6 +140,7 @@ function PostAjaxGetJson(data,url,callback,errorBack) {
     });
 }
 
+
 //当前日期
 function today(){
     var today=new Date();//new 出当前时间
