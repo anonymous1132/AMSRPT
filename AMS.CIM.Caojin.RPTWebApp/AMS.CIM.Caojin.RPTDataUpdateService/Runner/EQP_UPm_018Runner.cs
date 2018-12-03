@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AMS.CIM.Caojin.RPTLibrary.Models;
+using Caojin.Common;
 
 namespace AMS.CIM.Caojin.RPTDataUpdateService.Runner
 {
@@ -11,9 +12,16 @@ namespace AMS.CIM.Caojin.RPTDataUpdateService.Runner
     {
         public static void Run()
         {
-            ShareDataEntity.GetSingleEntity();
-            ShareDataEntity.GetSingleEntity().Rpt018 = new ReqRpt018ViewModel();
-            ShareDataEntity.GetSingleEntity().Rpt018.GetData();
+            try
+            {
+                ShareDataEntity.GetSingleEntity();
+                ShareDataEntity.GetSingleEntity().Rpt018 = new ReqRpt018ViewModel();
+                ShareDataEntity.GetSingleEntity().Rpt018.GetData();
+            }
+            catch (Exception ex)
+            {
+                LogHelper.ErrorLog(ex);
+            }
         }
     }
 }

@@ -99,6 +99,7 @@
     <Compile Include="Runner\EQP_UPm_018Runner.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Runner\Lin_RealTime_025Runner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AMS.CIM.Caojin.RPTDataUpdateService_TemporaryKey.pfx" />

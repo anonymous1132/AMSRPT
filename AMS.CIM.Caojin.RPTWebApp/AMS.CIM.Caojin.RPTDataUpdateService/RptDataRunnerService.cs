@@ -52,6 +52,7 @@ namespace AMS.CIM.Caojin.RPTDataUpdateService
                 //可防止重复执行程序
                 tt.Enabled = false;
                 EQP_UPm_018Runner.Run();
+                Lin_RealTime_025Runner.Run();
                 tt.Enabled = true;
             }
             catch (Exception err)

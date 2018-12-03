@@ -55,6 +55,7 @@
     <Compile Include="TestCollection.cs" />
     <Compile Include="TestEF.cs" />
     <Compile Include="TestLibrary.cs" />
+    <Compile Include="TestPush.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

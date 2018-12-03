@@ -161,20 +161,24 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReqRpt023Controller.cs" />
     <Compile Include="Controllers\ReqRpt024Controller.cs" />
+    <Compile Include="Controllers\ReqRpt025Controller.cs" />
     <Compile Include="Controllers\ReqRpt030Controller.cs" />
     <Compile Include="Controllers\RptController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ReqRpt030DeleteSpecialLotResultModel.cs" />
-    <Compile Include="Models\ReqRpt030GetDetailModel.cs" />
-    <Compile Include="Models\ReqRpt030SetSpecialLotPostModel.cs" />
-    <Compile Include="Models\ReqRpt030UpdateRemarkPurposePostModel.cs" />
-    <Compile Include="Models\ReqRpt030UpdateRemarkPurposeResultModel.cs" />
+    <Compile Include="Models\ReqRpt025PostModel.cs" />
+    <Compile Include="Models\ReqRpt025TableEntity.cs" />
+    <Compile Include="Models\ReqRpt025TableViewModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt030DeleteSpecialLotResultModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt030GetDetailModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt030SetSpecialLotPostModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt030UpdateRemarkPurposePostModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt030UpdateRemarkPurposeResultModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt023GetProdListPostModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt023GetProdListViewModel.cs" />
-    <Compile Include="Models\ReqRpt030MainViewModel.cs" />
-    <Compile Include="Models\ReqRpt030SetSpecialLotResultModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt030MainViewModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt030SetSpecialLotResultModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt023LotDetailQueryPostModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt023LotDetailTableViewModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt023MainViewModel.cs" />
@@ -709,6 +713,8 @@
     <Content Include="themes\material-teal\images\Thumbs.db" />
     <Content Include="themes\material\images\Thumbs.db" />
     <Content Include="Views\ReqRpt023\GetProdList.cshtml" />
+    <Content Include="Views\ReqRpt025\Index.cshtml" />
+    <Content Include="Views\ReqRpt025\GetTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

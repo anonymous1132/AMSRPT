@@ -138,7 +138,7 @@
                 <th>Lot</th>
                 @foreach (var item in Model.entities)
                 {
-                    <td><a href="#" onclick="QueryDetailLot('NPW','@item.Department');return false;">@item.strNpw_Lot</td>
+                    <td><a href="#" onclick="QueryDetailLot('NPW','@item.Department');return false;">@item.strNpw_Lot</a></td>
                 }
                  <td><a href="#" onclick="QueryDetailLot('NPW','Total'); return false;">@Model.TotalEntity.strNpw_Lot</a></td>
             </tr>

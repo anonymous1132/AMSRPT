@@ -12,9 +12,7 @@ namespace TestProject
         {
             // TestLibrary.Test();
             //TestEF.Test();
-            TestCollection test = new TestCollection();
-            test.Test();
-            Console.ReadKey();
+            TestPush.Test();
         }
     }
 }

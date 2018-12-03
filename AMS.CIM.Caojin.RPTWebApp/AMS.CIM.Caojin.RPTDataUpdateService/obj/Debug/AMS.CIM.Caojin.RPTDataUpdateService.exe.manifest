@@ -42,26 +42,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AMS.CIM.Caojin.RPTDataUpdateService.exe" size="8616">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AMS.CIM.Caojin.RPTDataUpdateService.exe" size="9128">
       <assemblyIdentity name="AMS.CIM.Caojin.RPTDataUpdateService" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>VAQV3CGnr4yDn56xcLSsS6NfXN5rfyPu8fxG66DtyeY=</dsig:DigestValue>
+        <dsig:DigestValue>1FfJ5rLDcahhHzejqBDutgMdM9bUmgVKHDEYwnh8K00=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AMS.CIM.Caojin.RPTLibrary.dll" size="71680">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AMS.CIM.Caojin.RPTLibrary.dll" size="91648">
       <assemblyIdentity name="AMS.CIM.Caojin.RPTLibrary" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>KTNOD2RXZjQt9WQFDhu+/oz7UmTT9AhlA0olgmKGSO8=</dsig:DigestValue>
+        <dsig:DigestValue>mz4ij+cUeFvQ/tEE4w8KCVl4ADx7hI+0gmrfw/LJitI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
