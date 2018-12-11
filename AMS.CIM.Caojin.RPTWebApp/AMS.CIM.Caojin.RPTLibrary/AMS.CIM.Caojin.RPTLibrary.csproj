@@ -67,14 +67,17 @@
     <Compile Include="Models\BLL\ReqRpt018ViewModel.cs" />
     <Compile Include="Models\BLL\ReqRpt020Model.cs" />
     <Compile Include="Models\BLL\ReqRpt025Translator.cs" />
+    <Compile Include="Models\DAL\FBReasonCode.cs" />
     <Compile Include="Models\DAL\FHESCHSModel.cs" />
     <Compile Include="Models\DAL\FHLot_DetailModel.cs" />
     <Compile Include="Models\DAL\FHOPEHSModel.cs" />
+    <Compile Include="Models\DAL\FHOPEHS_HoldReason.cs" />
     <Compile Include="Models\DAL\FHScrap_SummaryModel.cs" />
     <Compile Include="Models\DAL\FRCodeModel.cs" />
     <Compile Include="Models\DAL\FREQPModel.cs" />
     <Compile Include="Models\DAL\FRLot_HoldRecordModel.cs" />
     <Compile Include="Models\DAL\FRLot_ScrapModel.cs" />
+    <Compile Include="Models\DAL\FRPD.cs" />
     <Compile Include="Models\DAL\FRUserModel.cs" />
     <Compile Include="Models\DAL\Report25_MoveQty_ByProd.cs" />
     <Compile Include="Models\DAL\Report25_ScrappedQty_ByProd.cs" />
@@ -82,6 +85,7 @@
     <Compile Include="Models\DAL\RPT_RealTime_Lin.cs" />
     <Compile Include="Models\DAL\Rpt_WIP_SpecialLotModel.cs" />
     <Compile Include="Models\DAL\ScrapSummarizedModel.cs" />
+    <Compile Include="Models\DAL\FBProd.cs" />
     <Compile Include="Models\DB2DataCatcher.cs" />
     <Compile Include="Models\DB2DataPusher.cs" />
     <Compile Include="Models\DB2Entities.cs" />

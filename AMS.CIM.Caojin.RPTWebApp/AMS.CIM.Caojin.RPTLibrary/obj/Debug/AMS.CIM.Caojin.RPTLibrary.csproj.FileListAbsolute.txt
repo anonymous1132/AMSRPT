@@ -13,4 +13,3 @@ D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\obj\Debug\AMS.CIM.Caojin.RPTLibrary.csproj.CopyComplete
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\obj\Debug\AMS.CIM.Caojin.RPTLibrary.dll
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\obj\Debug\AMS.CIM.Caojin.RPTLibrary.pdb
-D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\obj\Debug\AMS.CIM.Caojin.RPTLibrary.csprojAssemblyReference.cache
