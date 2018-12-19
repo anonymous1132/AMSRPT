@@ -1,0 +1,250 @@
+﻿@model AMS.CIM.Caojin.RPTWebApp.Models.ReqRpt004MainViewModel
+@{
+    ViewBag.Title = "Turn Rate(Daily Turn)";
+    Layout = "~/Views/Shared/_LayoutRptBootStrap.cshtml";
+}
+
+
+<link href="~/Content/plugins/jQueryUI/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
+<link href="~/Content/plugins/chosen/bootstrap-chosen.css" rel="stylesheet">
+<link href="~/Content/plugins/jqGrid/ui.jqgrid.css" rel="stylesheet">
+<link href="~/Content/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="~/Content/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+<link href="~/Content/plugins/datapicker/datepicker3.css" rel="stylesheet">
+<link href="~/Content/plugins/dataTables/datatables.min.css" rel="stylesheet">
+<link href="~/Content/animate.css" rel="stylesheet">
+<link href="~/Content/style.css" rel="stylesheet">
+
+<!-- Chosen -->
+<script src="~/Scripts/plugins/chosen/chosen.jquery.js"></script>
+<!-- Data picker -->
+<script src="~/Scripts/plugins/datapicker/bootstrap-datepicker.js"></script>
+<!-- Flot -->
+<script src="~/Scripts/plugins/flot/jquery.flot.js"></script>
+<script src="~/Scripts/plugins/flot/jquery.flot.tooltip.min.js"></script>
+<script src="~/Scripts/plugins/flot/jquery.flot.resize.js"></script>
+<script src="~/Scripts/plugins/flot/jquery.flot.time.js"></script>
+<script src="~/Scripts/ams.commontool.js"></script>
+<script src="~/Scripts/vue.min.js"></script>
+
+<div class="row white-bg border-bottom ">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>查询条件</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <label class="font-normal">ProductID：</label><br />
+                        <div>
+                            <select id="selected-product" data-placeholder="请选择ProductID，不选视为全部" class="chosen-select" multiple>
+                                @foreach (var item in Model.ProductList)
+                                {
+                                    <option value="@item">@item</option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 " style="margin-top:5px">
+                        <br />
+                        <p>
+                            <button type="button" class="btn btn-outline btn-primary" style="width:120px" onclick="Query()">Query</button>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <label class="font-normal">DateRange:</label>
+                        <div class="input-daterange input-group" id="datepicker" style="width:100%">
+                            <input type="date" class="input-sm form-control" name="start" id="start-date" readonly />
+                            <span class="input-group-addon">
+                                至
+                            </span>
+                            <input type="date" class="input-sm form-control" name="end" id="end-date" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3" style="float:right">
+                        <br /><p style="font-weight:200"><small>开发者：曹晋（0279）<br />需求者：陈舒（0353）</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-12">
+
+    <div class="ibox float-e-margins" id="chart-view" v-bind:style="{display:display}">
+        <div class="ibox-title">
+            <h5 id="chart-title">{{ ChartTitle }}</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="flot-chart">
+                <div class="flot-chart-content" id="flot-line-chart"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-12">
+    <div class="ibox float-e-margins" id="table-view" v-bind:style="{display:display}">
+        <div class="ibox-title">
+            <div class="html5buttons"><div class="dt-buttons btn-group"><a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" onclick="tableToExcel('DataTables_Table_0','sheet1','Turn Rate(Daily Turn)','dlink'); return false;"><span><img src="~/themes/icons/excel_2007.gif" /></span></a> <a id="dlink" style="display: none;"></a></div></div>
+            <div style="margin-bottom:30px"><h5>Turn Rate(Daily Turn)</h5></div>
+        </div>
+        <div class="ibox-content">
+            <div class="table-responsive">
+                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                    <table class="dataTables-example table  table-bordered table-hover" id="DataTables_Table_0">
+                        <thead>
+                            <tr>
+                                <th id="th1" v-text="FormatTargetDate"></th>
+                                <th>Effective Steps</th>
+                                <template v-for="item in tableData.DateList">
+                                    <th v-text="item"></th>
+                                </template>
+                                <th>Total Turn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in tableData.TableRowEntities">
+                                <td v-text="item.ProductID"></td>
+                                <td v-text="item.EffectiveSteps"></td>
+                                <template v-for="entity in item.TableEntities">
+                                    <td v-text="entity.StrTurnRate"></td>
+                                </template>
+                                <td v-text="item.StrTotalTurn"></td>
+                            </tr>
+                            <tr>
+                                <th colspan="2">Daily Total Turn</th>
+                                <template v-for="item in tableData.DailyTotalTurn">
+                                    <td v-text="item"></td>
+                                </template>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var chartView = new Vue({
+        el: '#chart-view',
+        data: {
+            FormatTargetDate: '',
+            barData: ''
+        },
+        computed: {
+            display: function () {
+                return this.FormatTargetDate ? 'block' : 'none';
+            },
+            ChartTitle: function () {
+                return "Daily Turn Rate Of " + this.FormatTargetDate;
+            }
+        },
+        watch: {
+            barData: function (val) {
+                var barOptions = {
+                    series: {
+                        lines: {
+                            show: true,
+                            lineWidth: 2,
+                            fill: true,
+                            fillColor: {
+                                colors: [{
+                                    opacity: 0.0
+                                }, {
+                                    opacity: 0.0
+                                }]
+                            }
+                        }
+                    },
+                    xaxis: {
+                        mode: 'time',
+                        timeformat: "%Y%m%d"
+                    },
+                    yaxis: {
+                        min:0
+                    },
+                    points: {
+                        show:true
+                    },
+                    colors: ["#1ab394"],
+                    grid: {
+                        color: "#999999",
+                        hoverable: true,
+                        clickable: true,
+                        tickColor: "#D4D4D4",
+                        borderWidth: 0
+                    },
+                    legend: {
+                        show: true
+                    },
+                    tooltip: true,
+                    tooltipOpts: {
+                        content: "%x: %y",
+                        xDateFormat: "%Y年%m月%d日",
+                    }
+                };
+                $.plot($("#flot-line-chart"), val, barOptions);
+            }
+        }
+    });
+
+    var tableView = new Vue({
+        el: '#table-view',
+        data: {
+            FormatTargetDate: '',
+            tableData: ''
+        },
+        computed: {
+            display: function () {
+                return this.FormatTargetDate ? 'block' : 'none';
+            }
+        }
+    });
+
+    function Query() {
+        var url = "GetJson";
+        var Products = checkselectoption('selected-product');
+        Products = Products ? Products : checkselect('selected-product');
+        var TargetDate = $('#end-date').val();
+        var data = { Products: Products, TargetDate: TargetDate };
+        PostAjaxGetJson(data, url, function (responseData) {
+            tableView.tableData = responseData.tableData;
+            chartView.barData = responseData.barData;
+            tableView.FormatTargetDate = responseData.FormatTargetDate;
+            chartView.FormatTargetDate = responseData.FormatTargetDate;
+        }, function (responseData) { });
+    }
+
+    $(document).ready(function () {
+        // Examle data for jqGrid
+
+        $("#end-date").change(function () {
+            $("#start-date").val(addDate($("#end-date").val(), -30))
+        });
+
+        $("#end-date").val(today());
+
+        $("#start-date").val(addDate($("#end-date").val(), -30));
+
+        $('.chosen-select').chosen({ width: "100%" });
+
+
+        $('#data-range .input-daterange').datepicker({
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true
+        });
+    });
+
+</script>

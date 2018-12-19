@@ -18,7 +18,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         private ReqRpt024TableViewModel TableViewModel { get; set; }
 
-        private DB2DataCatcher<FHLot_DetailModel> dB2Data = new DB2DataCatcher<FHLot_DetailModel>("REPORT24_LOT_Detail");
+        private DB2DataCatcher<FHLot_DetailModel> dB2Data = new DB2DataCatcher<FHLot_DetailModel>("ISTRPT.REPORT24_LOT_Detail");
 
         private string Department { get; set; }
 

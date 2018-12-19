@@ -20,7 +20,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         public Dictionary<string, string> Reason_Desc { get; set; } = new Dictionary<string, string>();
 
-        private DB2DataCatcher<ScrapSummarizedModel> dB2Data = new DB2DataCatcher<ScrapSummarizedModel>("REPORT23_SCRAPPED_QTY");
+        private DB2DataCatcher<ScrapSummarizedModel> dB2Data = new DB2DataCatcher<ScrapSummarizedModel>("ISTRPT.REPORT23_SCRAPPED_QTY");
 
         public List<ReqRpt023TableEntity> Entities { get; set; } = new List<ReqRpt023TableEntity>();
 

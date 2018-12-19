@@ -10,7 +10,7 @@ namespace Caojin.Common
 {
     public class DB2Helper
     {
-        private readonly string strConn = "Provider=IBMDADB2;Data Source=AMRPTDB;UID=istrpt;PWD=istrpt;";
+        private readonly string strConn = "Provider=IBMDADB2;Data Source=AMRPTDB;UID=rptprod;PWD=rptprod;";
         public DataTable dt ;
 
         public void GetSomeData(string strSql)

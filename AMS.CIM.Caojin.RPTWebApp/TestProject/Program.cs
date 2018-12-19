@@ -10,9 +10,7 @@ namespace TestProject
     {
         static void Main(string[] args)
         {
-            // TestLibrary.Test();
-            //TestEF.Test();
-            TestPush.Test();
+            TestTurnDaily.Test();
         }
     }
 }

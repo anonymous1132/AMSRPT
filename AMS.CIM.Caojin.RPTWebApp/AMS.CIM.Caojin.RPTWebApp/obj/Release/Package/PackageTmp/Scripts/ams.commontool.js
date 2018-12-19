@@ -161,6 +161,16 @@ function currentTime(){
     return H+":"+M;//返回时:分:秒
 }
 
+//日期加减
+function addDate(date, days) {
+    var d = new Date(date);
+    d.setDate(d.getDate() + days);
+    var m = d.getMonth() + 1;
+    m = m < 10 ? '0' + m : m;
+    var da = d.getDate() < 10 ? '0' + d.getDate() : d.getDate();
+    return d.getFullYear() + '-' + m + '-' + da;
+} 
+
 var base64 = function (s) {
     return window.btoa(unescape(encodeURIComponent(s)));
 };

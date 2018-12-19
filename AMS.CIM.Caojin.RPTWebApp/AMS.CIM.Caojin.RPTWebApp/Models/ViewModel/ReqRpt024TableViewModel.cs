@@ -25,7 +25,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         private string departments { get; set; }
 
-        private DB2DataCatcher<FRLot_ScrapModel> dB2Data = new DB2DataCatcher<FRLot_ScrapModel>("REPORT24_LOT_WAFER_QTY");
+        private DB2DataCatcher<FRLot_ScrapModel> dB2Data = new DB2DataCatcher<FRLot_ScrapModel>("ISTRPT.REPORT24_LOT_WAFER_QTY");
         /// <summary>
         /// 视图模型
         /// </summary>

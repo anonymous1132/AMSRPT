@@ -17,5 +17,6 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
         public int MoveQty { get; set; }
 
         public int ScrappedQty { get; set; }
+
     }
 }

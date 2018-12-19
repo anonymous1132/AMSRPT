@@ -160,6 +160,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ErrorPageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReqRpt004Controller.cs" />
     <Compile Include="Controllers\ReqRpt014Controller.cs" />
     <Compile Include="Controllers\ReqRpt023Controller.cs" />
     <Compile Include="Controllers\ReqRpt024Controller.cs" />
@@ -169,13 +170,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ReqRpt014DepartmentTableModel.cs" />
-    <Compile Include="Models\ReqRpt014MainViewModel.cs" />
-    <Compile Include="Models\ReqRpt014PostModel.cs" />
-    <Compile Include="Models\ReqRpt014ProductTableEntity.cs" />
-    <Compile Include="Models\ReqRpt014ProductTableModel.cs" />
-    <Compile Include="Models\ReqRpt014DepartmentTableEntity.cs" />
-    <Compile Include="Models\ReqRpt014TableViewModel.cs" />
+    <Compile Include="Models\ReqRpt004ChartDataEntity.cs" />
+    <Compile Include="Models\ReqRpt004MainViewModel.cs" />
+    <Compile Include="Models\ReqRpt004TableEntity.cs" />
+    <Compile Include="Models\ReqRpt004TableGroupEntity.cs" />
+    <Compile Include="Models\ReqRpt004TableViewModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt014DepartmentTableModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt014MainViewModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt014PostModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt014ProductTableEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt014ProductTableModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt014DepartmentTableEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt014TableViewModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt025PostModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt025TableEntity.cs" />
     <Compile Include="Models\ViewModel\ReqRpt025TableViewModel.cs" />
@@ -757,6 +763,7 @@
     <Content Include="Scripts\plugins\validate\jquery.validate.min.js" />
     <Content Include="Scripts\plugins\video\responsible-video.js" />
     <Content Include="Scripts\plugins\wow\wow.min.js" />
+    <Content Include="Scripts\vue.min.js" />
     <Content Include="Scripts\xcConfirm.js" />
     <Content Include="themes\angular.css" />
     <Content Include="themes\black\accordion.css" />
@@ -1246,6 +1253,8 @@
     <Content Include="Scripts\plugins\justified-gallery\README.md" />
     <Content Include="Scripts\plugins\topojson\LICENSE" />
     <Content Include="Views\ReqRpt014\GetTableView.cshtml" />
+    <Content Include="Views\ReqRpt004\Index.cshtml" />
+    <Content Include="Views\ReqRpt004\GetTableView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

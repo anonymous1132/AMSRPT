@@ -13,19 +13,19 @@
       <publishTime>10/16/2018 08:59:20</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTLibrary.dll">
-      <publishTime>12/11/2018 15:19:25</publishTime>
+      <publishTime>12/18/2018 16:43:27</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTLibrary.dll.config">
       <publishTime>10/25/2018 09:50:35</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTLibrary.pdb">
-      <publishTime>12/11/2018 15:19:25</publishTime>
+      <publishTime>12/18/2018 16:43:27</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTWebApp.dll">
-      <publishTime>12/11/2018 15:36:26</publishTime>
+      <publishTime>12/18/2018 17:26:33</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTWebApp.pdb">
-      <publishTime>12/11/2018 15:36:26</publishTime>
+      <publishTime>12/18/2018 17:26:33</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>09/10/2013 16:29:20</publishTime>
@@ -793,7 +793,7 @@
       <publishTime>11/26/2018 09:18:08</publishTime>
     </File>
     <File Include="Scripts/ams.commontool.js">
-      <publishTime>11/27/2018 16:35:08</publishTime>
+      <publishTime>12/13/2018 09:50:00</publishTime>
     </File>
     <File Include="Scripts/api/typehead_collection.json">
       <publishTime>06/07/2016 22:00:26</publishTime>
@@ -1943,6 +1943,9 @@
     </File>
     <File Include="Scripts/plugins/wow/wow.min.js">
       <publishTime>12/19/2015 22:18:40</publishTime>
+    </File>
+    <File Include="Scripts/vue.min.js">
+      <publishTime>12/17/2018 17:16:48</publishTime>
     </File>
     <File Include="Scripts/xcConfirm.js">
       <publishTime>10/29/2018 13:08:57</publishTime>
@@ -3303,14 +3306,20 @@
     <File Include="Views/Home/View.cshtml">
       <publishTime>12/06/2018 11:49:48</publishTime>
     </File>
+    <File Include="Views/ReqRpt004/GetTableView.cshtml">
+      <publishTime>12/18/2018 09:52:15</publishTime>
+    </File>
+    <File Include="Views/ReqRpt004/Index.cshtml">
+      <publishTime>12/18/2018 17:24:56</publishTime>
+    </File>
     <File Include="Views/ReqRpt014/GetTableView.cshtml">
-      <publishTime>12/11/2018 12:28:46</publishTime>
+      <publishTime>12/17/2018 11:11:41</publishTime>
     </File>
     <File Include="Views/ReqRpt014/Index.cshtml">
       <publishTime>12/07/2018 16:09:10</publishTime>
     </File>
     <File Include="Views/ReqRpt014/Top3.cshtml">
-      <publishTime>12/11/2018 15:16:39</publishTime>
+      <publishTime>12/13/2018 17:09:04</publishTime>
     </File>
     <File Include="Views/ReqRpt023/GetLotDetail.cshtml">
       <publishTime>11/20/2018 11:51:41</publishTime>
@@ -3370,7 +3379,7 @@
       <publishTime>12/06/2018 11:44:54</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutRptBootStrap.cshtml">
-      <publishTime>12/10/2018 16:58:09</publishTime>
+      <publishTime>12/18/2018 17:25:30</publishTime>
     </File>
     <File Include="Views/Test/Index.cshtml">
       <publishTime>10/18/2018 17:28:30</publishTime>
