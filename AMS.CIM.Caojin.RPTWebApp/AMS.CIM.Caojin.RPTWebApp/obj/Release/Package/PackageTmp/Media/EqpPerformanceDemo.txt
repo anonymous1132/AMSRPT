@@ -1,0 +1,11 @@
+#Attention Please：
+#1、每行一个EqpType。		One EqpType per line.
+#2、请不要使用被加密过的文件Load，使用NotePad++或写字板打开TXT文档不会被加密。	Do not import the encrypted file, use NotePad++ or Wordpad to open TXT documents will not be encrypted.
+#3、行开头为“#”符号为注释行，不会被Load。	The line begins with the "#" sign as the comment line and will not be imported.
+#4、同一文件中重复的EqpType只会Load首次出现的数据。 First of the repeated EqpType in the same file  takes effect.
+#5、DB如果已经存在该EqpType，那么将会更新DB。	 If the EqpType already exists ，DB will be updated.
+#5、首位的空格将会被自动忽略	The first blank will be  ignored
+#6、以英文逗号（,）作为分割符号，多个连续空格视为一个空格。
+#7、每行请以eqp_type，upm_target，uum_target，passqty_target，rework_target，eff_target的顺序填写。
+#以下为示例：
+PL-ARF,90%,99%,1864,3.00%,1808

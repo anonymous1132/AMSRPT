@@ -162,6 +162,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReqRpt004Controller.cs" />
     <Compile Include="Controllers\ReqRpt014Controller.cs" />
+    <Compile Include="Controllers\ReqRpt020Controller.cs" />
     <Compile Include="Controllers\ReqRpt023Controller.cs" />
     <Compile Include="Controllers\ReqRpt024Controller.cs" />
     <Compile Include="Controllers\ReqRpt025Controller.cs" />
@@ -170,11 +171,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ReqRpt004ChartDataEntity.cs" />
-    <Compile Include="Models\ReqRpt004MainViewModel.cs" />
-    <Compile Include="Models\ReqRpt004TableEntity.cs" />
-    <Compile Include="Models\ReqRpt004TableGroupEntity.cs" />
-    <Compile Include="Models\ReqRpt004TableViewModel.cs" />
+    <Compile Include="Models\ReqRpt020EqpTypeSelectViewModel.cs" />
+    <Compile Include="Models\ReqRpt020PostModel.cs" />
+    <Compile Include="Models\ReqRpt020MainViewModel.cs" />
+    <Compile Include="Models\ReqRpt020SetTargetPostModel.cs" />
+    <Compile Include="Models\ReqRpt020SetTargetViewModel.cs" />
+    <Compile Include="Models\ReqRpt020TablePostModel.cs" />
+    <Compile Include="Models\ReqRpt020TableRowEntity.cs" />
+    <Compile Include="Models\ReqRpt020TableViewModel.cs" />
+    <Compile Include="Models\ReqRpt020TBodyEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt004ChartDataEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt004MainViewModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt004TableEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt004TableGroupEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt004TableViewModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt014DepartmentTableModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt014MainViewModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt014PostModel.cs" />
@@ -216,6 +226,7 @@
   <ItemGroup>
     <Content Include="Content\ams.caojin.rpt.css" />
     <Content Include="Content\animate.css" />
+    <Content Include="Media\EqpPerformanceDemo.txt" />
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -1255,6 +1266,8 @@
     <Content Include="Views\ReqRpt014\GetTableView.cshtml" />
     <Content Include="Views\ReqRpt004\Index.cshtml" />
     <Content Include="Views\ReqRpt004\GetTableView.cshtml" />
+    <Content Include="Views\ReqRpt020\Index.cshtml" />
+    <Content Include="Views\ReqRpt020\GetEqpTypeByModule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

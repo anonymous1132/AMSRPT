@@ -77,6 +77,7 @@
     <Compile Include="Models\DAL\FHScrap_SummaryModel.cs" />
     <Compile Include="Models\DAL\FRCodeModel.cs" />
     <Compile Include="Models\DAL\FREQPModel.cs" />
+    <Compile Include="Models\DAL\FREQP_EqpType_EqpID_Mapping.cs" />
     <Compile Include="Models\DAL\FRLot_HoldRecordModel.cs" />
     <Compile Include="Models\DAL\FRLot_ScrapModel.cs" />
     <Compile Include="Models\DAL\FRLot_TurnRateModel.cs" />
@@ -86,6 +87,8 @@
     <Compile Include="Models\DAL\Report25_ScrappedQty_ByProd.cs" />
     <Compile Include="Models\DAL\Report_SpecialDetail.cs" />
     <Compile Include="Models\DAL\RPT_DAI_TurnRate.cs" />
+    <Compile Include="Models\DAL\RPT_EQP_PERFM_TARGET.cs" />
+    <Compile Include="Models\DAL\RPT_EQP_PERFM_TARGET_EQPTYPE.cs" />
     <Compile Include="Models\DAL\RPT_RealTime_Lin.cs" />
     <Compile Include="Models\DAL\RPT_Turn_Daily.cs" />
     <Compile Include="Models\DAL\Rpt_WIP_SpecialLotModel.cs" />

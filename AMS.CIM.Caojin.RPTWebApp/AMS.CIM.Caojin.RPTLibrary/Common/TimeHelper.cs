@@ -91,5 +91,41 @@ namespace Caojin.Common
                 return false;
             }
         }
+
+        /// <summary>
+        /// 获取指定年、周的首日与末日
+        /// </summary>
+        /// <param name="year">指定年</param>
+        /// <param name="weekNumber">指定周</param>
+        /// <param name="culture">System.Globalization.CultureInfo.GetCultureInfo("zh-cn")周一为首日，周日末日
+        /// System.Globalization.CultureInfo.GetCultureInfo("en-US")周日为首日，周六末日
+        /// </param>
+        /// <returns>首日、末日元祖</returns>
+        public static Tuple<DateTime, DateTime> GetFirstEndDayOfWeek(int year, int weekNumber, System.Globalization.CultureInfo culture)
+        {
+            System.Globalization.Calendar calendar = culture.Calendar;
+            DateTime firstOfYear = new DateTime(year, 1, 1, calendar);
+            DateTime targetDay = calendar.AddWeeks(firstOfYear, weekNumber - 1);
+            DayOfWeek firstDayOfWeek = culture.DateTimeFormat.FirstDayOfWeek;
+
+            while (targetDay.DayOfWeek != firstDayOfWeek)
+            {
+                targetDay = targetDay.AddDays(-1);
+            }
+
+            return Tuple.Create<DateTime, DateTime>(targetDay, targetDay.AddDays(6));
+        }
+
+        /// <summary>
+        /// 获取指定日期的周号
+        /// </summary>
+        /// <param name="dt">指定日期</param>
+        /// <returns>周号</returns>
+        public static int GetWeekOfYear(DateTime dt)
+        {
+            System.Globalization.GregorianCalendar gc = new System.Globalization.GregorianCalendar();
+            int weekOfYear = gc.GetWeekOfYear(dt, System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+            return weekOfYear;
+        }
     }
 }

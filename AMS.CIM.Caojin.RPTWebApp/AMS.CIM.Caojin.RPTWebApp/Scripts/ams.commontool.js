@@ -152,6 +152,29 @@ function today(){
     return h+"-"+m+"-"+d; //返回 年-月-日
 }
 
+//获取某日是每年的第几周
+function getWeekOfYear(someDay) {
+    var firstDay = new Date(someDay.getFullYear(), 0, 1);
+    var dayOfWeek = firstDay.getDay();
+    var spendDay = 1;
+    if (dayOfWeek != 0) {
+        spendDay = 7 - dayOfWeek + 1;
+    }
+    firstDay = new Date(someDay.getFullYear(), 0, 1 + spendDay);
+    var d = Math.ceil((someDay.valueOf() - firstDay.valueOf()) / 86400000);
+    var result = Math.ceil(d / 7);
+    return result + 1;
+};
+//Format日期至input date格式
+//function formatDateValue(someDay) {
+//    var h = someDay.getFullYear(),
+//    var m = someDay.getMonth() + 1,
+//    var d = someDay.getDate(),
+//    m = m < 10 ? '0' + m : m;
+//    d = d < 10 ? '0' + d : d;
+//    return h + "-" + m + "-" + d; //返回 年-月-日
+//}
+
 function currentTime(){
     var today=new Date();//new 出当前时间
     var H = today.getHours();//获取时
