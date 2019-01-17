@@ -13,19 +13,19 @@
       <publishTime>10/16/2018 08:59:20</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTLibrary.dll">
-      <publishTime>12/27/2018 09:51:06</publishTime>
+      <publishTime>01/14/2019 16:30:54</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTLibrary.dll.config">
       <publishTime>10/25/2018 09:50:35</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTLibrary.pdb">
-      <publishTime>12/27/2018 09:51:06</publishTime>
+      <publishTime>01/14/2019 16:30:54</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTWebApp.dll">
-      <publishTime>12/27/2018 09:51:25</publishTime>
+      <publishTime>01/14/2019 17:07:23</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTWebApp.pdb">
-      <publishTime>12/27/2018 09:51:25</publishTime>
+      <publishTime>01/14/2019 17:07:23</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>09/10/2013 16:29:20</publishTime>
@@ -796,7 +796,7 @@
       <publishTime>11/26/2018 09:18:08</publishTime>
     </File>
     <File Include="Scripts/ams.commontool.js">
-      <publishTime>12/20/2018 10:30:57</publishTime>
+      <publishTime>01/10/2019 13:35:02</publishTime>
     </File>
     <File Include="Scripts/api/typehead_collection.json">
       <publishTime>06/07/2016 22:00:26</publishTime>
@@ -830,6 +830,9 @@
     </File>
     <File Include="Scripts/demo/rickshaw-demo.js">
       <publishTime>12/19/2015 22:16:26</publishTime>
+    </File>
+    <File Include="Scripts/demo/rtc.js">
+      <publishTime>01/11/2019 13:30:00</publishTime>
     </File>
     <File Include="Scripts/demo/sparkline-demo.js">
       <publishTime>12/19/2015 22:16:26</publishTime>
@@ -3328,7 +3331,7 @@
       <publishTime>12/25/2018 10:55:18</publishTime>
     </File>
     <File Include="Views/ReqRpt020/Index.cshtml">
-      <publishTime>12/27/2018 08:55:38</publishTime>
+      <publishTime>01/10/2019 14:42:25</publishTime>
     </File>
     <File Include="Views/ReqRpt023/GetLotDetail.cshtml">
       <publishTime>11/20/2018 11:51:41</publishTime>
@@ -3359,6 +3362,9 @@
     </File>
     <File Include="Views/ReqRpt030/Index.cshtml">
       <publishTime>11/30/2018 11:04:16</publishTime>
+    </File>
+    <File Include="Views/ReqRpt036/Index.cshtml">
+      <publishTime>01/14/2019 15:35:02</publishTime>
     </File>
     <File Include="Views/Rpt/GetSelectListByEqpType.cshtml">
       <publishTime>10/25/2018 16:46:37</publishTime>

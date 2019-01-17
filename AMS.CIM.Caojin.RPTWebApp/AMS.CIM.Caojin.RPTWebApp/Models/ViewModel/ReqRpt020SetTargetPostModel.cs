@@ -13,11 +13,11 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         public string uum { get; set; }
 
-        public string passqty { get; set; }
+       // public string passqty { get; set; }
 
         public string rework { get; set; }
 
-        public string eff { get; set; }
+      //  public string eff { get; set; }
 
         public string throughput { get; set; }
     }

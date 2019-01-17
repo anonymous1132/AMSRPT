@@ -40,6 +40,9 @@
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -52,7 +55,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\CsvHelper.cs" />
+    <Compile Include="Common\Db2ConnObj.cs" />
     <Compile Include="Common\DB2Helper.cs" />
+    <Compile Include="Common\Db2Oper.cs" />
     <Compile Include="Common\Encrypt.cs" />
     <Compile Include="Common\FileHelper.cs" />
     <Compile Include="Common\FTPClientHelper.cs" />
@@ -68,6 +73,9 @@
     <Compile Include="Models\BLL\ReqRpt018ViewModel.cs" />
     <Compile Include="Models\BLL\ReqRpt020Model.cs" />
     <Compile Include="Models\BLL\ReqRpt025Translator.cs" />
+    <Compile Include="Models\BLL\RPTCycleTimeTranslator.cs" />
+    <Compile Include="Models\BLL\RPTFlowSumTranslator.cs" />
+    <Compile Include="Models\DAL\FBLRCP_SSET_M.cs" />
     <Compile Include="Models\DAL\FBReasonCode.cs" />
     <Compile Include="Models\DAL\FHESCHSModel.cs" />
     <Compile Include="Models\DAL\FHLot_DetailModel.cs" />
@@ -77,19 +85,35 @@
     <Compile Include="Models\DAL\FHScrap_SummaryModel.cs" />
     <Compile Include="Models\DAL\FRCodeModel.cs" />
     <Compile Include="Models\DAL\FREQPModel.cs" />
+    <Compile Include="Models\DAL\FREQPST.cs" />
+    <Compile Include="Models\DAL\FREQP_CurStatus.cs" />
     <Compile Include="Models\DAL\FREQP_EqpType_EqpID_Mapping.cs" />
     <Compile Include="Models\DAL\FRLot_HoldRecordModel.cs" />
     <Compile Include="Models\DAL\FRLot_ScrapModel.cs" />
     <Compile Include="Models\DAL\FRLot_TurnRateModel.cs" />
     <Compile Include="Models\DAL\FRPD.cs" />
+    <Compile Include="Models\DAL\FRPD_PD_ID.cs" />
     <Compile Include="Models\DAL\FRUserModel.cs" />
     <Compile Include="Models\DAL\Report25_MoveQty_ByProd.cs" />
     <Compile Include="Models\DAL\Report25_ScrappedQty_ByProd.cs" />
+    <Compile Include="Models\DAL\Report36_Chamber.cs" />
+    <Compile Include="Models\DAL\Report36_ChamberCurrentState.cs" />
+    <Compile Include="Models\DAL\Report36_EQP.cs" />
+    <Compile Include="Models\DAL\Report36_LoadPort.cs" />
     <Compile Include="Models\DAL\Report_SpecialDetail.cs" />
+    <Compile Include="Models\DAL\RPTH_LOT_PROC_TIME.cs" />
     <Compile Include="Models\DAL\RPT_DAI_TurnRate.cs" />
     <Compile Include="Models\DAL\RPT_EQP_PERFM_TARGET.cs" />
     <Compile Include="Models\DAL\RPT_EQP_PERFM_TARGET_EQPTYPE.cs" />
+    <Compile Include="Models\DAL\RPT_FLOW_SUM.cs" />
+    <Compile Include="Models\DAL\RPT_FLOW_SUM_EQPBASE.cs" />
+    <Compile Include="Models\DAL\RPT_FLOW_SUM_EQPT_LR_MAPPING.cs" />
+    <Compile Include="Models\DAL\RPT_FLOW_SUM_LRCP.cs" />
+    <Compile Include="Models\DAL\RPT_FLOW_SUM_MR_LR_MAPPING.cs" />
+    <Compile Include="Models\DAL\RPT_Move_By_EqpType.cs" />
     <Compile Include="Models\DAL\RPT_RealTime_Lin.cs" />
+    <Compile Include="Models\DAL\RPT_STD_TIME_FLOW.cs" />
+    <Compile Include="Models\DAL\RPT_STD_TIME_FLOW_T.cs" />
     <Compile Include="Models\DAL\RPT_Turn_Daily.cs" />
     <Compile Include="Models\DAL\Rpt_WIP_SpecialLotModel.cs" />
     <Compile Include="Models\DAL\ScrapSummarizedModel.cs" />
@@ -100,6 +124,8 @@
     <Compile Include="Models\DAL\EQP_UPm_018Entity.cs" />
     <Compile Include="Models\DAL\TimeSplitConfigEntity.cs" />
     <Compile Include="Models\DAL\EQPType_Department_MappingEntity.cs" />
+    <Compile Include="Models\DB2OperDataCatcher.cs" />
+    <Compile Include="Models\DB2OperDataPusher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RPTContext.cs" />
     <Compile Include="Models\ShareDataEntity.cs" />

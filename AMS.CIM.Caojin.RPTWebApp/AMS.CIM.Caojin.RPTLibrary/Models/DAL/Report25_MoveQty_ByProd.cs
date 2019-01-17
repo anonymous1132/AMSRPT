@@ -15,5 +15,8 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
         public int Cur_Wafer_Qty { get; set; }
 
         public string PartName { get; set; }
+
+        // 20181227新增，用于Req05
+        public string Eqp_ID { get; set; }
     }
 }

@@ -88,7 +88,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                 int ToYear = Convert.ToInt16(result.Substring(0, 4));
                 int ToMonth = Convert.ToInt16(result.Substring(4));
                 StartDay = Convert.ToDateTime(FromYear.ToString() + "/" + FromMonth.ToString() + "/" + 1.ToString());
-                EndDay = Convert.ToDateTime(ToYear.ToString() + "/" + (ToMonth+1).ToString() + "/" + 1.ToString()).AddDays(-1);
+                EndDay = StartDay.AddDays(DateTime.DaysInMonth(ToYear,ToMonth)-1);
                 while (StartDay < EndDay)
                 {
                     Dates.Add(StartDay.ToString("yyyy-MM"));

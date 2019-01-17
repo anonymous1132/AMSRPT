@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AMS.CIM.Caojin.RPTLibrary.Models;
 
 namespace TestProject
 {
@@ -10,19 +11,12 @@ namespace TestProject
     {
         static void Main(string[] args)
         {
-            List<string> testList = new List<string>();
-
-            testList.ForEach(f=>Console.WriteLine(f));
-
-            Console.ReadKey();
+            //ReqRpt025Translator reqRpt025Translator = new ReqRpt025Translator();
+            //Console.WriteLine("over");
+            TestCTFlow.TestCT();
+            Console.ReadLine();
         }
 
-
-        public static bool IsNatural_Number(string str)
-        {
-            System.Text.RegularExpressions.Regex reg1 = new System.Text.RegularExpressions.Regex(@"^[A-Za-z0-9\-_]+$");
-            return reg1.IsMatch(str);
-        }
 
     }
 }

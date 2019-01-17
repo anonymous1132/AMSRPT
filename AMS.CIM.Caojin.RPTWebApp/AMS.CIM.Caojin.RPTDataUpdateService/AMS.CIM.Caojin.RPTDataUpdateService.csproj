@@ -104,6 +104,8 @@
   <ItemGroup>
     <None Include="AMS.CIM.Caojin.RPTDataUpdateService_TemporaryKey.pfx" />
     <None Include="App.config" />
+    <None Include="App\cycleTimeRunningConfig.json" />
+    <None Include="App\db2Config.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +130,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

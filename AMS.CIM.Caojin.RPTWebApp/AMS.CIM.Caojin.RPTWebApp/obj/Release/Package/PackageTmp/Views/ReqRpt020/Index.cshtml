@@ -13,6 +13,7 @@
 <link href="~/Content/style.css" rel="stylesheet">
 <link href="~/Content/plugins/dualListbox/bootstrap-duallistbox.min.css" rel="stylesheet">
 <link href="~/Content/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+<link href="~/Content/plugins/dataTables/datatables.min.css" rel="stylesheet">
 <!-- Chosen -->
 <script src="~/Scripts/plugins/chosen/chosen.jquery.js"></script>
 <!-- Dual Listbox -->
@@ -67,13 +68,17 @@
     .itemtool {
         float: right;
     }
+
     .loading {
-        display:none;
+        display: none;
         position: absolute;
         top: 48%;
-        left:48%;
+        left: 48%;
     }
 
+    #table-div {
+        max-height: 450px;
+    }
 </style>
 
 <div class="row white-bg border-bottom ">
@@ -242,10 +247,11 @@
             <div class="html5buttons"><div class="dt-buttons btn-group"><a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" onclick="tableToExcel('DataTables_Table_0','sheet1','EqpPerformanceReview','dlink'); return false;"><span><img src="~/themes/icons/excel_2007.gif" /></span></a> <a id="dlink" style="display: none;"></a></div></div>
             <p>Query Conditions:{{ Conditions }}</p>
         </div>
+
         <div class="ibox-content">
-            <div class="table-responsive">
+            <div class="table-responsive" id="table-div">
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                    <table class="dataTables-example table  table-bordered table-hover" id="DataTables_Table_0">
+                    <table class="table table-striped table-bordered table-hover dataTables-example" id="DataTables_Table_0">
                         <thead>
                             <tr>
                                 <th rowspan="2" colspan="15">Equipment Performance Review</th>
@@ -260,10 +266,10 @@
                                 <th>Index</th>
                                 <th colspan="3">UPM(%)</th>
                                 <th colspan="3">UUM(%)</th>
-                                <th colspan="3">Passqty(pcs/day)</th>
+                                <th colspan="3">Move(pcs/day)</th>
                                 <th colspan="3">Rework rate(%)</th>
                                 <th colspan="3">Eff.Move(pcs/day)</th>
-                                <th colspan="3">throughput(pcs/hr)</th>
+                                <th colspan="3">Throughput(pcs/hr)</th>
                             </tr>
                             <tr>
                                 <th>EQPTYPE</th>
@@ -288,7 +294,7 @@
                             </tr>
                         </thead>
                         <tbody v-for="item in TbodyEntitiesShow">
-                            <tr style="background-color:lightcyan">
+                            <tr style="background-color:lightcyan" class="gradeA">
                                 <td v-text="item.TotalRow.EqpType"></td>
                                 <td v-text="item.TotalRow.UpmTarget"></td>
                                 <td v-text="item.TotalRow.UpmActual"></td>
@@ -309,7 +315,7 @@
                                 <td v-text="item.TotalRow.ThrActual"></td>
                                 <td v-text="item.TotalRow.ThrDelta"></td>
                             </tr>
-                            <tr v-for="entity in item.RowEntities">
+                            <tr v-for="entity in item.RowEntities" class="gradeX">
                                 <td v-text="entity.EqpType"></td>
                                 <td v-text="entity.UpmTarget"></td>
                                 <td v-text="entity.UpmActual"></td>
@@ -331,7 +337,9 @@
                                 <td v-text="entity.ThrDelta"></td>
                             </tr>
                         </tbody>
+
                     </table>
+
                 </div>
             </div>
         </div>
@@ -343,11 +351,9 @@
         <thead>
             <tr>
                 <th>EqpType</th>
-                <th>UPM(%)</th>
-                <th>UUM(%)</th>
-                <th>Passqty(pcs/day)</th>
-                <th>Rework(%)</th>
-                <th>Eff.Move(pcs/day)</th>
+                <th>UPM(0.xx或xx%)</th>
+                <th>UUM(0.xx或xx%)</th>
+                <th>Rework(0.xx或xx%)</th>
                 <th>Throughput(pcs/hr)</th>
             </tr>
         </thead>
@@ -501,8 +507,6 @@
         }
     });
     $(document).ready(function () {
-    
-
         $('.chosen-select').chosen({ width: "100%" });
 
         $('input[name="radio1"]').change(function () {
@@ -510,7 +514,6 @@
         });
 
         $('#start-date').change(function () {
-            console.log($(this).val());
             DateRange.startValue = $(this).val();
         });
         $('#end-date').change(function () {
@@ -528,6 +531,7 @@
             if ($(this).html() == '提交') {
                 UploadTarget()
             } else {
+                $("#myModal4").modal('hide');  //手动关闭
                 $('.summernote').summernote('reset');
                 $('#submit').html('提交');
             }
@@ -548,7 +552,7 @@
     });
 
     function Query() {
-        $('#circle').css('display','block');
+        $('#circle').css('display', 'block');
         var data = {
             EqpTypes: checkselect("bootstrap-duallistbox-selected-list_"),
             StartDate: $('#start-date').val(),
@@ -596,10 +600,8 @@
                 eqpType: $(row.cells[0]).text(),
                 upm: $(row.cells[1]).text(),
                 uum: $(row.cells[2]).text(),
-                passqty: $(row.cells[3]).text(),
-                rework: $(row.cells[4]).text(),
-                eff: $(row.cells[5]).text(),
-                throughput: $(row.cells[6]).text()
+                rework: $(row.cells[3]).text(),
+                throughput: $(row.cells[4]).text()
             };
             data.push(rowObj);
         }
@@ -609,13 +611,12 @@
     function FormTableView(data) {
         var summernoteText = '';
         for (var i = 0; i < data.length; i++) {
-            summernoteText += '<tr><td>' + data[i].eqpType + '</td><td>' + data[i].upm + '</td><td>' + data[i].uum + '</td><td>' + data[i].passqty + '</td><td>' + data[i].rework + '</td><td>' +
-                data[i].eff + '</td><td>' + data[i].throughput + '</td></tr>';
+            summernoteText += '<tr><td>' + data[i].eqpType + '</td><td>' + data[i].upm + '</td><td>' + data[i].uum + '</td><td>' + data[i].rework + '</td><td>' +
+                data[i].throughput + '</td></tr>';
         }
         summernoteText = '<table style="border:1px">' + summernoteText + '</table>';
         return summernoteText;
     }
-
 
     function initListBox(url, reqeustParams, selectElement, optionValue, optionText, selectedDataStr) {
         $.ajax({

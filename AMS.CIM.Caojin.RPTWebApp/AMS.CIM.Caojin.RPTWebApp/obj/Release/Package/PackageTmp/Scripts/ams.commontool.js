@@ -152,6 +152,26 @@ function today(){
     return h+"-"+m+"-"+d; //返回 年-月-日
 }
 
+function fixDatePickerValue(someDate) {
+    var h = someDate.getFullYear();//获取年
+    var m = someDate.getMonth() + 1;//获取月
+    var d = someDate.getDate();//获取日
+    m = m < 10 ? '0' + m : m;
+    d = d < 10 ? '0' + d : d;
+    return h + "-" + m + "-" + d; //返回 年-月-日
+}
+
+function fixCommonDateTimeValue(someDate) {
+    var date = fixDatePickerValue(someDate);
+    var H = someDate.getHours();
+    var M = someDate.getMinutes();
+    var S = someDate.getSeconds();
+    H = H < 10 ? '0' + H : H;
+    M = M < 10 ? '0' + M : M;
+    S = S < 10 ? '0' + S : S;
+    return date + " "+H+":"+M+":"+S;
+}
+
 //获取某日是每年的第几周
 function getWeekOfYear(someDay) {
     var firstDay = new Date(someDay.getFullYear(), 0, 1);
@@ -183,7 +203,16 @@ function currentTime(){
     M=M<10?'0'+M:M;
     return H+":"+M;//返回时:分:秒
 }
-
+function currentTimeToSecond() {
+    var today = new Date();//new 出当前时间
+    var H = today.getHours();//获取时
+    var M = today.getMinutes();//获取分
+    var S = today.getSeconds();
+    H = H < 10 ? '0' + H : H;
+    M = M < 10 ? '0' + M : M;
+    S = S < 10 ? '0' + S : S;
+    return H + ":" + M+':'+S;//返回时:分:秒
+}
 //日期加减
 function addDate(date, days) {
     var d = new Date(date);

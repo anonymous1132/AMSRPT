@@ -54,14 +54,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AMS.CIM.Caojin.RPTLibrary.dll" size="101888">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AMS.CIM.Caojin.RPTLibrary.dll" size="107520">
       <assemblyIdentity name="AMS.CIM.Caojin.RPTLibrary" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>VqU7mPnz+6nmHD1dNmWdE9vuupD76adIBytZyQlgeag=</dsig:DigestValue>
+        <dsig:DigestValue>BngvPf+2hpRL4Y6v1YfDxdsdwrxLwislYXy3AEaRYuU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

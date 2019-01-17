@@ -36,7 +36,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
             {
                 //交集
                 var list_eqpType_update = list_eqpType.Intersect(list_eqpType_db.Select(s => s.EQP_TYPE));
-                var updateSql = list_eqpType_update.Select(s => PostModel.Where(w => w.eqpType == s).FirstOrDefault()).Select(s => string.Format("update ISTRPT.RPT_EQP_PERFM_TARGET set upm_target={0},uum_target={1},passqty_target={2},rework_target={3},eff_target={4},wph={5} where eqp_type='{6}'", s.upm, s.uum, s.passqty, s.rework, s.eff, s.throughput, s.eqpType));
+                var updateSql = list_eqpType_update.Select(s => PostModel.Where(w => w.eqpType == s).FirstOrDefault()).Select(s=>new { s.eqpType,  rework= FixStringToDouble(s.rework),wph=FixStringToDouble(s.throughput),upm=FixStringToDouble(s.upm) ,  uum=FixStringToDouble(s.uum) }).Select(s => string.Format("update ISTRPT.RPT_EQP_PERFM_TARGET set upm_target={0},uum_target={1},passqty_target={2},rework_target={3},eff_target={4},wph={5} where eqp_type='{6}'", s.upm, s.uum, (s.upm * s.uum * 24 * s.wph).ToString("f0"), s.rework, (s.upm * s.uum * 24 * s.wph*(1-s.rework)).ToString("f0"), s.wph, s.eqpType));
 
                 //差集
                 var list_eqpType_insert = list_eqpType.Except(list_eqpType_db.Select(s => s.EQP_TYPE));
@@ -84,11 +84,11 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                 var model = PostModel.Where(w => w.eqpType == item).First();
                 double upm = FixStringToDouble(model.upm);
                 double uum = FixStringToDouble(model.uum);
-                double passqty = double.Parse(model.passqty);
                 double rework = FixStringToDouble(model.rework);
-                double eff = double.Parse(model.eff);
                 double wph = FixStringToDouble(model.throughput);
-                TargetPusher.entities.EntityList.Add(new RPT_EQP_PERFM_TARGET() { Eqp_Type = item, Uum_Target = uum, Upm_Target = upm, PassQty_Target = passqty, Eff_Target = eff, Rework_Target = rework, Wph = wph });
+                double passqty =upm * uum * 24 *wph;
+                double eff =passqty  * (1 - rework);
+                TargetPusher.entities.EntityList.Add(new RPT_EQP_PERFM_TARGET() { Eqp_Type = item, Uum_Target = uum, Upm_Target = upm, PassQty_Target =Math.Round (passqty,0), Eff_Target =Math.Round(eff,0), Rework_Target = rework, Wph = wph });
                 TargetPusher.PushEntities();
             }
         }

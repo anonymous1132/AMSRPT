@@ -53,3 +53,8 @@ D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\obj\Debug\Test
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\obj\Debug\TestProject.pdb
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\log4net.dll
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\log4net.xml
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\App\cycleTimeRunningConfig.json
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\App\db2Config.json
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\Newtonsoft.Json.dll
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\Newtonsoft.Json.pdb
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\Newtonsoft.Json.xml
