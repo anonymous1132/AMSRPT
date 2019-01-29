@@ -82,7 +82,6 @@ WHEN NOT MATCHED THEN
      U.PD_TYPE, U.FLOW_TYPE, U.STAGE_ID, '', '', '', '', 'New', CURRENT TIMESTAMP) ;";
         #endregion
 
-
         #region DB About
         private DB2Oper Db2 { get; set; }
 
@@ -99,8 +98,6 @@ WHEN NOT MATCHED THEN
         private DB2OperDataCatcher<RPT_FLOW_SUM_EQPT_LR_MAPPING> EQPType_LRCatcher { get; set; }
 
         #endregion
-
-
 
         //MainLogic
         private void Initialize()

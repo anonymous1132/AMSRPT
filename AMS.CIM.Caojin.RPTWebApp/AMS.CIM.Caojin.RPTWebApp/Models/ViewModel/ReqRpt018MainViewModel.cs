@@ -27,6 +27,11 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
         public List<string> EqpID
         { get; set; }
 
+
+        private double ClickCount { get; set; } = 0;
+        public string StrClickCount { get { return ClickCount.ToString("0"); } }
+        private string ReqID = "RPT000018";
+        private DB2DataCatcher<RPTFuncUsage> CountCatcher { get; set; } = new DB2DataCatcher<RPTFuncUsage>("ISTRPT.RPTFuncUsage");
         private void GetData()
         {
             Modules = db.EQPType_Department_Mapping.Select(s => s.Department).Distinct().ToList();
@@ -37,6 +42,13 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
             EqpID = db.EQP_UPm_018.Select(s => s.EqpID).Distinct().ToList();
             EqpID.Sort();
+
+            CountCatcher.Conditions = string.Format("where privilegeid ='{0}'",ReqID);
+            var list= CountCatcher.GetEntities().EntityList;
+            if (list.Any()) {
+                ClickCount = list.First().Usage_Counter;
+            }
+            
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Web.Routing;
 using AMS.CIM.Caojin.RPTWebApp.Models;
 using System.Threading;
 using System.Web.Caching;
+using Microsoft.Office.Interop.Excel;
 
 namespace AMS.CIM.Caojin.RPTWebApp
 {
@@ -20,8 +21,5 @@ namespace AMS.CIM.Caojin.RPTWebApp
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
-
-
-
     }
 }

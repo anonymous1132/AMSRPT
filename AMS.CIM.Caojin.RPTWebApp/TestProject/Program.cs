@@ -13,7 +13,7 @@ namespace TestProject
         {
             //ReqRpt025Translator reqRpt025Translator = new ReqRpt025Translator();
             //Console.WriteLine("over");
-            TestCTFlow.TestCT();
+           // TestCTFlow.TestCT();
             Console.ReadLine();
         }
 

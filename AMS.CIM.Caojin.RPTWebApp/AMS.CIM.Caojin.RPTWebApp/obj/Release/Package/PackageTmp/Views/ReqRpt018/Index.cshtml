@@ -1,0 +1,877 @@
+﻿
+@{
+    ViewBag.Title = "EQP UPm UUm Report";
+    Layout = "~/Views/Shared/_LayoutRptBootStrap.cshtml";
+}
+
+
+
+<link href="~/Content/animate.css" rel="stylesheet">
+<link href="~/Content/style.css" rel="stylesheet">
+
+<link href="~/Content/plugins/dataTables/datatables.min.css" rel="stylesheet">
+
+<script src="~/Scripts/ams.commontool.js"></script>
+<script src="~/Scripts/demo/upm.js"></script>
+<script src="~/Scripts/vue.min.js"></script>
+
+<style>
+    .wrap-div * {
+        width: 100%;
+    }
+
+    .top {
+        font-size: small;
+    }
+
+        .top select {
+            width: 110px;
+        }
+
+        .top button {
+            width: 70px;
+        }
+
+
+    .radio label {
+        min-width: 150px;
+    }
+
+
+    .multi-select {
+        max-width: 300px;
+    }
+
+
+    .loading {
+        display:none;
+        position: fixed;
+        z-index: 100;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+    }
+
+    #table-div {
+        max-height: 450px;
+    }
+
+    .btn-div button {
+        width: 120px;
+        margin-top: 20px;
+    }
+
+    .row .inline {
+        display: inline-block;
+        margin-left: 20px;
+        vertical-align: top
+    }
+
+    .group-chart-div {
+        margin-top: 10px;
+        margin-bottom: 0px;
+    }
+
+        .group-chart-div .inline {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+    .pr-div {
+        background-color: green;
+        color: white;
+        vertical-align: middle;
+        text-align: center;
+        height: 20px;
+        width: 55px;
+    }
+
+    .sb-div {
+        background-color: yellow;
+        color: black;
+        vertical-align: middle;
+        text-align: center;
+        height: 20px;
+        width: 55px;
+    }
+
+    .en-div {
+        background-color: blue;
+        color: white;
+        vertical-align: middle;
+        text-align: center;
+        height: 20px;
+        width: 55px;
+    }
+
+    .sd-div {
+        background-color: pink;
+        color: black;
+        vertical-align: middle;
+        text-align: center;
+        height: 20px;
+        width: 55px;
+    }
+
+    .ud-div {
+        background-color: red;
+        color: white;
+        vertical-align: middle;
+        text-align: center;
+        height: 20px;
+        width: 55px;
+    }
+
+    .ns-div {
+        background-color: lightgray;
+        color: black;
+        vertical-align: middle;
+        text-align: center;
+        height: 20px;
+        width: 55px;
+    }
+
+    .pm-div {
+        background-color: brown;
+        color: white;
+        vertical-align: middle;
+        text-align: center;
+        height: 20px;
+        width: 55px;
+    }
+
+    .pt-div {
+        background-color: purple;
+        color: white;
+        vertical-align: middle;
+        text-align: center;
+        height: 20px;
+        width: 55px;
+    }
+
+    .up-div {
+        background-color: skyblue;
+        color: black;
+        vertical-align: middle;
+        text-align: center;
+        height: 20px;
+        width: 55px;
+    }
+
+    .chart-wrapper {
+        width:100%;
+        text-align:center;
+        vertical-align:middle;
+        overflow:auto;
+        display:inline-block;
+    }
+
+    .chart-div {
+        /*width: 48%;
+        overflow:auto;*/
+        height: 550px;
+        text-align: center;
+        display: inline-block;
+        margin-top: 20px;
+    }
+
+        .chart-div title-div {
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            height: 30px;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 15px;
+        }
+</style>
+
+<header class="row white-bg border-bottom">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>查询条件</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+
+                    <div class="inline">
+                        <div class="wrap-div">
+                            <label>Module</label>
+                            <br />
+                            <select name="ModuleSelect" id="module_select">
+                                @foreach (string str in ViewBag.Modules)
+                                {
+                                    <option value="@str">@str</option>
+                                }
+                            </select>
+                        </div>
+                        <br />
+                        <div id="eqptypeDiv" class="wrap-div">
+                            <label>EQPType</label>
+                            <br />
+                            <select name="EQPTypeSelect" id="eqptype_select">
+                                @foreach (string str in ViewBag.EqpTypes)
+                                {
+                                    <option value="@str">@str</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="inline" style="white-space:nowrap">
+
+                        <div class="top" id="AvailableEqpIDDiv" style="display:inline-block;vertical-align:middle">
+                            <label>Available EqpID</label>
+                            <br />
+                            <select name="EqpIDSelect" id="eqpid_select" multiple style="height:120px">
+                                @foreach (string str in ViewBag.EqpID)
+                                {
+                                    <option>@str</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="top" style="display:inline-block;vertical-align:middle;">
+                            <div class="wrap-div" style="margin-top:10px;">
+                                <button onclick="moveAll()">>></button>
+                            </div>
+                            <div class="wrap-div" style="margin-top:20px">
+                                <button onclick="moveAllLeft()"><<</button>
+                            </div>
+                        </div>
+
+                        <div class="top" style="display:inline-block;vertical-align:middle">
+                            <label>Selected EqpID</label>
+                            <br />
+                            <select name="SelectedEqpIDSelect" id="selectedeqpid_select" multiple style="height:120px"></select>
+                        </div>
+
+                    </div>
+
+                    <div class="top inline">
+                        <label></label><br />
+                        <form class="DateClass">
+                            <label class="single"><input type="radio" name="radioDateCategory" id="radio_date" value="date" checked /> by Date </label> <br />
+                            <label class="single"><input type="radio" name="radioDateCategory" id="radio_week" value="week" /> by Week </label><br />
+                            <label class="single"><input type="radio" name="radioDateCategory" id="radio_month" value="month" /> by Month </label> <br />
+                            <label class="single"><input type="radio" name="radioDateCategory" id="radio_frame" value="frame" /> by Frame  </label>
+                        </form>
+                    </div>
+                    <div class="top inline">
+                        <label></label>
+                        <form class="DateClass">
+                            <div>
+                                <div style="display:inline-block">
+                                    <input type="radio" name="radioDateValue" value="range" id="radio_range" checked="checked" />
+                                </div>
+                                <div style="display:inline-block">
+                                    From<br />
+                                    <input type="date" id="datepicker_from" min="2018-04-07" />
+                                </div>
+                                <div style="display:inline-block">
+                                    To  <br />
+                                    <input type="date" id="datepicker_to" />
+                                </div>
+                            </div>
+                            <br />
+                            <div>
+                                <div style="display:inline-block">
+                                    <input type="radio" name="radioDateValue" value="frame" id="radio_frame_value" />
+                                </div>
+                                <div style="display:inline-block">
+                                    TimeFrame<br />
+                                    <select name="TimeFrameSelect" id="time_frame_select">
+                                        <option value="date">Date</option>
+                                        <option value="week">Week</option>
+                                        <option value="month">Month</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="inline">
+                        <label></label>
+                        <div class="btn-div wrap-div">
+                            <button id="query" onclick="query()">Query</button>
+                        </div>
+                        <div class="btn-div wrap-div">
+                            <button id="button" data-toggle="modal" data-target="#myModal">Formula Def.</button>
+                        </div>
+                    </div>
+
+                    <div class="inline col-sm-3" style="float:right">
+                        <br /><p style="font-weight:200"><small>开发者：曹晋（0279）<br />需求者：蔡郁达（0093）</small></p>
+                        <p style="font-weight:200"><small>Click Count:<span>@ViewBag.ClickCount</span></small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="col-lg-12">
+    <div class="ibox float-e-margins" id="table-view" v-bind:style="{display:display}">
+        <div class="ibox-title">
+            <div class="html5buttons"><div class="dt-buttons btn-group"><a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" onclick="tableToExcel('DataTables_Table_0','sheet1','EqpPerformanceReview','dlink'); return false;"><span><img src="~/themes/icons/excel_2007.gif" /></span></a> <a id="dlink" style="display: none;"></a></div></div>
+            <p>Query Conditions:{{ Conditions }}</p>
+        </div>
+
+        <div class="ibox-content">
+            <div class="table-responsive" id="table-div">
+                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                    <table class="table table-striped table-bordered table-hover dataTables-example" id="DataTables_Table_0">
+                        <caption>OEE  EQP UPm UUm Report</caption>
+                        <thead>
+                            <tr>
+                                <th rowspan="2">EQPID</th>
+                                <template v-for="item in Dates">
+                                    <th colspan="4" v-text="item"></th>
+                                </template>
+                            </tr>
+                            <tr>
+                                <template v-for="item in Dates">
+                                    <th>UPm(%)</th>
+                                    <th>UUm(%)</th>
+                                    <th>SD(%)</th>
+                                    <th>UD(%)</th>
+                                </template>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in Entities">
+                                <td><input type="radio" name="tableRadio" :id="item.EqpID" :value="item.EqpID" v-model="chart2SelectedEqpID" /><label :for="item.EqpID" v-text="item.EqpID"></label></td>
+                                <template v-for="data in item.Datas">
+                                    <td v-text="data.strUPm"></td>
+                                    <td v-text="data.strUUm"></td>
+                                    <td v-text="data.strSD"></td>
+                                    <td v-text="data.strUD"></td>
+                                </template>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+            <div class="chart-div">
+                <div class="title-div row">
+                    <input type="button" class="inline" v-bind:disabled="preDisplay" value="<" onclick="preButtonClick()" />
+                    <label class="inline" v-text="title"></label>
+                    <input type="button" class="inline" v-bind:disabled="nextDisplay" value=">" onclick="nextButtonClick()" />
+                </div>
+                <div class="group-chart-div">
+                    <div class="inline pr-div"><input type="checkbox" id="check-pr" value="pr" v-model="hasPR" /><label for="check-pr">PR</label></div>
+                    <div class="inline sb-div"><input type="checkbox" id="check-sb" value="sb" v-model="hasSB" /><label for="check-sb">SB</label></div>
+                    <div class="inline en-div"><input type="checkbox" id="check-en" value="en" v-model="hasEN" /><label for="check-en">EN</label></div>
+                    <div class="inline sd-div"><input type="checkbox" id="check-sd" value="sd" v-model="hasSD" /><label for="check-sd">SD</label></div>
+                    <div class="inline ud-div"><input type="checkbox" id="check-ud" value="ud" v-model="hasUD" /><label for="check-ud">UD</label></div>
+                    <div class="inline ns-div"><input type="checkbox" id="check-ns" value="ns" v-model="hasNS" /><label for="check-ns">NS</label></div>
+                    <button onclick="chartDownload()">Download Chart</button>
+                </div>
+                <canvas id="canvas0"></canvas>
+            </div>
+
+            <div class="chart-div" v-bind:style="{display:displayChart2}">
+                <div class="title-div">
+                    <label class="inline" v-text="chart2SelectedEqpID"></label>
+                </div>
+                <div class="group-chart-div">
+                    <button onclick="chart1Download()">Download Chart</button>
+                </div>
+                <canvas id="canvas1"></canvas>
+            </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="ibox float-e-margins" id="table-view-1" v-bind:style="{display:display}">
+        <div class="ibox-title">
+            <div class="html5buttons"><div class="dt-buttons btn-group"><a class="btn btn-default buttons-excel buttons-html5" tabindex="1" aria-controls="DataTables_Table_1" href="#" onclick="tableToExcel('DataTables_Table_1','sheet1','EqpPerformanceReview.xls','dlink'); return false;"><span><img src="~/themes/icons/excel_2007.gif" /></span></a> <a id="dlink1" style="display: none;"></a></div></div>
+        </div>
+
+        <div class="ibox-content">
+            <div class="table-responsive" id="table-div-1">
+                <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                    <table class="table table-striped table-bordered table-hover dataTables-example" id="DataTables_Table_1">
+                        <caption>Detail EQ Status</caption>
+                        <thead>
+                            <tr>
+                                <th rowspan="2">EQP_ID</th>
+                                <template v-for="item in Dates">
+                                    <th colspan="12" v-text="item"></th>
+                                </template>
+                            </tr>
+                            <tr>
+                                <template v-for="item in Dates">
+                                    <th>PRD(Hrs)</th>
+                                    <th>SBY(Hrs)</th>
+                                    <th>ENG(Hrs)</th>
+                                    <th>SDT(Hrs)</th>
+                                    <th>UDT(Hrs)</th>
+                                    <th>NST(Hrs)</th>
+                                    <th>Total(Hrs)</th>
+                                    <th>UPm(%)</th>
+                                    <th>UUm(%)</th>
+                                    <th>UP(Hrs)</th>
+                                    <th>PRD Test(Hrs)</th>
+                                    <th>PM(Hrs)</th>
+                                </template>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in Entities">
+                                <td v-text="item.EqpID"></td>
+                                <template v-for="data in item.Datas">
+                                    <td v-text="data.strPRDHour"></td>
+                                    <td v-text="data.strSBYHour"></td>
+                                    <td v-text="data.strENGHour"></td>
+                                    <td v-text="data.strSDTHour"></td>
+                                    <td v-text="data.strUDTHour"></td>
+                                    <td v-text="data.strNSTHour"></td>
+                                    <td v-text="data.strTotalHour"></td>
+                                    <td v-text="data.strUPm"></td>
+                                    <td v-text="data.strUUm"></td>
+                                    <td v-text="data.strUPHour"></td>
+                                    <td v-text="data.strPRDTestHour"></td>
+                                    <td v-text="data.strPMHour"></td>
+                                </template>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Formula Def.</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <ul>
+                        <li>UPm (%)＝（PRD+SBY）/SUM(PRD+SBY+ENG+SDT+UDT)</li>
+                        <li>UUm (%)＝PRD/SUM(PRD+SBY)</li>
+                        <li>SD%＝SDT/SUM(PRD+SBY+ENG+SDT+UDT) * 100%</li>
+                        <li>UD%＝ UDT/SUM(PRD+SBY+ENG+SDT+UDT) * 100%</li>
+                        <li>UP(Hrs)=PRD (Hrs)+SBY (Hrs)+ENG (Hrs)</li>
+                        <li>PRDTest(Hrs)=Sub Status:4600(Production test)</li>
+                        <li>PM(Hrs)=Sub Status:4100(Normal PM) +4110(Normal PM over time ) +4300(SD Qualification) +4310(PM Qualification wait module release)</li>
+                    </ul>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="loading" id="circle">
+    <div class="sk-spinner sk-spinner-circle">
+        <div class="sk-circle1 sk-circle"></div>
+        <div class="sk-circle2 sk-circle"></div>
+        <div class="sk-circle3 sk-circle"></div>
+        <div class="sk-circle4 sk-circle"></div>
+        <div class="sk-circle5 sk-circle"></div>
+        <div class="sk-circle6 sk-circle"></div>
+        <div class="sk-circle7 sk-circle"></div>
+        <div class="sk-circle8 sk-circle"></div>
+        <div class="sk-circle9 sk-circle"></div>
+        <div class="sk-circle10 sk-circle"></div>
+        <div class="sk-circle11 sk-circle"></div>
+        <div class="sk-circle12 sk-circle"></div>
+    </div>
+</div>
+
+<a id="download" hidden>下载</a>
+
+<script type="text/javascript">
+
+    var tableView = new Vue({
+        el: '#table-view',
+        data: {
+            Conditions: '',
+            Dates: [],
+            Entities: [],
+            hasPR: true,
+            hasSB: true,
+            hasEN: true,
+            hasSD: true,
+            hasUD: true,
+            hasNS: true,
+            index: 0,
+            chart2SelectedEqpID: "",
+            AjaxedEqpIDArray: []
+        },
+        computed: {
+            display: function () {
+                return this.Conditions ? 'block' : 'none';
+            },
+            title: function () {
+                var c = this.Dates.length;
+                return c ? this.Dates[this.index] : "";
+            },
+            len: function () { return this.Dates.length },
+            chartData: {
+                get: function () {
+                    var len = this.Entities.length;
+                    if (!len) return undefined;
+                    var entities = [];
+                    for (var i = 0; i < len; i++) {
+                        var item = this.Entities[i];
+                        var PR = item.Datas[0].PRDHour / item.Datas[0].TotalHour;
+                        var SB = item.Datas[0].SBYHour / item.Datas[0].TotalHour;
+                        var EN = item.Datas[0].ENGHour / item.Datas[0].TotalHour;
+                        var SD = item.Datas[0].SDTHour / item.Datas[0].TotalHour;
+                        var UD = item.Datas[0].UDTHour / item.Datas[0].TotalHour;
+                        var NS = item.Datas[0].NSTHour / item.Datas[0].TotalHour;
+                        var UP = item.Datas[0].UPm;
+                        var UU = item.Datas[0].UUm;
+                        var EqpID = item.EqpID;
+                        entities.push({ EqpID, PR, SB, EN, SD, UD, NS, UP, UU });
+                    }
+                    return { hasPR: this.hasPR, hasSB: this.hasSB, hasEN: this.hasEN, hasSD: this.hasSD, hasUD: this.hasUD, hasNS: this.hasNS, Entities: entities };
+                },
+                set: function (svalue) {
+                    if (!svalue) return;
+                    drawChart(document.getElementById("canvas0"), svalue);
+                }
+            },
+            chartIndex: {
+                get: function () {
+                    return this.index;
+                },
+                set: function (svalue) {
+                    if (!this.len) return;
+                    if (svalue >= this.len || svalue < 0) return;
+                    var entities = [];
+                    console.log(svalue);
+                    for (var i = 0; i < this.Entities.length; i++) {
+                        var item = this.Entities[i];
+                        var PR = item.Datas[svalue].PRDHour / item.Datas[svalue].TotalHour;
+                        var SB = item.Datas[svalue].SBYHour / item.Datas[svalue].TotalHour;
+                        var EN = item.Datas[svalue].ENGHour / item.Datas[svalue].TotalHour;
+                        var SD = item.Datas[svalue].SDTHour / item.Datas[svalue].TotalHour;
+                        var UD = item.Datas[svalue].UDTHour / item.Datas[svalue].TotalHour;
+                        var NS = item.Datas[svalue].NSTHour / item.Datas[svalue].TotalHour;
+                        var UP = item.Datas[svalue].UPm;
+                        var UU = item.Datas[svalue].UUm;
+                        var EqpID = item.EqpID;
+                        entities.push({ EqpID, PR, SB, EN, SD, UD, NS, UP, UU });
+                    }
+                    this.chartData = { hasPR: this.hasPR, hasSB: this.hasSB, hasEN: this.hasEN, hasSD: this.hasSD, hasUD: this.hasUD, hasNS: this.hasNS, Entities: entities };
+                    this.index = svalue;
+                }
+            },
+            preDisplay: function () { return this.index == 0 },
+            nextDisplay: function () { return this.index == this.len - 1 },
+            chart2Data: {
+                get: function () {
+                    var data = this.AjaxedEqpIDArray.find((item) => (item.EqpID == this.chart2SelectedEqpID));
+                    var entity = this.Entities.find((item) => (item.EqpID == this.chart2SelectedEqpID));
+                    var res = [];
+                    for (var i = 0; i < entity.Datas.length; i++) {
+                        res.push({ Date: entity.Datas[i].Date, SD: entity.Datas[i].SD, UD: entity.Datas[i].UD, EN: entity.Datas[i].ENGHour / entity.Datas[i].TotalHour, UPm: entity.Datas[i].UPm, UUm: entity.Datas[i].UUm });
+                    }
+                    for (var i = 0; i < data.Datas.length; i++) {
+                        res.push(data.Datas[i]);
+                    }
+                    return res;
+                },
+                set: function (svalue) {
+                    if (!svalue) return;
+                    drawMonthlyChart(document.getElementById("canvas1"), svalue);
+                }
+            },
+            displayChart2: function () {
+                return this.chart2SelectedEqpID ? 'inline-block' : 'none';
+            }
+        },
+        watch: {
+            hasPR() {
+                this.chartIndex = this.index;
+            },
+            hasSB() {
+                this.chartIndex = this.index;
+            },
+            hasEN() {
+                this.chartIndex = this.index;
+            },
+            hasSD() {
+                this.chartIndex = this.index;
+            },
+            hasUD() {
+                this.chartIndex = this.index;
+            },
+            hasNS() {
+                this.chartIndex = this.index;
+            },
+            chart2SelectedEqpID(val) {
+                var entity = this.AjaxedEqpIDArray.find((item) => (item.EqpID == val));
+                if (!entity) {
+                    var url = "GetMonthlyRptData";
+                    var data = { EqpID: val };
+                    PostAjaxGetJson(data, url, function (responsData) {
+                        tableView.AjaxedEqpIDArray.push({ EqpID: val, Datas: responsData });
+                        drawMonthlyChart(document.getElementById("canvas1"), tableView.chart2Data);
+                    }, function () { });
+                } else {
+                    drawMonthlyChart(document.getElementById("canvas1"), tableView.chart2Data);
+                }
+            }
+        }
+    });
+
+    var tableView1 = new Vue({
+        el: '#table-view-1',
+        data: {
+            Conditions: '',
+            Dates: [],
+            Entities: []
+        },
+        computed: {
+            display: function () {
+                return this.Conditions ? 'block' : 'none';
+            },
+        }
+
+    });
+
+    //移动所有的到右边
+    function moveAll() {
+        //得到第一个select对象
+        var selectElement = document.getElementById("eqpid_select");
+        var optionElements = selectElement.getElementsByTagName("option");
+        var len = optionElements.length;
+        //alert(len);
+
+        //将第一个selected中的数组翻转
+        var firstOption = new Array();
+        for (var k = len - 1; k >= 0; k--) {
+            firstOption.push(optionElements[k]);
+
+        }
+        var lens = firstOption.length;
+        //得到第二个select对象
+        var selectElement2 = document.getElementById("selectedeqpid_select");
+        for (var j = lens - 1; j >= 0; j--) {
+            selectElement2.appendChild(firstOption[j]);
+        }
+    }
+
+    //全部向左移
+    function moveAllLeft() {
+        var selectElement = document.getElementById("selectedeqpid_select");
+        var optionElements = selectElement.getElementsByTagName("option");
+        var len = optionElements.length;
+
+        var optionEls = new Array();
+        for (var i = len - 1; i >= 0; i--) {
+            optionEls.push(optionElements[i]);
+        }
+        var lens = optionEls.length;
+
+        var firstSelectElement = document.getElementById("eqpid_select");
+        for (var j = lens - 1; j >= 0; j--) {
+            firstSelectElement.appendChild(optionEls[j]);
+        }
+    }
+
+    //定义获取表单数据的函数,注意返回json对象
+    function formData() {
+        return {
+            selectedeqpid: checkselect("selectedeqpid_select"),
+            type: $("input[name='radioDateCategory']:checked").val(),
+            from: $("#datepicker_from").val(),
+            to: $("#datepicker_to").val(),
+            eqptype: checkselectoption("eqptype_select"),
+            frame: $("#time_frame_select").val(),
+        };
+    }
+
+    //定义注册功能的函数
+    function query() {
+        var url = "GetTableByAllConditions";
+        var data = formData();
+        var check = checkDate(data);
+        if (check != true) { alert(check); return; }
+        $('#circle').css('display', 'block');
+        PostAjaxGetJson(data, url, function (responseData) {
+            tableView.Dates = responseData.Dates;
+            tableView1.Dates = responseData.Dates;
+            tableView.Entities = responseData.entities;
+            tableView1.Entities = responseData.entities;
+            tableView.Conditions = responseData.querycontent;
+            tableView1.Conditions = responseData.querycontent;
+            drawChart(document.getElementById("canvas0"), tableView.chartData);
+            tableView.chart2SelectedEqpID = "";
+            $('#circle').css('display', 'none');
+        }, function () {
+            $('#circle').css('display', 'none');
+        });
+    }
+
+    function checkDate(data) {
+        var msg = "";
+        if (!data.selectedeqpid) { msg = "请选择至少一个EqpID"; return msg; }
+        if (data.type == "frame")
+            return true;
+        if (!(data.from && data.to)) { msg = "请选择时间范围"; return msg; }
+        return true;
+    }
+
+    function preButtonClick() {
+        tableView.chartIndex--;
+    }
+
+    function nextButtonClick() {
+        tableView.chartIndex++;
+    }
+
+    function chartDownload() {
+        var url = "GetChart1Excel";
+        var data = { Date: tableView.title, Entities: tableView.chartData.Entities };
+        $('#circle').css('display', 'block');
+        PostAjaxGetJson(data, url, function (responseData) {
+            if (responseData.success) {
+                console.log("FileName:"+responseData.fileName);
+                var download = document.getElementById('download');
+                download.href = '../Common/GetFile?fileName=' + responseData.fileName;
+                download.download = responseData.fileName;
+                download.click();
+            } else { console.log(responseData.error); }
+            $('#circle').css('display', 'none');
+        }, function () { $('#circle').css('display', 'none'); });
+    }
+
+    function chart1Download() {
+        var url = "GetChart2Excel";
+        var data = { EqpID: tableView.chart2SelectedEqpID, Entities: tableView.chart2Data };
+        $('#circle').css('display', 'block');
+        PostAjaxGetJson(data, url, function (responseData) {
+            if (responseData.success) {
+                console.log("FileName:"+responseData.fileName);
+                var download = document.getElementById('download');
+                download.href = '../Common/GetFile?fileName=' + responseData.fileName;
+                download.download = responseData.fileName;
+                download.click();
+            } else { console.log(responseData.error); }
+            $('#circle').css('display', 'none');
+        }, function () { $('#circle').css('display', 'none'); });
+    }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function EqpTypeSelected() {
+            var type = $("#eqptype_select option:selected").val();
+            var module = $("#module_select option:selected").val();
+            $.ajax({
+                url: "GetSelectListByEqpType",
+                dataType: "html",
+                data: { 'eqpType': type, 'module': module },
+                type: "POST",
+                success: function (data) {
+                    moveAllLeft();
+                    $("#eqpid_select").html(data);
+                },
+
+                error: function (e) {
+
+                }
+            });
+        }
+        //双击左边选项
+        $('#eqpid_select').dblclick(function () {
+            var toId = "selectedeqpid_select";
+            var fromId = "eqpid_select";
+            MoveItem(fromId, toId);
+        });
+        //双击右边选项
+        $('#selectedeqpid_select').dblclick(function () {
+            var fromId = "selectedeqpid_select";
+            var toId = "eqpid_select";
+            MoveItem(fromId, toId);
+        });
+        $("#radio_date").click(function () {
+            $("#radio_range").prop("checked", "true");
+            $("#datepicker_from").get(0).setAttribute("type", "date");
+            $("#datepicker_to").get(0).setAttribute("type", "date");
+        });
+        $("#radio_week").click(function () {
+            $("#radio_range").prop("checked", "true");
+            $("#datepicker_from").get(0).setAttribute("type", "week");
+            $("#datepicker_to").get(0).setAttribute("type", "week");
+        });
+        $("#radio_month").click(function () {
+            $("#radio_range").prop("checked", "true");
+            $("#datepicker_from").get(0).setAttribute("type", "month");
+            $("#datepicker_to").get(0).setAttribute("type", "month");
+        });
+        $("#radio_frame").click(function () {
+            $("#radio_frame_value").prop("checked", "true");
+        });
+        $("#radio_frame_value").click(function () {
+            $("#radio_frame").prop("checked", "true");
+        });
+        $("#radio_range").click(function () {
+            $("#radio_date").prop("checked", "true");
+            $("#datepicker_from").get(0).setAttribute("type", "date");
+            $("#datepicker_to").get(0).setAttribute("type", "date");
+        });
+
+        $("#module_select").change(function () {
+            var module = $("#module_select option:selected").val();
+            $.ajax({
+                url: "GetSelectListByModule",
+                dataType: "html",
+                data: { 'module': module },
+                type: "POST",
+                success: function (data) {
+                    $("#eqptype_select").html(data);
+                    EqpTypeSelected();
+                },
+                error: function (e) {
+                }
+            });
+        });
+
+        $("#eqptype_select").change(function () {
+
+            var type = $("#eqptype_select option:selected").val();
+            var module = $("#module_select option:selected").val();
+            $.ajax({
+                url: "GetSelectListByEqpType",
+                dataType: "html",
+                data: { 'eqpType': type, 'module': module },
+                type: "POST",
+                success: function (data) {
+                    moveAllLeft();
+                    $("#eqpid_select").html(data);
+                },
+
+                error: function (e) {
+
+                }
+            });
+        });
+
+
+    });
+</script>
+
+

@@ -23,3 +23,8 @@ D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTDataUpda
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTDataUpdateService\bin\Debug\AMS.CIM.Caojin.RPTDataUpdateService.application
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTDataUpdateService\obj\Debug\AMS.CIM.Caojin.RPTDataUpdateService.exe.manifest
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTDataUpdateService\obj\Debug\AMS.CIM.Caojin.RPTDataUpdateService.application
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTDataUpdateService\bin\Debug\App\cycleTimeRunningConfig.json
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTDataUpdateService\bin\Debug\App\db2Config.json
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTDataUpdateService\bin\Debug\Newtonsoft.Json.dll
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTDataUpdateService\bin\Debug\Newtonsoft.Json.pdb
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTDataUpdateService\bin\Debug\Newtonsoft.Json.xml

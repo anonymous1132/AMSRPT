@@ -1,0 +1,50 @@
+﻿#query-pannel {
+width:100%;
+}
+
+    #query-pannel .btn-primary {
+        width: 120px;
+        margin-top:20px;
+    }
+
+.bootstrap-duallistbox-container label {
+    font-weight: 400;
+    font-size: 13px;
+    font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.info-container {
+    display: none;
+}
+
+.multi-select {
+    max-width: 300px;
+}
+
+.itemtool {
+    float: right;
+}
+
+.loading {
+    display: none;
+    position: absolute;
+    top: 48%;
+    left: 48%;
+}
+
+.show-later {
+    display: none;
+}
+
+.inline {
+    display:inline-block;
+}
+
+
+#fot-info {
+    float:right;
+}
+
+    #fot-info p {
+    font-weight:200;
+    }

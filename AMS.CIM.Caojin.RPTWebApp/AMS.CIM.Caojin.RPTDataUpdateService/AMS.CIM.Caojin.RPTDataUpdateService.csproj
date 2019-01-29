@@ -96,6 +96,7 @@
     <Compile Include="RptDataRunnerService.Designer.cs">
       <DependentUpon>RptDataRunnerService.cs</DependentUpon>
     </Compile>
+    <Compile Include="Runner\CycleTimeRunner.cs" />
     <Compile Include="Runner\EQP_UPm_018Runner.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -104,8 +105,12 @@
   <ItemGroup>
     <None Include="AMS.CIM.Caojin.RPTDataUpdateService_TemporaryKey.pfx" />
     <None Include="App.config" />
-    <None Include="App\cycleTimeRunningConfig.json" />
-    <None Include="App\db2Config.json" />
+    <None Include="App\cycleTimeRunningConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="App\db2Config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -131,8 +136,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Common\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

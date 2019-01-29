@@ -166,8 +166,6 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
 
         }
 
-
-
         private void GetSplitTimeOfDay()
         {
             using (var db = new RPTContext())
@@ -175,8 +173,6 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
                 SplitTimeOfDay = TimeSpan.Parse(db.TimeSplitConfig.Any(w => w.RptID == "Rpt018") ? db.TimeSplitConfig.Where(w => w.RptID == "Rpt018").First().TimeValue : db.TimeSplitConfig.Where(w => w.RptID == "global").First().TimeValue);
             }
         }
-
-       
 
     }
 }

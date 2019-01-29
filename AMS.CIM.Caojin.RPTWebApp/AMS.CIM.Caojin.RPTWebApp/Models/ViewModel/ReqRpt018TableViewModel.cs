@@ -88,7 +88,8 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                 int ToYear = Convert.ToInt16(result.Substring(0, 4));
                 int ToMonth = Convert.ToInt16(result.Substring(4));
                 StartDay = Convert.ToDateTime(FromYear.ToString() + "/" + FromMonth.ToString() + "/" + 1.ToString());
-                EndDay = StartDay.AddDays(DateTime.DaysInMonth(ToYear,ToMonth)-1);
+                //EndDay = StartDay.AddDays(DateTime.DaysInMonth(FromYear,FromMonth)-1);
+               EndDay = Convert.ToDateTime(ToYear.ToString() + "/" + ToMonth.ToString() + "/" + DateTime.DaysInMonth(ToYear,ToMonth));
                 while (StartDay < EndDay)
                 {
                     Dates.Add(StartDay.ToString("yyyy-MM"));
@@ -212,6 +213,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                     {
                         DateTime dt = DateTime.ParseExact(date, "yyyyMMdd", System.Globalization.CultureInfo.CurrentCulture);
                         ReqRpt018DataBase data = GetEntityByDayRange(id,dt,dt);
+                        data.Date = date;
                         entity.Datas.Add(data);
                     }
                     entities.Add(entity);
@@ -231,6 +233,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                         DateTime sdt = dts.Item1;
                         DateTime edt = dts.Item2;
                         ReqRpt018DataBase data = GetEntityByDayRange(id, sdt, edt);
+                        data.Date = date;
                         entity.Datas.Add(data);
                     }
                     entities.Add(entity);
@@ -247,6 +250,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                         DateTime sdt = Convert.ToDateTime(date.Replace('-','/')+"/01");
                         DateTime edt = sdt.AddMonths(1).AddDays(-1);
                         ReqRpt018DataBase data = GetEntityByDayRange(id, sdt, edt);
+                        data.Date = date;
                         entity.Datas.Add(data);
                     }
                     entities.Add(entity);

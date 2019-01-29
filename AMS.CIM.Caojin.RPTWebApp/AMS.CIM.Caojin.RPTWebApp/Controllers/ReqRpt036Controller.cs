@@ -18,9 +18,9 @@ namespace AMS.CIM.Caojin.RPTWebApp.Controllers
 
         public JsonResult GetTableView(ReqRpt036PostModel postModel)
         {
-            //try
-            //{
-            var viewModel = new ReqRpt036TableViewModel(postModel);
+            try
+            {
+                var viewModel = new ReqRpt036TableViewModel(postModel);
           //  Dictionary<string, string> MapStateColor = new Dictionary<string, string> { { "PRD", "white" },{ "SBY","yellow"},{ "ENG","blue"},{"SDT","pink" },{ "UDT","red"},{ "NST","gray"}};
             var StartTime = TimeHelper.GetTimeStamp(viewModel.GetStartTime);
             var EndTime = TimeHelper.GetTimeStamp(viewModel.GetEndTime);
@@ -58,8 +58,8 @@ namespace AMS.CIM.Caojin.RPTWebApp.Controllers
                 }).OrderBy(o=>o.EqpID)
             };
             return Json(response, JsonRequestBehavior.DenyGet);
-            //}
-            //catch (Exception) { return null; }
+            }
+            catch (Exception) { return null; }
 
         }
     }

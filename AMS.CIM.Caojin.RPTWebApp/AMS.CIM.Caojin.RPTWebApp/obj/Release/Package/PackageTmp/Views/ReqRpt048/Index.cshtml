@@ -1,0 +1,152 @@
+﻿
+@{
+    ViewBag.Title = "Super Hot Lot";
+    Layout = "~/Views/Shared/_LayoutRptBootStrap.cshtml";
+}
+
+<link href="~/Content/plugins/toastr/toastr.min.css" rel="stylesheet">
+<link href="~/Content/animate.css" rel="stylesheet">
+<link href="~/Content/style.css" rel="stylesheet">
+<link href="~/Content/plugins/dualListbox/bootstrap-duallistbox.min.css" rel="stylesheet">
+
+<!-- For this Project Only -->
+<link href="~/themes/local/shl.css" rel="stylesheet">
+
+<!-- Dual Listbox -->
+<script src="~/Scripts/plugins/dualListbox/jquery.bootstrap-duallistbox.js"></script>
+<script src="~/Scripts/ams.commontool.js"></script>
+<script src="~/Scripts/vue.min.js"></script>
+
+
+
+<div class="row white-bg border-bottom " id="query-pannel">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>查询条件</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-lg-3 inline">
+                        <div class="multi-select">
+                            <select class="dual_select" multiple id="select-priority">
+                                <option value="1" selected>1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2 inline" style="margin-top:5px">
+                        <div class="block">
+                            <button type="button" class="btn btn-outline btn-primary"  onclick="Query()">Query</button>
+                        </div>
+
+                        <div class="block">
+                            <button type="button" class="btn btn-outline btn-primary" >Quota Table</button>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3" id="fot-info">
+                        <p><small>开发者：曹晋（0279）<br />需求者：陈舒（0353）</small></p>
+                        <p><small>Click Count: <span>@ViewBag.ClickCount</span></small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-12">
+   <div class="ibox float-e-margins" id="table-view-0" v-bind:style="{display:display}">
+        <div class="ibox-title">
+            <div class="html5buttons"><div class="dt-buttons btn-group"><a class="btn btn-default buttons-excel buttons-html5" tabindex="1" aria-controls="DataTables_Table_0" href="#" onclick="tableToExcel('DataTables_Table_0','sheet1','SuperHotLot.xls','dlink'); return false;"><span><img src="~/themes/icons/excel_2007.gif" /></span></a> <a id="dlink1" style="display: none;"></a></div></div>
+            <p>Query Conditions:{{ Conditions }}</p>
+        </div>
+
+        <div class="ibox-content">
+            <div class="table-responsive" id="table-div-0">
+                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                    <table class="table table-striped table-bordered table-hover dataTables-example" id="DataTables_Table_0">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">LotID</th>
+                                <th rowspan="2">FoupID</th>
+                                <th rowspan="2">Location</th>
+                                <th rowspan="2">Status</th>
+                                <th rowspan="2">Pri</th>
+                                <th rowspan="2">Dept</th>
+                                <th rowspan="2">Quota Owner</th>
+                                <th rowspan="2">Quota Type</th>
+                                <th rowspan="2">Project</th>
+                                <th rowspan="2">Purpose</th>
+                                <th rowspan="2">Q'ty</th>
+                                <th rowspan="2">Des</th>
+                                <th rowspan="2">Lot States</th>
+                                <th rowspan="2">Wafer Start</th>
+                                <th rowspan="2">YSTD Turn</th>
+                                <th colspan="3">FCS</th>
+                                <th rowspan="2">Gap(D)</th>
+                                <th rowspan="2">Pri Change Stage</th>
+                                <th rowspan="2">Remark</th>
+                            </tr>
+                            <tr>
+                                <th>WAT</th>
+                                <th>WF Out</th>
+                                <th>Target WF Out</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in Rows">
+                                <td v-text="item.LotID"></td>
+                                <td v-text="item.FoupID"></td>
+                                <td v-text="item.Location"></td>
+                                <td v-text="item.Status"></td>
+                                <td v-text="item.Priority"></td>
+                                <td v-text="item.Department"></td>
+                                <td v-text="item.QuotaOwner"></td>
+                                <td v-text="item.QuotaType"></td>
+                                <td v-text="item.Project"></td>
+                                <td v-text="item.Purpose"></td>
+                                <td v-text="item.Qty"></td>
+                                <td v-text="item.Description"></td>
+                                <td v-text="item.LotStates"></td>
+                                <td v-text="item.WaferStart"></td>
+                                <td v-text="item.YSTDTurn"></td>
+                                <td v-text="item.WAT"></td>
+                                <td v-text="item.WFOut"></td>
+                                <td v-text="item.TargetWFOut"></td>
+                                <td v-text="item.Gap"></td>
+                                <td v-text="item.PriChangeStage"></td>
+                                <td v-text="item.Remark"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="loading" id="circle">
+    <div class="sk-spinner sk-spinner-circle">
+        <div class="sk-circle1 sk-circle"></div>
+        <div class="sk-circle2 sk-circle"></div>
+        <div class="sk-circle3 sk-circle"></div>
+        <div class="sk-circle4 sk-circle"></div>
+        <div class="sk-circle5 sk-circle"></div>
+        <div class="sk-circle6 sk-circle"></div>
+        <div class="sk-circle7 sk-circle"></div>
+        <div class="sk-circle8 sk-circle"></div>
+        <div class="sk-circle9 sk-circle"></div>
+        <div class="sk-circle10 sk-circle"></div>
+        <div class="sk-circle11 sk-circle"></div>
+        <div class="sk-circle12 sk-circle"></div>
+    </div>
+</div>
+<!-- For this Project Only -->
+<script src="~/Scripts/demo/shl.js"></script>

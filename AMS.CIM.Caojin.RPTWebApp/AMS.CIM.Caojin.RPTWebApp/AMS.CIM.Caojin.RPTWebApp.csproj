@@ -56,6 +56,10 @@
       <HintPath>..\packages\EntityFramework.IBM.DB2.6.0.7\lib\net40\IBM.Data.DB2.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -158,24 +162,34 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\ErrorPageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReqRpt004Controller.cs" />
     <Compile Include="Controllers\ReqRpt014Controller.cs" />
+    <Compile Include="Controllers\ReqRpt018Controller.cs" />
     <Compile Include="Controllers\ReqRpt020Controller.cs" />
     <Compile Include="Controllers\ReqRpt023Controller.cs" />
     <Compile Include="Controllers\ReqRpt024Controller.cs" />
     <Compile Include="Controllers\ReqRpt025Controller.cs" />
     <Compile Include="Controllers\ReqRpt030Controller.cs" />
     <Compile Include="Controllers\ReqRpt036Controller.cs" />
+    <Compile Include="Controllers\ReqRpt048Controller.cs" />
     <Compile Include="Controllers\RptController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ReqRpt036EqpEntity.cs" />
-    <Compile Include="Models\ReqRpt036EqpHistoryEntity.cs" />
-    <Compile Include="Models\ReqRpt036PostModel.cs" />
-    <Compile Include="Models\ReqRpt036TableViewModel.cs" />
+    <Compile Include="Models\ExcelApp.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt018Chart1ExcelWorkSpace.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt018Chart1PostEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt018Chart1PostModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt018Chart2ExcelWorkSpace.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt018Chart2PostEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt018Chart2PostModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt036EqpEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt036EqpHistoryEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt036PostModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt036TableViewModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt020EqpTypeSelectViewModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt020PostModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt020MainViewModel.cs" />
@@ -414,7 +428,9 @@
     <Content Include="Scripts\demo\peity-demo.js" />
     <Content Include="Scripts\demo\rickshaw-demo.js" />
     <Content Include="Scripts\demo\rtc.js" />
+    <Content Include="Scripts\demo\shl.js" />
     <Content Include="Scripts\demo\sparkline-demo.js" />
+    <Content Include="Scripts\demo\upm.js" />
     <Content Include="Scripts\FileSaver.js" />
     <Content Include="Scripts\inspinia.js" />
     <Content Include="Scripts\jquery-1.4.min.js" />
@@ -1049,6 +1065,7 @@
     <Content Include="themes\icons\sum.png" />
     <Content Include="themes\icons\tip.png" />
     <Content Include="themes\icons\undo.png" />
+    <Content Include="themes\local\shl.css" />
     <Content Include="themes\material-teal\accordion.css" />
     <Content Include="themes\material-teal\calendar.css" />
     <Content Include="themes\material-teal\checkbox.css" />
@@ -1275,9 +1292,15 @@
     <Content Include="Views\ReqRpt020\Index.cshtml" />
     <Content Include="Views\ReqRpt020\GetEqpTypeByModule.cshtml" />
     <Content Include="Views\ReqRpt036\Index.cshtml" />
+    <Content Include="Views\ReqRpt018\GetSelectListByEqpType.cshtml" />
+    <Content Include="Views\ReqRpt018\GetSelectListByModule.cshtml" />
+    <Content Include="Views\ReqRpt018\GetTableByAllConditions.cshtml" />
+    <Content Include="Views\ReqRpt018\Index.cshtml" />
+    <Content Include="Views\ReqRpt048\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

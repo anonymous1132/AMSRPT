@@ -12,27 +12,27 @@ namespace AMS.CIM.Caojin.RPTWebApp.Controllers
         // GET: ReqRpt004
         public ActionResult Index()
         {
-            //try
-            //{
+            try
+            {
                 return View(new ReqRpt004MainViewModel());
-            //}
-            //catch (Exception)
-            //{
-            //    return null;
-            //}
-            
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
         }
 
         public PartialViewResult GetTableView(string Products,string TargetDate)
         {
-            //try
-            //{
-                return PartialView(new ReqRpt004TableViewModel(Products,TargetDate));
-            //}
-            //catch (Exception)
-            //{
-            //    return null;
-            //}
+            try
+            {
+                return PartialView(new ReqRpt004TableViewModel(Products, TargetDate));
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public JsonResult GetJson(string Products,string TargetDate)

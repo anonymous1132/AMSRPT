@@ -7,14 +7,14 @@
     <framework targetVersion="4.6.1" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="AMS.CIM.Caojin.RPTDataUpdateService.exe.manifest" size="7738">
+    <dependentAssembly dependencyType="install" codebase="AMS.CIM.Caojin.RPTDataUpdateService.exe.manifest" size="8422">
       <assemblyIdentity name="AMS.CIM.Caojin.RPTDataUpdateService.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>k9Z7e/QHbunCw2Uk95ceSgPp/SaRj1dqmTO4+Xten+A=</dsig:DigestValue>
+        <dsig:DigestValue>lJ2T5Q6+TN96hqfJp4EjrCrw7VlSrTTFLn5feunfpak=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

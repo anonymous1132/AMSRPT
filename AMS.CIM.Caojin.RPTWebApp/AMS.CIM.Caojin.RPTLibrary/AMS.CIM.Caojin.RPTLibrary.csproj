@@ -40,6 +40,10 @@
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -59,6 +63,8 @@
     <Compile Include="Common\DB2Helper.cs" />
     <Compile Include="Common\Db2Oper.cs" />
     <Compile Include="Common\Encrypt.cs" />
+    <Compile Include="Common\ExcelHelper.cs" />
+    <Compile Include="Common\ExcelWorkSpaceBase.cs" />
     <Compile Include="Common\FileHelper.cs" />
     <Compile Include="Common\FTPClientHelper.cs" />
     <Compile Include="Common\FTPHelper.cs" />
@@ -101,6 +107,7 @@
     <Compile Include="Models\DAL\Report36_EQP.cs" />
     <Compile Include="Models\DAL\Report36_LoadPort.cs" />
     <Compile Include="Models\DAL\Report_SpecialDetail.cs" />
+    <Compile Include="Models\DAL\RPTFuncUsage.cs" />
     <Compile Include="Models\DAL\RPTH_LOT_PROC_TIME.cs" />
     <Compile Include="Models\DAL\RPT_DAI_TurnRate.cs" />
     <Compile Include="Models\DAL\RPT_EQP_PERFM_TARGET.cs" />

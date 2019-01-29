@@ -17,7 +17,7 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
                 var Modules = ShareDataEntity.GetSingleEntity().FRUserCatcher.GetEntities().EntityList.Where((w => owner.Owner_ID==w.User_ID)).Select(s => s.Department).Distinct().ToList();
                 foreach (string m in Modules)
                 {
-                    if (!ShareDataEntity.GetSingleEntity().db.EQPType_Department_Mapping.Any(a => a.Department == m && a.EqpType == owner.Owner_ID))
+                    if (!ShareDataEntity.GetSingleEntity().db.EQPType_Department_Mapping.Any(a => a.Department == m && a.EqpType == owner.EQP_Type))
                     {
                         ShareDataEntity.GetSingleEntity().db.EQPType_Department_Mapping.Add(new EQPType_Department_MappingEntity() { Department=m,EqpType=owner.EQP_Type});
                     }
