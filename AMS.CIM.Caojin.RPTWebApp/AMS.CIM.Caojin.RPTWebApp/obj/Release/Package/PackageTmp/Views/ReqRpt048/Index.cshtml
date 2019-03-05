@@ -1,23 +1,22 @@
-﻿
-@{
-    ViewBag.Title = "Super Hot Lot";
-    Layout = "~/Views/Shared/_LayoutRptBootStrap.cshtml";
+﻿@{
+ViewBag.Title = "Super Hot Lot";
+Layout = "~/Views/Shared/_LayoutRptBootStrap.cshtml";
 }
 
 <link href="~/Content/plugins/toastr/toastr.min.css" rel="stylesheet">
-<link href="~/Content/animate.css" rel="stylesheet">
+
 <link href="~/Content/style.css" rel="stylesheet">
 <link href="~/Content/plugins/dualListbox/bootstrap-duallistbox.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/Content/plugins/element/index.css">
 
 <!-- For this Project Only -->
 <link href="~/themes/local/shl.css" rel="stylesheet">
 
 <!-- Dual Listbox -->
 <script src="~/Scripts/plugins/dualListbox/jquery.bootstrap-duallistbox.js"></script>
-<script src="~/Scripts/ams.commontool.js"></script>
 <script src="~/Scripts/vue.min.js"></script>
-
-
+<script src="~/Scripts/plugins/element/index.js"></script>
+<script src="~/Scripts/ams.commontool.js"></script>
 
 <div class="row white-bg border-bottom " id="query-pannel">
     <div class="col-lg-12">
@@ -43,11 +42,12 @@
 
                     <div class="col-sm-2 inline" style="margin-top:5px">
                         <div class="block">
-                            <button type="button" class="btn btn-outline btn-primary"  onclick="Query()">Query</button>
+                            <button type="button" class="btn btn-outline btn-primary"
+                                onclick="queryClick()">Query</button>
                         </div>
 
                         <div class="block">
-                            <button type="button" class="btn btn-outline btn-primary" >Quota Table</button>
+                            <button type="button" class="btn btn-outline btn-primary" onclick="showDialog()">Quota Table</button>
                         </div>
                     </div>
 
@@ -61,75 +61,127 @@
     </div>
 </div>
 
-<div class="col-lg-12">
-   <div class="ibox float-e-margins" id="table-view-0" v-bind:style="{display:display}">
+<div class="col-lg-12" id="table-view-0">
+    <div class="ibox float-e-margins" v-bind:style="{display:display}">
         <div class="ibox-title">
-            <div class="html5buttons"><div class="dt-buttons btn-group"><a class="btn btn-default buttons-excel buttons-html5" tabindex="1" aria-controls="DataTables_Table_0" href="#" onclick="tableToExcel('DataTables_Table_0','sheet1','SuperHotLot.xls','dlink'); return false;"><span><img src="~/themes/icons/excel_2007.gif" /></span></a> <a id="dlink1" style="display: none;"></a></div></div>
+            <el-button type="primary" v-if="changeKeyButtonVisible" v-on:click="handleChangeKeyButtonClick">更改口令
+            </el-button>
+
+            <div class="html5buttons">
+                <div class="dt-buttons btn-group"><a class="btn btn-default buttons-excel buttons-html5" tabindex="1"
+                        aria-controls="DataTables_Table_0" v-on:click.stop="outputExcel"><span>
+                            <img src="~/themes/icons/excel_2007.gif" /></span></a> <a ref="dlink" style="display: none;"></a></div>
+            </div>
             <p>Query Conditions:{{ Conditions }}</p>
         </div>
-
         <div class="ibox-content">
             <div class="table-responsive" id="table-div-0">
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                    <table class="table table-striped table-bordered table-hover dataTables-example" id="DataTables_Table_0">
-                        <thead>
-                            <tr>
-                                <th rowspan="2">LotID</th>
-                                <th rowspan="2">FoupID</th>
-                                <th rowspan="2">Location</th>
-                                <th rowspan="2">Status</th>
-                                <th rowspan="2">Pri</th>
-                                <th rowspan="2">Dept</th>
-                                <th rowspan="2">Quota Owner</th>
-                                <th rowspan="2">Quota Type</th>
-                                <th rowspan="2">Project</th>
-                                <th rowspan="2">Purpose</th>
-                                <th rowspan="2">Q'ty</th>
-                                <th rowspan="2">Des</th>
-                                <th rowspan="2">Lot States</th>
-                                <th rowspan="2">Wafer Start</th>
-                                <th rowspan="2">YSTD Turn</th>
-                                <th colspan="3">FCS</th>
-                                <th rowspan="2">Gap(D)</th>
-                                <th rowspan="2">Pri Change Stage</th>
-                                <th rowspan="2">Remark</th>
-                            </tr>
-                            <tr>
-                                <th>WAT</th>
-                                <th>WF Out</th>
-                                <th>Target WF Out</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="item in Rows">
-                                <td v-text="item.LotID"></td>
-                                <td v-text="item.FoupID"></td>
-                                <td v-text="item.Location"></td>
-                                <td v-text="item.Status"></td>
-                                <td v-text="item.Priority"></td>
-                                <td v-text="item.Department"></td>
-                                <td v-text="item.QuotaOwner"></td>
-                                <td v-text="item.QuotaType"></td>
-                                <td v-text="item.Project"></td>
-                                <td v-text="item.Purpose"></td>
-                                <td v-text="item.Qty"></td>
-                                <td v-text="item.Description"></td>
-                                <td v-text="item.LotStates"></td>
-                                <td v-text="item.WaferStart"></td>
-                                <td v-text="item.YSTDTurn"></td>
-                                <td v-text="item.WAT"></td>
-                                <td v-text="item.WFOut"></td>
-                                <td v-text="item.TargetWFOut"></td>
-                                <td v-text="item.Gap"></td>
-                                <td v-text="item.PriChangeStage"></td>
-                                <td v-text="item.Remark"></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <el-table :data="Rows" border size="mini" style="width: 100%" v-on:row-dblclick="handleRowDblClick"
+                              class="table table-striped table-bordered table-hover dataTables-example" max-height="400px"
+                              stripe>
+                        <el-table-column label="LotID" align="center" header-align="center" min-width="120" fixed>
+                            <template slot-scope="scope">
+                                <el-button type="text" :loading="loading" v-on:click="handleLotIDClick(scope.row)">{{ scope.row.LotID }}</el-button>
+                            </template>
+                        </el-table-column>
+
+                        <el-table-column prop="Priority" label="Pri" align="center" header-align="center" sortable>
+                        </el-table-column>
+                        <el-table-column label="Project" align="center" header-align="center" width="200px">
+                            <template slot-scope="scope">
+                                <div v-if="scope.row.EditState">
+                                    <el-select v-model="scope.row.Project" clearable placeholder="Normal" v-on:change="handleSelectChange">
+                                        <el-option value=""></el-option>
+                                        <el-option v-for="(project,idx) in modalView.quotaProj.Rows" :label="project.Project"
+                                                   :value="project.Project" :disabled="project.Department!=scope.row.QuotaDept">
+                                        </el-option>
+                                    </el-select>
+                                </div>
+                                <div v-else>
+                                    <el-tooltip effect="dark" content="Mouse double click row to edit project"
+                                                placement="right">
+                                        <div style="min-width: 50px;min-height: 30px;">{{scope.row["Project"]}}</div>
+                                    </el-tooltip>
+                                </div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="Purpose" label="Purpose" align="center" header-align="center">
+                        </el-table-column>
+                        <el-table-column prop="Qty" label="Q'ty" align="center" header-align="center"></el-table-column>
+                        <el-table-column prop="OpeNo" label="Ope No" align="center" header-align="center"></el-table-column>
+                        <el-table-column prop="Description" label="Ope Name" align="center" header-align="center" min-width="120">
+                        </el-table-column>
+                        <el-table-column prop="EqpType" label="EqpType" align="center" header-align="center"></el-table-column>
+                        <el-table-column label="LotStates" align="center" header-align="center">
+                            <template slot-scope="scope">
+                                <span :style="{color:scope.row.LotStates=='ONHOLD'?'red':'inherit'}">
+                                    {{ scope.row.LotStates }}
+                                </span>/
+                                <span :style="{color:scope.row.ProcessStates=='Waiting'?'blue':'green'}">{{ scope.row.ProcessStates }}</span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="strWaferStart" label="Wafer Start" align="center" header-align="center" min-width="90">
+                        </el-table-column>
+                        <el-table-column prop="YSTDTurn" label="YSTDTurn" align="center" header-align="center">
+                        </el-table-column>
+                        <el-table-column label="FCS" align="center" header-align="center">
+                            <el-table-column prop="strWAT" label="WAT" align="center" header-align="center" min-width="90">
+                            </el-table-column>
+                            <el-table-column prop="strWFOut" label="WFOut" align="center" header-align="center" min-width="90">
+                            </el-table-column>
+                            <el-table-column prop="strTargetWFOut" label="Target WFOut" align="center" sortable min-width="90"
+                                             header-align="center"></el-table-column>
+                        </el-table-column>
+                        <el-table-column label="Gap(D)" align="center" header-align="center">
+                            <template slot-scope="scope">
+                                <span :class="scope.row.Gap<0?'warning':'normal'">
+                                    {{ scope.row.Gap }}
+                                </span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="QuotaOwner" label="Quota Owner" align="center" header-align="center" min-width="120">
+                        </el-table-column>
+                        <el-table-column prop="FoupID" label="FoupID" align="center" header-align="center">
+                        </el-table-column>
+                        <el-table-column prop="Location" label="Location" align="center" header-align="center">
+                        </el-table-column>
+                        <el-table-column prop="Status" label="Status" align="center" header-align="center">
+                        </el-table-column>
+                        <el-table-column prop="PriChgStage" label="Pri Change Stage" align="center"
+                                         header-align="center"></el-table-column>
+                        <el-table-column prop="Remark" label="Remark" align="center" header-align="center" min-width="120">
+                        </el-table-column>
+                    </el-table>
                 </div>
             </div>
         </div>
     </div>
+    <el-dialog title="验证口令" :visible.sync="dialogFormVisible"  append-to-body>
+        <el-form :model="form">
+            <el-form-item label="请输入口令" :label-width="formLabelWidth">
+                <el-input type="password" v-model="form.key" autocomplete="off"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button v-on:click="handleDialogCancel">取 消</el-button>
+            <el-button type="primary" v-on:click="handleDialogOK">确 定</el-button>
+        </div>
+    </el-dialog>
+    <el-dialog title="更改口令" :visible.sync="dialogUpdateVisible">
+        <el-form :model="update">
+            <el-form-item label="请输入原口令" :label-width="formLabelWidth">
+                <el-input type="password" v-model="update.oldKey" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="请输入新口令" :label-width="formLabelWidth">
+                <el-input type="password" v-model="update.newKey" autocomplete="off"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button v-on:click="handleUpdateCancel">取 消</el-button>
+            <el-button type="primary" v-on:click="handleUpdateOK">确 定</el-button>
+        </div>
+    </el-dialog>
 </div>
 
 <div class="loading" id="circle">
@@ -148,5 +200,404 @@
         <div class="sk-circle12 sk-circle"></div>
     </div>
 </div>
+
+<div  id="myModal">
+    <el-dialog title="Quota Manager" :visible.sync="dialogQuotaVisible" fullscreen>
+        <div class="ibox float-e-margins block" id="product-quota">
+            <div class="ibox-title">
+                <div class="html5buttons">
+                    <div class="dt-buttons btn-group"><a class="btn btn-default buttons-excel buttons-html5"
+                            tabindex="1" aria-controls="DataTables_Table_Product" v-on:click.stop="outputExcel('prod')"><span><img src="~/themes/icons/excel_2007.gif" /></span></a> <a ref="dlink"
+                            style="display: none;"></a>
+                    </div>
+                </div>
+                <p>Product Quota</p>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive" id="table-div-product">
+                    <div id="DataTables_Table_product_wrapper"
+                        class="dataTables_wrapper form-inline dt-bootstrap">
+                        <table class="table table-striped table-bordered table-hover dataTables-example"
+                            id="DataTables_Table_Product">
+                            <thead>
+                                <tr>
+                                    <th>ProductID</th>
+                                    <th>SHL</th>
+                                    <th>HL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="item in quotaProd.Rows">
+                                    <td v-text="item.ProductID"></td>
+                                    <td v-text="item.SHL"></td>
+                                    <td v-text="item.HL"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ibox float-e-margins block" id="department-quota">
+            <div class="ibox-title">
+
+                <div class="html5buttons">
+                    <div class="dt-buttons btn-group"><a class="btn btn-default buttons-excel buttons-html5"
+                            tabindex="1" aria-controls="DataTables_Table_Dept" v-on:click.stop="outputExcel('dept')"><span><img src="~/themes/icons/excel_2007.gif" /></span></a> </div>
+                </div>
+                <p>Department Quota</p>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive" id="table-div-dept">
+                    <div id="DataTables_Table_dept_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                        <table class="table table-striped table-bordered table-hover dataTables-example"
+                            id="DataTables_Table_Dept">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Department</th>
+                                    <th></th>
+                                    <th colspan="3">SHL</th>
+                                    <th colspan="3">HL</th>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <th>Quota</th>
+                                    <th>Used</th>
+                                    <th>Remnant</th>
+                                    <th>Quota</th>
+                                    <th>Used</th>
+                                    <th>Remnant</th>
+                                </tr>
+                            </thead>
+                            <tbody v-for="item in quotaDept.Rows">
+                                <tr>
+                                    <td rowspan="2" v-text="item.Department"></td>
+                                    <td>Normal</td>
+                                    <td v-text="item.NormalSHLQuota"></td>
+                                    <td v-text="item.NormalSHLUsed"></td>
+                                    <td v-text="item.NormalSHLRemnant"></td>
+                                    <td v-text="item.NormalHLQuota"></td>
+                                    <td v-text="item.NormalHLUsed"></td>
+                                    <td v-text="item.NormalHLRemnant"></td>
+                                </tr>
+                                <tr>
+                                    <td>Project</td>
+                                    <td v-text="item.ProjectSHLQuota"></td>
+                                    <td v-text="item.ProjectSHLUsed"></td>
+                                    <td v-text="item.ProjectSHLRemnant"></td>
+                                    <td v-text="item.ProjectHLQuota"></td>
+                                    <td v-text="item.ProjectHLUsed"></td>
+                                    <td v-text="item.ProjectHLRemnant"></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="2">ALL</th>
+                                    <th>summary Total</th>
+                                    <th v-text="SHLUsedTotal"></th>
+                                    <th v-text="SHLRemnantTotal"></th>
+                                    <th>summary Total</th>
+                                    <th v-text="HLUsedTotal"></th>
+                                    <th v-text="HLRemnantTotal"></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ibox float-e-margins block" id="project-quota">
+            <div class="ibox-title">
+                <div class="html5buttons">
+                    <div class="dt-buttons btn-group"><a class="btn btn-default buttons-excel buttons-html5"
+                            tabindex="1" aria-controls="DataTables_Table_Project" v-on:click.stop="outputExcel('proj')"><span><img src="~/themes/icons/excel_2007.gif" /></span></a></div>
+                </div>
+                <p>Project Quota</p>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive" id="table-div-project">
+                    <div id="DataTables_Table_Project_wrapper"
+                        class="dataTables_wrapper form-inline dt-bootstrap">
+                        <el-table :data="quotaProj.Rows" border size="mini" style="width: 100%"
+                            class="table table-striped table-bordered table-hover dataTables-example" >
+                            <el-table-column label="Project" align="center" header-align="center">
+                                <el-table-column label="Department" align="center" header-align="center"
+                                     width="150">
+                                    <template slot-scope="scope">
+                                        <span v-if="scope.row.id">{{ scope.row.Department }}</span>
+                                        <span v-else>
+                                            <el-select v-model="quotaProj.sel['Department']">
+                                                    <el-option
+                                                    v-for="item in Departments"
+                                                    :key="item"
+                                                    :label="item"
+                                                    :value="item">
+                                                  </el-option>
+                                            </el-select>
+                                        </span>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column label="Project Desc" align="center" header-align="center">
+                                    <template slot-scope="scope">
+                                       <span v-if="scope.row.id">{{ scope.row.Project }}</span>
+                                        <span v-else>
+                                           <el-input v-model="quotaProj.sel['Project']"></el-input>
+                                        </span>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column label="Purpose" prop="Purpose" align="center"
+                                    header-align="center">
+                                    <template slot-scope="scope">
+                                        <span v-if="scope.row.EditState">
+                                            <el-input v-model="quotaProj.sel['Purpose']"></el-input>
+                                        </span>
+                                        <span v-else>{{ scope.row.Purpose }}</span>
+                                    </template>
+                                </el-table-column>
+                            </el-table-column>
+                            <el-table-column label="Quota" align="center" header-align="center">
+                                <el-table-column label="SHL" align="center" header-align="center">
+                                    <template slot-scope="scope">
+                                        <span v-if="scope.row.EditState">
+                                            <el-input type="number" min="0" v-model="quotaProj.sel['QuotaSHL']">
+                                            </el-input>
+                                        </span>
+                                        <span v-else>{{ scope.row.QuotaSHL }}</span>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column label="HL" align="center" header-align="center">
+                                    <template slot-scope="scope">
+                                        <span v-if="scope.row.EditState">
+                                            <el-input type="number" min="0" v-model="quotaProj.sel['QuotaHL']">
+                                            </el-input>
+                                        </span>
+                                        <span v-else>{{ scope.row.QuotaHL }}</span>
+                                    </template>
+                                </el-table-column>
+                            </el-table-column>
+                            <el-table-column label="Used" align="center" header-align="center">
+                                <el-table-column label="SHL" prop="UsedSHL" align="center"
+                                    header-align="center"></el-table-column>
+                                <el-table-column label="HL" prop="UsedHL" align="center" header-align="center">
+                                </el-table-column>
+                            </el-table-column>
+                            <el-table-column label="Remnant" align="center" header-align="center">
+                                <el-table-column label="SHL" prop="RemnantSHL" align="center"
+                                    header-align="center"></el-table-column>
+                                <el-table-column label="HL" prop="RemnantHL" align="center"
+                                    header-align="center"></el-table-column>
+                            </el-table-column>
+                            <el-table-column label="操作" width="100">
+                                <template slot-scope="scope">
+                                    <span class="el-tag el-tag--info el-tag--mini" style="cursor: pointer;"
+                                        v-on:click="quotaChange(scope.row,scope.$index,true)">
+                                        {{scope.row.EditState?'保存':"修改"}}
+                                    </span>
+                                    <span v-if="!scope.row.EditState" class="el-tag el-tag--danger el-tag--mini"
+                                        style="cursor: pointer;" v-on:click="quotaDel(scope.row,scope.$index)">
+                                        删除
+                                    </span>
+                                    <span v-else class="el-tag el-tag--mini" style="cursor: pointer;"
+                                        v-on:click="quotaChange(scope.row,scope.$index,false)">
+                                        取消
+                                    </span>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                        <el-col span="24">
+                            <div class="el-table-add-row" style="width: 99.2%;" v-on:click="addQuota"><span><i
+                                        class="el-icon-circle-plus"></i>添加</span></div>
+                        </el-col>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ibox float-e-margins block" id="normal-quota">
+                <div class="ibox-title">
+                        <div class="html5buttons">
+                            <div class="dt-buttons btn-group"><a class="btn btn-default buttons-excel buttons-html5"
+                                    tabindex="1" aria-controls="DataTables_Table_Project" v-on:click.stop="outputExcel('normal')"><span><img src="~/themes/icons/excel_2007.gif" /></span></a></div>
+                        </div>
+                        <p>Normal Quota</p>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="table-responsive" id="table-div-normal">
+                            <div id="DataTables_Table_Normal_wrapper"
+                                class="dataTables_wrapper form-inline dt-bootstrap">
+                                <el-table :data="quotaNormal.Rows" border size="mini" style="width: 100%"
+                                    class="table table-striped table-bordered table-hover dataTables-example" >
+                                    <el-table-column label="Department" align="center" header-align="center"
+                                             width="150">
+                                            <template slot-scope="scope">
+                                                <span v-if="scope.row.id">{{ scope.row.Department }}</span>
+                                                <span v-else>
+                                                    <el-select v-model="quotaNormal.sel['Department']">
+                                                            <el-option
+                                                            v-for="item in Departments"
+                                                            :key="item"
+                                                            :label="item"
+                                                            :value="item">
+                                                          </el-option>
+                                                    </el-select>
+                                                </span>
+                                            </template>
+                                    </el-table-column>
+                                    <el-table-column label="Quota" align="center" header-align="center">
+                                        <el-table-column label="SHL" align="center" header-align="center">
+                                            <template slot-scope="scope">
+                                                <span v-if="scope.row.EditState">
+                                                    <el-input type="number" min="0" v-model="quotaNormal.sel['QuotaSHL']">
+                                                    </el-input>
+                                                </span>
+                                                <span v-else>{{ scope.row.QuotaSHL }}</span>
+                                            </template>
+                                        </el-table-column>
+                                        <el-table-column label="HL" align="center" header-align="center">
+                                            <template slot-scope="scope">
+                                                <span v-if="scope.row.EditState">
+                                                    <el-input type="number" min="0" v-model="quotaNormal.sel['QuotaHL']">
+                                                    </el-input>
+                                                </span>
+                                                <span v-else>{{ scope.row.QuotaHL }}</span>
+                                            </template>
+                                        </el-table-column>
+                                    </el-table-column>
+                                    <el-table-column label="Used" align="center" header-align="center">
+                                        <el-table-column label="SHL" prop="UsedSHL" align="center"
+                                            header-align="center"></el-table-column>
+                                        <el-table-column label="HL" prop="UsedHL" align="center" header-align="center">
+                                        </el-table-column>
+                                    </el-table-column>
+                                    <el-table-column label="Remnant" align="center" header-align="center">
+                                        <el-table-column label="SHL" prop="RemnantSHL" align="center"
+                                            header-align="center"></el-table-column>
+                                        <el-table-column label="HL" prop="RemnantHL" align="center"
+                                            header-align="center"></el-table-column>
+                                    </el-table-column>
+                                    <el-table-column label="操作" width="100">
+                                        <template slot-scope="scope">
+                                            <span class="el-tag el-tag--info el-tag--mini" style="cursor: pointer;"
+                                                v-on:click="quotaNormalChange(scope.row,scope.$index,true)">
+                                                {{scope.row.EditState?'保存':"修改"}}
+                                            </span>
+                                            <span v-if="!scope.row.EditState" class="el-tag el-tag--danger el-tag--mini"
+                                                style="cursor: pointer;" v-on:click="quotaNormalDel(scope.row,scope.$index)">
+                                                删除
+                                            </span>
+                                            <span v-else class="el-tag el-tag--mini" style="cursor: pointer;"
+                                                v-on:click="quotaNormalChange(scope.row,scope.$index,false)">
+                                                取消
+                                            </span>
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+                                <el-col span="24">
+                                    <div class="el-table-add-row" style="width: 99.2%;" v-on:click="addNormalQuota"><span><i
+                                                class="el-icon-circle-plus"></i>添加</span></div>
+                                </el-col>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+
+    </el-dialog>
+</div>
+
+<div id="stage2Modal">
+    <el-dialog title="SHL Lot Flow History&Forecast" :visible.sync="dialogStage2Visible" fullscreen v-on:opened="show">
+        <div class="ibox float-e-margins block" >
+            <div class="ibox-title">
+               <div class="inline">LotID:{{ LotID }}</div>
+                <div class="inline">Time:
+                    <el-date-picker
+                    v-model="timeInput"
+                    type="datetimerange"
+                    range-separator="至"
+                    start-placeholder="开始时间"
+                    end-placeholder="结束时间"
+                    :picker-options="pickerOptions"
+                    >
+                  </el-date-picker>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <div  class="dataTables_wrapper form-inline dt-bootstrap">
+                        <el-table :data="filterdEntities" border size="mini" style="width: 100%" stripe max-height="600" class="table table-striped table-bordered table-hover dataTables-example" v-on:row-dblclick="handleRowDblClick">
+                            <el-table-column type="index" width="50" align="center"></el-table-column>
+                            <el-table-column property="OpeNO" label="OpeNO" align="center"></el-table-column>
+                            <el-table-column property="ModulePD" label="ModulePD" min-width="120" align="center"></el-table-column>
+                            <el-table-column property="Department" label="Department" min-width="120" align="center"></el-table-column>
+                            <el-table-column property="EqpType" label="EqpType" min-width="120" align="center"></el-table-column>
+                            <el-table-column  label="EqpList" min-width="120" align="center">
+                                <template slot-scope="scope">
+                                    <template v-for="eqp in  scope.row.EqpList">
+                                        <el-popover vi-if="eqp.StateID" trigger="hover" placement="top">
+                                            <p>EqpID: {{ eqp.EqpID }}</p>
+                                            <p>E10State: {{ eqp.E10Status }}</p>
+                                            <p>StateID: {{ eqp.StateID }}</p>
+                                            <p>StateChangeTime:{{ eqp.strEqpTime }}</p>
+                                            <div slot="reference" class="name-wrapper">
+                                              <el-tag size="medium" width="100">{{ eqp.EqpID }}</el-tag>
+                                            </div>
+                                          </el-popover>
+                                          <el-tag v-else size="medium" width="100">{{ eqp.EqpID }}</el-tag>
+                                    </template>
+                                </template>
+                            </el-table-column>
+                            <el-table-column  label="Eqp Status" min-width="120" align="center">
+                                <template  slot-scope="scope">
+                                    <template v-for="eqp in scope.row.EqpList">
+                                        <el-tag  size="medium" width="100"><span>{{ eqp.E10Status }}</span>(<span>{{eqp.StateID}}</span>)</el-tag>
+                                    </template>
+                                </template>
+                            </el-table-column>
+                            <el-table-column  label="PMS" min-width="120" align="center">
+                                    <template slot-scope="scope">
+                                            <template v-for="eqp in  scope.row.EqpList">
+                                                    <el-popover v-if="eqp.PMS" trigger="hover" placement="top">
+                                                            <p>EqpID: {{ eqp.EqpID }}</p>
+                                                            <p>E10State: {{ eqp.E10Status }}</p>
+                                                            <p>StateID: {{ eqp.StateID }}</p>
+                                                            <div slot="reference" class="name-wrapper">
+                                                              <el-tag size="medium" width="100">{{ eqp.PMS }}</el-tag>
+                                                            </div>
+                                                    </el-popover>
+                                            </template>
+                                        </template>
+                            </el-table-column>
+                            <el-table-column property="Recipe" label="Recipe" min-width="120" align="center"></el-table-column>
+                            <el-table-column property="PRSecond" label="PR Time" min-width="120" align="center"></el-table-column>
+                            <el-table-column property="CTSecond" label="C/T(s)" min-width="120" align="center"></el-table-column>
+                            <el-table-column property="strPlan" label="Plan" min-width="90" align="center"></el-table-column>
+                            <el-table-column property="strForecast" label="Forecast" min-width="90" align="center"></el-table-column>
+                            <el-table-column property="strWFIn" label="WF In" min-width="90" align="center"></el-table-column>
+                            <el-table-column property="strStepComplete" label="Step Complete" min-width="120" align="center"></el-table-column>
+                            <el-table-column property="strStepGap" label="Step Gap" min-width="120" align="center"></el-table-column>
+                            <el-table-column property="strQtime" label="Qtime" min-width="120" align="center"></el-table-column>
+                            <el-table-column  label="Remark" min-width="120" align="center">
+                                <template slot-scope="scope">
+                                    <el-input v-if="scope.row.EditState" v-model="scope.row.Remark" v-on:blur="handleUpdateRmk"></el-input>
+                                    <div v-else>{{ scope.row.Remark }}</div>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </div>
+                </div>
+                <div style="width:100%;text-align:center">
+                <div style="width:750px;">
+                        <div  style="color:seagreen;position: relative;float: right;left:-10px;top:55px;border: 1px dashed #000;padding: 1px"><div class="inline" style="border-right: 1px dashed #000">Target WF Out:{{ targetWFOut }}</div><div class="inline">Forecast WF Out:{{ forecastWFOut }}</div></div>
+                        <canvas  ref="canvas"  id="myChart"  style="width:900px; height:800px;"></canvas>
+                </div>
+                </div>
+            </div>
+        </div>
+    </el-dialog>
+
+</div>
+
+
+<script src="~/Scripts/plugins/chartJs/Chart.min.js"></script>
 <!-- For this Project Only -->
 <script src="~/Scripts/demo/shl.js"></script>
+

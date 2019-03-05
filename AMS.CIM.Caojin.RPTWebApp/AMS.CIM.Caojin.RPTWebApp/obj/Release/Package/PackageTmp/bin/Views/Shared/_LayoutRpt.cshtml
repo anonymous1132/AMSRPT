@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="copyright" content="(C) Copyright IBM Corporation and its licensors 2001, 2014." />
+    <meta name="trademark" content="IBM, the IBM logo, and Cognos are trademarks of IBM Corp., registered in many jurisdictions worldwide." />
+    <meta http-equiv="MSThemeCompatible" content="no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>@ViewBag.Title - IBM Cognos Viewer</title>
+    <script type="text/javascript" src="http://10.132.0.20:9300/prompting/prmt_core.js"></script>
+    <script type="text/javascript" src="http://10.132.0.20:9300/prompting/prompting.js"></script>
+    <script type="text/javascript" src="http://10.132.0.20:9300/rv/res/viewer_en.js"></script>
+    <script type="text/javascript" src="http://10.132.0.20:9300/rv/res/viewer_zh-cn.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://10.132.0.20:9300/skins/corporate/portal/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://10.132.0.20:9300/skins/corporate/viewer/QSRVCommonUI.css" />
+    <link rel="stylesheet" type="text/css" href="http://10.132.0.20:9300/skins/corporate/viewer/QSRVall.css" />
+    <link rel="stylesheet" type="text/css" href="http://10.132.0.20:9300/skins/corporate/viewer/CRN.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/ams.caojin.rpt.css" />
+    <script type="text/javascript" src="http://10.132.0.20:9300/cognoslaunch.js"></script>
+    <script type="text/javascript" src="http://10.132.0.20:9300/cr1/caf.js"></script>
+    <script type="text/javascript" src="http://10.132.0.20:9300/drill/CSelectionContextBuilder.js"></script>
+    <script type="text/javascript" src="http://10.132.0.20:9300/rv/viewer.standalone.core.js"></script>
+    <script type="text/javascript" src="http://10.132.0.20:9300/rv/serverrequest/requests/standalone/ViewerDispatcherEntry.js"></script>
+    <script type="text/javascript" src="http://10.132.0.20:9300/mdsrv/lineage.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-1.4.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/ams.commontool.js"></script>
+</head>
+<body>
+    <table class="mainViewerTable" id="mainViewerTable_NS_" role="presentation"><tr><td class="topRow" id="CVHeader_NS_" valign="top"><div id="headerBack"><table border="0" cellpadding="0" cellspacing="0" style="width: 100%" class="mainHeader1" role="banner"><tr><td class="logoContainer"><div class="logo"></div></td><td tabIndex="0" class="headerTitle" nowrap="nowrap">IBM Cognos Viewer - @ViewBag.Title</td><td class="mainHeader1Middle" style="text-align: right;" id="CVBanner_NS_"></td><td id="ibmLogo"></td></tr></table><div class="headerBannerLip"></div></div></td></tr><tr><td class="topRow"><table border="0" cellpadding="0" cellspacing="0" style="width: 100%" role="presentation"><tr><td id="CVToolbar_NS_" style="text-align: right;" role="toolbar" aria-label="Cognos Viewer 工具栏"></td></tr></table></td></tr><tr id="mainViewerTR_NS_"><td class="mainViewerTD"><div id="RVContent_NS_" name="RVContent_NS_" style="position:relative; height: 100%; " class="RVContent"><div id="CVReport_NS_" class="RVReport" style="display: none;" role="main"></div></div></td></tr><tr id="CVNavLinks_Container_NS_"><td class="viewerNavigation" role="navigation" aria-label="导航链接" id="CVNavLinks_NS_" aria-labelledby="CVNavLinks_label_NS_" align="left"><span id="CVNavLinks_label_NS_" style="display:none; visibility:hidden">导航链接</span></td></tr></table></form><form role="form" aria-label="隐藏的表单" name="formBackJax_NS_" id="formBackJax_NS_" style="display:none;"><input type="hidden" name="state" value=""><input type="hidden" name="result" value=""><input type="hidden" name="working" value=""></form>
+
+    @RenderBody()
+</body>
+</html>

@@ -127,7 +127,7 @@ function drawChart(canvasObj,data){
 
     var drawStack=function(){
         for(var i=0;i<count;i++){
-            var prHeight=data.Entities[i].PD*TotalHeight;
+            var prHeight=data.Entities[i].PR*TotalHeight;
             var sbHeight=data.Entities[i].SB*TotalHeight;
             var enHeight=data.Entities[i].EN*TotalHeight;
             var sdHeight=data.Entities[i].SD*TotalHeight;

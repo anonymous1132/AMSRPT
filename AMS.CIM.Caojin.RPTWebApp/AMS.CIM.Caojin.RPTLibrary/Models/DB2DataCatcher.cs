@@ -19,7 +19,7 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
             entities = new DB2Entities<T>(tableName);
         }
 
-        DB2Entities<T> entities;
+        public DB2Entities<T> entities;
 
         private string sql
         {

@@ -205,3 +205,7 @@ D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTWebApp\o
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTWebApp\obj\Release\AMS.CIM.Caojin.RPTWebApp.csproj.CopyComplete
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTWebApp\obj\Release\AMS.CIM.Caojin.RPTWebApp.dll
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTWebApp\obj\Release\AMS.CIM.Caojin.RPTWebApp.pdb
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTWebApp\bin\Views\Shared\Error.cshtml
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTWebApp\bin\Views\Shared\_Layout.cshtml
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTWebApp\bin\Views\Shared\_LayoutRpt.cshtml
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTWebApp\bin\Views\Shared\_LayoutRptBootStrap.cshtml

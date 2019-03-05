@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AMS.CIM.Caojin.RPTLibrary.Models;
+using Caojin.Common;
 
 namespace TestProject
 {
@@ -13,7 +14,10 @@ namespace TestProject
         {
             //ReqRpt025Translator reqRpt025Translator = new ReqRpt025Translator();
             //Console.WriteLine("over");
-           // TestCTFlow.TestCT();
+
+            TestCTFlow.TestCT();
+            //TestCTFlow.Test();
+
             Console.ReadLine();
         }
 

@@ -32,7 +32,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         private ReqRpt023TableViewModel TableViewModel;
 
-        private DB2DataCatcher<FHLot_DetailModel> dB2Data = new DB2DataCatcher<FHLot_DetailModel>("REPORT24_LOT_Detail");
+        private DB2DataCatcher<FHLot_DetailModel> dB2Data = new DB2DataCatcher<FHLot_DetailModel>("ISTRPT.REPORT24_LOT_Detail");
 
         public List<FHLot_DetailModel> entities { get; set; } = new List<FHLot_DetailModel>();
 

@@ -10,8 +10,6 @@ D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTDataUpda
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTDataUpdateService\bin\Debug\EntityFramework.xml
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTDataUpdateService\bin\Debug\EntityFramework.SqlServer.xml
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTDataUpdateService\bin\Debug\log4net.xml
-D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTDataUpdateService\bin\Debug\zh-Hans\EntityFramework.resources.dll
-D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTDataUpdateService\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTDataUpdateService\obj\Debug\AMS.CIM.Caojin.RPTDataUpdateService.csprojAssemblyReference.cache
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTDataUpdateService\obj\Debug\AMS.CIM.Caojin.RPTDataUpdateService.ProjectInstaller.resources
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTDataUpdateService\obj\Debug\AMS.CIM.Caojin.RPTDataUpdateService.csproj.GenerateResource.cache

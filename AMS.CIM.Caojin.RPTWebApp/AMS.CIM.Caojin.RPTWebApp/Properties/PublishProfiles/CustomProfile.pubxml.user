@@ -6,26 +6,26 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>Z:\release</_PublishTargetUrl>
+    <_PublishTargetUrl>Z:\test</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="ApplicationInsights.config">
       <publishTime>10/16/2018 08:59:20</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTLibrary.dll">
-      <publishTime>01/29/2019 09:23:49</publishTime>
+      <publishTime>03/01/2019 15:46:12</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTLibrary.dll.config">
       <publishTime>01/28/2019 10:49:19</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTLibrary.pdb">
-      <publishTime>01/29/2019 09:23:49</publishTime>
+      <publishTime>03/01/2019 15:46:12</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTWebApp.dll">
-      <publishTime>01/29/2019 14:14:09</publishTime>
+      <publishTime>03/04/2019 10:47:07</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTWebApp.pdb">
-      <publishTime>01/29/2019 14:14:09</publishTime>
+      <publishTime>03/04/2019 10:47:07</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>09/10/2013 16:29:20</publishTime>
@@ -246,6 +246,18 @@
     <File Include="bin/System.Web.WebPages.Razor.dll">
       <publishTime>02/01/2018 12:20:56</publishTime>
     </File>
+    <File Include="bin/Views/Shared/Error.cshtml">
+      <publishTime>10/16/2018 08:58:46</publishTime>
+    </File>
+    <File Include="bin/Views/Shared/_Layout.cshtml">
+      <publishTime>12/06/2018 12:31:32</publishTime>
+    </File>
+    <File Include="bin/Views/Shared/_LayoutRpt.cshtml">
+      <publishTime>12/06/2018 11:44:54</publishTime>
+    </File>
+    <File Include="bin/Views/Shared/_LayoutRptBootStrap.cshtml">
+      <publishTime>02/21/2019 11:48:36</publishTime>
+    </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>01/23/2014 13:57:34</publishTime>
     </File>
@@ -275,6 +287,9 @@
     </File>
     <File Include="Content/animate.css">
       <publishTime>12/06/2018 14:24:38</publishTime>
+    </File>
+    <File Include="Content/application.css">
+      <publishTime>12/12/2017 16:09:33</publishTime>
     </File>
     <File Include="Content/bootstrap-theme.css">
       <publishTime>10/16/2018 08:59:07</publishTime>
@@ -410,6 +425,15 @@
     </File>
     <File Include="Content/plugins/dualListbox/bootstrap-duallistbox.min.css">
       <publishTime>06/16/2016 19:46:24</publishTime>
+    </File>
+    <File Include="Content/plugins/element/fonts/element-icons.ttf">
+      <publishTime>02/20/2019 10:44:57</publishTime>
+    </File>
+    <File Include="Content/plugins/element/fonts/element-icons.woff">
+      <publishTime>02/20/2019 10:54:34</publishTime>
+    </File>
+    <File Include="Content/plugins/element/index.css">
+      <publishTime>02/19/2019 17:20:30</publishTime>
     </File>
     <File Include="Content/plugins/footable/fonts/footable.eot">
       <publishTime>04/20/2015 16:55:26</publishTime>
@@ -756,6 +780,9 @@
     <File Include="font-awesome/scss/_variables.scss">
       <publishTime>10/28/2016 01:51:44</publishTime>
     </File>
+    <File Include="fonts/element-icons.woff">
+      <publishTime>02/20/2019 10:31:22</publishTime>
+    </File>
     <File Include="fonts/glyphicons-halflings-regular.eot">
       <publishTime>10/16/2018 08:59:07</publishTime>
     </File>
@@ -835,13 +862,13 @@
       <publishTime>01/11/2019 13:30:00</publishTime>
     </File>
     <File Include="Scripts/demo/shl.js">
-      <publishTime>01/29/2019 11:26:27</publishTime>
+      <publishTime>03/04/2019 10:39:54</publishTime>
     </File>
     <File Include="Scripts/demo/sparkline-demo.js">
       <publishTime>12/19/2015 22:16:26</publishTime>
     </File>
     <File Include="Scripts/demo/upm.js">
-      <publishTime>01/24/2019 13:20:38</publishTime>
+      <publishTime>02/22/2019 13:39:26</publishTime>
     </File>
     <File Include="Scripts/FileSaver.js">
       <publishTime>11/14/2018 19:34:32</publishTime>
@@ -1571,6 +1598,9 @@
     </File>
     <File Include="Scripts/plugins/easypiechart/jquery.easypiechart.js">
       <publishTime>12/19/2015 22:18:40</publishTime>
+    </File>
+    <File Include="Scripts/plugins/element/index.js">
+      <publishTime>02/18/2019 11:45:28</publishTime>
     </File>
     <File Include="Scripts/plugins/flot/curvedLines.js">
       <publishTime>12/19/2015 22:18:40</publishTime>
@@ -2764,7 +2794,7 @@
       <publishTime>12/15/2009 17:59:30</publishTime>
     </File>
     <File Include="themes/local/shl.css">
-      <publishTime>01/29/2019 11:36:26</publishTime>
+      <publishTime>02/21/2019 16:56:16</publishTime>
     </File>
     <File Include="themes/material-teal/accordion.css">
       <publishTime>10/10/2018 16:42:19</publishTime>
@@ -3388,7 +3418,7 @@
       <publishTime>01/14/2019 15:35:02</publishTime>
     </File>
     <File Include="Views/ReqRpt048/Index.cshtml">
-      <publishTime>01/29/2019 11:34:53</publishTime>
+      <publishTime>03/04/2019 10:45:48</publishTime>
     </File>
     <File Include="Views/Rpt/GetSelectListByEqpType.cshtml">
       <publishTime>10/25/2018 16:46:37</publishTime>
@@ -3406,7 +3436,7 @@
       <publishTime>10/18/2018 14:50:16</publishTime>
     </File>
     <File Include="Views/Rpt/ReqRpt018.cshtml">
-      <publishTime>11/26/2018 13:19:54</publishTime>
+      <publishTime>02/15/2019 17:28:23</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>10/16/2018 08:58:46</publishTime>
@@ -3414,11 +3444,14 @@
     <File Include="Views/Shared/_Layout.cshtml">
       <publishTime>12/06/2018 12:31:32</publishTime>
     </File>
+    <File Include="Views/Shared/_LayoutElementVue.cshtml">
+      <publishTime>02/21/2019 11:56:03</publishTime>
+    </File>
     <File Include="Views/Shared/_LayoutRpt.cshtml">
       <publishTime>12/06/2018 11:44:54</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutRptBootStrap.cshtml">
-      <publishTime>12/26/2018 16:57:03</publishTime>
+      <publishTime>02/21/2019 11:48:36</publishTime>
     </File>
     <File Include="Views/Test/Index.cshtml">
       <publishTime>10/18/2018 17:28:30</publishTime>
@@ -3433,7 +3466,7 @@
       <publishTime>10/16/2018 10:35:34</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/28/2019 10:58:51</publishTime>
+      <publishTime>02/28/2019 16:26:35</publishTime>
     </File>
   </ItemGroup>
 </Project>

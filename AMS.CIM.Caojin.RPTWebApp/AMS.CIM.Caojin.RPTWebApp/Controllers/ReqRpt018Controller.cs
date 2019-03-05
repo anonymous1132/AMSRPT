@@ -106,13 +106,13 @@ namespace AMS.CIM.Caojin.RPTWebApp.Controllers
                     else
                     {
                         var eqptypelist = Rpt018MainViewModel.db.EQPType_Department_Mapping.Where(w => w.Department == module).Select(s => s.EqpType).Distinct().ToList();
-                        EqpIDListViewModel = Rpt018MainViewModel.db.EQP_UPm_018.Where(w => eqptypelist.Contains(w.EqpType)).Select(s => new ReqRpt018EqpIDListViewModel() { EqpID = s.EqpID, EqpIDValue = s.EqpID }).Distinct().ToList();
+                        EqpIDListViewModel = Rpt018MainViewModel.db.EQP_UPm_018.Where(w => eqptypelist.Contains(w.EqpType)&&w.EqpID.Substring(0,2)!="IT").Select(s => new ReqRpt018EqpIDListViewModel() { EqpID = s.EqpID, EqpIDValue = s.EqpID }).Distinct().ToList();
                     }
                 }
                 else
                 {
 
-                    EqpIDListViewModel = Rpt018MainViewModel.db.EQP_UPm_018.Where(w => w.EqpType == eqpType).Select(s => new ReqRpt018EqpIDListViewModel() { EqpID = s.EqpID, EqpIDValue = s.EqpID }).Distinct().ToList();
+                    EqpIDListViewModel = Rpt018MainViewModel.db.EQP_UPm_018.Where(w => w.EqpType == eqpType && w.EqpID.Substring(0,2)!="IT").Select(s => new ReqRpt018EqpIDListViewModel() { EqpID = s.EqpID, EqpIDValue = s.EqpID }).Distinct().ToList();
                 }
                 return PartialView(EqpIDListViewModel);
             }
@@ -153,6 +153,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Controllers
             string root = "~/App_Data";
             string path = System.IO.Path.Combine(root, fileName);
             string sPath = Server.MapPath(path);
+
             try
             {
                 ReqRpt018Chart2ExcelWorkSpace excelWorkSpace = new ReqRpt018Chart2ExcelWorkSpace(sPath)

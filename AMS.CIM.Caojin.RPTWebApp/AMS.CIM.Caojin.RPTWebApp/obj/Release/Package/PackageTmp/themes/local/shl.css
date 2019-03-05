@@ -13,12 +13,18 @@ width:100%;
     font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.bootstrap-duallistbox-container .col-md-6{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+
 .info-container {
     display: none;
 }
 
 .multi-select {
-    max-width: 300px;
+    width: 250px;
 }
 
 .itemtool {
@@ -40,6 +46,12 @@ width:100%;
     display:inline-block;
 }
 
+.block {
+    display: block;
+}
+.block table{
+    margin-top:10px; 
+}
 
 #fot-info {
     float:right;
@@ -48,3 +60,33 @@ width:100%;
     #fot-info p {
     font-weight:200;
     }
+
+#myModal .modal-dialog {
+        min-width: 80%;
+        min-height: 600px;
+    }
+
+#myModal .note-toolbar {
+        display: none;
+    }
+
+    .el-table-add-row {
+        margin-top: 10px;
+        width: 100%;
+        height: 34px;
+        border: 1px dashed #c1c1cd;
+        border-radius: 3px;
+        cursor: pointer;
+        justify-content: center;
+        display: flex;
+        line-height: 34px;
+        }
+
+        #myModal select{
+            height: 40px;
+        }
+
+        .warning{
+            font-weight: bolder;
+            color:red;
+        }

@@ -44,8 +44,6 @@ D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\AMS.
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\AMS.CIM.Caojin.RPTLibrary.dll.config
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\EntityFramework.xml
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\EntityFramework.SqlServer.xml
-D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\zh-Hans\EntityFramework.resources.dll
-D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\obj\Debug\TestProject.csprojAssemblyReference.cache
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\obj\Debug\TestProject.csproj.CoreCompileInputs.cache
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\obj\Debug\TestProject.csproj.CopyComplete

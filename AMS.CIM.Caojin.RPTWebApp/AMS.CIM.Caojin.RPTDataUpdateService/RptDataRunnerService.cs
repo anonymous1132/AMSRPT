@@ -53,8 +53,11 @@ namespace AMS.CIM.Caojin.RPTDataUpdateService
                 tt.Enabled = false;
                 EQP_UPm_018Runner.Run();
                 Lin_RealTime_025Runner.Run();
-                CycleTimeRunner.RunFlow();
-                CycleTimeRunner.RunCT();
+                if(DateTime.Now.Hour==0&&DateTime.Now.Minute<20)
+                {
+                    CycleTimeRunner.RunFlow();
+                    CycleTimeRunner.RunCT();
+                }
                 tt.Enabled = true;
             }
             catch (Exception err)
