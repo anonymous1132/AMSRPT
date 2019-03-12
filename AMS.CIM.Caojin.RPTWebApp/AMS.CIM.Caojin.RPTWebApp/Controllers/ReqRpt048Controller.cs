@@ -100,8 +100,8 @@ namespace AMS.CIM.Caojin.RPTWebApp.Controllers
         public JsonResult Stage2Query(string lot,string product)
         {
             var model = new ReqRpt048SHLStage2ViewModel(lot,product);
-
-            return Json(new {success=true,model.Entities } );
+            var datas = model.Entities.Select(s=>new { s.OpeNO,s.ModulePD,s.Department,s.EqpType,s.EqpList,s.Recipe,s.PRSecond,s.CTSecond,s.strPlan,s.strForecast,s.strWFIn,s.strStepComplete,s.strStepGap,s.strQtime,s.QtimeType,s.Qtime,s.Remark});
+            return Json(new {success=true,Entities=datas,model.ChartModels } );
         }
 
         //操作Remark

@@ -53,5 +53,11 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         public string Remark { get; set; }
 
+        public string QtimeType { get; set; }
+
+        public List<ReqRpt048Stage2GapModel> GapModels { get; set; } = new List<ReqRpt048Stage2GapModel>();
+
+        public double? GapWithOutHold { get { return StepGap == null ? null : (double?)(StepGap.Value + GapModels.Sum(s =>s.HoldGap)); } }
+
     }
 }

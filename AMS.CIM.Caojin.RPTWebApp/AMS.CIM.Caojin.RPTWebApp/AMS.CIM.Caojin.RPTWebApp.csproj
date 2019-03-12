@@ -180,6 +180,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ExcelApp.cs" />
+    <Compile Include="Models\ReqRpt048ChartGapModel.cs" />
+    <Compile Include="Models\ReqRpt048GapComputer.cs" />
+    <Compile Include="Models\ReqRpt048GapComputerEntity.cs" />
+    <Compile Include="Models\ReqRpt048GapSplitTimeEntity.cs" />
     <Compile Include="Models\ReqRpt048RemarkHandlePostModel.cs" />
     <Compile Include="Models\ReqRpt048DepartmentQuotaEntity.cs" />
     <Compile Include="Models\ReqKeyOperateModel.cs" />
@@ -193,6 +197,7 @@
     <Compile Include="Models\ReqRpt048SHLEntity.cs" />
     <Compile Include="Models\ReqRpt048Stage2Entity.cs" />
     <Compile Include="Models\ReqRpt048EqpEntity.cs" />
+    <Compile Include="Models\ReqRpt048Stage2GapModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt018Chart1ExcelWorkSpace.cs" />
     <Compile Include="Models\ViewModel\ReqRpt018Chart1PostEntity.cs" />
     <Compile Include="Models\ViewModel\ReqRpt018Chart1PostModel.cs" />

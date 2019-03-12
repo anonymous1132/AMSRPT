@@ -137,8 +137,8 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
             QuotaCatcher.Conditions = string.Format("where lot_id in ('{0}')", lot_families);
             quotaList = QuotaCatcher.GetEntities().EntityList;
             //Cycle Time Query
-            FlowCTCatcher.Conditions = string.Format("where prodspec_id in ('{0}')", string.Join("','", lotList.Select(s => s.ProdSpec_ID).Distinct()));
-            ctList = FlowCTCatcher.GetEntities().EntityList.OrderBy(o => o.PD_ID);
+            FlowCTCatcher.Conditions = string.Format("where prodspec_id in ('{0}') order by prodspec_id,ope_no", string.Join("','", lotList.Select(s => s.ProdSpec_ID).Distinct()));
+            ctList = FlowCTCatcher.GetEntities().EntityList;
             //All Department Query
             CodeCatcher.Conditions = "where category_id='Department'";
             deptList = CodeCatcher.GetEntities().EntityList;
@@ -170,13 +170,16 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
             var today = DateTime.Now.Date.AddHours(8);
             //获取剩余站点
             var remainPds = ctList_prod.SkipWhile(s => s.Ope_No!=lot_pd.Ope_No);
+            double m = lot.Priority_Class == 1 ? 1.3 : 1.6;
             //总 cycle time
-            double ctValue_total = ctList_prod.Sum(s => s.PD_STD_Cycle_Time_Min);
+            double ctValue_total = ctList_prod.Sum(s => s.PD_STD_Proc_Time_Min) * m;
             //剩余cycle time
-            double ctValue_Remain = remainPds.Sum(s => s.PD_STD_Cycle_Time_Min);
+            double ctValue_Remain = remainPds.Sum(s => s.PD_STD_Proc_Time_Min)*m;
+            int test = remainPds.Count();
             //当前站点到wat站点的cycle time
-            double ctValue_wat = remainPds.TakeWhile(t => !watPds.Select(s => s.PD_ID).Contains(t.PD_ID)).Sum(s => s.PD_STD_Cycle_Time_Min);
+            double ctValue_wat = remainPds.TakeWhile(t => !watPds.Select(s => s.PD_ID).Contains(t.PD_ID)).Sum(s => s.PD_STD_Proc_Time_Min)*m;
             var dept = deptList.Where(w => w.Code_ID == pd.Department);
+            DateTime baseTime = inTime.AddMinutes(remainPds.First().PD_STD_Cycle_Time_Min) > DateTime.Now ? inTime : DateTime.Now;
             var shl = new ReqRpt048SHLEntity
             {
                 LotID = lot.Lot_ID,
@@ -199,8 +202,8 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                 YSDT = opes.Where(w => w.Claim_Time < today && w.Claim_Time > today.AddDays(-1)).Count(),
                 Remark = lot.Hold_Claim_Memo,
                 PriChgStage = opes.Where(w => w.Priority_Class != lot.Priority_Class).FirstOrDefault().Stage_ID,
-                WAT = inTime.AddMinutes(ctValue_wat),
-                WaferOut = inTime.AddMinutes(ctValue_Remain),
+                WAT = baseTime.AddMinutes(ctValue_wat),
+                WaferOut = baseTime.AddMinutes(ctValue_Remain),
                 TargetWaferOut = firstpd.Claim_Time.AddMinutes(ctValue_total),
                 ProductID = lot.ProdSpec_ID,
                 QuotaDept=owner.Description

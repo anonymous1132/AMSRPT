@@ -16,6 +16,7 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
       public string Ope_No { get; set; }
       public string PD_ID { get; set; }
       public double PD_STD_Cycle_Time_Min { get; set; }
+       public double PD_STD_Proc_Time_Min { get; set; }
       public string Eqp_Type { get; set; }
     }
 }

@@ -102,6 +102,7 @@
     <Compile Include="Models\DAL\FRPD.cs" />
     <Compile Include="Models\DAL\FRPD_PD_ID.cs" />
     <Compile Include="Models\DAL\FRUserModel.cs" />
+    <Compile Include="Models\DAL\PMSTaskContentAct.cs" />
     <Compile Include="Models\DAL\Report25_MoveQty_ByProd.cs" />
     <Compile Include="Models\DAL\Report25_ScrappedQty_ByProd.cs" />
     <Compile Include="Models\DAL\Report36_Chamber.cs" />

@@ -170,10 +170,11 @@ var tableView0 = new Vue({
                     response.Entities.map(m=>m.EditState=false);
                     stage2View.LotID=row.LotID;
                     stage2View.Entities=response.Entities;
+                    stage2View.ChartModels=response.ChartModels;
                     let end=new Date(JSON.parse(JSON.stringify(stage2View.queryTime)));
                     end.setDate(end.getDate()+1);
-                    timeInput=[new Date(),end];
-                    rawTime=new Date();
+                    stage2View.timeInput=[new Date(),end];
+                    stage2View.rawTime=new Date();
                     stage2View.dialogStage2Visible=true;
                 }else{
                     tableView0.$message.error(response.msg);
@@ -513,7 +514,8 @@ var stage2View=new Vue({
 
         },
         ctx:null,
-        canvas:null
+        canvas:null,
+        ChartModels:[]
     },
     computed:{
         queryTime:function(){         
@@ -522,6 +524,15 @@ var stage2View=new Vue({
         pickerOptions:function(){
             return {
             shortcuts: [{
+                text:'重置',
+                onClick(picker){
+                    let start=new Date();
+                    let end=new Date();
+                    end.setDate(end.getDate()+1);
+                    picker.$emit('pick',[start,end]);
+                }
+            },
+            {
               text: '24小时内',
               onClick(picker) {
                   let end=new Date(JSON.parse(JSON.stringify(stage2View.queryTime)));
@@ -569,8 +580,8 @@ var stage2View=new Vue({
             let res=[];
             if(this.timeInput){
              res= this.Entities.filter(f=>{
-                if(f.strStepComplete){
-                    let dt=new Date(f.strStepComplete);
+                if(f.strWFIn){
+                    let dt=new Date(f.strWFIn);
                     return dt>stage2View.timeInput[0]&&dt<stage2View.timeInput[1];
                 }
                 if(f.strForecast){
@@ -580,24 +591,6 @@ var stage2View=new Vue({
                 return false;
             });
         }
-        if(this.ctx){
-        let labels= modalView.Departments;
-        let data=[];
-        for(let i=0;i<labels.length;i++){
-        let j=res.filter(f=>{
-        if(f.Department!=labels[i])return false;
-        let gap=parseFloat(f.strStepGap);
-        return gap<0||gap>0||gap===0;
-        });
-        if(j.length>0){data.push(eval(j.join('+')));}
-        else {data.push(0);}
-        }
-        let datasets=[{
-        data:data
-        }];
-        let chartData= {labels:labels,datasets:datasets};
-        var myBarChart= new Chart(this.ctx,{type:'bar',data:chartData,options:this.chartOptions});
-    }
         return res;
         },
         targetWFOut:function(){
@@ -606,7 +599,9 @@ var stage2View=new Vue({
            let date=new Date(plan);
            let y=date.getFullYear();
            let m=date.getMonth()+1;
+           m=m<10?'0'+m:m;
            let d=date.getDate();
+           d=d<10?'0'+d:d;
            return y+""+m+""+d;}else return "";
         },
         forecastWFOut:function(){
@@ -615,8 +610,34 @@ var stage2View=new Vue({
            let date=new Date(fore);
            let y=date.getFullYear();
            let m=date.getMonth()+1;
+           m=m<10?'0'+m:m;
            let d=date.getDate();
+           d=d<10?'0'+d:d;
            return y+""+m+""+d;}else return "";
+        },
+        spanArray:function(){
+            let arry=[];
+            let pos=0;
+            for (let i = 0; i < this.filterdEntities.length; i++) {
+                    if (i === 0) {
+                          arry.push(1);
+                    } 
+                    else if(!this.filterdEntities[i].Qtime){
+                        arry.push(1);
+                        pos = i;
+                    }
+                    else {
+                      // 判断当前元素与上一个元素是否相同
+                        if (this.filterdEntities[i].Qtime === this.filterdEntities[i-1].Qtime&&this.filterdEntities[i].QtimeType===this.filterdEntities[i-1].QtimeType) {
+                            arry[pos] += 1;
+                            arry.push(0);
+                          } else {
+                            arry.push(1);
+                            pos = i;
+                          }
+                    }
+                }
+            return arry;
         }
     },
     methods:{
@@ -655,7 +676,31 @@ var stage2View=new Vue({
             this.canvas = this.$refs.canvas;//指定canvas
             if(this.canvas){
             this.ctx = this.canvas.getContext("2d");//设置2D渲染区域
+                let labels= modalView.Departments;
+                let data=[];
+                for(let i=0;i<labels.length;i++){
+                let j=this.ChartModels.find(f=>f.Department==labels[i]);
+                    data.push(j?j.gap:0);
+                }
+                let datasets=[{
+                data:data
+                }];
+                let chartData= {labels:labels,datasets:datasets};
+                var myBarChart= new Chart(this.ctx,{type:'bar',data:chartData,options:this.chartOptions});
          }
+        },
+        objSpanMethod({ row, column, rowIndex, columnIndex }){
+            if(columnIndex===16){
+                const _row = this.spanArray[rowIndex];
+                const _col = _row > 0 ? 1 : 0;
+                return {
+                  rowspan: _row,
+                  colspan: _col
+                }
+            }
+        },
+        tableCellStyle({row,column,rowIndex,columnIndex}){
+            return 'border: 1px solid black;'
         }
     }
 });

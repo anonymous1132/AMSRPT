@@ -21,5 +21,7 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
         public int Priority_Class { get; set; }
 
         public DateTime Claim_Time { get; set; }
+
+        public string Hold_Reason_Code { get; set; }
     }
 }
