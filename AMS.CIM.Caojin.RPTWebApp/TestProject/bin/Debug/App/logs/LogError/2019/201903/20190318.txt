@@ -1,0 +1,137 @@
+
+＝＝＝＝＝＝＝＝＝＝                                   
+【日志级别】ERROR                                   
+【记录时间】2019-03-18 16:13:01,667                                   
+【线程编号】[3]                                   
+【执行时间】[1023]毫秒                                   
+【出错文件】D:\ProgramData\GitHub\AMSDotNetWebAPI\CommonUtilsLibrary\Utils\LogUtils.cs                                   
+【出错行号】14                                   
+【出错的类】logerror 属性[(null)]                                   
+【错误描述】test                                   
+【错误详情】
+
+＝＝＝＝＝＝＝＝＝＝                                   
+【日志级别】ERROR                                   
+【记录时间】2019-03-18 16:14:08,454                                   
+【线程编号】[4]                                   
+【执行时间】[1959]毫秒                                   
+【出错文件】D:\ProgramData\GitHub\AMSDotNetWebAPI\CommonUtilsLibrary\Utils\LogUtils.cs                                   
+【出错行号】22                                   
+【出错的类】logerror 属性[(null)]                                   
+【错误描述】[DB2/AIX64] SQL0204N  "ISTRPT.WIPCHART_YSTD" 是一个未定义的名称。  SQLSTATE=42704/r/nIBM OLE DB Provider for DB2/r/nVoid GetSomeData(System.String)/r/n   在 Caojin.Common.DB2Oper.GetSomeData(String strSql) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Common\Db2Oper.cs:行号 36
+   在 AMS.CIM.Caojin.RPTLibrary.Models.ReqRpt028Runner.Initialize() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\BLL\ReqRpt028Runner.cs:行号 34
+   在 AMS.CIM.Caojin.RPTLibrary.Models.ReqRpt028Runner..ctor(Db2ConnObj connObj) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\BLL\ReqRpt028Runner.cs:行号 19
+   在 TestProject.RunWipChartYstd.Run() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\RunWipChartYstd.cs:行号 21
+   在 TestProject.Program.Main(String[] args) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\Program.cs:行号 18                                   
+【错误详情】
+
+＝＝＝＝＝＝＝＝＝＝                                   
+【日志级别】ERROR                                   
+【记录时间】2019-03-18 16:14:57,596                                   
+【线程编号】[4]                                   
+【执行时间】[1389]毫秒                                   
+【出错文件】D:\ProgramData\GitHub\AMSDotNetWebAPI\CommonUtilsLibrary\Utils\LogUtils.cs                                   
+【出错行号】22                                   
+【出错的类】logerror 属性[(null)]                                   
+【错误描述】没有YSTD Record/r/nAMS.CIM.Caojin.RPTLibrary/r/nVoid Initialize()/r/n   在 AMS.CIM.Caojin.RPTLibrary.Models.ReqRpt028Runner.Initialize() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\BLL\ReqRpt028Runner.cs:行号 37
+   在 AMS.CIM.Caojin.RPTLibrary.Models.ReqRpt028Runner..ctor(Db2ConnObj connObj) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\BLL\ReqRpt028Runner.cs:行号 19
+   在 TestProject.RunWipChartYstd.Run() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\RunWipChartYstd.cs:行号 21
+   在 TestProject.Program.Main(String[] args) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\Program.cs:行号 18                                   
+【错误详情】
+
+＝＝＝＝＝＝＝＝＝＝                                   
+【日志级别】ERROR                                   
+【记录时间】2019-03-18 16:19:00,625                                   
+【线程编号】[4]                                   
+【执行时间】[2178]毫秒                                   
+【出错文件】D:\ProgramData\GitHub\AMSDotNetWebAPI\CommonUtilsLibrary\Utils\LogUtils.cs                                   
+【出错行号】22                                   
+【出错的类】logerror 属性[(null)]                                   
+【错误描述】没有YSTD Record/r/nAMS.CIM.Caojin.RPTLibrary/r/nVoid Initialize()/r/n   在 AMS.CIM.Caojin.RPTLibrary.Models.ReqRpt028Runner.Initialize() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\BLL\ReqRpt028Runner.cs:行号 37
+   在 AMS.CIM.Caojin.RPTLibrary.Models.ReqRpt028Runner..ctor(Db2ConnObj connObj) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\BLL\ReqRpt028Runner.cs:行号 19
+   在 TestProject.RunWipChartYstd.Run() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\RunWipChartYstd.cs:行号 21
+   在 TestProject.Program.Main(String[] args) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\Program.cs:行号 18                                   
+【错误详情】
+
+＝＝＝＝＝＝＝＝＝＝                                   
+【日志级别】ERROR                                   
+【记录时间】2019-03-18 16:20:10,386                                   
+【线程编号】[4]                                   
+【执行时间】[2289]毫秒                                   
+【出错文件】D:\ProgramData\GitHub\AMSDotNetWebAPI\CommonUtilsLibrary\Utils\LogUtils.cs                                   
+【出错行号】22                                   
+【出错的类】logerror 属性[(null)]                                   
+【错误描述】[DB2/AIX64] SQL0206N  "OPE_CATEGROY" 在使用它的上下文中无效。  SQLSTATE=42703/r/nIBM OLE DB Provider for DB2/r/nVoid GetSomeData(System.String)/r/n   在 Caojin.Common.DB2Oper.GetSomeData(String strSql) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Common\Db2Oper.cs:行号 36
+   在 AMS.CIM.Caojin.RPTLibrary.Models.DB2OperDataCatcher`1.DB2Operate() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\DB2OperDataCatcher.cs:行号 55
+   在 AMS.CIM.Caojin.RPTLibrary.Models.DB2OperDataCatcher`1.GetEntities() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\DB2OperDataCatcher.cs:行号 79
+   在 AMS.CIM.Caojin.RPTLibrary.Models.ReqRpt028Runner.GetInTime(RPT_WipChart_YSTD lot, String lot_id) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\BLL\ReqRpt028Runner.cs:行号 63
+   在 AMS.CIM.Caojin.RPTLibrary.Models.ReqRpt028Runner.Initialize() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\BLL\ReqRpt028Runner.cs:行号 53
+   在 AMS.CIM.Caojin.RPTLibrary.Models.ReqRpt028Runner..ctor(Db2ConnObj connObj) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\BLL\ReqRpt028Runner.cs:行号 19
+   在 TestProject.RunWipChartYstd.Run() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\RunWipChartYstd.cs:行号 21
+   在 TestProject.Program.Main(String[] args) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\Program.cs:行号 18                                   
+【错误详情】
+
+＝＝＝＝＝＝＝＝＝＝                                   
+【日志级别】ERROR                                   
+【记录时间】2019-03-18 16:31:34,238                                   
+【线程编号】[4]                                   
+【执行时间】[2446]毫秒                                   
+【出错文件】D:\ProgramData\GitHub\AMSDotNetWebAPI\CommonUtilsLibrary\Utils\LogUtils.cs                                   
+【出错行号】22                                   
+【出错的类】logerror 属性[(null)]                                   
+【错误描述】[DB2/AIX64] SQL0206N  "INTIME" 在使用它的上下文中无效。  SQLSTATE=42703/r/nIBM OLE DB Provider for DB2/r/nVoid GetSomeData(System.String)/r/n   在 Caojin.Common.DB2Oper.GetSomeData(String strSql) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Common\Db2Oper.cs:行号 36
+   在 AMS.CIM.Caojin.RPTLibrary.Models.DB2OperDataPusher`1.PushEntities() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\DB2OperDataPusher.cs:行号 62
+   在 AMS.CIM.Caojin.RPTLibrary.Models.ReqRpt028Runner.Initialize() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\BLL\ReqRpt028Runner.cs:行号 56
+   在 AMS.CIM.Caojin.RPTLibrary.Models.ReqRpt028Runner..ctor(Db2ConnObj connObj) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\BLL\ReqRpt028Runner.cs:行号 19
+   在 TestProject.RunWipChartYstd.Run() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\RunWipChartYstd.cs:行号 21
+   在 TestProject.Program.Main(String[] args) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\Program.cs:行号 18                                   
+【错误详情】
+
+＝＝＝＝＝＝＝＝＝＝                                   
+【日志级别】ERROR                                   
+【记录时间】2019-03-18 16:33:04,434                                   
+【线程编号】[4]                                   
+【执行时间】[2327]毫秒                                   
+【出错文件】D:\ProgramData\GitHub\AMSDotNetWebAPI\CommonUtilsLibrary\Utils\LogUtils.cs                                   
+【出错行号】22                                   
+【出错的类】logerror 属性[(null)]                                   
+【错误描述】[DB2/AIX64] SQL0206N  "PRODSPEC_ID" 在使用它的上下文中无效。  SQLSTATE=42703/r/nIBM OLE DB Provider for DB2/r/nVoid GetSomeData(System.String)/r/n   在 Caojin.Common.DB2Oper.GetSomeData(String strSql) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Common\Db2Oper.cs:行号 36
+   在 AMS.CIM.Caojin.RPTLibrary.Models.DB2OperDataPusher`1.PushEntities() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\DB2OperDataPusher.cs:行号 62
+   在 AMS.CIM.Caojin.RPTLibrary.Models.ReqRpt028Runner.Initialize() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\BLL\ReqRpt028Runner.cs:行号 56
+   在 AMS.CIM.Caojin.RPTLibrary.Models.ReqRpt028Runner..ctor(Db2ConnObj connObj) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\BLL\ReqRpt028Runner.cs:行号 19
+   在 TestProject.RunWipChartYstd.Run() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\RunWipChartYstd.cs:行号 21
+   在 TestProject.Program.Main(String[] args) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\Program.cs:行号 18                                   
+【错误详情】
+
+＝＝＝＝＝＝＝＝＝＝                                   
+【日志级别】ERROR                                   
+【记录时间】2019-03-18 16:35:07,990                                   
+【线程编号】[4]                                   
+【执行时间】[2335]毫秒                                   
+【出错文件】D:\ProgramData\GitHub\AMSDotNetWebAPI\CommonUtilsLibrary\Utils\LogUtils.cs                                   
+【出错行号】22                                   
+【出错的类】logerror 属性[(null)]                                   
+【错误描述】[DB2/AIX64] SQL0803N  INSERT 语句、UPDATE 语句或由 DELETE 语句导致的外键更新中的一个或多个值无效，因为由 "1" 标识的主键、唯一约束或者唯一索引将表 "ISTRPT.RPT_WIPCHART_YSTD" 的索引键限制为不能具有重复值。  SQLSTATE=23505/r/nIBM OLE DB Provider for DB2/r/nVoid GetSomeData(System.String)/r/n   在 Caojin.Common.DB2Oper.GetSomeData(String strSql) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Common\Db2Oper.cs:行号 36
+   在 AMS.CIM.Caojin.RPTLibrary.Models.DB2OperDataPusher`1.PushEntities() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\DB2OperDataPusher.cs:行号 62
+   在 AMS.CIM.Caojin.RPTLibrary.Models.ReqRpt028Runner.Initialize() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\BLL\ReqRpt028Runner.cs:行号 56
+   在 AMS.CIM.Caojin.RPTLibrary.Models.ReqRpt028Runner..ctor(Db2ConnObj connObj) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\BLL\ReqRpt028Runner.cs:行号 19
+   在 TestProject.RunWipChartYstd.Run() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\RunWipChartYstd.cs:行号 21
+   在 TestProject.Program.Main(String[] args) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\Program.cs:行号 18                                   
+【错误详情】
+
+＝＝＝＝＝＝＝＝＝＝                                   
+【日志级别】ERROR                                   
+【记录时间】2019-03-18 17:10:06,002                                   
+【线程编号】[4]                                   
+【执行时间】[1578]毫秒                                   
+【出错文件】D:\ProgramData\GitHub\AMSDotNetWebAPI\CommonUtilsLibrary\Utils\LogUtils.cs                                   
+【出错行号】22                                   
+【出错的类】logerror 属性[(null)]                                   
+【错误描述】[DB2/AIX64] SQL0206N  "OPE_CATEGROY" 在使用它的上下文中无效。  SQLSTATE=42703/r/nIBM OLE DB Provider for DB2/r/nVoid GetSomeData(System.String)/r/n   在 Caojin.Common.DB2Oper.GetSomeData(String strSql) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Common\Db2Oper.cs:行号 36
+   在 AMS.CIM.Caojin.RPTLibrary.Models.DB2OperDataCatcher`1.DB2Operate() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\DB2OperDataCatcher.cs:行号 55
+   在 AMS.CIM.Caojin.RPTLibrary.Models.DB2OperDataCatcher`1.GetEntities() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\DB2OperDataCatcher.cs:行号 79
+   在 AMS.CIM.Caojin.RPTLibrary.Models.ReqRpt028Runner.Initialize() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\BLL\ReqRpt028Runner.cs:行号 35
+   在 AMS.CIM.Caojin.RPTLibrary.Models.ReqRpt028Runner..ctor(Db2ConnObj connObj) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\Models\BLL\ReqRpt028Runner.cs:行号 19
+   在 TestProject.RunWipChartYstd.Run() 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\RunWipChartYstd.cs:行号 21
+   在 TestProject.Program.Main(String[] args) 位置 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\Program.cs:行号 18                                   
+【错误详情】

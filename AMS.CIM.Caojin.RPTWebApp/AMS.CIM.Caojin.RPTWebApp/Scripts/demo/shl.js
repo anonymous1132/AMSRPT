@@ -690,7 +690,7 @@ var stage2View=new Vue({
          }
         },
         objSpanMethod({ row, column, rowIndex, columnIndex }){
-            if(columnIndex===16){
+            if(columnIndex===5){
                 const _row = this.spanArray[rowIndex];
                 const _col = _row > 0 ? 1 : 0;
                 return {
@@ -701,6 +701,37 @@ var stage2View=new Vue({
         },
         tableCellStyle({row,column,rowIndex,columnIndex}){
             return 'border: 1px solid black;'
+        },
+        outputExcel(){
+            if(this.filterdEntities.length==0)return false;
+            let data=[];
+            let filted=this.filterdEntities;
+            for(var i =0;i<filted.length;i++){
+                data.push({
+                    OpeNo:filted[i].OpeNO,
+                    OpeName:filted[i].OpeName,
+                    Plan:filted[i].strPlan,
+                    Forecast:filted[i].strForecast,
+                    Qtime:filted[i].strQtime,
+                    Department:filted[i].Department,
+                    EqpList:filted[i].EqpList.map(m=>m.EqpID).join('/'),
+                    EqpStatus:filted[i].EqpList.map(m=>m.E10Status+'('+m.StateID+')').join('/'),
+                    PMS:filted[i].EqpList.map(m=>{if(filted[i].strWFIn)return '';else if(m.Description){return m.PMS_Early_Time+'~'+m.PMS_Late_Time;}else return '待确认'; }).join('/'),
+                    ProdTime:filted[i].PRSecond,
+                    CT:filted[i].CTSecond,
+                    StepIn:filted[i].strWFIn,
+                    StepOut:filted[i].strStepComplete,
+                    StepGap:filted[i].strStepGap
+                });
+            }
+            let filename="SHL_FLOW_"+this.LotID+".xls";
+            let tableHtml=FormExcelContext(data);
+            if(!tableHtml)return false;
+            let ctx= { worksheet: "sheet1" , table: tableHtml };
+            let dlink=this.$refs.dlink;
+            dlink.href = uri + base64(format(template, ctx));
+            dlink.download = filename;
+            dlink.click();
         }
     }
 });
@@ -753,6 +784,7 @@ function showDialog(){
  tableHtml = tableHtml + '</tbody></table>';
  return tableHtml;
 }
+
 
 var uri = 'data:application/vnd.ms-excel;base64,';
 var template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"' +

@@ -79,6 +79,7 @@
     <Compile Include="Models\BLL\ReqRpt018ViewModel.cs" />
     <Compile Include="Models\BLL\ReqRpt020Model.cs" />
     <Compile Include="Models\BLL\ReqRpt025Translator.cs" />
+    <Compile Include="Models\BLL\ReqRpt028Runner.cs" />
     <Compile Include="Models\BLL\RPTCycleTimeTranslator.cs" />
     <Compile Include="Models\BLL\RPTFlowSumTranslator.cs" />
     <Compile Include="Models\DAL\FBLRCP_SSET_M.cs" />
@@ -87,8 +88,10 @@
     <Compile Include="Models\DAL\FHLot_DetailModel.cs" />
     <Compile Include="Models\DAL\FHOPEHSModel.cs" />
     <Compile Include="Models\DAL\FHOPEHS_HoldReason.cs" />
+    <Compile Include="Models\DAL\FHOPEHS_Qtime.cs" />
     <Compile Include="Models\DAL\FHOPEHS_SHL_Stage2.cs" />
     <Compile Include="Models\DAL\FHOPEHS_Turn_Daily.cs" />
+    <Compile Include="Models\DAL\FHOPEHS_WipChart.cs" />
     <Compile Include="Models\DAL\FHScrap_SummaryModel.cs" />
     <Compile Include="Models\DAL\FRCodeModel.cs" />
     <Compile Include="Models\DAL\FREQPModel.cs" />
@@ -98,6 +101,7 @@
     <Compile Include="Models\DAL\FREQP_EqpType_EqpID_Mapping.cs" />
     <Compile Include="Models\DAL\FRLot_HoldRecordModel.cs" />
     <Compile Include="Models\DAL\FRLot_ScrapModel.cs" />
+    <Compile Include="Models\DAL\FRLot_SplitLot.cs" />
     <Compile Include="Models\DAL\FRLot_TurnRateModel.cs" />
     <Compile Include="Models\DAL\FRPD.cs" />
     <Compile Include="Models\DAL\FRPD_PD_ID.cs" />
@@ -113,6 +117,8 @@
     <Compile Include="Models\DAL\Report48_SM_Qt.cs" />
     <Compile Include="Models\DAL\Report_Lot_OwnerDepartment_Mapping.cs" />
     <Compile Include="Models\DAL\Report_SpecialDetail.cs" />
+    <Compile Include="Models\DAL\ReqRpt029_Flow.cs" />
+    <Compile Include="Models\DAL\ReqRpt029_Lot.cs" />
     <Compile Include="Models\DAL\RPTFuncUsage.cs" />
     <Compile Include="Models\DAL\RPTH_LOT_PROC_TIME.cs" />
     <Compile Include="Models\DAL\RPT_DAI_TurnRate.cs" />
@@ -131,6 +137,7 @@
     <Compile Include="Models\DAL\RPT_STD_TIME_FLOW.cs" />
     <Compile Include="Models\DAL\RPT_STD_TIME_FLOW_T.cs" />
     <Compile Include="Models\DAL\RPT_Turn_Daily.cs" />
+    <Compile Include="Models\DAL\RPT_WipChart_YSTD.cs" />
     <Compile Include="Models\DAL\Rpt_WIP_SpecialLotModel.cs" />
     <Compile Include="Models\DAL\ScrapSummarizedModel.cs" />
     <Compile Include="Models\DAL\FBProd.cs" />

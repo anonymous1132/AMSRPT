@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS.CIM.Caojin.RPTDataUpdat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS.CIM.Caojin.RPTLibrary", "AMS.CIM.Caojin.RPTLibrary\AMS.CIM.Caojin.RPTLibrary.csproj", "{D2D95CC9-D226-4DB6-9F45-40A3755825DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonUtilsLibrary", "..\..\AMSDotNetWebAPI\CommonUtilsLibrary\CommonUtilsLibrary.csproj", "{C28D1898-85E1-4FE4-95D7-8D459200BE2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D2D95CC9-D226-4DB6-9F45-40A3755825DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2D95CC9-D226-4DB6-9F45-40A3755825DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2D95CC9-D226-4DB6-9F45-40A3755825DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C28D1898-85E1-4FE4-95D7-8D459200BE2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C28D1898-85E1-4FE4-95D7-8D459200BE2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C28D1898-85E1-4FE4-95D7-8D459200BE2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C28D1898-85E1-4FE4-95D7-8D459200BE2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

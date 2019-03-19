@@ -20,12 +20,12 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
         /// <param name="tableName">指定表名</param>
         public DB2OperDataCatcher(string tableName,DB2Oper dB2)
         {
-            entities = new DB2Entities<T>(tableName);
+            this.tableName = tableName;
             DB2 = dB2;
         }
 
 
-        DB2Entities<T> entities;
+        public DB2Entities<T> entities;
 
         private string sql
         {
@@ -44,11 +44,14 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
             set;
         }
 
-        private DB2Oper DB2 { get; set; }
+        public DB2Oper DB2 { get; set; }
+
+        private string tableName { get; set; }
 
         private void DB2Operate()
         {
-  
+
+            entities = new DB2Entities<T>(tableName);
             DB2.GetSomeData(sql);
             foreach (DataRow dr in DB2.dt.Rows)
             {
@@ -71,11 +74,12 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
             }
         }
 
-
         public DB2Entities<T> GetEntities()
         {
             DB2Operate();
             return entities;
         }
+
+
     }
 }

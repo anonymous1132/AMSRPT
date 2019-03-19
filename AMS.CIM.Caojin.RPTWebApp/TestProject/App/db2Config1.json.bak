@@ -1,0 +1,14 @@
+{
+  "Provider": "IBMDADB2",
+  "DataSource": "ATRPT1",
+  "UID": "sitst1",
+  "PWD": "sitstcim1"
+}
+
+
+{
+    "Provider": "IBMDADB2",
+    "DataSource": "AMRPTDB",
+    "UID": "rptprod",
+    "PWD": "rptprod"
+}

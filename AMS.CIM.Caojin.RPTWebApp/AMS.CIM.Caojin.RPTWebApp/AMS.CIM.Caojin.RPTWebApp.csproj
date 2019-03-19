@@ -172,6 +172,7 @@
     <Compile Include="Controllers\ReqRpt023Controller.cs" />
     <Compile Include="Controllers\ReqRpt024Controller.cs" />
     <Compile Include="Controllers\ReqRpt025Controller.cs" />
+    <Compile Include="Controllers\ReqRpt029Controller.cs" />
     <Compile Include="Controllers\ReqRpt030Controller.cs" />
     <Compile Include="Controllers\ReqRpt036Controller.cs" />
     <Compile Include="Controllers\ReqRpt048Controller.cs" />
@@ -180,24 +181,26 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ExcelApp.cs" />
-    <Compile Include="Models\ReqRpt048ChartGapModel.cs" />
-    <Compile Include="Models\ReqRpt048GapComputer.cs" />
-    <Compile Include="Models\ReqRpt048GapComputerEntity.cs" />
-    <Compile Include="Models\ReqRpt048GapSplitTimeEntity.cs" />
-    <Compile Include="Models\ReqRpt048RemarkHandlePostModel.cs" />
-    <Compile Include="Models\ReqRpt048DepartmentQuotaEntity.cs" />
+    <Compile Include="Models\ReqRpt029TableEntity.cs" />
+    <Compile Include="Models\ReqRpt029TableViewModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt048ChartGapModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt048GapComputer.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt048GapComputerEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt048GapSplitTimeEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt048RemarkHandlePostModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt048DepartmentQuotaEntity.cs" />
     <Compile Include="Models\ReqKeyOperateModel.cs" />
-    <Compile Include="Models\ReqRpt048LotQuotaMappingHandler.cs" />
-    <Compile Include="Models\ReqRpt048ProductQuotaEntity.cs" />
-    <Compile Include="Models\ReqRpt048ProjectQuotaEntity.cs" />
-    <Compile Include="Models\ReqRpt048QuotaDefineHandler.cs" />
-    <Compile Include="Models\ReqRpt048RemarkHandler.cs" />
-    <Compile Include="Models\ReqRpt048SHLStage2ViewModel.cs" />
-    <Compile Include="Models\ReqRpt048SHLTableViewModel.cs" />
-    <Compile Include="Models\ReqRpt048SHLEntity.cs" />
-    <Compile Include="Models\ReqRpt048Stage2Entity.cs" />
-    <Compile Include="Models\ReqRpt048EqpEntity.cs" />
-    <Compile Include="Models\ReqRpt048Stage2GapModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt048LotQuotaMappingHandler.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt048ProductQuotaEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt048ProjectQuotaEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt048QuotaDefineHandler.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt048RemarkHandler.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt048SHLStage2ViewModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt048SHLTableViewModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt048SHLEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt048Stage2Entity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt048EqpEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt048Stage2GapModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt018Chart1ExcelWorkSpace.cs" />
     <Compile Include="Models\ViewModel\ReqRpt018Chart1PostEntity.cs" />
     <Compile Include="Models\ViewModel\ReqRpt018Chart1PostModel.cs" />
@@ -450,6 +453,7 @@
     <Content Include="Scripts\demo\flot-demo2.js" />
     <Content Include="Scripts\demo\morris-demo.js" />
     <Content Include="Scripts\demo\peity-demo.js" />
+    <Content Include="Scripts\demo\qtime.js" />
     <Content Include="Scripts\demo\rickshaw-demo.js" />
     <Content Include="Scripts\demo\rtc.js" />
     <Content Include="Scripts\demo\shl.js" />
@@ -788,6 +792,7 @@
     <Content Include="Scripts\plugins\ladda\ladda.jquery.min.js" />
     <Content Include="Scripts\plugins\ladda\ladda.min.js" />
     <Content Include="Scripts\plugins\ladda\spin.min.js" />
+    <Content Include="Scripts\plugins\linq\JSLINQ.js" />
     <Content Include="Scripts\plugins\masonary\masonry.pkgd.min.js" />
     <Content Include="Scripts\plugins\metisMenu\jquery.metisMenu.js" />
     <Content Include="Scripts\plugins\morris\morris.js" />
@@ -1090,6 +1095,7 @@
     <Content Include="themes\icons\sum.png" />
     <Content Include="themes\icons\tip.png" />
     <Content Include="themes\icons\undo.png" />
+    <Content Include="themes\local\qtime.css" />
     <Content Include="themes\local\shl.css" />
     <Content Include="themes\material-teal\accordion.css" />
     <Content Include="themes\material-teal\calendar.css" />
@@ -1331,6 +1337,8 @@
     <Content Include="Views\ReqRpt018\Index.cshtml" />
     <Content Include="Views\ReqRpt048\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutElementVue.cshtml" />
+    <Content Include="Views\ReqRpt029\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutRptVue.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

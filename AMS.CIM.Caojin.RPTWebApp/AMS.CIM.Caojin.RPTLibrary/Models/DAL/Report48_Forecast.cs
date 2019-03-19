@@ -18,6 +18,8 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
 
         public string ModulePD_ID { get; set; }
 
+        public string PD_ID { get; set; }
+
         public string LRecipe { get; set; }
 
         public double Pd_Std_Proc_Time_Min { get; set; }

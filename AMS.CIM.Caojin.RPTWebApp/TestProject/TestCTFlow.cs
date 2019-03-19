@@ -9,7 +9,7 @@ namespace TestProject
 {
     public class TestCTFlow
     {
-        public static void Test()
+        public static void TestFlow()
         {
             RPTFlowSumTranslator translator = new RPTFlowSumTranslator();
             Console.WriteLine("OK");

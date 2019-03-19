@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AMS.CIM.Caojin.RPTLibrary.Models;
-using Caojin.Common;
+using CommonUtilsLibrary.Utils;
 
 namespace TestProject
 {
@@ -12,13 +11,18 @@ namespace TestProject
     {
         static void Main(string[] args)
         {
-            //ReqRpt025Translator reqRpt025Translator = new ReqRpt025Translator();
-            //Console.WriteLine("over");
+            LogUtils.InfoLog("Start To Run WipChartYSTD");
+            try
+            {
 
-            TestCTFlow.TestCT();
-            //TestCTFlow.Test();
-
-            Console.ReadLine();
+                RunWipChartYstd.Run();
+                LogUtils.InfoLog("Success!");
+            }
+            catch (Exception ex)
+            {
+                LogUtils.ErrorLog(ex);
+                System.Threading.Thread.Sleep(5*1000);
+            }
         }
 
 

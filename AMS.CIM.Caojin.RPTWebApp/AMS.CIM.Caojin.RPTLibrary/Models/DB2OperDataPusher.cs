@@ -19,7 +19,7 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
             DB2 = db2;
         }
 
-        public DB2Entities<T> entities;
+        public DB2Entities<T> entities { get; set; }
 
         private DB2Oper DB2 { get; set; }
 

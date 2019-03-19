@@ -7,7 +7,7 @@
     <ProjectGuid>{097CA827-BC3B-408F-91DB-64353ACB18A7}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>TestProject</RootNamespace>
-    <AssemblyName>TestProject</AssemblyName>
+    <AssemblyName>WipChartRunner</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -39,6 +39,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -52,25 +55,21 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestCollection.cs" />
-    <Compile Include="TestCTFlow.cs" />
-    <Compile Include="TestEF.cs" />
-    <Compile Include="TestLibrary.cs" />
-    <Compile Include="TestPush.cs" />
-    <Compile Include="TestReq014.cs" />
-    <Compile Include="TestTurnDaily.cs" />
+    <Compile Include="RunWipChartYstd.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="App\cycleTimeRunningConfig.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="App\db2Config.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="App\db2Config1.json.bak" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\AMSDotNetWebAPI\CommonUtilsLibrary\CommonUtilsLibrary.csproj">
+      <Project>{c28d1898-85e1-4fe4-95d7-8d459200be2d}</Project>
+      <Name>CommonUtilsLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AMS.CIM.Caojin.RPTLibrary\AMS.CIM.Caojin.RPTLibrary.csproj">
       <Project>{d2d95cc9-d226-4db6-9f45-40a3755825db}</Project>
       <Name>AMS.CIM.Caojin.RPTLibrary</Name>

@@ -54,7 +54,8 @@ SELECT
   PD.PD_NAME,
   MN.MAINPD_TYPE_ID AS PD_TYPE,
   MN.PROC_FLOW_TYPE AS FLOW_TYPE,
-  PO.STAGE_IDENT AS STAGE_ID
+  PO.STAGE_IDENT AS STAGE_ID,
+  PD.DFLT_LRCP_IDENT as LRecipe
 FROM SMVIEW.FBMNPD_M MN, SMVIEW.FBMNPD_PO_M PO,
 SMVIEW.FBPROD_M PROD, SMVIEW.FBPD_M PD
 WHERE
@@ -71,15 +72,15 @@ WHEN MATCHED AND
  (S.MODULEPD_ID<>U.MODULEPD_ID OR S.PD_NAME<>U.PD_NAME OR S.PD_TYPE<>U.PD_TYPE
   OR S.FLOW_TYPE<>U.FLOW_TYPE OR S.STAGE_ID<>U.STAGE_ID) THEN
   UPDATE SET (S.MODULEPD_ID, S.PD_NAME, S.PD_TYPE, S.FLOW_TYPE, S.STAGE_ID,
-              S.LAST_UPDATE, S.LAST_UPDATE_TIME)=
+              S.LAST_UPDATE, S.LAST_UPDATE_TIME,S.LRECIPE)=
              (U.MODULEPD_ID, U.PD_NAME, U.PD_TYPE, U.FLOW_TYPE, U.STAGE_ID,
-              'Update', CURRENT TIMESTAMP)
+              'Update', CURRENT TIMESTAMP,U.LRecipe)
 WHEN NOT MATCHED THEN
   INSERT (PRODSPEC_ID, MAINPD_ID, OPE_NO, MODULEPD_ID, PD_ID, PD_NAME,
      PD_TYPE, FLOW_TYPE, STAGE_ID, LRECIPE, MRECIPE_LIST, EQP_LIST, EQP_TYPE,
      LAST_UPDATE, LAST_UPDATE_TIME)
   VALUES (U.PRODSPEC_ID, U.MAINPD_ID, U.OPE_NO, U.MODULEPD_ID, U.PD_ID, U.PD_NAME,
-     U.PD_TYPE, U.FLOW_TYPE, U.STAGE_ID, '', '', '', '', 'New', CURRENT TIMESTAMP) ;";
+     U.PD_TYPE, U.FLOW_TYPE, U.STAGE_ID, U.LRecipe, '', '', '', 'New', CURRENT TIMESTAMP) ;";
         #endregion
 
         #region DB About
@@ -123,13 +124,13 @@ WHEN NOT MATCHED THEN
             Db2.GetSomeData(CmpSmOpeWithRptFlowSql);
             FlowSumCatcher = new DB2OperDataCatcher<RPT_FLOW_SUM>("MMVIEW.RPT_FLOW_SUM",Db2);
             FlowEqpCatcher = new DB2OperDataCatcher<RPT_FLOW_SUM_EQPBASE>("ISTRPT.RPT_FLOW_SUM_EQPBASE", Db2);
-            LRcpCatcher = new DB2OperDataCatcher<RPT_FLOW_SUM_LRCP>("ISTRPT.RPT_FLOW_SUM_LRCP",Db2);
+           // LRcpCatcher = new DB2OperDataCatcher<RPT_FLOW_SUM_LRCP>("ISTRPT.RPT_FLOW_SUM_LRCP",Db2);
             SETCatcher = new DB2OperDataCatcher<FBLRCP_SSET_M>("SMVIEW.FBLRCP_SSET_M", Db2);
             MR_LRCatcher = new DB2OperDataCatcher<RPT_FLOW_SUM_MR_LR_MAPPING>("ISTRPT.RPT_FLOW_SUM_MR_LR_MAPPING", Db2);
             EQPType_LRCatcher = new DB2OperDataCatcher<RPT_FLOW_SUM_EQPT_LR_MAPPING>("ISTRPT.RPT_FLOW_SUM_EQPT_LR_MAPPING",Db2);
             var FlowSumList = FlowSumCatcher.GetEntities().EntityList;
             var FlowEqpList = FlowEqpCatcher.GetEntities().EntityList;
-            var LRcpList = LRcpCatcher.GetEntities().EntityList;
+            //var LRcpList = LRcpCatcher.GetEntities().EntityList;
             //var SetList = SETCatcher.GetEntities().EntityList;
             IList<FBLRCP_SSET_M> SetList=null;
             //var MR_LRList = MR_LRCatcher.GetEntities().EntityList;
@@ -137,7 +138,7 @@ WHEN NOT MATCHED THEN
             //var EqpType_LRList = EQPType_LRCatcher.GetEntities().EntityList;
             IList<RPT_FLOW_SUM_EQPT_LR_MAPPING> EqpType_LRList = null;
             //重置待更新的字段,并在该遍历中获取EqpType、EqpList、Logic Recipe
-            var newFlowList = FlowSumList.Select(s=>new RPT_FLOW_SUM() { ProdSpec_ID=s.ProdSpec_ID,MainPD_ID=s.MainPD_ID,Ope_No=s.Ope_No,PD_ID=s.PD_ID});
+            var newFlowList = FlowSumList.Select(s=>new RPT_FLOW_SUM() { ProdSpec_ID=s.ProdSpec_ID,MainPD_ID=s.MainPD_ID,Ope_No=s.Ope_No,PD_ID=s.PD_ID,LRecipe= s.LRecipe});
             List<RPT_FLOW_SUM> UpdateList = new List<RPT_FLOW_SUM>();
             foreach (var item in newFlowList)
             {
@@ -145,7 +146,7 @@ WHEN NOT MATCHED THEN
                 try
                 {
                     SetEqpInfo(item, FlowEqpList);
-                    SetLRcpInfo(item, LRcpList);
+                   // SetLRcpInfo(item, LRcpList);
                     bool hasGet = SetMRcpInfoBySset(item, SetList);
                     if (!hasGet) { SetMRcpInfoByDset(item, MR_LRList); }
                     if (item.Eqp_Type == "") SetEqpType(item, EqpType_LRList);
@@ -159,7 +160,7 @@ WHEN NOT MATCHED THEN
                 }
             }
 
-            List<string> sqlList = UpdateList.Select(s => string.Format("UPDATE MMVIEW.RPT_FLOW_SUM SET EQP_TYPE ='{0}',EQP_LIST='{1}',LRECIPE='{2}',MRECIPE_LIST='{3}',LAST_UPDATE_TIME=CURRENT TIMESTAMP WHERE PRODSPEC_ID='{4}' AND MAINPD_ID='{5}' AND OPE_NO='{6}'",s.Eqp_Type,s.Eqp_List,s.LRecipe,s.MRecipe_List,s.ProdSpec_ID,s.MainPD_ID,s.Ope_No)).ToList();
+            List<string> sqlList = UpdateList.Select(s => string.Format("UPDATE MMVIEW.RPT_FLOW_SUM SET EQP_TYPE ='{0}',EQP_LIST='{1}',MRECIPE_LIST='{3}',LAST_UPDATE_TIME=CURRENT TIMESTAMP WHERE PRODSPEC_ID='{4}' AND MAINPD_ID='{5}' AND OPE_NO='{6}'",s.Eqp_Type,s.Eqp_List,s.LRecipe,s.MRecipe_List,s.ProdSpec_ID,s.MainPD_ID,s.Ope_No)).ToList();
             Db2.UpdateBatchCommand(sqlList);
         }
 
@@ -211,7 +212,7 @@ WHEN NOT MATCHED THEN
             else
             {
                 list = list.Where(w => flow.Eqp_List.Contains(w.EQP_ID));
-                flow.MRecipe_List = list.Any() ? string.Join("|", list.Select(s => s.MRecipe).OrderBy(o => o)) : "";
+                flow.MRecipe_List = list.Any() ? string.Join("|", list.Select(s => s.MRecipe).Distinct().OrderBy(o => o)) : "";
             }
         }
 
