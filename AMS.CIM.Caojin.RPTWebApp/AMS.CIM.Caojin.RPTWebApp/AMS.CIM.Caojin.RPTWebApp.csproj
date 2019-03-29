@@ -60,6 +60,9 @@
       <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -112,9 +115,6 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
@@ -172,6 +172,7 @@
     <Compile Include="Controllers\ReqRpt023Controller.cs" />
     <Compile Include="Controllers\ReqRpt024Controller.cs" />
     <Compile Include="Controllers\ReqRpt025Controller.cs" />
+    <Compile Include="Controllers\ReqRpt028Controller.cs" />
     <Compile Include="Controllers\ReqRpt029Controller.cs" />
     <Compile Include="Controllers\ReqRpt030Controller.cs" />
     <Compile Include="Controllers\ReqRpt036Controller.cs" />
@@ -180,9 +181,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DB2OperateBase.cs" />
     <Compile Include="Models\ExcelApp.cs" />
-    <Compile Include="Models\ReqRpt029TableEntity.cs" />
-    <Compile Include="Models\ReqRpt029TableViewModel.cs" />
+    <Compile Include="Models\ReqRpt028ChartEntity.cs" />
+    <Compile Include="Models\ReqRpt028ChartModel.cs" />
+    <Compile Include="Models\ReqRpt028DataBuilder.cs" />
+    <Compile Include="Models\ReqRpt028LotDetailQueryPostModel.cs" />
+    <Compile Include="Models\ReqRpt028LotDetailTableBuilder.cs" />
+    <Compile Include="Models\ReqRpt028LotEntity.cs" />
+    <Compile Include="Models\ReqRpt028LotInfoEntity.cs" />
+    <Compile Include="Models\ReqRpt028TableEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt029TableEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt029TableViewModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt048ChartGapModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt048GapComputer.cs" />
     <Compile Include="Models\ViewModel\ReqRpt048GapComputerEntity.cs" />
@@ -443,6 +453,12 @@
     <Content Include="fonts\element-icons.woff" />
     <Content Include="Content\plugins\element\fonts\element-icons.ttf" />
     <Content Include="Content\plugins\element\fonts\element-icons.woff" />
+    <Content Include="App_Data\db2Config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\db2Config_bak.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="Scripts\api\typehead_collection.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
@@ -459,6 +475,7 @@
     <Content Include="Scripts\demo\shl.js" />
     <Content Include="Scripts\demo\sparkline-demo.js" />
     <Content Include="Scripts\demo\upm.js" />
+    <Content Include="Scripts\demo\wipchart.js" />
     <Content Include="Scripts\FileSaver.js" />
     <Content Include="Scripts\inspinia.js" />
     <Content Include="Scripts\jquery-1.4.min.js" />
@@ -687,6 +704,7 @@
     <Content Include="Scripts\plugins\colorpicker\bootstrap-colorpicker.min.js" />
     <Content Include="Scripts\plugins\cropper\cropper.min.js" />
     <Content Include="Scripts\plugins\d3\d3.min.js" />
+    <Content Include="Scripts\plugins\d3\d3.v4.min.js" />
     <Content Include="Scripts\plugins\datamaps\datamaps.all.min.js" />
     <Content Include="Scripts\plugins\datapicker\bootstrap-datepicker.js" />
     <Content Include="Scripts\plugins\dataTables\datatables.min.js" />
@@ -1097,6 +1115,7 @@
     <Content Include="themes\icons\undo.png" />
     <Content Include="themes\local\qtime.css" />
     <Content Include="themes\local\shl.css" />
+    <Content Include="themes\local\wipchart.css" />
     <Content Include="themes\material-teal\accordion.css" />
     <Content Include="themes\material-teal\calendar.css" />
     <Content Include="themes\material-teal\checkbox.css" />
@@ -1339,9 +1358,9 @@
     <Content Include="Views\Shared\_LayoutElementVue.cshtml" />
     <Content Include="Views\ReqRpt029\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutRptVue.cshtml" />
+    <Content Include="Views\ReqRpt028\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Compnent\vue\" />
     <Folder Include="Views\Common\" />
   </ItemGroup>

@@ -1,0 +1,6 @@
+{
+  "Provider": "IBMDADB2",
+  "DataSource": "ATRPT1",
+  "UID": "sitst1",
+  "PWD": "sitstcim1"
+}

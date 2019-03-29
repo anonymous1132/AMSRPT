@@ -1,0 +1,73 @@
+﻿.el-header {
+    color: #333;
+  }
+  
+  .el-main {
+    color: #333;
+    height: 70%;
+  }
+
+  .el-container{
+    background-color:white;
+    height: 100%;
+    min-height: 700px;
+
+  }
+
+  .box-card{
+    font-size: smaller;
+    height: 160px;
+    width: 60%;
+    min-width: 200px;
+}
+
+.dt-buttons{
+float: right;
+}
+.el-transfer{
+    min-width: 390px;
+}
+
+.square{
+    width: 150px;
+}
+.holdplace{
+    height: 10px;
+}
+
+.el-transfer-panel__list{
+    min-height: 100px;
+    max-height: 250px;
+}
+.el-transfer-panel__body{
+    max-height: 250px;
+    min-height: 100px;
+}
+#d3test{
+    height: 500px;
+    width: 90%;
+    align-content: center;
+    z-index: 1000;
+}
+
+.chart{
+    text-align: center
+}
+
+.chart table {
+    border-right: 1px solid #F00;
+    border-bottom: 1px solid #F00;
+    font-size: smaller;
+    position: relative;
+    left:65%;
+}
+
+
+
+    .chart table td {
+        border-left: 1px solid #F00;
+        border-top: 1px solid #F00;
+        font: 400;
+    }
+
+ 

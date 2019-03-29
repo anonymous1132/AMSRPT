@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewBag.Title = "WIP Chart";
+    Layout = "~/Views/Shared/_LayoutRptVue.cshtml";
+}
+
+<link href="~/Content/style.css" rel="stylesheet">
+<link href="~/themes/local/wipchart.css" rel="stylesheet">
+<link rel="stylesheet" href="~/Content/plugins/element/index.css">
+<!-- For this Project Only -->
+
+
+<script src="~/Scripts/vue.min.js"></script>
+<script src="~/Scripts/plugins/element/index.js"></script>
+<script src="~/Scripts/ams.commontool.js"></script>
+<script src="~/Scripts/plugins/d3/d3.v4.min.js"></script>
+
+<el-container>
+    <el-header height="1200">
+        <el-collapse v-model="activeNames">
+            <el-collapse-item title="查询条件" name="1">
+                <el-row  type="flex">
+                    <el-col :lg="4" :md="12" :sm="12">
+                        <div class="sub-title">Group</div>
+                        <el-select v-model="selGroups" multiple placeholder="all" size="small">
+                            <el-option v-for="item in avaGroups" :key="item" :label="item" :value="item"></el-option>
+                        </el-select>
+                        <div class="sub-title">WIP Type</div>
+                        <el-select v-model="wipType" size="small">
+                                <el-option label="Exclude Intevory" value="out"></el-option>
+                                <el-option label="Intevory" value="in"></el-option>
+                                <el-option label="Fab All" value="all"></el-option>
+                        </el-select>
+                        <div class="sub-title" >Time</div>
+                         <el-select v-model="timeType" size="small">
+                            <el-option label="Current" value="cur"></el-option>
+                            <el-option label="YSTD(08:00)" value="ystd"></el-option>
+                        </el-select>
+                    </el-col>
+                    <el-col :lg="8" :md="12" :sm="24">
+                    <el-transfer v-model="options.prod" :props="{ key: 'prod',label: 'prod' }" :data="avaProds"  :titles="['Avalible Prod', 'Selected Prod']">
+                    </el-transfer>
+                    </el-col>
+                    <el-col :lg="3" :sm="6">
+                        <br/>
+                        <el-button type="primary" size="small" class="square" v-on:click="handleQueryClick" :loading="loading">Query</el-button>
+                        <div class="holdplace"></div>
+                        <el-button type="primary" size="small" class="square" v-on:click="handleStopClick" :loading="loading">{{ sBtnCtx }} Timing</el-button>
+                        <div class="holdplace"></div>
+                        <el-button type="primary" size="small" class="square" v-on:click="handleUpdtClick" :loading="loading">ReTiming</el-button>
+                    </el-col>
+                    <el-col :lg="5" :offset="2" :sm="12">
+                            <el-card class="box-card">
+                                <div>开发者：曹晋（0279）</div>
+                                <div>需求者：陈舒（0353）</div>
+                                <div>Cilck Count: @ViewBag.ClickCount</div> 
+                                <div>Update Period:5 min</div>
+                                <div>Time Remaining:{{ remSec }} sec</div>
+                                <div>Last Update Time:{{ updateTime }} </div>
+                            </el-card>
+                    </el-col>
+                </el-row>
+            </el-collapse-item>
+        </el-collapse>
+    </el-header>
+    <el-main>
+            <div class="chart">
+                <table v-if="chartData.length>0">
+                    <tr>
+                        <td rowspan="5">All</td>
+                        <td>Target Out</td>
+                        <td>{{ wipTable.all.targetOut }}</td>
+                    </tr>
+                    <tr>
+                        <td>Can Out</td>
+                        <td>{{ wipTable.all.canOut }}</td>
+                    </tr>
+                    <tr>
+                        <td>Quantity</td>
+                        <td>{{ wipTable.all.quantity }}</td>
+                    </tr>
+                    <tr>
+                        <td>Key Line Stage</td>
+                        <td>{{ options.key }}</td>
+                    </tr>
+                    <tr>
+                        <td>Date(D)</td>
+                        <td :style="{color:options.day<=0?'red':'green',fontWeight:'bold'}">{{ options.day }}</td>
+                    </tr>
+                    <template v-for="entity in wipTable.data">
+                        <tr>
+                            <td rowspan="4">{{ entity.product }}</td>
+                            <td>Target Out</td>
+                            <td>{{ entity.targetOut }}</td>
+                        </tr>
+                        <tr>
+                            <td>Quantity</td>
+                            <td>{{ entity.quantity }}</td>
+                        </tr>
+                        <tr>
+                            <td>Key Line Stage</td>
+                            <td>{{ entity.keyStage }}</td>
+                        </tr>
+                        <tr>
+                            <td>Date(D)</td>
+                            <td :style="{color:entity.day<=0?'red':'green',fontWeight:'bold'}">{{ entity.day }}</td>
+                        </tr>
+                    </template>
+                <table>
+                <svg ref="wipChart" class="wipChart"></svg>
+            </div>
+    </el-main>
+    <el-dialog title="Sub Chart" :visible.sync="dialogSubChartVisible" width="80%" append-to-body v-on:opened="show">
+        <div class="chart">
+                <svg ref="subChart" class="subChart"></svg>
+        </div>
+        <el-table :data="lotInfoEntities" border size="mini" style="width: 100%" stripe max-height="600">
+                <el-table-column type="index" width="50" align="center"></el-table-column>
+                <el-table-column property="EqpType" label="EqpType" align="center"></el-table-column>
+                <el-table-column property="Priority" label="Pri" align="center"></el-table-column>
+                <el-table-column property="OpeNo" label="OpeNO" align="center"></el-table-column>
+                <el-table-column property="OpeName" label="Ope Name" align="center"></el-table-column>
+                <el-table-column property="ProductID" label="Prod ID" align="center"></el-table-column>
+                <el-table-column property="LotID" label="LotID" align="center"></el-table-column>
+                <el-table-column property="Foup" label="Foup" align="center"></el-table-column>
+                <el-table-column property="Location" label="Location" align="center"></el-table-column>
+                <el-table-column property="Status" label="Status" align="center"></el-table-column>
+                <el-table-column  label="Lot Proc Status" align="center">
+                    <template slot-scope="scope">
+                        <div>{{scope.row.LotHoldStatus}}/{{ scope.row.LotProcStatus }}</div>
+                    </template>
+                </el-table-column>
+                <el-table-column property="HoldReason" label="HoldReason" align="center"></el-table-column>
+                <el-table-column property="HoldReasonDesc" label="HoldReasonDesc" align="center"></el-table-column>
+                <el-table-column property="Qty" label="Qty" align="center"></el-table-column>
+                <el-table-column property="WaitTime" label="WaitTime(Hrs)" align="center"></el-table-column>
+                <el-table-column property="StatusTime" label="StatusTime(Hrs)" align="center"></el-table-column>
+                <el-table-column property="CustomerDate" label="Customer Date" align="center"></el-table-column>
+                <el-table-column property="OpeStartTime" label="OpeStartTime" align="center"></el-table-column>
+                <el-table-column property="PreLayer" label="Per Layer" align="center"></el-table-column>
+                <el-table-column property="ChgUserID" label="ChgUserID" align="center"></el-table-column>
+                <el-table-column property="ChgUserName" label="ChgUserID" align="center"></el-table-column>
+        </el-table>
+    </el-dialog>
+</el-container>
+
+<script src="~/Scripts/demo/wipchart.js"></script>

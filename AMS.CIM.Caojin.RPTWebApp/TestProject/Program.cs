@@ -21,7 +21,7 @@ namespace TestProject
             catch (Exception ex)
             {
                 LogUtils.ErrorLog(ex);
-                System.Threading.Thread.Sleep(5*1000);
+                System.Threading.Thread.Sleep(5 * 1000);
             }
         }
 

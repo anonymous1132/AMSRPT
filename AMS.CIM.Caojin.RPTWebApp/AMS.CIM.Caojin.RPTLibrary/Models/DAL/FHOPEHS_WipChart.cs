@@ -29,5 +29,7 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
 
         public string ProdSpec_ID { get; set; }
 
+        public string Bank_ID { get; set; }
+
     }
 }
