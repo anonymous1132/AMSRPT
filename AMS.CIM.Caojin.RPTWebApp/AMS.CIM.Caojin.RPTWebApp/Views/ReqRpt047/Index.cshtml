@@ -1,0 +1,185 @@
+﻿@{
+ViewBag.Title = "Non-Lot General Report";
+Layout = "~/Views/Shared/_LayoutRptVue.cshtml";
+}
+
+
+<link href="~/Content/style.css" rel="stylesheet">
+<link href="~/themes/local/nonlot.css" rel="stylesheet">
+<link rel="stylesheet" href="~/Content/plugins/element/index.css">
+
+<script src="~/Scripts/vue.min.js"></script>
+<script src="~/Scripts/plugins/element/index.js"></script>
+
+<el-container>
+    <el-header height="700">
+        <el-collapse v-model="activeNames">
+            <el-collapse-item title="查询条件" name="1">
+                <el-row type="flex">
+                    <el-col :lg="4" :md="12" :sm="12">
+                        <div><label>Department</label></div>
+                        <el-select multiple v-model="selDepts" placeholder="默认全选">
+                            <el-option v-for="item in DepartmentEntities" :key="item.Department"
+                                :value="item.Department" :label="item.Department"></el-option>
+                        </el-select>
+                        <div><label>EqpType</label></div>
+                        <el-select multiple v-model="selEqpTypes" placeholder="默认全选">
+                            <el-option v-for="item in avaEqpTypes" :key="item" :value="item" :label="item"></el-option>
+                        </el-select>
+                    </el-col>
+                    <el-col :lg="8" :md="12" :sm="24" offset="2">
+                        <el-transfer v-model="selEqps" :props="{ key: 'eqp',label: 'eqp' }" :data="avaEqps"
+                            :titles="['Avalible EqpID', 'Selected EqpID']">
+                        </el-transfer>
+                    </el-col>
+                    <el-col :lg="3" :sm="6">
+                        <br />
+                        <el-button type="primary" size="small" class="square" v-on:click="handleQueryClick"
+                            :loading="loading" :disabled="selEqps.length==0">Query</el-button>
+                        <div class="holdplace"></div>
+                        <el-button type="primary" size="small" class="square" v-on:click="handleSetClick">Set Edc Plan
+                        </el-button>
+                    </el-col>
+                    <el-col :lg="5" :offset="2" :sm="12">
+                        <el-card class="box-card">
+                            <div>开发者：曹晋（0279）</div>
+                            <div>需求者：陈舒（0353）</div>
+                            <div>Cilck Count: @ViewBag.ClickCount</div>
+                        </el-card>
+                    </el-col>
+                </el-row>
+            </el-collapse-item>
+        </el-collapse>
+    </el-header>
+
+    <el-main>
+        <div class="html5buttons">
+            <div class="dt-buttons btn-group">
+                <a class="btn btn-default buttons-excel buttons-html5" tabindex="1" aria-controls="DataTables_Table_0"
+                    v-on:click.stop="outputExcel">
+                    <span>
+                        <img src="~/themes/icons/excel_2007.gif" />
+                    </span>
+                </a> <a ref="dlink" style="display: none;"></a>
+            </div>
+        </div>
+        <table class="table  table-bordered table-hover dataTables-example">
+            <thead>
+                <tr>
+                    <th>EqpID</th>
+                    <th>EDC Plan</th>
+                    <th>Period</th>
+                    <th>Test Time</th>
+                    <th>Result</th>
+                    <th>Counts</th>
+                </tr>
+            </thead>
+            <tbody v-for="entity in RowEntities">
+                <tr>
+                    <td :rowspan="entity.EdcEntities.length">{{ entity.EqpID }}</td>
+                    <td v-text="entity.EdcEntities[0].EdcPlan"></td>
+                    <td v-text="entity.EdcEntities[0].Period"></td>
+                    <td v-text="entity.EdcEntities[0].TestTime"></td>
+                    <td v-text="entity.EdcEntities[0].SpecResult"></td>
+                    <td v-text="entity.EdcEntities[0].Count"></td>
+                </tr>
+                <tr v-for="(item,index) in entity.EdcEntities" v-if="index>0">
+                    <td v-text="item.EdcPlan"></td>
+                    <td v-text="item.Period"></td>
+                    <td v-text="item.TestTime"></td>
+                    <td v-text="item.SpecResult"></td>
+                    <td v-text="item.Count"></td>
+                </tr>
+            </tbody>
+        </table>
+        <el-dialog title="Setting Edc Plan" :visible.sync="dialogVisible" width="80%" append-to-body v-on:opened="show" modal="false">
+            <div>
+                <div>筛选条件</div>
+                <el-row>
+                    <el-col :lg="6" :offset="2" :sm="24"><label>EqpID</label>
+                        <el-input v-model="filtedEqpId"></el-input>
+                    </el-col>
+                    <el-col :lg="6" :offset="2" :sm="24"><label>EdcPlan</label>
+                        <el-input v-model="filtedEdcPlan"></el-input>
+                    </el-col>
+                </el-row>
+            </div>
+            <div class="holdplace"></div>
+            <el-table :data="filtedEdcSetEntities" border size="mini" style="width: 100%" stripe max-height="600"
+                v-loading="diaLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
+                element-loading-background="rgba(0, 0, 0, 0.8)">
+                <el-table-column label="EqpID" align="center" >
+                    <template slot-scope="scope">
+                        <span v-if="scope.row.id">{{ scope.row.EqpID }}</span>
+                        <span v-else>
+                            <el-select v-model="EdcSetEntities.sel['EqpID']">
+                                <el-option v-for="item in allEqps" :key="item" :label="item" :value="item">
+                                </el-option>
+                            </el-select>
+                        </span>
+                    </template>
+                </el-table-column>
+                <el-table-column label="Edc Plan" align="center">
+                    <template slot-scope="scope">
+                        <span v-if="scope.row.id">{{ scope.row.EdcPlan }}</span>
+                        <span v-else>
+                            <el-select v-model="EdcSetEntities.sel['EdcPlan']">
+                                <el-option v-for="item in DcItems" :key="item" :label="item" :value="item">
+                                </el-option>
+                            </el-select>
+                        </span>
+                    </template>
+                </el-table-column>
+                <el-table-column label="Period" align="center" >
+                    <template slot-scope="scope">
+                        <span v-if="scope.row.EditState">
+                            <el-input type="number" min="0" v-model="EdcSetEntities.sel['Period']">
+                            </el-input>
+                        </span>
+                        <span v-else>{{ scope.row.Period }}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column label="Period Type" align="center" >
+                    <template slot-scope="scope">
+                        <span v-if="scope.row.EditState">
+                            <el-select v-model="EdcSetEntities.sel['PeriodType']">
+                                <el-option selected label="D" value="D"></el-option>
+                                <el-option label="M" value="M"></el-option>
+                            </el-select>
+                        </span>
+                        <span v-else>{{ scope.row.PeriodType }}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column label="操作" width="100">
+                    <template slot-scope="scope">
+                        <span class="el-tag el-tag--info el-tag--mini" style="cursor: pointer;"
+                            v-on:click="edcChange(scope.row,scope.$index,true)">
+                            {{scope.row.EditState?'保存':"修改"}}
+                        </span>
+                        <span v-if="!scope.row.EditState" class="el-tag el-tag--danger el-tag--mini"
+                            style="cursor: pointer;" v-on:click="edcDel(scope.row,scope.$index)">
+                            删除
+                        </span>
+                        <span v-else class="el-tag el-tag--mini" style="cursor: pointer;"
+                            v-on:click="edcChange(scope.row,scope.$index,false)">
+                            取消
+                        </span>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <el-col span="24">
+                <div class="el-table-add-row" style="width: 99.2%;" v-on:click="edcAdd"><span><i
+                            class="el-icon-circle-plus"></i>添加</span></div>
+            </el-col>
+            <div slot="footer" class="dialog-footer">
+                <div class="holdplace"></div>
+                <div class="holdplace"></div>
+            </div>
+        </el-dialog>
+    </el-main>
+
+</el-container>
+
+
+<script src="~/Scripts/ams.commontool.js"></script>
+<script src="~/Scripts/demo/nonlot.js"></script>

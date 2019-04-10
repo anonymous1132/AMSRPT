@@ -176,21 +176,32 @@
     <Compile Include="Controllers\ReqRpt029Controller.cs" />
     <Compile Include="Controllers\ReqRpt030Controller.cs" />
     <Compile Include="Controllers\ReqRpt036Controller.cs" />
+    <Compile Include="Controllers\ReqRpt047Controller.cs" />
     <Compile Include="Controllers\ReqRpt048Controller.cs" />
+    <Compile Include="Controllers\ReqRpt062Controller.cs" />
     <Compile Include="Controllers\RptController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DB2OperateBase.cs" />
     <Compile Include="Models\ExcelApp.cs" />
-    <Compile Include="Models\ReqRpt028ChartEntity.cs" />
-    <Compile Include="Models\ReqRpt028ChartModel.cs" />
-    <Compile Include="Models\ReqRpt028DataBuilder.cs" />
-    <Compile Include="Models\ReqRpt028LotDetailQueryPostModel.cs" />
-    <Compile Include="Models\ReqRpt028LotDetailTableBuilder.cs" />
-    <Compile Include="Models\ReqRpt028LotEntity.cs" />
-    <Compile Include="Models\ReqRpt028LotInfoEntity.cs" />
-    <Compile Include="Models\ReqRpt028TableEntity.cs" />
+    <Compile Include="Models\ReqRpt047DepartmentEntity.cs" />
+    <Compile Include="Models\ReqRpt047EqpTypeEntity.cs" />
+    <Compile Include="Models\ReqRpt047GetSelectOptionsModel.cs" />
+    <Compile Include="Models\ReqRpt047MainTableDataBuilder.cs" />
+    <Compile Include="Models\ReqRpt047MaintainEDCHandler.cs" />
+    <Compile Include="Models\ReqRpt047MaintainEdcPostModel.cs" />
+    <Compile Include="Models\ReqRpt047TableEntity.cs" />
+    <Compile Include="Models\ReqRpt047TableRowEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt062MainTableBuilder.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt028ChartEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt028ChartModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt028DataBuilder.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt028LotDetailQueryPostModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt028LotDetailTableBuilder.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt028LotEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt028LotInfoEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt028TableEntity.cs" />
     <Compile Include="Models\ViewModel\ReqRpt029TableEntity.cs" />
     <Compile Include="Models\ViewModel\ReqRpt029TableViewModel.cs" />
     <Compile Include="Models\ViewModel\ReqRpt048ChartGapModel.cs" />
@@ -453,12 +464,8 @@
     <Content Include="fonts\element-icons.woff" />
     <Content Include="Content\plugins\element\fonts\element-icons.ttf" />
     <Content Include="Content\plugins\element\fonts\element-icons.woff" />
-    <Content Include="App_Data\db2Config.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="App_Data\db2Config_bak.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="App_Data\db2Config.json" />
+    <Content Include="App_Data\db2Config_bak.json" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="Scripts\api\typehead_collection.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
@@ -467,7 +474,9 @@
     <Content Include="Scripts\demo\dashboard-demo.js" />
     <Content Include="Scripts\demo\flot-demo.js" />
     <Content Include="Scripts\demo\flot-demo2.js" />
+    <Content Include="Scripts\demo\lotandfoup.js" />
     <Content Include="Scripts\demo\morris-demo.js" />
+    <Content Include="Scripts\demo\nonlot.js" />
     <Content Include="Scripts\demo\peity-demo.js" />
     <Content Include="Scripts\demo\qtime.js" />
     <Content Include="Scripts\demo\rickshaw-demo.js" />
@@ -1113,6 +1122,8 @@
     <Content Include="themes\icons\sum.png" />
     <Content Include="themes\icons\tip.png" />
     <Content Include="themes\icons\undo.png" />
+    <Content Include="themes\local\lotandfoup.css" />
+    <Content Include="themes\local\nonlot.css" />
     <Content Include="themes\local\qtime.css" />
     <Content Include="themes\local\shl.css" />
     <Content Include="themes\local\wipchart.css" />
@@ -1359,6 +1370,8 @@
     <Content Include="Views\ReqRpt029\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutRptVue.cshtml" />
     <Content Include="Views\ReqRpt028\Index.cshtml" />
+    <Content Include="Views\ReqRpt062\Index.cshtml" />
+    <Content Include="Views\ReqRpt047\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Compnent\vue\" />

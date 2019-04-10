@@ -54,13 +54,12 @@ float: right;
     text-align: center
 }
 
-.chart table {
-    border-right: 1px solid #F00;
-    border-bottom: 1px solid #F00;
-    font-size: smaller;
-    position: relative;
-    left:65%;
-}
+    .chart table {
+        border-right: 1px solid #F00;
+        border-bottom: 1px solid #F00;
+        font-size: smaller;
+        margin-left:35%;
+    }
 
 
 
