@@ -1,6 +1,7 @@
-AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTWebApp\bin
-AMSRPT\.vs
-AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTWebApp\obj
-AMSRPT\AMS.CIM.Caojin.RPTWebApp\packages
-AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject
-*.txt
+*/.vs/
+*/*/bin/
+*/*/obj/
+*/*/
+*/packages/
+.vs/
+vueApp/
