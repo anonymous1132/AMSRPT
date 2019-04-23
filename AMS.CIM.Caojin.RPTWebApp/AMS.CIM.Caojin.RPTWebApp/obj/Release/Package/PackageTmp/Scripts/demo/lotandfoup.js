@@ -91,9 +91,6 @@
             dlink.download = filename;
             dlink.click();
         }
-    },
-    computed: {
-
     }
 });
 

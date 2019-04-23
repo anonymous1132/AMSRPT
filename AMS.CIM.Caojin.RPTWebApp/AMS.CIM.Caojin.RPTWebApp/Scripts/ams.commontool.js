@@ -256,6 +256,8 @@ function tableToExcel(tableid, sheetName, fileName, linkId) {
     dlinkInfo.click();
 }
 
+
+
 var tableSort = function () {
     this.initialize.apply(this, arguments);
 }
@@ -407,6 +409,26 @@ function FormExcelContext(tableData) {
     tableHtml = tableHtml + '</tbody></table>';
     return tableHtml;
 }
+
+function FormExcelContextOfMutiTables(tableData,caption) {
+    if (tableData.length < 1 || (!Array.isArray(tableData))) return false;
+    let tableHtml = "<tr><td>"+caption+"</td></tr><thead><tr>";
+    let thead = Object.keys(tableData[0]);
+    for (var i = 0; i < thead.length; i++) {
+        tableHtml = tableHtml + '<th>' + thead[i] + '</th>';
+    }
+    tableHtml = tableHtml + '</tr></thead><tbody>';
+    for (var i = 0; i < tableData.length; i++) {
+        tableHtml = tableHtml + '<tr>';
+        for (var j = 0; j < thead.length; j++) {
+            tableHtml = tableHtml + '<td>' + tableData[i][thead[j]] + '</td>';
+        }
+        tableHtml = tableHtml + '</tr>';
+    }
+    tableHtml = tableHtml + '</tbody>';
+    return tableHtml;
+}
+
 var uri = 'data:application/vnd.ms-excel;base64,';
 var template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"' +
     'xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>'

@@ -92,9 +92,13 @@
     <Compile Include="Models\DAL\FHOPEHS_LotEqp.cs" />
     <Compile Include="Models\DAL\FHOPEHS_Qtime.cs" />
     <Compile Include="Models\DAL\FHOPEHS_SHL_Stage2.cs" />
+    <Compile Include="Models\DAL\FHOPEHS_STB.cs" />
     <Compile Include="Models\DAL\FHOPEHS_Turn_Daily.cs" />
     <Compile Include="Models\DAL\FHOPEHS_WipChart.cs" />
     <Compile Include="Models\DAL\FHScrap_SummaryModel.cs" />
+    <Compile Include="Models\DAL\Report001_LotDetail.cs" />
+    <Compile Include="Models\DAL\Report11_LotDetail.cs" />
+    <Compile Include="Models\DAL\Report11_WaferOut_LotDetail.cs" />
     <Compile Include="Models\DAL\Report_FoupOwner.cs" />
     <Compile Include="Models\DAL\FRCodeModel.cs" />
     <Compile Include="Models\DAL\FREQPModel.cs" />
@@ -147,6 +151,8 @@
     <Compile Include="Models\DAL\RPT_STD_TIME_FLOW.cs" />
     <Compile Include="Models\DAL\RPT_STD_TIME_FLOW_T.cs" />
     <Compile Include="Models\DAL\RPT_Turn_Daily.cs" />
+    <Compile Include="Models\DAL\RPT_WaferPlan.cs" />
+    <Compile Include="Models\DAL\RPT_WaferPlan_Out.cs" />
     <Compile Include="Models\DAL\RPT_WipChart_TargetOut.cs" />
     <Compile Include="Models\DAL\RPT_WipChart_YSTD.cs" />
     <Compile Include="Models\DAL\Rpt_WIP_SpecialLotModel.cs" />

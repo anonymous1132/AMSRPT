@@ -1,0 +1,177 @@
+﻿@{
+ViewBag.Title = "Wafer Start(Actual,Plan)";
+Layout = "~/Views/Shared/_LayoutRptVue.cshtml";
+}
+
+
+<link href="~/Content/style.css" rel="stylesheet">
+<link href="~/themes/local/wafer-start.css" rel="stylesheet">
+<link rel="stylesheet" href="~/Content/plugins/element/index.css">
+
+<script src="~/Scripts/vue.min.js"></script>
+<script src="~/Scripts/plugins/element/index.js"></script>
+<script src="~/Scripts/plugins/d3/d3.v4.min.js"></script>
+
+<el-container>
+    <el-header height="600">
+        <el-collapse v-model="activeNames">
+            <el-collapse-item title="查询条件" name="1">
+                <el-row type="flex">
+                    <el-col :lg="5" :md="12" :sm="12">
+                        <div class="hold-place"></div>
+                        <label>ProductID</label>
+                        <el-select multiple place-holder="默认全选" v-model="selProd">
+                            <el-option v-for="(item,index) in prods" :key="index" :label="item" :value="item">
+                            </el-option>
+                        </el-select>
+                    </el-col>
+                    <el-col :lg="10" :md="12" :sm="12">
+                        <div class="hold-place"></div>
+                        <div>
+                            <el-radio v-model="dateType" label="month">By Month</el-radio>
+                            <el-radio v-model="dateType" label="year">By Year</el-radio>
+                        </div>
+                        <div>
+                            <label>From</label>
+                            <el-date-picker :type="dateType" v-model="dateFromValue" :placeholder="dpPlaceholder">
+                            </el-date-picker>
+                            <label>To</label>
+                            <el-date-picker :type="dateType" v-model="dateToValue" :placeholder="dpPlaceholder">
+                            </el-date-picker>
+                        </div>
+                        <br />
+                        <div style="margin-left: 3em">
+                            <el-button type="primary" :loading="loading" v-on:click="handleSetClick">Set Plan
+                            </el-button>
+                            <el-button type="primary" :loading="loading" v-on:click="handleQueryClick">Query</el-button>
+                            <el-button type="primary" :loading="loading" :disabled="!tableShow"
+                                v-on:click="handleExportClick">Export</el-button>
+                        </div>
+                    </el-col>
+
+                    <el-col :lg="5" :offset="4" :sm="12">
+                        <el-card class="box-card">
+                            <div>开发者：曹晋（0279）</div>
+                            <div>需求者：陈舒（0353）</div>
+                            <div>Cilck Count: @ViewBag.ClickCount</div>
+                        </el-card>
+                    </el-col>
+                </el-row>
+            </el-collapse-item>
+        </el-collapse>
+    </el-header>
+
+    <el-main>
+        <div class="chart">
+            <svg ref="svgChart"></svg>
+        </div>
+        <a ref="dlink" style="display: none;"></a>
+        <div class="table" v-if="tableShow">
+            <table ref="waferStartTable" class="table table-responsive table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th colspan="2" class="text-center">{{ tableData.tableTitle }}</th>
+                        <th v-for="(item,index) in tableData.items" :key="index" v-text="item"></th>
+                        <th v-if="tableData.showTarget" class="text-center">Original Daliy Target</th>
+                        <th v-if="tableData.showTarget" class="text-center">Current Daliy Target</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template v-for="(prod,index) in tableData.prods" :key="index">
+                        <tr>
+                            <td rowspan="2">
+                                <el-button style="width:auto" type="text" size="small" :loading="loading"
+                                    v-on:click="handleProdClick(prod.ProductID)">{{ prod.ProductID }}</el-button>
+                            </td>
+                            <td class="plan">Plan</td>
+                            <td v-for="(data,idx) in prod.Plans" :key="idx" v-text="data.Plan"></td>
+                            <td rowspan="2" v-if="tableData.showTarget">{{ prod.OriginalTarget }}</td>
+                            <td rowspan="2" v-if="tableData.showTarget">{{ prod.CurrentTarget }}</td>
+                        </tr>
+                        <tr>
+                            <td class="act">Act</td>
+                            <td v-for="(data,idx) in prod.Plans" :key="idx" v-text="data.Act"></td>
+                        </tr>
+                    </template>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">Plan Total</td>
+                        <td v-for="(total,index) in tableData.planTotals" :key="index" v-text="total"></td>
+                        <td rowspan="3" v-if="tableData.showTarget">{{ tableData.originalTarget }}</td>
+                        <td rowspan="3" v-if="tableData.showTarget">{{ tableData.currentTarget }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Act Total</td>
+                        <td v-for="(total,index) in tableData.actTotals" :key="index" v-text="total"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Gap Total</td>
+                        <td v-for="(total,index) in tableData.gapTotals" :key="index" v-text="total"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <el-dialog title="Setting Plans" :visible.sync="dialogVisible" width="80%" append-to-body
+            v-on:opened.once="show">
+            <el-date-picker type="month" v-model="dialogDate" placeholder="请选择月份" v-on:change="diaDatePickerChanged">
+            </el-date-picker>
+            <div class="hold-place"></div>
+            <div class="tableDiv">
+                <table class="table table-responsive table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>ProductID</th>
+                            <th v-for="(item,index) in dialogData.items" :key="index" v-text="item">
+                                </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template v-for="(prod,index) in dialogData.prods" :key="index">
+                            <tr>
+                                <td>{{ prod.ProductID }}</td>
+                                <td v-for="(data,idx) in prod.Plans" :key="idx" v-text="data.Plan"></td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+            <div class="setDiv">
+                <el-select place-holder="请选择Product" v-model="setEntity.selProd">
+                    <el-option v-for="(item,index) in prods" :key="index" :label="item" :value="item"></el-option>
+                </el-select>
+                <el-date-picker type="month" v-model="setEntity.month" placeholder="请选择月份"></el-date-picker>
+                <label>From</label>
+                <el-input-number v-model="setEntity.fromDate" :step="1" :max="31" :min="1" :precision="0">
+                </el-input-number>
+                <label>To</label>
+                <el-input-number v-model="setEntity.toDate" :step="1" :max="31" :min="1" :precision="0">
+                </el-input-number>
+                <el-input-number v-model="setEntity.value" :step="20" :min="0" :precision="0"></el-input-number>
+                <el-button type="primary" :loading="setEntity.loading" v-on:click="handleSubmitByCmd">Submit</el-button>
+            </div>
+        </el-dialog>
+        <el-dialog title="LotDetail" :visible.sync="lotDetailVisible" width="80%" append-to-body>
+            <el-table :data="lotInfoEntities" border size="mini" style="width: 100%" stripe max-height="600">
+                <el-table-column type="index" width="50" align="center"></el-table-column>
+                <el-table-column property="ProdID" label="Product ID" align="center"></el-table-column>
+                <el-table-column property="LotID" label="Lot ID" align="center"></el-table-column>
+                <el-table-column property="FoupID" label="Foup ID" align="center"></el-table-column>
+                <el-table-column property="Location" label="Location" align="center"></el-table-column>
+                <el-table-column property="Status" label="Status" align="center"></el-table-column>
+                <el-table-column property="CreateTime" label="Create Time" align="center"></el-table-column>
+                <el-table-column property="Qty" label="Wafer Q'ty" align="center"></el-table-column>
+                <el-table-column property="SrcProdID" label="Source Product ID" align="center"></el-table-column>
+                <el-table-column property="SrcLotID" label="Source Lot ID" align="center"></el-table-column>
+                <el-table-column property="VendorCode" label="Vendor Code" align="center"></el-table-column>
+                <el-table-column property="LotType" label="Lot Type" align="center"></el-table-column>
+                <el-table-column property="LotOwner" label="Lot Owner" align="center"></el-table-column>
+            </el-table>
+        </el-dialog>
+    </el-main>
+</el-container>
+
+
+
+<script src="~/Scripts/ams.commontool.js"></script>
+<script src="~/Scripts/demo/wafer-start.js"></script>

@@ -373,6 +373,7 @@ var modalView=new Vue({
             }
             //是否是取消操作
             if (!cg) {
+                //判断是否取消新增行
                 if (!this.quotaNormal.sel.id) this.quotaNormal.Rows.splice(index, 1);
                 return row.EditState = !row.EditState;
                 }

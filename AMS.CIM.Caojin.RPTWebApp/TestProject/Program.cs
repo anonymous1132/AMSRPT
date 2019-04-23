@@ -11,19 +11,9 @@ namespace TestProject
     {
         static void Main(string[] args)
         {
-            LogUtils.InfoLog("Start To Run WipChartYSTD");
-            try
-            {
-
-                RunWipChartYstd.Run();
-                LogUtils.InfoLog("Success!");
-            }
-            catch (Exception ex)
-            {
-                LogUtils.ErrorLog(ex);
-                System.Threading.Thread.Sleep(5 * 1000);
-            }
-
+            string text = DateTime.Now.ToString("MMM", new System.Globalization.CultureInfo("en-us"));
+            Console.WriteLine(text);
+            Console.ReadKey();
         }
 
 

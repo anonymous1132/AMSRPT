@@ -205,7 +205,7 @@ var wipChart = new Vue({
             let month = this.options.month
             let xk =key=='wafer out'? xWidth:xScale(key) +  xScale.step() /2
             let xm =month=='wafer out'?xWidth: xScale(month) + xScale.step() /2
-           
+           //绘制两线之间颜色块
             if (xk < xm) {
                 svgContainer.append('rect')
                 //    .attr('transform', 'translate(' + marge.left + ',' + marge.top + ')')
@@ -328,7 +328,7 @@ var wipChart = new Vue({
                 .style('fill', 'none')
                 .style('stroke', 'orange')
 
-
+                //绘制month线
                 svgContainer.append('line')
                 // .attr('transform', 'translate(' + marge.left + ',' + marge.top + ')')
                  .attr('x1', xm)
@@ -337,7 +337,7 @@ var wipChart = new Vue({
                  .attr('y2', yHeight)
                  .attr('stroke', 'black')
                  .attr('stroke-width', 2)
- 
+            //绘制key线
              svgContainer.append('line')
                //  .attr('transform', 'translate(' + marge.left + ',' + marge.top + ')')
                  .attr('x1', xk)

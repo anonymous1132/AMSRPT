@@ -165,7 +165,9 @@
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\ErrorPageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReqRpt001Controller.cs" />
     <Compile Include="Controllers\ReqRpt004Controller.cs" />
+    <Compile Include="Controllers\ReqRpt011Controller.cs" />
     <Compile Include="Controllers\ReqRpt014Controller.cs" />
     <Compile Include="Controllers\ReqRpt018Controller.cs" />
     <Compile Include="Controllers\ReqRpt020Controller.cs" />
@@ -185,14 +187,26 @@
     </Compile>
     <Compile Include="Models\DB2OperateBase.cs" />
     <Compile Include="Models\ExcelApp.cs" />
-    <Compile Include="Models\ReqRpt047DepartmentEntity.cs" />
-    <Compile Include="Models\ReqRpt047EqpTypeEntity.cs" />
-    <Compile Include="Models\ReqRpt047GetSelectOptionsModel.cs" />
-    <Compile Include="Models\ReqRpt047MainTableDataBuilder.cs" />
-    <Compile Include="Models\ReqRpt047MaintainEDCHandler.cs" />
-    <Compile Include="Models\ReqRpt047MaintainEdcPostModel.cs" />
-    <Compile Include="Models\ReqRpt047TableEntity.cs" />
-    <Compile Include="Models\ReqRpt047TableRowEntity.cs" />
+    <Compile Include="Models\ReqRpt011LotDetailBuilder.cs" />
+    <Compile Include="Models\ReqRpt011LotDetailEntity.cs" />
+    <Compile Include="Models\ReqRpt011PlanEntity.cs" />
+    <Compile Include="Models\ReqRpt011PlanSetHandler.cs" />
+    <Compile Include="Models\ReqRpt011ProductEntity.cs" />
+    <Compile Include="Models\ReqRpt011TableDataBuilder.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt001LotDetailDataBuilder.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt001PlanEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt001PlanSetHandler.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt001ProductEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt001QueryTablePostModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt001TableDataBuilder.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt047DepartmentEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt047EqpTypeEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt047GetSelectOptionsModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt047MainTableDataBuilder.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt047MaintainEDCHandler.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt047MaintainEdcPostModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt047TableEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt047TableRowEntity.cs" />
     <Compile Include="Models\ViewModel\ReqRpt062MainTableBuilder.cs" />
     <Compile Include="Models\ViewModel\ReqRpt028ChartEntity.cs" />
     <Compile Include="Models\ViewModel\ReqRpt028ChartModel.cs" />
@@ -484,6 +498,8 @@
     <Content Include="Scripts\demo\shl.js" />
     <Content Include="Scripts\demo\sparkline-demo.js" />
     <Content Include="Scripts\demo\upm.js" />
+    <Content Include="Scripts\demo\wafer-out.js" />
+    <Content Include="Scripts\demo\wafer-start.js" />
     <Content Include="Scripts\demo\wipchart.js" />
     <Content Include="Scripts\FileSaver.js" />
     <Content Include="Scripts\inspinia.js" />
@@ -1126,6 +1142,8 @@
     <Content Include="themes\local\nonlot.css" />
     <Content Include="themes\local\qtime.css" />
     <Content Include="themes\local\shl.css" />
+    <Content Include="themes\local\wafer-out.css" />
+    <Content Include="themes\local\wafer-start.css" />
     <Content Include="themes\local\wipchart.css" />
     <Content Include="themes\material-teal\accordion.css" />
     <Content Include="themes\material-teal\calendar.css" />
@@ -1372,6 +1390,8 @@
     <Content Include="Views\ReqRpt028\Index.cshtml" />
     <Content Include="Views\ReqRpt062\Index.cshtml" />
     <Content Include="Views\ReqRpt047\Index.cshtml" />
+    <Content Include="Views\ReqRpt001\Index.cshtml" />
+    <Content Include="Views\ReqRpt011\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Compnent\vue\" />

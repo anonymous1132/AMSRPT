@@ -59,3 +59,5 @@ D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\WipC
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\WipChartRunner.pdb
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\obj\Debug\WipChartRunner.exe
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\obj\Debug\WipChartRunner.pdb
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\Oracle.ManagedDataAccess.dll
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\CommonUtilsLibrary.dll.config

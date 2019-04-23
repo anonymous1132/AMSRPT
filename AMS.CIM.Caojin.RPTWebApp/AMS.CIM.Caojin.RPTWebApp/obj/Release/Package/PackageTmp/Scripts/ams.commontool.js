@@ -1,5 +1,5 @@
 ﻿//移动所有的到右边
-function moveAll(selectfrom,selectto,callback) {
+function moveAll(selectfrom, selectto, callback) {
     //得到第一个select对象
     var selectElement = document.getElementById(selectfrom);
     var optionElements = selectElement.getElementsByTagName("option");
@@ -25,7 +25,7 @@ function moveAll(selectfrom,selectto,callback) {
 }
 
 //全部向左移
-function moveAllLeft(selectfrom,selectto) {
+function moveAllLeft(selectfrom, selectto) {
     var selectElement = document.getElementById(selectfrom);
     var optionElements = selectElement.getElementsByTagName("option");
     var len = optionElements.length;
@@ -69,7 +69,7 @@ function PopUp() {
     document.getElementById('light').style.display = 'block'; document.getElementById('fade').style.display = 'block';
 }
 
-function MoveItem(fromId, toId,callback) {
+function MoveItem(fromId, toId, callback) {
     $("#" + fromId + " option:selected").each(function () {
         $(this).appendTo($("#" + toId + ":not(:has(option[value=" + $(this).val() + "]))"));
     });
@@ -79,14 +79,14 @@ function MoveItem(fromId, toId,callback) {
     }
 }
 
-function PostAjax(data,url,elementObj) {
+function PostAjax(data, url, elementObj) {
     document.getElementById('loading').style.display = "block";
     $.ajax({
-        type: 'POST', 
+        type: 'POST',
         url: url,
-        dataType: 'html', 
+        dataType: 'html',
         contentType: 'application/json',
-        data: JSON.stringify(data), 
+        data: JSON.stringify(data),
         success: function (responseData) {
             elementObj.html("");
             elementObj.html(responseData);
@@ -119,7 +119,7 @@ function PostAjaxGetHtml(data, url, callback, errorBack) {
     });
 }
 
-function PostAjaxGetJson(data,url,callback,errorBack) {
+function PostAjaxGetJson(data, url, callback, errorBack) {
 
     $.ajax({
         type: 'POST',
@@ -142,14 +142,14 @@ function PostAjaxGetJson(data,url,callback,errorBack) {
 
 
 //当前日期
-function today(){
-    var today=new Date();//new 出当前时间
-    var h=today.getFullYear();//获取年
-    var m=today.getMonth()+1;//获取月
-    var d=today.getDate();//获取日
-    m=m<10?'0'+m:m;
-    d=d<10?'0'+d:d;
-    return h+"-"+m+"-"+d; //返回 年-月-日
+function today() {
+    var today = new Date();//new 出当前时间
+    var h = today.getFullYear();//获取年
+    var m = today.getMonth() + 1;//获取月
+    var d = today.getDate();//获取日
+    m = m < 10 ? '0' + m : m;
+    d = d < 10 ? '0' + d : d;
+    return h + "-" + m + "-" + d; //返回 年-月-日
 }
 
 function fixDatePickerValue(someDate) {
@@ -169,7 +169,7 @@ function fixCommonDateTimeValue(someDate) {
     H = H < 10 ? '0' + H : H;
     M = M < 10 ? '0' + M : M;
     S = S < 10 ? '0' + S : S;
-    return date + " "+H+":"+M+":"+S;
+    return date + " " + H + ":" + M + ":" + S;
 }
 
 //获取某日是每年的第几周
@@ -195,13 +195,13 @@ function getWeekOfYear(someDay) {
 //    return h + "-" + m + "-" + d; //返回 年-月-日
 //}
 
-function currentTime(){
-    var today=new Date();//new 出当前时间
+function currentTime() {
+    var today = new Date();//new 出当前时间
     var H = today.getHours();//获取时
     var M = today.getMinutes();//获取分
-    H=H<10?'0'+H:H;
-    M=M<10?'0'+M:M;
-    return H+":"+M;//返回时:分:秒
+    H = H < 10 ? '0' + H : H;
+    M = M < 10 ? '0' + M : M;
+    return H + ":" + M;//返回时:分:秒
 }
 function currentTimeToSecond() {
     var today = new Date();//new 出当前时间
@@ -211,7 +211,7 @@ function currentTimeToSecond() {
     H = H < 10 ? '0' + H : H;
     M = M < 10 ? '0' + M : M;
     S = S < 10 ? '0' + S : S;
-    return H + ":" + M+':'+S;//返回时:分:秒
+    return H + ":" + M + ':' + S;//返回时:分:秒
 }
 //日期加减
 function addDate(date, days) {
@@ -221,7 +221,7 @@ function addDate(date, days) {
     m = m < 10 ? '0' + m : m;
     var da = d.getDate() < 10 ? '0' + d.getDate() : d.getDate();
     return d.getFullYear() + '-' + m + '-' + da;
-} 
+}
 
 var base64 = function (s) {
     return window.btoa(unescape(encodeURIComponent(s)));
@@ -255,6 +255,8 @@ function tableToExcel(tableid, sheetName, fileName, linkId) {
     dlinkInfo.download = fileName;
     dlinkInfo.click();
 }
+
+
 
 var tableSort = function () {
     this.initialize.apply(this, arguments);
@@ -386,4 +388,57 @@ var Bind = function (object, fun) {
 //去掉所有的html标记 
 function killHTML(str) {
     return str.replace(/<[^>]+>/g, "");
-} 
+}
+
+//仅适用于简单表格
+function FormExcelContext(tableData) {
+    if (tableData.length < 1 || (!Array.isArray(tableData))) return false;
+    let tableHtml = "<table><thead><tr>";
+    let thead = Object.keys(tableData[0]);
+    for (var i = 0; i < thead.length; i++) {
+        tableHtml = tableHtml + '<th>' + thead[i] + '</th>';
+    }
+    tableHtml = tableHtml + '</tr></thead><tbody>';
+    for (var i = 0; i < tableData.length; i++) {
+        tableHtml = tableHtml + '<tr>';
+        for (var j = 0; j < thead.length; j++) {
+            tableHtml = tableHtml + '<td>' + tableData[i][thead[j]] + '</td>';
+        }
+        tableHtml = tableHtml + '</tr>';
+    }
+    tableHtml = tableHtml + '</tbody></table>';
+    return tableHtml;
+}
+
+function FormExcelContextOfMutiTables(tableData,caption) {
+    if (tableData.length < 1 || (!Array.isArray(tableData))) return false;
+    let tableHtml = "<tr><td>"+caption+"</td></tr><thead><tr>";
+    let thead = Object.keys(tableData[0]);
+    for (var i = 0; i < thead.length; i++) {
+        tableHtml = tableHtml + '<th>' + thead[i] + '</th>';
+    }
+    tableHtml = tableHtml + '</tr></thead><tbody>';
+    for (var i = 0; i < tableData.length; i++) {
+        tableHtml = tableHtml + '<tr>';
+        for (var j = 0; j < thead.length; j++) {
+            tableHtml = tableHtml + '<td>' + tableData[i][thead[j]] + '</td>';
+        }
+        tableHtml = tableHtml + '</tr>';
+    }
+    tableHtml = tableHtml + '</tbody>';
+    return tableHtml;
+}
+
+var uri = 'data:application/vnd.ms-excel;base64,';
+var template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"' +
+    'xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>'
+    + '<x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets>'
+    + '</x:ExcelWorkbook></xml><![endif]-->' +
+    ' <style type="text/css">' +
+    'table th td{' +
+    'border-right: 1px solid #F00;' +
+    'border - bottom: 1px solid #F00;' +
+    'font - size: smaller;' +
+    '}' +
+    '</style>' +
+    '</head><body ><table class="excelTable">{table}</table></body></html>';
