@@ -11,7 +11,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         public int Actual { get; set; }
 
-        public int Gap { get { return Actual - Target; } }
+        public int Gap { get; set; }
 
         public List<string> Lots { get; set; } = new List<string>();
     }

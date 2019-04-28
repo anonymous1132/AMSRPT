@@ -80,20 +80,26 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                     var plan_wip = new ReqRpt011PlanEntity()
                     {
                         Actual = lot_wip.Sum(s => s.Qty),
-                        Target = plan_i.Sum(s => s.Plan_Wip_Pcs)
+                        Target = plan_i.Sum(s => s.Plan_Wip_Pcs),
                     };
+                    plan_wip.Gap = plan_wip.Actual - plan_wip.Target + (i > 0 ? wipEntity.Plans.Last().Gap : 0);
                     var plan_ship = new ReqRpt011PlanEntity
                     {
                         Actual = lot_ship.Sum(s => s.Qty),
                         Target = plan_i.Sum(s => s.Plan_Ship_Pcs)
                     };
+                    plan_ship.Gap = plan_ship.Actual - plan_ship.Target + (i > 0 ? shipEntity.Plans.Last().Gap : 0);
                     plan_ship.Lots = plan_ship.Actual > 0 ? lot_ship.Select(s => s.Lot_ID).ToList():new List<string>();
                     plan_wip.Lots = plan_wip.Actual > 0 ? lot_wip.Select(s => s.Lot_ID).ToList() : new List<string>();
                     shipEntity.Plans.Add(plan_ship);
                     wipEntity.Plans.Add(plan_wip);
                 }
-                shipEntity.Plans.Add(new ReqRpt011PlanEntity() { Actual=shipEntity.Plans.Sum(s=>s.Actual),Target=shipEntity.Plans.Sum(s=>s.Target)});
-                wipEntity.Plans.Add(new ReqRpt011PlanEntity() { Actual = wipEntity.Plans.Sum(s => s.Actual), Target = wipEntity.Plans.Sum(s => s.Target) });
+                var ship_total_act = shipEntity.Plans.Sum(s => s.Actual);
+                var ship_total_tar = shipEntity.Plans.Sum(s => s.Target);
+                var wip_total_act = wipEntity.Plans.Sum(s => s.Actual);
+                var wip_total_tar = wipEntity.Plans.Sum(s => s.Target);
+                shipEntity.Plans.Add(new ReqRpt011PlanEntity() { Actual=ship_total_act,Target=ship_total_tar,Gap=ship_total_act-ship_total_tar});
+                wipEntity.Plans.Add(new ReqRpt011PlanEntity() { Actual =wip_total_act, Target = wip_total_tar,Gap=wip_total_act-wip_total_tar });
                 var lot_ship_prod = lot_prod.Where(w => w.Out_Type == "Ship");
                 var lot_wip_prod= lot_prod.Where(w => w.Out_Type == "Wip");
                 shipEntity.Plans.Last().Lots = lot_ship_prod.Any() ? lot_ship_prod.Select(s => s.Lot_ID).ToList() : new List<string>();

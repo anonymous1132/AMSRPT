@@ -25,8 +25,22 @@
             toDate:31,
             setValue:0,
             btnLoading:false
+        },
+        keyData: {
+            dialogFormVisible: false,
+            dialogUpdateVisible: false,
+            changeKeyBtnVisible:false,
+            formLabelWidth: '120px',
+            form: {
+                key: undefined,
+                inFlag:false
+            },
+            update: {
+                oldKey: "",
+                newKey: ""
+            },
+            loading:false
         }
-
     },
     computed:{
         tableShow:function(){
@@ -37,8 +51,12 @@
 
     },
     methods:{
-        handleSetClick(){
-            this.dialogSetData.visible=true
+        handleSetClick() {
+            if (this.keyData.form.inFlag) {
+                this.dialogSetData.visible = true
+            } else {
+                this.keyData.dialogFormVisible = true
+            }
         },
         handleQueryClick(){
             if(!this.monthValue)return this.$message.error('请选择月份')
@@ -173,6 +191,63 @@
                 console.log('前端解析错误')
                 vue.loading=false
             })
+        },
+        handleDialogCancel() {
+          this.keyData.form.key = undefined;
+          this.keyData.dialogFormVisible = false;
+        },
+        handleDialogOK() {
+            if (!this.keyData.form.key) { this.keyData.dialogFormVisible = false; return; }
+            let data = { key: this.keyData.form.key };
+            let url = "CheckKey"
+            this.keyData.loading=true
+            let vue=this
+            PostAjaxGetJson(data, url, response => {
+                if (response.success) {
+                    vue.keyData.dialogFormVisible = false;
+                    vue.keyData.changeKeyBtnVisible = true;
+                    vue.dialogSetData.visible = true;
+                    vue.keyData.form.inFlag=true
+                } else {
+                    vue.$message.error(response.msg)
+                }
+                vue.keyData.loading=false
+            }, () => {
+                vue.$message.error("交互异常")
+                console.log("前端异常")
+                vue.keyData.loading=false
+            })
+        },
+        handleChangeKeyBtnClick() {
+            this.keyData.dialogUpdateVisible = true;
+        },
+        handleUpdateCancel() {
+            this.keyData.dialogUpdateVisible = false;
+            this.keyData.update.oldKey = "";
+            this.keyData.update.newKey = "";
+        },
+        handleUpdateOK() {
+            let data = { newKey: this.keyData.update.newKey, oldKey: this.keyData.update.oldKey };
+            let url = "updateKey";
+            this.keyData.loading=true
+            let vue = this
+            PostAjaxGetJson(data, url, response => {
+                if (response.success) {
+                    vue.$message.success(response.msg);
+                    vue.keyData.dialogUpdateVisible = false;
+                    vue.keyData.update.oldKey = "";
+                    vue.keyData.update.newKey = "";
+                } else {
+                    vue.$message.error(response.msg);
+                    vue.keyData.update.oldKey = "";
+                    vue.keyData.update.newKey = "";
+                }
+                vue.keyData.loading=false
+            }, () => {
+                vue.$message.error("交互异常")
+                console.log("前端错误")
+                vue.keyData.loading=false
+                })
         }
     },
     mounted(){

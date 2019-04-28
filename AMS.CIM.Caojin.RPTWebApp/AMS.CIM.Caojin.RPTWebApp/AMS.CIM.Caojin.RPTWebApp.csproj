@@ -871,6 +871,16 @@
     <Content Include="Scripts\plugins\wow\wow.min.js" />
     <Content Include="Scripts\vue.min.js" />
     <Content Include="Scripts\xcConfirm.js" />
+    <Content Include="static\css\bootstrap.min.css" />
+    <Content Include="static\css\el.css" />
+    <Content Include="static\css\style.css" />
+    <Content Include="static\js\ams.commontool.js" />
+    <Content Include="static\js\jquery-3.1.1.min.js" />
+    <Content Include="static\js\vendor.js" />
+    <Content Include="static\test\app.6810d6bebc69992312963c0bff8479f6.css" />
+    <Content Include="static\test\app.764c56aab6a92bd775bc.js" />
+    <Content Include="static\test\manifest.2ae2e69a05c33dfc65f8.js" />
+    <Content Include="static\test\vendor.614fe3402088e31a2cfa.js" />
     <Content Include="themes\angular.css" />
     <Content Include="themes\black\accordion.css" />
     <Content Include="themes\black\calendar.css" />
@@ -1392,6 +1402,7 @@
     <Content Include="Views\ReqRpt047\Index.cshtml" />
     <Content Include="Views\ReqRpt001\Index.cshtml" />
     <Content Include="Views\ReqRpt011\Index.cshtml" />
+    <Content Include="static\fonts\element-icons.6f0a763.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Compnent\vue\" />

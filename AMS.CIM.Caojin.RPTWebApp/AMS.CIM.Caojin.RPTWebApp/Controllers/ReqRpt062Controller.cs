@@ -50,11 +50,11 @@ and code.category_id = 'Department' and user.user_id='{0}'", userid);
             try
             {
                 var model = new ReqRpt062MainTableBuilder(userid);
-                return Json(new {success=true,model.LotEntities,model.CastEntities },JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, model.LotEntities, model.CastEntities }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return Json(new { success=false,msg=ex.Message});
+                return Json(new { success = false, msg = ex.Message });
             }
         }
     }

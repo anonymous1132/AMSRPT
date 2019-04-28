@@ -36,7 +36,10 @@ Layout = "~/Views/Shared/_LayoutRptVue.cshtml";
                         <el-button type="primary" :loading="loading" v-on:click="handleQueryClick">Query</el-button>
 
                         <el-button type="primary" :loading="loading" :disabled="!tableShow"
-                            v-on:click="handleExportClick">Export</el-button>
+                                   v-on:click="handleExportClick">Export</el-button>
+
+                        <el-button type="primary" :loading="loading" v-on:click="handleChangeKeyBtnClick" v-show="keyData.changeKeyBtnVisible">修改口令</el-button>
+
                     </el-col>
 
                     <el-col :lg="5" :offset="4" :sm="12">
@@ -73,7 +76,7 @@ Layout = "~/Views/Shared/_LayoutRptVue.cshtml";
                             <td>Actual</td>
                             <td v-for="(data,index) in wip.Plans" :key="index">
                                 <el-button type="text" size="small" :loading="loading"
-                                    v-on:click="handleQueryLot(data,'Wip')">
+                                           v-on:click="handleQueryLot(data,'Wip')">
                                     {{ data.Actual }}
                                 </el-button>
                             </td>
@@ -105,7 +108,7 @@ Layout = "~/Views/Shared/_LayoutRptVue.cshtml";
                             <td>Actual</td>
                             <td v-for="(data,index) in ship.Plans" :key="index">
                                 <el-button type="text" size="small" :loading="loading"
-                                    v-on:click="handleQueryLot(data,'Ship')">
+                                           v-on:click="handleQueryLot(data,'Ship')">
                                     {{ data.Actual }}
                                 </el-button>
                             </td>
@@ -120,10 +123,10 @@ Layout = "~/Views/Shared/_LayoutRptVue.cshtml";
         </div>
 
         <el-dialog title="Setting Plans" :visible.sync="dialogSetData.visible" width="80%" append-to-body
-            v-loading="dialogSetData.loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
-            element-loading-background="rgba(0, 0, 0, 0.8)" v-on:opened.once="handleDiaSetOpened">
+                   v-loading="dialogSetData.loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
+                   element-loading-background="rgba(0, 0, 0, 0.8)" v-on:opened.once="handleDiaSetOpened">
             <el-date-picker type="month" v-model="dialogSetData.viewMonth" placeholder="请选择月份"
-                v-on:change="diaDatePickerChanged">
+                            v-on:change="diaDatePickerChanged">
             </el-date-picker>
             <div class="hold-place"></div>
             <div class="tableDiv table">
@@ -167,8 +170,36 @@ Layout = "~/Views/Shared/_LayoutRptVue.cshtml";
                 <el-input-number v-model="dialogSetData.toDate" :step="1" :max="31" :min="1" :precision="0">
                 </el-input-number>
                 <el-input-number v-model="dialogSetData.setValue" :step="20" :min="0" :precision="0"></el-input-number>
-                <el-button type="primary" :loading="dialogSetData.btnLoading" v-on:click="handleSubmitByCmd">Submit
+                <el-button type="primary" :loading="dialogSetData.btnLoading" v-on:click="handleSubmitByCmd">
+                    Submit
                 </el-button>
+            </div>
+        </el-dialog>
+        <el-dialog title="验证口令" :visible.sync="keyData.dialogFormVisible" v-loading="keyData.loading" element-loading-text="正在交互中..." element-loading-spinner="el-icon-loading"
+                   element-loading-background="rgba(0, 0, 0, 0.8)" append-to-body>
+            <el-form :model="keyData.form">
+                <el-form-item label="请输入口令" :label-width="keyData.formLabelWidth">
+                    <el-input type="password" v-model="keyData.form.key" autocomplete="off"></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button v-on:click="handleDialogCancel">取 消</el-button>
+                <el-button type="primary" v-on:click="handleDialogOK">确 定</el-button>
+            </div>
+        </el-dialog>
+        <el-dialog title="更改口令" :visible.sync="keyData.dialogUpdateVisible" v-loading="keyData.loading" element-loading-text="正在交互中..." element-loading-spinner="el-icon-loading"
+                   element-loading-background="rgba(0, 0, 0, 0.8)" append-to-body>
+            <el-form :model="keyData.update">
+                <el-form-item label="请输入原口令" :label-width="keyData.formLabelWidth">
+                    <el-input type="password" v-model="keyData.update.oldKey" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="请输入新口令" :label-width="keyData.formLabelWidth">
+                    <el-input type="password" v-model="keyData.update.newKey" autocomplete="off"></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button v-on:click="handleUpdateCancel">取 消</el-button>
+                <el-button type="primary" v-on:click="handleUpdateOK">确 定</el-button>
             </div>
         </el-dialog>
     </el-main>

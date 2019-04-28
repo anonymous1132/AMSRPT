@@ -21,7 +21,8 @@ var tableView0 = new Vue({
         changeKeyButtonVisible:false,
         formLabelWidth: '120px',
         form:{
-            key:undefined
+            key: undefined,
+            inFlag:false
         },
         selRow:null,
         update:{
@@ -48,7 +49,7 @@ var tableView0 = new Vue({
     },
     methods:{
         handleRowDblClick(row){
-            if(this.form.key===undefined){
+            if(!this.form.inFlag){
                 this.dialogFormVisible=true;
                 this.selRow=row;
             }else{
@@ -77,7 +78,8 @@ var tableView0 = new Vue({
                     tableView0.changeKeyButtonVisible=false;
                 }else{
                     tableView0.dialogFormVisible=false;
-                    tableView0.changeKeyButtonVisible=true;
+                    tableView0.changeKeyButtonVisible = true;
+                    tableView0.form.inFlag=true
                     if(modalView.dialogQuotaVisible){
                         //大框
                         //Proj
@@ -120,19 +122,20 @@ var tableView0 = new Vue({
         },
         handleUpdateOK(){
             let data={newKey:this.update.newKey,oldKey:this.update.oldKey};
-            let url="updateKey";
+            let url = "updateKey";
+            let vue=this
             PostAjaxGetJson(data,url,function(data){
                 if(data.successed){
-                    this.$message.success(data.msg);
+                    vue.$message.success(data.msg);
                     tableView0.dialogUpdateVisible=false;
                     tableView0.update.oldKey="";
                     tableView0.update.newKey="";
                     }else{
-                    this.$message.error(data.msg);
+                    vue.$message.error(data.msg);
                     tableView0.update.oldKey="";
                     tableView0.update.newKey="";
                 } 
-            },function(){this.$message.error("口令更改服务发生错误！");});
+            },function(){vue.$message.error("口令更改服务发生错误！");});
           },
         handleSelectChange(value){
             let url="QuotaProjectLotMappingHandle";
@@ -172,9 +175,12 @@ var tableView0 = new Vue({
                     stage2View.Entities=response.Entities;
                     stage2View.ChartModels=response.ChartModels;
                     let end=new Date(JSON.parse(JSON.stringify(stage2View.queryTime)));
-                    end.setDate(end.getDate()+1);
-                    stage2View.timeInput=[new Date(),end];
-                    stage2View.rawTime=new Date();
+                    end.setDate(end.getDate() + 1);
+                    let d = new Date();
+                    let min = d.getMinutes()
+                    d.setMinutes(min - 1)
+                    stage2View.rawTime = d;
+                    stage2View.timeInput = [d, end];
                     stage2View.dialogStage2Visible=true;
                 }else{
                     tableView0.$message.error(response.msg);
@@ -251,7 +257,7 @@ var modalView=new Vue({
             let j = { id: 0, Department: "", Project: "", Purpose: "", QuotaSHL: 0, QuotaHL: 0, UsedSHL: 0, UsedHL:0,RemnantSHL:0,RemnantHL:0,EditState:true};
             this.quotaProj.sel = JSON.parse(JSON.stringify(j));
             this.quotaProj.selRow=null;
-            if(tableView0.form.key===undefined){
+            if(!tableView0.form.inFlag){
                 tableView0.dialogFormVisible=true;
             }else{
                 this.quotaProj.Rows.push(j);
@@ -311,7 +317,7 @@ var modalView=new Vue({
                 //点击修改进入编辑状态
                 this.quotaProj.sel = JSON.parse(JSON.stringify(row));
                 this.quotaProj.selRow=row;
-                if(tableView0.form.key===undefined){
+                if(!tableView0.form.inFlag){
                     tableView0.dialogFormVisible=true;
                 }else{
                     row.EditState = true;
@@ -319,7 +325,7 @@ var modalView=new Vue({
             }
         },
         quotaDel(row,index){
-            if(tableView0.form.key===undefined){
+            if(!tableView0.form.inFlag){
                 this.quotaProj.sel=null;
                 this.quotaProj.selRow=null;
                 this.$message.info("请输入口令后再次操作");
@@ -356,7 +362,7 @@ var modalView=new Vue({
             let j = { id: 0, Department: "",  QuotaSHL: 0, QuotaHL: 0, UsedSHL: 0, UsedHL:0,RemnantSHL:0,RemnantHL:0,EditState:true};
             this.quotaNormal.sel = JSON.parse(JSON.stringify(j));
             this.quotaNormal.selRow=null;
-            if(tableView0.form.key===undefined){
+            if(!tableView0.form.inFlag){
                 tableView0.dialogFormVisible=true;
             }else{
                 this.quotaNormal.Rows.push(j);
@@ -415,7 +421,7 @@ var modalView=new Vue({
                 //点击修改进入编辑状态
                 this.quotaNormal.sel = JSON.parse(JSON.stringify(row));
                 this.quotaNormal.selRow=row;
-                if(tableView0.form.key===undefined){
+                if(!tableView0.form.inFlag){
                     tableView0.dialogFormVisible=true;
                 }else{
                     row.EditState = true;
@@ -423,7 +429,7 @@ var modalView=new Vue({
             }
         },
         quotaNormalDel(row,index){
-            if(tableView0.form.key===undefined){
+            if(!tableView0.form.inFlag){
                 this.quotaNormal.sel=null;
                 this.quotaNormal.selRow=null;
                 this.$message.info("请输入口令后再次操作");
@@ -527,8 +533,8 @@ var stage2View=new Vue({
             shortcuts: [{
                 text:'重置',
                 onClick(picker){
-                    let start=new Date();
-                    let end=new Date();
+                    let start=stage2View.rawTime;
+                    let end = new Date(JSON.parse(JSON.stringify(stage2View.rawTime)));
                     end.setDate(end.getDate()+1);
                     picker.$emit('pick',[start,end]);
                 }
@@ -591,7 +597,9 @@ var stage2View=new Vue({
                 }
                 return false;
             });
-        }
+            }
+            res.map(m => { m.PRSecond= (m.PRSecond/ 60).toFixed(2);m.CTSecond=(m.CTSecond/60).toFixed(2) })
+            
         return res;
         },
         targetWFOut:function(){
@@ -643,7 +651,7 @@ var stage2View=new Vue({
     },
     methods:{
         handleRowDblClick(row){
-            if(tableView0.form.key==undefined){
+            if(!tableView0.form.inFlag){
                 tableView0.dialogFormVisible=true;
                 this.selRow=row;
             }else{

@@ -93,5 +93,18 @@ namespace AMS.CIM.Caojin.RPTWebApp.Controllers
             double count = list.Any() ? list.First().Usage_Counter : 0;
             return count;
         }
+
+        public JsonResult GetClickCount(string title)
+        {
+            try
+            {
+                double res = CommonController.GetCount(title);
+                return Json(new { success = true, count = res });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success=false,msg=ex.Message});
+            }
+        }
     }
 }

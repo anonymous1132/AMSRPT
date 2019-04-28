@@ -47,5 +47,33 @@ namespace AMS.CIM.Caojin.RPTWebApp.Controllers
             var response = new { success = true, builder.LotEntities };
             return Json(response);
         }
+
+        //验证口令
+        public JsonResult CheckKey(string key)
+        {
+            ReqKeyOperateModel model = new ReqKeyOperateModel();
+            bool res = model.CheckKey("ReqRpt00011", key);
+            string msg = res ? "验证成功" : "口令验证失败";
+            return Json(new { success = res,msg });
+        }
+
+        //更改口令
+        public JsonResult UpdateKey(string newKey, string oldKey)
+        {
+            ReqKeyOperateModel model = new ReqKeyOperateModel();
+            string msg = "";
+            bool success = model.CheckKey("ReqRpt00011", oldKey);
+            if (success)
+            {
+                success = model.UpdateKey("ReqRpt00011", newKey);
+                msg = success ? "口令已更新！" : "口令更新出现未知错误，请联系开发人员！";
+            }
+            else
+            {
+                msg = "口令认证失败！";
+            }
+            return Json(new { success, msg }, JsonRequestBehavior.DenyGet);
+        }
+
     }
 }
