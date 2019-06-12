@@ -8,8 +8,11 @@ AMSRPT System
 
 使用了以下技术（或框架）：
 * ASP.Net MVC
+* Element UI
 * jQuery.js
 * vue.js
 * easyui.js(部分页面)
 * 其他第三方js代码
+
+![](mdImgs/img1.png)
 
