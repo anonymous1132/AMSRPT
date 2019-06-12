@@ -121,7 +121,7 @@ var wipChart = new Vue({
             var barWidth = this.barWidth;
             var barSpace = this.barSpace;
             var width = chartData.length * (barWidth + barSpace) + marge.left + marge.right;
-            width = width < 1000 ? 1000 : width;
+            width = width < 1400 ? 1400 : width;
             let yHeight = height - marge.bottom - marge.top
             let xWidth=width - marge.left - marge.right
             // 画布
@@ -195,7 +195,7 @@ var wipChart = new Vue({
             tuli_x += 100 + barWidth;
             this.renderTuli(svgContainer, tuli_x, 0 - marge.top / 2, 'bar', 'purple', 'Hot Lot');
             for (let i = 0; i < prod.length; i++) {
-                tuli_x += 100 + barWidth;
+                tuli_x += 140 + barWidth;
                 this.renderTuli(svgContainer, tuli_x, 0 - marge.top / 2, 'bar', colors[i], prod[i]);
             }
 
@@ -419,7 +419,7 @@ var wipChart = new Vue({
             var prod = chartData.prodList;
             var barWidth = this.subBarWidth;
             var width = chartData.ChartEntities.length * barWidth + marge.left + marge.right;
-            width = width < 1000 ? 1000 : width;
+            width = width < 1400 ? 1400 : width;
             let yHeight = height - marge.bottom - marge.top
             let xWidth=width - marge.left - marge.right
             // 画布

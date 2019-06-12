@@ -539,6 +539,15 @@ var stage2View=new Vue({
                     picker.$emit('pick',[start,end]);
                 }
             },
+                {
+                    text: '12小时内',
+                    onClick(picker) {
+                        let end = new Date(JSON.parse(JSON.stringify(stage2View.queryTime)));
+                        end.setHours(end.getHours() +12);
+                        picker.$emit('pick', [stage2View.queryTime, end]);
+                        //stage2View.timeInput=[stage2View.queryTime,end];
+                    }
+                },
             {
               text: '24小时内',
               onClick(picker) {

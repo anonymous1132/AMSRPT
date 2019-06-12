@@ -71,6 +71,7 @@
     <Compile Include="Common\LogHelper.cs" />
     <Compile Include="Common\TimeHelper.cs" />
     <Compile Include="Common\XmlHelper.cs" />
+    <Compile Include="Models\BLL\DBUpdater.cs" />
     <Compile Include="Models\BLL\ReqRpt018DataBase.cs" />
     <Compile Include="Models\BLL\ReqRpt018EqpStatusEntity.cs" />
     <Compile Include="Models\BLL\ReqRpt018GroupModel.cs" />
@@ -83,6 +84,8 @@
     <Compile Include="Models\BLL\ReqRpt028Runner_Bak.cs" />
     <Compile Include="Models\BLL\RPTCycleTimeTranslator.cs" />
     <Compile Include="Models\BLL\RPTFlowSumTranslator.cs" />
+    <Compile Include="Models\BLL\RptTrackInUpdaterForSplitLot.cs" />
+    <Compile Include="Models\DAL\BrprivilegeClickCount.cs" />
     <Compile Include="Models\DAL\FBLRCP_SSET_M.cs" />
     <Compile Include="Models\DAL\FBReasonCode.cs" />
     <Compile Include="Models\DAL\FHESCHSModel.cs" />
@@ -99,6 +102,10 @@
     <Compile Include="Models\DAL\Report001_LotDetail.cs" />
     <Compile Include="Models\DAL\Report11_LotDetail.cs" />
     <Compile Include="Models\DAL\Report11_WaferOut_LotDetail.cs" />
+    <Compile Include="Models\DAL\Report16_LotHold_Summary.cs" />
+    <Compile Include="Models\DAL\Report22_Scrap_List.cs" />
+    <Compile Include="Models\DAL\Report64_DetailModel.cs" />
+    <Compile Include="Models\DAL\Report64_SPCModel.cs" />
     <Compile Include="Models\DAL\Report_FoupOwner.cs" />
     <Compile Include="Models\DAL\FRCodeModel.cs" />
     <Compile Include="Models\DAL\FREQPModel.cs" />
@@ -128,11 +135,14 @@
     <Compile Include="Models\DAL\Report62_Lot.cs" />
     <Compile Include="Models\DAL\Report_Lot_OwnerDepartment_Mapping.cs" />
     <Compile Include="Models\DAL\Report_SpecialDetail.cs" />
+    <Compile Include="Models\DAL\Report_SplitLot.cs" />
     <Compile Include="Models\DAL\ReqRpt029_Flow.cs" />
     <Compile Include="Models\DAL\ReqRpt029_Lot.cs" />
     <Compile Include="Models\DAL\RPTFuncUsage.cs" />
     <Compile Include="Models\DAL\RPTH_LOT_PROC_TIME.cs" />
+    <Compile Include="Models\DAL\RPT_Click_Count_History.cs" />
     <Compile Include="Models\DAL\RPT_DAI_TurnRate.cs" />
+    <Compile Include="Models\DAL\RPT_Dept_CT_By_Prod.cs" />
     <Compile Include="Models\DAL\Rpt_Dept_EqpType_Mapping.cs" />
     <Compile Include="Models\DAL\Rpt_EqpType_EqpID_Mapping.cs" />
     <Compile Include="Models\DAL\RPT_EQP_PERFM_TARGET.cs" />
@@ -143,7 +153,9 @@
     <Compile Include="Models\DAL\RPT_FLOW_SUM_LRCP.cs" />
     <Compile Include="Models\DAL\RPT_FLOW_SUM_MR_LR_MAPPING.cs" />
     <Compile Include="Models\DAL\Rpt_Lot_Quota_Mapping.cs" />
+    <Compile Include="Models\DAL\RPT_Move_ByDepartmentModel.cs" />
     <Compile Include="Models\DAL\RPT_Move_By_EqpType.cs" />
+    <Compile Include="Models\DAL\Rpt_Move_Target.cs" />
     <Compile Include="Models\DAL\Rpt_Non_Lot_Edc_Plan.cs" />
     <Compile Include="Models\DAL\Rpt_Quota_Define.cs" />
     <Compile Include="Models\DAL\RPT_RealTime_Lin.cs" />
@@ -156,6 +168,7 @@
     <Compile Include="Models\DAL\RPT_WipChart_TargetOut.cs" />
     <Compile Include="Models\DAL\RPT_WipChart_YSTD.cs" />
     <Compile Include="Models\DAL\Rpt_WIP_SpecialLotModel.cs" />
+    <Compile Include="Models\DAL\RPT__WIP_ByDepartmentModel.cs" />
     <Compile Include="Models\DAL\ScrapSummarizedModel.cs" />
     <Compile Include="Models\DAL\FBProd.cs" />
     <Compile Include="Models\DAL\SHLFHOpehsModel.cs" />

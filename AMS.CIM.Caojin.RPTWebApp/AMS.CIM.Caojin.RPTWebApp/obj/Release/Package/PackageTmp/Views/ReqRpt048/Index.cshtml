@@ -588,11 +588,11 @@ Layout = "~/Views/Shared/_LayoutRptBootStrap.cshtml";
                                         </div>
                                     </template>
                             </el-table-column>
-                            <el-table-column property="PRSecond" label="Prod Time(m)" min-width="120" align="center"></el-table-column>
+                            <el-table-column property="PRSecond" label="Proc.Time(m)" min-width="120" align="center"></el-table-column>
                             <el-table-column property="CTSecond" label="C/T(m)" min-width="120" align="center"></el-table-column>
-                            <el-table-column property="strWFIn" label="Step In" min-width="90" align="center"></el-table-column>
-                            <el-table-column property="strStepComplete" label="Step Out" min-width="120" align="center"></el-table-column>
-                            <el-table-column  label="Step Gap/Delay" min-width="120" align="center">
+                            <el-table-column property="strWFIn" label="Ope.Start" min-width="90" align="center"></el-table-column>
+                            <el-table-column property="strStepComplete" label="Ope.End" min-width="120" align="center"></el-table-column>
+                            <el-table-column  label="CT Gap(m)" min-width="120" align="center">
                                 <template slot-scope="scope">
                                     <template v-if="scope.row.strStepGap<0">
                                         <div style="color:red;font-weight:bold">{{ scope.row.strStepGap }}</div>

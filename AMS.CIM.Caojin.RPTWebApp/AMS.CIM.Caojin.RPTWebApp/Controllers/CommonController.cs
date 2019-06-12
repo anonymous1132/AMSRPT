@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Caojin.Common;
 using AMS.CIM.Caojin.RPTLibrary.Models;
+using AMS.CIM.Caojin.RPTWebApp.Models;
 
 namespace AMS.CIM.Caojin.RPTWebApp.Controllers
 {
@@ -44,45 +45,33 @@ namespace AMS.CIM.Caojin.RPTWebApp.Controllers
         {
             try
             {
-                string sql = "select prodspec_id from mmview.fvprodspec ";
-                switch (type)
-                {
-                    case 0:
-                        sql += "where prodcat_id='Dummy'";
-                        break;
-                    case 1:
-                        sql += "where prodcat_id='Equipment Monitor'";
-                        break;
-                    case 2:
-                        sql += "where prodcat_id='Process Monitor'";
-                        break;
-                    case 3:
-                        sql += "where prodcat_id='Production'";
-                        break;
-                    case 4:
-                        sql += "where prodcat_id='Raw'";
-                        break;
-                    case 5:
-                        sql += "where prodcat_id='Recycle'";
-                        break;
-                    case 6:
-                        sql += "where prodcat_id='Production' and prodspec_id not like 'SL%'";
-                        break;
-                    default:
-                        break;
-                }
-                DB2Helper dB2 = new DB2Helper();
-                dB2.GetSomeData(sql);
-                List<string> Prods = new List<string>();
-                for (var i = 0; i < dB2.dt.Rows.Count; i++)
-                {
-                    Prods.Add(dB2.dt.Rows[i][0].ToString());
-                }
-                return Json(new { success = true, prods = Prods });
+                var querier = new ReqRptCommonProductQuerier(type);
+                return Json(new { success = true, prods = querier.Prods });
             }
             catch (Exception ex)
             {
                 return Json(new { success = false, msg=ex.Message});
+            }
+        }
+
+        public JsonResult GetAllLotType()
+        {
+            try
+            {
+                string sql = "select lot_type from mmview.frlottype";
+                DB2Helper db2 = new DB2Helper();
+                db2.GetSomeData(sql);
+                var dt = db2.dt;
+                List<string> list = new List<string>();
+                for (var i = 0; i < dt.Rows.Count; i++)
+                {
+                    list.Add(dt.DefaultView[i][0].ToString());
+                }
+                return Json(new { success = true, values = list });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, msg = ex.Message });
             }
         }
 
@@ -105,6 +94,105 @@ namespace AMS.CIM.Caojin.RPTWebApp.Controllers
             {
                 return Json(new { success=false,msg=ex.Message});
             }
+        }
+
+        /// <summary>
+        /// 获取所有部门
+        /// </summary>
+        /// <param name="type">
+        /// 0：所有
+        /// 1：不包含IT
+        /// 2:不包含IT,WD
+        /// </param>
+        /// <returns></returns>
+        public JsonResult GetAllDepartment(int type)
+        {
+            try
+            {
+                //string sql = "select code_id,description from mmview.frcode where category_id='Department'";
+                DB2DataCatcher<FRCodeModel> CodeCatcher = new DB2DataCatcher<FRCodeModel>("MMVIEW.FRCODE") { Conditions= "where category_id='Department'" };
+                switch (type)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        CodeCatcher.Conditions += "and description !='IT'";
+                        break;
+                    case 2:
+                        CodeCatcher.Conditions += "and code_id not in ('IT','WD')";
+                        break;
+                    default:
+                        //default不处理
+                        break;
+                }
+                var list = CodeCatcher.GetEntities().EntityList;
+                var response = list.Select(s => new { s.Code_ID, s.Description });
+                return Json(response);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, msg = ex.Message });
+            }
+        }
+
+        public JsonResult GetAllModule(int type)
+        {
+            try
+            {
+                //string sql = "select code_id,description from mmview.frcode where category_id='Department'";
+                DB2DataCatcher<FRCodeModel> CodeCatcher = new DB2DataCatcher<FRCodeModel>("MMVIEW.FRCODE") { Conditions = "where category_id='Department'" };
+                switch (type)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        CodeCatcher.Conditions += "and description !='IT'";
+                        break;
+                    case 2:
+                        CodeCatcher.Conditions += "and code_id not in ('IT','WD')";
+                        break;
+                    default:
+                        //default不处理
+                        break;
+                }
+                var list = CodeCatcher.GetEntities().EntityList;
+                var modules = list.Select(s => new { s.Code_ID, s.Description });
+                return Json(new { success=true,modules});
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, msg = ex.Message });
+            }
+        }
+        /// <summary>
+        ///验证口令
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult CheckKey(string project,string key)
+        {
+            ReqKeyOperateModel model = new ReqKeyOperateModel();
+            bool res = model.CheckKey(project, key);
+            return Json(new { success = res });
+        }
+        /// <summary>
+        /// 修改口令
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult UpdateKey(string project,string newKey,string oldKey)
+        {
+            ReqKeyOperateModel model = new ReqKeyOperateModel();
+            string msg = "";
+            bool successed = model.CheckKey(project, oldKey);
+            if (successed)
+            {
+                successed = model.UpdateKey(project, newKey);
+                msg = successed ? "口令已更新！" : "口令更新出现未知错误，请联系开发人员！";
+            }
+            else
+            {
+                msg = "口令认证失败！";
+            }
+            return Json(new { success=successed, msg }, JsonRequestBehavior.DenyGet);
         }
     }
 }

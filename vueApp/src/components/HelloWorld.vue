@@ -81,15 +81,19 @@
         </a>
       </li>
     </ul>
+    <CjExcelCell value="1" :editable="true"/>
+     <CjExcelCell value="2"/>
   </div>
 </template>
 
 <script>
 import WipChart from '../components/WipChart'
+import CjExcelCell from '../components/CjExcelTable/CjExcelCell'
 export default {
   name: 'HelloWorld',
   components:{
-    WipChart
+    WipChart,
+    CjExcelCell
   },
   data () {
     return {
@@ -137,7 +141,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 h1, h2 {
   font-weight: normal;
 }
@@ -152,4 +156,15 @@ li {
 a {
   color: #42b983;
 }
+
+.cj-excel-cell {
+  width: 40px;
+  height: 25px;
+  overflow: hidden;
+}
+.cj-excel-cell .cj-input{
+  width: 100%;
+  height:100%;
+}
+
 </style>

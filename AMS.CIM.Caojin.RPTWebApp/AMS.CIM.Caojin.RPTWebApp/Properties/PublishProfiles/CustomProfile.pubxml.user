@@ -19,19 +19,19 @@
       <publishTime>04/03/2019 08:49:51</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTLibrary.dll">
-      <publishTime>04/23/2019 15:38:47</publishTime>
+      <publishTime>06/10/2019 14:28:13</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTLibrary.dll.config">
       <publishTime>01/28/2019 10:49:19</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTLibrary.pdb">
-      <publishTime>04/23/2019 15:38:47</publishTime>
+      <publishTime>06/10/2019 14:28:13</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTWebApp.dll">
-      <publishTime>04/25/2019 16:52:28</publishTime>
+      <publishTime>06/11/2019 15:15:23</publishTime>
     </File>
     <File Include="bin/AMS.CIM.Caojin.RPTWebApp.pdb">
-      <publishTime>04/25/2019 16:52:28</publishTime>
+      <publishTime>06/11/2019 15:15:23</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>09/10/2013 16:29:20</publishTime>
@@ -271,7 +271,7 @@
       <publishTime>12/06/2018 11:44:54</publishTime>
     </File>
     <File Include="bin/Views/Shared/_LayoutRptBootStrap.cshtml">
-      <publishTime>02/21/2019 11:48:36</publishTime>
+      <publishTime>06/04/2019 15:25:18</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>01/23/2014 13:57:34</publishTime>
@@ -682,7 +682,10 @@
       <publishTime>10/16/2018 08:58:46</publishTime>
     </File>
     <File Include="Content/style.css">
-      <publishTime>12/11/2018 09:39:34</publishTime>
+      <publishTime>06/04/2019 14:54:31</publishTime>
+    </File>
+    <File Include="Controllers/CommonController.cs">
+      <publishTime>04/26/2019 10:39:15</publishTime>
     </File>
     <File Include="Controllers/ReqRpt011Controller.cs">
       <publishTime>04/25/2019 14:05:09</publishTime>
@@ -892,7 +895,7 @@
       <publishTime>01/11/2019 13:30:00</publishTime>
     </File>
     <File Include="Scripts/demo/shl.js">
-      <publishTime>04/25/2019 16:35:46</publishTime>
+      <publishTime>06/11/2019 12:42:26</publishTime>
     </File>
     <File Include="Scripts/demo/sparkline-demo.js">
       <publishTime>12/19/2015 22:16:26</publishTime>
@@ -907,7 +910,7 @@
       <publishTime>04/25/2019 15:47:32</publishTime>
     </File>
     <File Include="Scripts/demo/wipchart.js">
-      <publishTime>04/19/2019 16:49:28</publishTime>
+      <publishTime>06/11/2019 15:15:13</publishTime>
     </File>
     <File Include="Scripts/FileSaver.js">
       <publishTime>11/14/2018 19:34:32</publishTime>
@@ -2037,6 +2040,276 @@
     <File Include="Scripts/xcConfirm.js">
       <publishTime>10/29/2018 13:08:57</publishTime>
     </File>
+    <File Include="static/allinone/app.152abdd3ab85659b23ae.js">
+      <publishTime>05/23/2019 09:34:57</publishTime>
+    </File>
+    <File Include="static/allinone/app.aa314ad7d4cadba2b4aa004a03e8d64a.css">
+      <publishTime>05/15/2019 12:50:10</publishTime>
+    </File>
+    <File Include="static/allinone/app.aafb59fda5f1117dcc6e55c96094cf32.css">
+      <publishTime>05/23/2019 09:34:17</publishTime>
+    </File>
+    <File Include="static/allinone/app.e6a95ced42966e07b7eb.js">
+      <publishTime>05/23/2019 15:22:06</publishTime>
+    </File>
+    <File Include="static/allinone/app.fd4fdf2139b8d297997a.js">
+      <publishTime>05/15/2019 12:50:10</publishTime>
+    </File>
+    <File Include="static/allinone/manifest.2ae2e69a05c33dfc65f8.js">
+      <publishTime>05/15/2019 12:50:10</publishTime>
+    </File>
+    <File Include="static/allinone/manifest.2ae2e69a05c33dfc65f8.js.map">
+      <publishTime>05/15/2019 12:50:10</publishTime>
+    </File>
+    <File Include="static/allinone/skins/content/default/content.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/allinone/skins/content/default/content.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/allinone/skins/content/document/content.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/allinone/skins/content/document/content.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/allinone/skins/content/writer/content.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/allinone/skins/content/writer/content.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/allinone/skins/ui/oxide-dark/content.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/allinone/skins/ui/oxide-dark/content.inline.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/allinone/skins/ui/oxide-dark/content.inline.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/allinone/skins/ui/oxide-dark/content.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/allinone/skins/ui/oxide-dark/skin.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/allinone/skins/ui/oxide-dark/skin.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/allinone/skins/ui/oxide/content.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/allinone/skins/ui/oxide/content.inline.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/allinone/skins/ui/oxide/content.inline.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/allinone/skins/ui/oxide/content.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/allinone/skins/ui/oxide/content.mobile.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/allinone/skins/ui/oxide/fonts/tinymce-mobile.woff">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/allinone/skins/ui/oxide/skin.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/allinone/skins/ui/oxide/skin.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/allinone/skins/ui/oxide/skin.mobile.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/allinone/vendor.2e9e602c826a35d7875c.js">
+      <publishTime>05/23/2019 09:34:57</publishTime>
+    </File>
+    <File Include="static/allinone/vendor.69ea919bfbecf6e09518.js">
+      <publishTime>05/15/2019 12:50:10</publishTime>
+    </File>
+    <File Include="static/allinone/zh_CN.js">
+      <publishTime>05/13/2019 19:38:42</publishTime>
+    </File>
+    <File Include="static/clickcount/app.02342ec02420654f8e92.js">
+      <publishTime>05/22/2019 10:59:52</publishTime>
+    </File>
+    <File Include="static/clickcount/app.1a25a8d4898280bfde70.js">
+      <publishTime>05/23/2019 14:17:00</publishTime>
+    </File>
+    <File Include="static/clickcount/app.298141b52ed186ec65484e733b10ce98.css">
+      <publishTime>05/23/2019 13:54:08</publishTime>
+    </File>
+    <File Include="static/clickcount/app.605d9708cde45ac9dcbf.js">
+      <publishTime>05/16/2019 13:25:50</publishTime>
+    </File>
+    <File Include="static/clickcount/app.983dcb982f173a2320754a64a31b4f87.css">
+      <publishTime>05/16/2019 13:10:44</publishTime>
+    </File>
+    <File Include="static/clickcount/app.cf72529870ad6aed6825c6b90014d329.css">
+      <publishTime>05/22/2019 10:58:58</publishTime>
+    </File>
+    <File Include="static/clickcount/manifest.2ae2e69a05c33dfc65f8.js">
+      <publishTime>05/16/2019 13:10:44</publishTime>
+    </File>
+    <File Include="static/clickcount/vendor.3a884a357e34e8a5d3b4.js">
+      <publishTime>05/16/2019 13:10:44</publishTime>
+    </File>
+    <File Include="static/css/bootstrap.min.css">
+      <publishTime>04/26/2019 09:44:43</publishTime>
+    </File>
+    <File Include="static/css/el.css">
+      <publishTime>04/26/2019 09:44:43</publishTime>
+    </File>
+    <File Include="static/css/style.css">
+      <publishTime>05/22/2019 10:58:20</publishTime>
+    </File>
+    <File Include="static/css/summernote-bs3.css">
+      <publishTime>12/19/2015 22:17:08</publishTime>
+    </File>
+    <File Include="static/css/summernote.css">
+      <publishTime>08/08/2016 10:21:30</publishTime>
+    </File>
+    <File Include="static/fonts/element-icons.6f0a763.ttf">
+      <publishTime>04/26/2019 09:44:43</publishTime>
+    </File>
+    <File Include="static/js/ams.commontool.js">
+      <publishTime>04/28/2019 12:38:20</publishTime>
+    </File>
+    <File Include="static/js/jquery-3.1.1.min.js">
+      <publishTime>04/26/2019 09:44:43</publishTime>
+    </File>
+    <File Include="static/js/summernote.min.js">
+      <publishTime>08/08/2016 10:21:30</publishTime>
+    </File>
+    <File Include="static/js/vendor.js">
+      <publishTime>05/15/2019 12:50:10</publishTime>
+    </File>
+    <File Include="static/lotholdreview/app.45d1bdfa164d258fd4f6.js">
+      <publishTime>06/04/2019 14:20:56</publishTime>
+    </File>
+    <File Include="static/lotholdreview/app.7ee5dd812d19270668a1.js">
+      <publishTime>06/04/2019 14:33:45</publishTime>
+    </File>
+    <File Include="static/lotholdreview/app.fad22ff3c1af02369e7abb33eb9b518b.css">
+      <publishTime>06/04/2019 14:21:21</publishTime>
+    </File>
+    <File Include="static/lotholdreview/manifest.2ae2e69a05c33dfc65f8.js">
+      <publishTime>06/04/2019 11:53:51</publishTime>
+    </File>
+    <File Include="static/lotholdreview/vendor.3a884a357e34e8a5d3b4.js">
+      <publishTime>06/04/2019 11:53:51</publishTime>
+    </File>
+    <File Include="static/scraplist/app.68cfcc4a1cb19605ba9a.js">
+      <publishTime>06/10/2019 14:14:54</publishTime>
+    </File>
+    <File Include="static/scraplist/app.9525c8dc7c019e9cf6cbd9cfae8d0bef.css">
+      <publishTime>06/10/2019 14:14:54</publishTime>
+    </File>
+    <File Include="static/scraplist/manifest.2ae2e69a05c33dfc65f8.js">
+      <publishTime>06/10/2019 14:14:54</publishTime>
+    </File>
+    <File Include="static/scraplist/vendor.3a884a357e34e8a5d3b4.js">
+      <publishTime>06/10/2019 14:14:54</publishTime>
+    </File>
+    <File Include="static/spc/app.7f127f4150e0d3a05edfbe45e703e2bf.css">
+      <publishTime>05/30/2019 10:44:47</publishTime>
+    </File>
+    <File Include="static/spc/app.a2d2a1e5704076b1466e.js">
+      <publishTime>05/28/2019 15:39:37</publishTime>
+    </File>
+    <File Include="static/spc/app.edf8a57cd61fe904712305c7321d3949.css">
+      <publishTime>05/28/2019 15:38:52</publishTime>
+    </File>
+    <File Include="static/spc/app.ef429b67ee14ff7a8218.js">
+      <publishTime>05/30/2019 10:45:07</publishTime>
+    </File>
+    <File Include="static/spc/manifest.2ae2e69a05c33dfc65f8.js">
+      <publishTime>05/28/2019 15:27:14</publishTime>
+    </File>
+    <File Include="static/spc/vendor.3a884a357e34e8a5d3b4.js">
+      <publishTime>05/28/2019 15:27:14</publishTime>
+    </File>
+    <File Include="static/test/app.6810d6bebc69992312963c0bff8479f6.css">
+      <publishTime>04/26/2019 09:44:43</publishTime>
+    </File>
+    <File Include="static/test/app.764c56aab6a92bd775bc.js">
+      <publishTime>04/26/2019 09:44:43</publishTime>
+    </File>
+    <File Include="static/test/manifest.2ae2e69a05c33dfc65f8.js">
+      <publishTime>04/26/2019 09:44:43</publishTime>
+    </File>
+    <File Include="static/test/vendor.614fe3402088e31a2cfa.js">
+      <publishTime>04/26/2019 09:44:43</publishTime>
+    </File>
+    <File Include="static/tinymce/skins/content/default/content.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/tinymce/skins/content/default/content.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/tinymce/skins/content/document/content.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/tinymce/skins/content/document/content.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/tinymce/skins/content/writer/content.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/tinymce/skins/content/writer/content.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/tinymce/skins/ui/oxide-dark/content.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/tinymce/skins/ui/oxide-dark/content.inline.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/tinymce/skins/ui/oxide-dark/content.inline.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/tinymce/skins/ui/oxide-dark/content.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/tinymce/skins/ui/oxide-dark/skin.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/tinymce/skins/ui/oxide-dark/skin.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/tinymce/skins/ui/oxide/content.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/tinymce/skins/ui/oxide/content.inline.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/tinymce/skins/ui/oxide/content.inline.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/tinymce/skins/ui/oxide/content.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/tinymce/skins/ui/oxide/content.mobile.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/tinymce/skins/ui/oxide/fonts/tinymce-mobile.woff">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/tinymce/skins/ui/oxide/skin.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/tinymce/skins/ui/oxide/skin.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/tinymce/skins/ui/oxide/skin.mobile.min.css">
+      <publishTime>05/09/2019 21:18:46</publishTime>
+    </File>
+    <File Include="static/tinymce/zh_CN.js">
+      <publishTime>05/13/2019 19:38:42</publishTime>
+    </File>
     <File Include="themes/angular.css">
       <publishTime>07/07/2018 08:46:01</publishTime>
     </File>
@@ -2857,7 +3130,7 @@
       <publishTime>04/23/2019 11:07:15</publishTime>
     </File>
     <File Include="themes/local/wipchart.css">
-      <publishTime>04/08/2019 10:08:34</publishTime>
+      <publishTime>06/11/2019 15:03:48</publishTime>
     </File>
     <File Include="themes/material-teal/accordion.css">
       <publishTime>10/10/2018 16:42:19</publishTime>
@@ -3417,6 +3690,12 @@
     <File Include="Views/ReqRpt001/Index.cshtml">
       <publishTime>04/25/2019 15:46:21</publishTime>
     </File>
+    <File Include="Views/ReqRpt002/Index.cshtml">
+      <publishTime>06/04/2019 12:00:34</publishTime>
+    </File>
+    <File Include="Views/ReqRpt002/Index2.cshtml">
+      <publishTime>05/15/2019 13:12:02</publishTime>
+    </File>
     <File Include="Views/ReqRpt004/GetTableView.cshtml">
       <publishTime>12/18/2018 09:52:15</publishTime>
     </File>
@@ -3424,7 +3703,7 @@
       <publishTime>12/20/2018 09:07:02</publishTime>
     </File>
     <File Include="Views/ReqRpt011/Index.cshtml">
-      <publishTime>04/25/2019 14:28:03</publishTime>
+      <publishTime>05/13/2019 14:29:03</publishTime>
     </File>
     <File Include="Views/ReqRpt014/GetTableView.cshtml">
       <publishTime>12/17/2018 11:11:41</publishTime>
@@ -3434,6 +3713,9 @@
     </File>
     <File Include="Views/ReqRpt014/Top3.cshtml">
       <publishTime>12/13/2018 17:09:04</publishTime>
+    </File>
+    <File Include="Views/ReqRpt016/Index.cshtml">
+      <publishTime>06/04/2019 14:34:02</publishTime>
     </File>
     <File Include="Views/ReqRpt018/GetSelectListByEqpType.cshtml">
       <publishTime>01/21/2019 10:44:33</publishTime>
@@ -3452,6 +3734,12 @@
     </File>
     <File Include="Views/ReqRpt020/Index.cshtml">
       <publishTime>01/21/2019 17:01:58</publishTime>
+    </File>
+    <File Include="Views/ReqRpt020/Test.cshtml">
+      <publishTime>05/14/2019 10:05:29</publishTime>
+    </File>
+    <File Include="Views/ReqRpt022/Index.cshtml">
+      <publishTime>06/10/2019 14:26:03</publishTime>
     </File>
     <File Include="Views/ReqRpt023/GetLotDetail.cshtml">
       <publishTime>11/20/2018 11:51:41</publishTime>
@@ -3481,7 +3769,7 @@
       <publishTime>12/03/2018 13:29:43</publishTime>
     </File>
     <File Include="Views/ReqRpt028/Index.cshtml">
-      <publishTime>04/04/2019 16:55:36</publishTime>
+      <publishTime>06/11/2019 14:42:34</publishTime>
     </File>
     <File Include="Views/ReqRpt029/Index.cshtml">
       <publishTime>03/14/2019 14:58:27</publishTime>
@@ -3499,10 +3787,16 @@
       <publishTime>04/04/2019 17:22:13</publishTime>
     </File>
     <File Include="Views/ReqRpt048/Index.cshtml">
-      <publishTime>04/25/2019 16:36:22</publishTime>
+      <publishTime>04/28/2019 17:17:43</publishTime>
     </File>
     <File Include="Views/ReqRpt062/Index.cshtml">
       <publishTime>04/04/2019 16:14:26</publishTime>
+    </File>
+    <File Include="Views/ReqRpt063/Index.cshtml">
+      <publishTime>05/23/2019 14:17:16</publishTime>
+    </File>
+    <File Include="Views/ReqRpt064/Index.cshtml">
+      <publishTime>05/30/2019 10:45:47</publishTime>
     </File>
     <File Include="Views/Rpt/GetSelectListByEqpType.cshtml">
       <publishTime>10/25/2018 16:46:37</publishTime>
@@ -3514,7 +3808,7 @@
       <publishTime>10/29/2018 15:19:42</publishTime>
     </File>
     <File Include="Views/Rpt/Index.cshtml">
-      <publishTime>04/26/2019 09:50:25</publishTime>
+      <publishTime>05/15/2019 13:10:49</publishTime>
     </File>
     <File Include="Views/Rpt/query.js">
       <publishTime>10/18/2018 14:50:16</publishTime>
@@ -3535,10 +3829,13 @@
       <publishTime>12/06/2018 11:44:54</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutRptBootStrap.cshtml">
-      <publishTime>02/21/2019 11:48:36</publishTime>
+      <publishTime>06/04/2019 15:25:18</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutRptVue.cshtml">
       <publishTime>04/24/2019 10:51:44</publishTime>
+    </File>
+    <File Include="Views/Shared/_LayoutRptVueCli.cshtml">
+      <publishTime>05/16/2019 13:21:33</publishTime>
     </File>
     <File Include="Views/Test/Index.cshtml">
       <publishTime>10/18/2018 17:28:30</publishTime>
@@ -3553,7 +3850,7 @@
       <publishTime>10/16/2018 10:35:34</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/25/2019 16:52:02</publishTime>
+      <publishTime>06/11/2019 15:14:22</publishTime>
     </File>
   </ItemGroup>
 </Project>

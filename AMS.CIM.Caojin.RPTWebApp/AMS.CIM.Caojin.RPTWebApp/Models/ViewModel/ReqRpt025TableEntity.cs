@@ -21,9 +21,9 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         public int WAT_ScrapQty { get; set; } = 0;
 
-        public double FAB_Yield { get { return (FAB_PassQty + FAB_ScrapQty) == 0 ? 0 : FAB_PassQty / (FAB_PassQty + FAB_ScrapQty); } }
+        public double FAB_Yield { get { return (FAB_PassQty + FAB_ScrapQty) == 0 ? 0 : FAB_PassQty*1.0 / (FAB_PassQty + FAB_ScrapQty); } }
 
-        public double WAT_Yield { get { return (WAT_PassQty + WAT_ScrapQty) == 0 ? 0 : WAT_PassQty / (WAT_PassQty + WAT_ScrapQty); } }
+        public double WAT_Yield { get { return (WAT_PassQty + WAT_ScrapQty) == 0 ? 0 : WAT_PassQty*1.0 / (WAT_PassQty + WAT_ScrapQty); } }
 
         public double Yield { get { return FAB_Yield * WAT_Yield; } }
 

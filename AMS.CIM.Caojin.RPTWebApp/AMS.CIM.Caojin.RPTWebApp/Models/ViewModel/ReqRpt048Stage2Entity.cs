@@ -15,7 +15,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         public List<ReqRpt048EqpEntity> EqpList { get; set; } = new List<ReqRpt048EqpEntity>();
 
-        //public string ModulePD { get; set; }
+        public string ModulePD { get; set; }
         public string OpeName { get; set; }
         public string Recipe { get; set; }
 

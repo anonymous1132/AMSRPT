@@ -102,7 +102,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Controllers
             try
             {
                 var model = new ReqRpt048SHLStage2ViewModel(lot, product);
-                var datas = model.Entities.Select(s => new { s.OpeNO, s.OpeName, s.Department, s.EqpType, s.EqpList, s.Recipe, s.PRSecond, s.CTSecond, s.strPlan, s.strForecast, s.strWFIn, s.strStepComplete, s.strStepGap, s.strQtime, s.QtimeType, s.Qtime, s.Remark });
+                var datas = model.Entities.Select(s => new { s.OpeNO, s.OpeName, s.Department, s.EqpType, s.EqpList, s.Recipe, s.PRSecond, s.ModulePD,s.CTSecond, s.strPlan, s.strForecast, s.strWFIn, s.strStepComplete, s.strStepGap, s.strQtime, s.QtimeType, s.Qtime, s.Remark });
                 return Json(new { success = true, Entities = datas, model.ChartModels });
             }
             catch (Exception ex)

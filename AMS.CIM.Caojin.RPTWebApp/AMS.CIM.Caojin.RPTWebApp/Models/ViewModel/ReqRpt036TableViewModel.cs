@@ -167,8 +167,14 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                     rawEntities.RemoveAt(i-1);
                 }
             }
-            
-
+            //2019-5-23 caojin 新增以下内容，用以调整Change Comment、Change User对应的操作记录
+            for (int i = rawEntities.Count; i > 1; i--)
+            {
+                rawEntities[i - 1].Claim_Memo = rawEntities[i - 2].Claim_Memo;
+                rawEntities[i - 1].Claim_User_ID = rawEntities[i - 2].Claim_User_ID;
+            }
+            rawEntities[0].Claim_Memo = "未查询";
+            rawEntities[0].Claim_User_ID = "未查询";
             return rawEntities.ToList();
         }
 

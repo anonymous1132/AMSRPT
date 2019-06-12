@@ -50,15 +50,18 @@ float: right;
     z-index: 1000;
 }
 
-.chart{
-    text-align: center
+.chart {
+    text-align: center;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
 }
 
     .chart table {
         border-right: 1px solid #F00;
         border-bottom: 1px solid #F00;
         font-size: smaller;
-        margin-left:35%;
     }
 
 

@@ -101,7 +101,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                         EqpID=eqp
                     });
                 }
-                //entity.ModulePD = flow.ModulePD_ID;
+                entity.ModulePD = flow.ModulePD_ID;
                 var pd = PDCatcher.entities.EntityList.Where(w => w.PD_ID == hist.PD_ID);
                 entity.OpeName = pd.Any()?pd.First().Ope_Name:"";
                 entity.Recipe = flow.LRecipe;
@@ -168,7 +168,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                 entity.OpeNO = cast.Ope_NO;
                 entity.Department = cast.Department;
                 entity.EqpType = cast.Eqp_Type;
-                //entity.ModulePD = cast.ModulePD_ID;
+                entity.ModulePD = cast.ModulePD_ID;
                 var pd = PDCatcher.entities.EntityList.Where(w=>w.PD_ID==cast.PD_ID);
                 entity.OpeName = pd.Any() ? pd.First().Ope_Name : "";
                 entity.Recipe = cast.LRecipe;

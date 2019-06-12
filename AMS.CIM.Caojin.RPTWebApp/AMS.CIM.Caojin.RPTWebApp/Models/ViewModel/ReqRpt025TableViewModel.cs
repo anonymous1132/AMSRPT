@@ -38,17 +38,22 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         private void Initialize()
         {
-            DB2Helper db2 = new DB2Helper();
+            //DB2Helper db2 = new DB2Helper();
 
-            string sql = "select d_thesystemkey from smview.fbprod where prodcat_ident = 'Production' and mainpd_id = 'APAA'";
+            //string sql = "select d_thesystemkey from smview.fbprod where prodcat_ident = 'Production' and mainpd_id = 'APAA'";
 
-            db2.GetSomeData(sql);
+            //db2.GetSomeData(sql);
 
-            foreach (DataRow dr in db2.dt.Rows)
+            //foreach (DataRow dr in db2.dt.Rows)
+            //{
+            //    TableEntities.Add(new ReqRpt025TableEntity(dr[0].ToString()));
+            //}
+
+            var productQuerier = new ReqRptCommonProductQuerier(6);
+            foreach (var prod in productQuerier.Prods)
             {
-                TableEntities.Add(new ReqRpt025TableEntity(dr[0].ToString()));
+                TableEntities.Add(new ReqRpt025TableEntity(prod));
             }
-
 
             DB2DataCatcher<RPT_RealTime_Lin> db2Catcher = new DB2DataCatcher<RPT_RealTime_Lin>("ISTRPT.RPT_RealTime_Lin");
             db2Catcher.Conditions = string.Format("where start_time>='{0}' and start_time <'{1}' ", strSelecedFrom, strSelectedTo);

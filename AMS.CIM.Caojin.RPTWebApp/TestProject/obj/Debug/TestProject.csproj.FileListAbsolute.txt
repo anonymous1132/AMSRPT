@@ -54,10 +54,10 @@ D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\log4
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\CommonUtilsLibrary.dll
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\AegisImplicitMail.dll
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\CommonUtilsLibrary.pdb
-D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\WipChartRunner.exe.config
-D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\WipChartRunner.exe
-D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\WipChartRunner.pdb
-D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\obj\Debug\WipChartRunner.exe
-D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\obj\Debug\WipChartRunner.pdb
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\Oracle.ManagedDataAccess.dll
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\CommonUtilsLibrary.dll.config
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\ClickCountHistoryKeeper.exe.config
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\ClickCountHistoryKeeper.exe
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\ClickCountHistoryKeeper.pdb
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\obj\Debug\ClickCountHistoryKeeper.exe
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\obj\Debug\ClickCountHistoryKeeper.pdb

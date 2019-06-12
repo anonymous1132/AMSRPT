@@ -10,9 +10,15 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@tinymce/tinymce-vue": "^2.0.0",
+    "axios": "^0.18.0",
+    "canvas2image": "^1.0.5",
     "d3": "^5.9.2",
     "element-ui": "^2.7.2",
+    "html2canvas": "^1.0.0-rc.1",
+    "tinymce": "^5.0.5",
     "vue": "^2.5.2",
+    "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

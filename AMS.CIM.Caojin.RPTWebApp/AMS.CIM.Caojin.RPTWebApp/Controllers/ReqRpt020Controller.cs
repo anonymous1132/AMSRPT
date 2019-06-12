@@ -15,6 +15,11 @@ namespace AMS.CIM.Caojin.RPTWebApp.Controllers
             return View(new ReqRpt020MainViewModel());
         }
 
+        public ActionResult Test()
+        {
+            return View(new ReqRpt020MainViewModel());
+        }
+
         public JsonResult SetTargetValue(List<ReqRpt020SetTargetPostModel> postModel)
         {
             try

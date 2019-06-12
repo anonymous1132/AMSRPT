@@ -58,7 +58,7 @@ Layout = "~/Views/Shared/_LayoutRptVue.cshtml";
         <div class="table" v-if="tableShow">
             <label>WIP</label>
             <table ref="wipOutTable" class="table table-responsive table-bordered table-striped table-hover">
-                <template v-for="wip in tableData.wipData" :key="prod">
+                <template v-for="wip in tableData.wipData">
                     <thead>
                         <tr>
                             <th>Prod ID</th>
@@ -90,7 +90,7 @@ Layout = "~/Views/Shared/_LayoutRptVue.cshtml";
             </table>
             <label>Finished</label>
             <table ref="shipOutTable" class="table table-responsive table-bordered table-striped table-hover">
-                <template v-for="ship in tableData.shipData" :key="prod">
+                <template v-for="ship in tableData.shipData">
                     <thead>
                         <tr>
                             <th>Prod ID</th>
@@ -136,7 +136,7 @@ Layout = "~/Views/Shared/_LayoutRptVue.cshtml";
                             <th>ProductID</th>
                             <th>Category</th>
                             <th v-for="(item,index) in dialogSetData.items" :key="index" v-text="item">
-                                </td>
+                                </th>
                         </tr>
                     </thead>
                     <tbody>

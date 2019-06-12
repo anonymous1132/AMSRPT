@@ -11,8 +11,9 @@ namespace TestProject
     {
         static void Main(string[] args)
         {
-            string text = DateTime.Now.ToString("MMM", new System.Globalization.CultureInfo("en-us"));
-            Console.WriteLine(text);
+            string test = "";
+            List<string> list = test.Split('|').ToList();
+            Console.WriteLine(list.Count());
             Console.ReadKey();
         }
 
