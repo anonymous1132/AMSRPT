@@ -165,6 +165,7 @@
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\ErrorPageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItStokerLogViewController.cs" />
     <Compile Include="Controllers\ReqRpt001Controller.cs" />
     <Compile Include="Controllers\ReqRpt002Controller.cs" />
     <Compile Include="Controllers\ReqRpt004Controller.cs" />
@@ -185,14 +186,26 @@
     <Compile Include="Controllers\ReqRpt048Controller.cs" />
     <Compile Include="Controllers\ReqRpt062Controller.cs" />
     <Compile Include="Controllers\ReqRpt064Controller.cs" />
+    <Compile Include="Controllers\ReqRpt206Controller.cs" />
+    <Compile Include="Controllers\ReqRpt207Controller.cs" />
+    <Compile Include="Controllers\ReqRpt209Controller.cs" />
+    <Compile Include="Controllers\ReqRpt211Controller.cs" />
     <Compile Include="Controllers\RptController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DB2OperateBase.cs" />
     <Compile Include="Models\ExcelApp.cs" />
-    <Compile Include="Models\ReqRpt022TableModel.cs" />
-    <Compile Include="Models\ReqRpt022TableRowEntity.cs" />
+    <Compile Include="Models\ReqRpt211RowEntity.cs" />
+    <Compile Include="Models\ReqRpt211TableDataBuilder.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt207DataBuilder.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt207RowEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt206DataBuilder.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt206RowEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt209DataBuilder.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt209RowEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt022TableModel.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt022TableRowEntity.cs" />
     <Compile Include="Models\ViewModel\ReqRpt016DataBuilder.cs" />
     <Compile Include="Models\ViewModel\ReqRpt016HoldLotDetailEntity.cs" />
     <Compile Include="Models\ViewModel\ReqRpt016LotHoldSummaryEntity.cs" />
@@ -512,8 +525,8 @@
     <Content Include="fonts\element-icons.woff" />
     <Content Include="Content\plugins\element\fonts\element-icons.ttf" />
     <Content Include="Content\plugins\element\fonts\element-icons.woff" />
+    <Content Include="App_Data\db2Config_bakk.json" />
     <Content Include="App_Data\db2Config.json" />
-    <Content Include="App_Data\db2Config_bak.json" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="Scripts\api\typehead_collection.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
@@ -942,12 +955,32 @@
     <Content Include="static\css\style.css" />
     <Content Include="static\css\summernote-bs3.css" />
     <Content Include="static\css\summernote.css" />
+    <Content Include="static\eda-inlinebywafer\app.5f723f82477703d82afd27653896b4af.css" />
+    <Content Include="static\eda-inlinebywafer\app.7435c09352de4f0b0179.js" />
+    <Content Include="static\eda-inlinebywafer\manifest.2ae2e69a05c33dfc65f8.js" />
+    <Content Include="static\eda-inlinebywafer\vendor.3a884a357e34e8a5d3b4.js" />
+    <Content Include="static\eda-lotcompare\app.137778f81d5f40cad129035afe3f8878.css" />
+    <Content Include="static\eda-lotcompare\app.66eb3ca428c77f394c78.js" />
+    <Content Include="static\eda-lotcompare\manifest.2ae2e69a05c33dfc65f8.js" />
+    <Content Include="static\eda-lotcompare\vendor.3a884a357e34e8a5d3b4.js" />
+    <Content Include="static\eda-split\app.5389b2edf0790fbb21ea6e768d591877.css" />
+    <Content Include="static\eda-split\app.9089e7fbaef80231f44e.js" />
+    <Content Include="static\eda-split\manifest.2ae2e69a05c33dfc65f8.js" />
+    <Content Include="static\eda-split\vendor.3a884a357e34e8a5d3b4.js" />
+    <Content Include="static\eda-toolhist\app.0ec3108f4d10dcec9ae4.js" />
+    <Content Include="static\eda-toolhist\app.b8111b5c4dfaf773805a197ce502514e.css" />
+    <Content Include="static\eda-toolhist\manifest.2ae2e69a05c33dfc65f8.js" />
+    <Content Include="static\eda-toolhist\vendor.3a884a357e34e8a5d3b4.js" />
+    <Content Include="static\it-stoker\app.4628a32081ed672e4045.js" />
+    <Content Include="static\it-stoker\app.d8ef04b80e50d94fb0759106a2db0c3d.css" />
+    <Content Include="static\it-stoker\manifest.2ae2e69a05c33dfc65f8.js" />
+    <Content Include="static\it-stoker\vendor.69ea919bfbecf6e09518.js" />
     <Content Include="static\js\ams.commontool.js" />
     <Content Include="static\js\jquery-3.1.1.min.js" />
     <Content Include="static\js\summernote.min.js" />
     <Content Include="static\js\vendor.js" />
-    <Content Include="static\lotholdreview\app.7ee5dd812d19270668a1.js" />
-    <Content Include="static\lotholdreview\app.fad22ff3c1af02369e7abb33eb9b518b.css" />
+    <Content Include="static\lotholdreview\app.140385f7eeebffbd80e0.js" />
+    <Content Include="static\lotholdreview\app.45be0ad7fa9f78a2bac4c5fe1e782954.css" />
     <Content Include="static\lotholdreview\manifest.2ae2e69a05c33dfc65f8.js" />
     <Content Include="static\lotholdreview\vendor.3a884a357e34e8a5d3b4.js" />
     <Content Include="static\scraplist\app.68cfcc4a1cb19605ba9a.js" />
@@ -1515,6 +1548,11 @@
     <Content Include="Views\ReqRpt064\Index.cshtml" />
     <Content Include="Views\ReqRpt016\Index.cshtml" />
     <Content Include="Views\ReqRpt022\Index.cshtml" />
+    <Content Include="Views\ReqRpt209\index.cshtml" />
+    <Content Include="Views\ReqRpt206\index.cshtml" />
+    <Content Include="Views\ReqRpt207\index.cshtml" />
+    <Content Include="Views\ItStokerLogView\index.cshtml" />
+    <Content Include="Views\ReqRpt211\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Compnent\vue\" />

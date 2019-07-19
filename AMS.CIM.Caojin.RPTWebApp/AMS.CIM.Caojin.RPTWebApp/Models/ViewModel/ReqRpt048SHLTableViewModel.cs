@@ -29,14 +29,14 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         public string QueryConditions { get { return string.Format("Priority: {0}",Priorities); } }
 
-        //For Test Stage（应该已经转正了。。。）
+        //For Test Stage（已经转正了。。。）
         private readonly DB2DataCatcher<SHLLotModel> LotCatcher = new DB2DataCatcher<SHLLotModel>("ISTRPT.Report48_Lot_Test");
         //For Prod Stage
        // private readonly DB2DataCatcher<SHLLotModel> LotCatcher = new DB2DataCatcher<SHLLotModel>("ISTRPT.Report48_Lot");
 
         private readonly DB2DataCatcher<SHLFHOpehsModel> OpehsCatcher = new DB2DataCatcher<SHLFHOpehsModel>("MMVIEW.FHOPEHS");
 
-        private readonly DB2DataCatcher<SHLFoupModel> FoupCatcher = new DB2DataCatcher<SHLFoupModel>("ISTRPT.Report24_Lot_Detail");
+        private readonly DB2DataCatcher<FVCast_LotModel> FoupCatcher = new DB2DataCatcher<FVCast_LotModel>("ISTRPT.FVCAST_LOT");
 
         private readonly DB2DataCatcher<SHLFRPDModel> PDCatcher = new DB2DataCatcher<SHLFRPDModel>("MMVIEW.FRPD");
 
@@ -66,7 +66,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
         //FHOpehsModel集合
         IList<SHLFHOpehsModel> opeList;
         //FoupModel集合
-        IList<SHLFoupModel> castList;
+        IList<FVCast_LotModel> castList;
         //FRPDModel集合
         IList<SHLFRPDModel> pdList;
         //Report_Lot_OwnerDepartment_Mapping集合
@@ -124,10 +124,10 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
             OpehsCatcher.Conditions = string.Format("where lot_id in ('{0}') and ope_pass_count > 0 order by claim_time desc", lots_all);
             opeList = OpehsCatcher.GetEntities().EntityList;
             //CastQuery
-            FoupCatcher.Conditions = string.Format("where Lot_ID in ('{0}') order by claim_time desc", lots);
+            FoupCatcher.Conditions = string.Format("where Lot_ID in ('{0}')", lots);
             castList = FoupCatcher.GetEntities().EntityList;
             //PDQuery
-             curOpeList = opeList.GroupBy(g => g.Lot_ID).Select(s => new SHLFHOpehsModel() { Lot_ID = s.Key, Claim_Time = s.Max(m => m.Claim_Time),PD_ID= opeList.Where(w => w.Claim_Time == s.Max(m => m.Claim_Time)).First().PD_ID,Ope_No= opeList.Where(w => w.Claim_Time == s.Max(m => m.Claim_Time)).First().Ope_No });
+             curOpeList = opeList.GroupBy(g => g.Lot_ID).Select(s => new SHLFHOpehsModel() { Lot_ID = s.Key, Claim_Time = s.Max(m => m.Claim_Time),PD_ID= opeList.Where(w => w.Claim_Time == s.Max(m => m.Claim_Time)).Last().PD_ID,Ope_No= opeList.Where(w => w.Claim_Time == s.Max(m => m.Claim_Time)).Last().Ope_No });
             PDCatcher.Conditions = string.Format("where pd_id in ('{0}') or department='I'", string.Join("','", curOpeList.Select(s => s.PD_ID).Distinct()));
              pdList = PDCatcher.GetEntities().EntityList;
             //Owner Department Query
@@ -151,13 +151,12 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         private void GetSHLEntity(SHLLotModel lot)
         {
-            var cast = castList.Where(w => w.Lot_ID == lot.Lot_ID).FirstOrDefault();
-            var lot_pd = curOpeList.Where(w => w.Lot_ID == lot.Lot_ID).FirstOrDefault();
+            var cast = castList.Where(w => w.Lot_ID == lot.Lot_ID).FirstOrDefault()??new FVCast_LotModel();
+            var lot_pd =curOpeList.Where(w => w.Lot_ID == lot.Lot_ID).FirstOrDefault()??new SHLFHOpehsModel();
             //当前pd
-            var pd = pdList.Where(w => w.PD_ID == lot_pd.PD_ID).FirstOrDefault();
-            var owner = ownerDeptList.Where(w => w.Lot_ID == lot.Lot_ID).FirstOrDefault();
+            var pd = pdList.Where(w => w.PD_ID == lot_pd.PD_ID).FirstOrDefault()??new SHLFRPDModel();
+            var owner = ownerDeptList.Where(w => w.Lot_ID == lot.Lot_ID).FirstOrDefault()??new Report_Lot_OwnerDepartment_Mapping();
             var quota = quotaList.Where(w => w.Lot_ID == lot.Lot_Family_ID).FirstOrDefault()??new Rpt_Lot_Quota_Mapping();
-            
             var opes = opeList.Where(w => w.Lot_ID == lot.Lot_ID);
             var opes_family = opeList.Where(w => w.Lot_ID == lot.Lot_Family_ID);
             //var opes_withsplits = string.IsNullOrEmpty(lot.Split_Lot_ID)?opes:opes.Union(opeList.Where(w => w.Lot_ID == lot.Split_Lot_ID));
@@ -179,13 +178,18 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
             //当前站点到wat站点的cycle time
             double ctValue_wat = remainPds.TakeWhile(t => !watPds.Select(s => s.PD_ID).Contains(t.PD_ID)).Sum(s => s.PD_STD_Proc_Time_Min)*m;
             var dept = deptList.Where(w => w.Code_ID == pd.Department);
-            DateTime baseTime = inTime.AddMinutes(remainPds.First().PD_STD_Cycle_Time_Min) > DateTime.Now ? inTime : DateTime.Now;
+            DateTime baseTime;
+            if (remainPds.Count() == 0){ baseTime = DateTime.Now; }
+            else
+            {
+                baseTime = inTime.AddMinutes(remainPds.First().PD_STD_Cycle_Time_Min) > DateTime.Now ? inTime : DateTime.Now;
+            }
             var shl = new ReqRpt048SHLEntity
             {
                 LotID = lot.Lot_ID,
                 FoupID = cast.Cast_ID,
-                Location = cast.Location,
-                Status = cast.Status,
+                Location = cast.Eqp_ID,
+                Status = cast.Xfer_State,
                 Priority = lot.Priority_Class,
                 Department = dept.Any() ? dept.First().Description : pd.Department,
                 QuotaOwner = owner.DisplayOwner,
@@ -194,20 +198,22 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                 Purpose = quota.Purpose,
                 Qty = lot.Qty,
                 OpeNo=lot_pd.Ope_No,
-                EqpType=ctList_prod.Where(w=>w.Ope_No==lot_pd.Ope_No).First().Eqp_Type,
                 Description = pd.Ope_Name,
                 LotStates = lot.Lot_Hold_State,
                 ProcessStates = lot.Lot_Process_State,
                 WaferStart = lot.Created_Time,
-                YSDT = opes.Where(w => w.Claim_Time < today && w.Claim_Time > today.AddDays(-1)).Count(),
+                YSDT = opes.Where(w => w.Claim_Time < today && w.Claim_Time > today.AddDays(-1)).Select(s=> s.PD_ID).Distinct().Count(),
                 Remark = lot.Hold_Claim_Memo,
-                PriChgStage = opes.Where(w => w.Priority_Class != lot.Priority_Class).FirstOrDefault().Stage_ID,
                 WAT = baseTime.AddMinutes(ctValue_wat),
                 WaferOut = baseTime.AddMinutes(ctValue_Remain),
                 TargetWaferOut = firstpd.Claim_Time.AddMinutes(ctValue_total),
                 ProductID = lot.ProdSpec_ID,
                 QuotaDept=owner.Description
             };
+            var stages = opes.Where(w => w.Priority_Class != lot.Priority_Class);
+            shl.PriChgStage = stages.Any() ? stages.First().Stage_ID : "";
+            var types = ctList_prod.Where(w => w.Ope_No == lot_pd.Ope_No);
+            shl.EqpType =types.Count()>0?types .First().Eqp_Type:"";
             SHLEntities.Add(shl);
         }
 

@@ -14,4 +14,3 @@ D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\bin\Debug\Newtonsoft.Json.dll
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\bin\Debug\Newtonsoft.Json.pdb
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\bin\Debug\Newtonsoft.Json.xml
-D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\AMS.CIM.Caojin.RPTLibrary\obj\Debug\AMS.CIM.Caojin.RPTLibrary.csprojAssemblyReference.cache

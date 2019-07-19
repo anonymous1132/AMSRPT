@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/ScrapListPage'
+import HelloWorld from '@/components/EDALotsCompareInlineData'
 
 Vue.use(Router)
 

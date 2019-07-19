@@ -13,9 +13,9 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
     /// </summary>
     public class Rpt_Lot_Quota_Mapping
     {
-      public string Lot_ID { get; set; }
-      public int Quota_Type { get; set; }
-      public string Project_Desc { get; set; }
-      public string Purpose { get; set; }
+        public string Lot_ID { get; set; } = "";
+        public int Quota_Type { get; set; } = -1;
+        public string Project_Desc { get; set; } = "";
+        public string Purpose { get; set; } = "";
     }
 }

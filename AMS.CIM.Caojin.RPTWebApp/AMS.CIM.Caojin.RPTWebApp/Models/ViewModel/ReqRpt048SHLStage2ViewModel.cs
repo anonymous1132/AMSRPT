@@ -264,7 +264,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
                 foreach (var l in list)
                 {
-                    l.Qtime = remainQt/remainCt;
+                    l.Qtime =remainCt==0?0: remainQt/remainCt;
                     l.QtimeType = type;
                     l.strQtime = string.Format("{0}/{1}",remainQt,remainCt);
                 }

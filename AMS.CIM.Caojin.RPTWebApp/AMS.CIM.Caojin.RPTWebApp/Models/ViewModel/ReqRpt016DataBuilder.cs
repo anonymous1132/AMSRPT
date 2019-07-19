@@ -51,11 +51,12 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
             {
                 var entity = new ReqRpt016HoldLotDetailEntity
                 {
-                    Duration = l.Duration,
+                    Duration =Math.Round( l.Duration,2),
                     EqpType = l.Eqp_Type,
                     LotID = l.Lot_ID,
                     LotType = l.Lot_Type,
                     Qty = l.Cur_Wafer_Qty,
+                    CurQty=l.Cur_Qty,
                     Prod = l.ProdSpec_ID,
                     MainPDID = l.MainPD_ID,
                     PDID = l.PD_ID,

@@ -106,7 +106,7 @@ var app=new Vue({
                     vue.tableData.tableTitle=response.Title
                     vue.tableData.showTarget=response.ShowTarget
                     vue.tableData.items=response.Items 
-                    vue.tableData.prods=response.ProductEntities
+                    vue.tableData.prods = response.ProductEntities.sort((a, b) => { if (a.ProductID === b.ProductID) return 0; if (a.ProductID < b.ProductID) return -1; return 1 })
                     vue.tableData.actTotals=[]
                     vue.tableData.planTotals=[]
                     vue.tableData.gapTotals=[]
@@ -334,14 +334,14 @@ var app=new Vue({
                     .attr('x', function () {
                         return xScale(items[i])+(xScale.step()-barWidth)/2
                     })
-                    .attr('y', function (d) {
-                        return yScale(d.data+d.sum)
+                        .attr('y', function (d, index) {
+                        return yScale(d.sum+d.data)
                     })
                     .attr('width', barWidth)
                     .attr('height', function (d) {
-                        return yHeight - yScale(d.data+d.sum)
+                        return  yScale(d.sum)- yScale(d.sum+d.data)
                     })
-                    .attr('fill', function(d,index){return colors[index]})
+                    .attr('fill', function (d, index) {return colors[index]})
                }
                let gt=svgContainer.selectAll('.text')
                     .data(items)
@@ -473,7 +473,7 @@ var app=new Vue({
         let post={type:6}
         PostAjaxGetJson(post,url,response=>{
             if(response.success){
-                vue.prods=response.prods
+                vue.prods=response.prods.sort()
             }else{
                 vue.$message.error('获取Product列表失败,error code 7')
                 console.log(response.msg)

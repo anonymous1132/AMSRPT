@@ -167,13 +167,14 @@ var tableView0 = new Vue({
         handleLotIDClick(row){
             let data={lot:row.LotID,product:row.ProductID};
             let url="Stage2Query";
-            this.loading=true;
-            PostAjaxGetJson(data,url,function(response){
-                if(response.success){
-                    response.Entities.map(m=>m.EditState=false);
+            this.loading = true;
+            PostAjaxGetJson(data, url, response=> {
+                if (response.success) {
+                    console.log(response)
+                    response.Entities.map(m => m.EditState = false);
                     stage2View.LotID=row.LotID;
                     stage2View.Entities=response.Entities;
-                    stage2View.ChartModels=response.ChartModels;
+                    stage2View.ChartModels = response.ChartModels;
                     let end=new Date(JSON.parse(JSON.stringify(stage2View.queryTime)));
                     end.setDate(end.getDate() + 1);
                     let d = new Date();
@@ -186,8 +187,8 @@ var tableView0 = new Vue({
                     tableView0.$message.error(response.msg);
                 }
                 tableView0.loading=false;
-            },function(response){
-                tableView0.$message.error(response);
+            }, function (error) {
+                console.log(error)
                 tableView0.loading=false;
             });
         },
@@ -539,6 +540,26 @@ var stage2View=new Vue({
                     picker.$emit('pick',[start,end]);
                 }
             },
+                {
+                    text: 'next work day',
+                    onClick(picker) {
+                        let start = new Date();
+                        start.setHours(7, 0, 0, 0);
+                        let end = new Date(start.toString())
+                        end.setDate(end.getDate() + 1)
+                        picker.$emit('pick', [start, end]);
+                    }
+                },
+                {
+                    text: 'last work day',
+                    onClick(picker) {
+                        let end = new Date();
+                        end.setHours(7, 0, 0, 0);
+                        let start = new Date(end.toString())
+                        start.setDate(start.getDate() - 1)
+                        picker.$emit('pick', [start, end]);
+                    }
+                },
                 {
                     text: '12小时内',
                     onClick(picker) {

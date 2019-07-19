@@ -19,6 +19,8 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
 
         public int Cur_Wafer_Qty { get; set; }
 
+        public int Cur_Qty { get; set; }
+
         public string Reason_Code { get; set; }
 
         public string MainPD_ID { get; set; }
@@ -51,7 +53,7 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
 
         public DateTime? Release_Time { get; set; }
 
-        public decimal Duration { get; set; }
+        public double Duration { get; set; }
 
         public string Hold_Comment { get; set; }
 

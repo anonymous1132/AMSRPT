@@ -15,6 +15,8 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         public int  Qty { get; set; }
 
+        public int CurQty { get; set; }
+
         public string MainPDID { get; set; }
 
         public string OpeNO { get; set; }
@@ -46,7 +48,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         public string ReleaseTime { get; set; }
 
-        public decimal Duration { get; set; }
+        public double Duration { get; set; }
 
         public string HoldComment { get; set; }
 

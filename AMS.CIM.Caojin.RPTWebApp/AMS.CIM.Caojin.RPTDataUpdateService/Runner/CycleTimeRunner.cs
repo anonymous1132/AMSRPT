@@ -14,7 +14,7 @@ namespace AMS.CIM.Caojin.RPTDataUpdateService.Runner
         {
             try
             {
-                RPTFlowSumTranslator translator = new RPTFlowSumTranslator();
+                RPTCycleTimeTranslator translator = new RPTCycleTimeTranslator();
             }
             catch (Exception e)
             {
@@ -26,7 +26,7 @@ namespace AMS.CIM.Caojin.RPTDataUpdateService.Runner
         {
             try
             {
-                RPTCycleTimeTranslator translator = new RPTCycleTimeTranslator();
+                RPTFlowSumTranslator translator = new RPTFlowSumTranslator();
             }
             catch (Exception e)
             {

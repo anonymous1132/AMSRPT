@@ -40,7 +40,7 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
 
         public string ProdSpec_ID { get; set; }
 
-        public DateTime Claim_Time { get; set; }
+        public string Claim_Time { get; set; }
 
         public int Priority_Class { get; set; }
     }

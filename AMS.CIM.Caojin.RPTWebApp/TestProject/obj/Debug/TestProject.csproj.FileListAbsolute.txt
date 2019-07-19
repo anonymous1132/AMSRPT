@@ -56,8 +56,9 @@ D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\Aegi
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\CommonUtilsLibrary.pdb
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\Oracle.ManagedDataAccess.dll
 D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\CommonUtilsLibrary.dll.config
-D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\ClickCountHistoryKeeper.exe.config
-D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\ClickCountHistoryKeeper.exe
-D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\ClickCountHistoryKeeper.pdb
-D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\obj\Debug\ClickCountHistoryKeeper.exe
-D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\obj\Debug\ClickCountHistoryKeeper.pdb
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\App\cycleTimeRunningConfig.json
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\CTRunOnce.exe.config
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\CTRunOnce.exe
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\bin\Debug\CTRunOnce.pdb
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\obj\Debug\CTRunOnce.exe
+D:\ProgramData\GitHub\AMSRPT\AMS.CIM.Caojin.RPTWebApp\TestProject\obj\Debug\CTRunOnce.pdb

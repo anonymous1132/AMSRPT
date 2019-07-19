@@ -15,6 +15,7 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
         {
             StartTime = GetLastUpdateTimeFromFile();
             EndTime = CurrentDate;
+           // if ((EndTime - StartTime).TotalDays < 30) return;
             Initialize();
         }
 
@@ -30,7 +31,7 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
         string LastTimeKeepFileName = "\\App\\cycleTimeRunningConfig.json";
 
         private DateTime StartTime { get; set; }
-        private string sqlStartTime { get { return StartTime.ToString("yyyy-MM-dd HH:mm:ss.ffffff"); } }
+        private string sqlStartTime { get { return EndTime.AddDays(-30).ToString("yyyy-MM-dd HH:mm:ss.ffffff"); } }
         private DateTime EndTime { get; set; }
         private string sqlEndTime { get { return EndTime.ToString("yyyy-MM-dd HH:mm:ss.ffffff"); } }
         private DateTime CurrentDate { get { return DateTime.Now.Date; } }
@@ -38,7 +39,8 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
         {
             DateTime dt = DateTime.Now;
             string json = System.IO.File.ReadAllText(DirPath + LastTimeKeepFileName);
-            DateTime.TryParseExact(JsonConvert.DeserializeObject<CycleTimeRunningConfig>(json).LastUpdateTime, "yyyy-MM-dd HH.mm.ss.ffffff", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dt);
+            var str = JsonConvert.DeserializeObject<CycleTimeRunningConfig>(json).LastRunTime;
+            DateTime.TryParse(str,out dt);
             return dt;
         }
         private void RewriteLastUpdateTimeToFile()

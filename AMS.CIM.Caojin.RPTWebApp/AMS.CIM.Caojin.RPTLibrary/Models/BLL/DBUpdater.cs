@@ -26,7 +26,7 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
         {
             DateTime dt = DateTime.MinValue;
             string json = System.IO.File.ReadAllText(DirPath + LastTimeKeepFileName);
-            DateTime.TryParseExact(JsonConvert.DeserializeObject<CycleTimeRunningConfig>(json).LastUpdateTime, "yyyy-MM-dd HH.mm.ss.ffffff", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dt);
+            DateTime.TryParseExact(JsonConvert.DeserializeObject<CycleTimeRunningConfig>(json).LastRunTime, "yyyy-MM-dd HH.mm.ss.ffffff", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dt);
             return dt;
         }
         protected DB2Oper Db2 { get; set; }

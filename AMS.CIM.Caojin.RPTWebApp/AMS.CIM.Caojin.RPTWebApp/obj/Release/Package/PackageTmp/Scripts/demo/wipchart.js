@@ -661,28 +661,30 @@ var wipChart = new Vue({
                    NO:i+1,
                    EqpType:rawData[i].EqpType,
                    Pri:rawData[i].Priority,
-                   OpeNO:rawData[i].OpeNo,
-                   OpeName:rawData[i].OpeName,
-                   ProdID:rawData[i].ProdID,
+                   OpeNO:'="'+rawData[i].OpeNo+'"',
+                   Ope$sName:rawData[i].OpeName,
+                   Prod$sID: rawData[i].ProductID,
                    LotID:rawData[i].LotID,
                    Foup:rawData[i].Foup,
                    Location:rawData[i].Location,
                    Status:rawData[i].Status,
-                   LotProcStatus:rawData[i].LotHoldStatus+'/'+rawData[i].LotProcStatus,
+                   Lot$sProc$sStatus:rawData[i].LotHoldStatus+'/'+rawData[i].LotProcStatus,
                    HoldReason:rawData[i].HoldReason,
-                   HoldReasonDesc:rawData[i].HoldReasonDesc,
+                   HoldClaimMemo:rawData[i].HoldReasonDesc,
                    Qty:rawData[i].Qty,
-                   WaitTime_Hrs:rawData[i].WaitTime,
-                   StatusTime_Hrs:rawData[i].StatusTime,
-                   CustomerDate:rawData[i].CustomerDate,
+                 //  WaitTime$lHrs$r:rawData[i].WaitTime,
+                 //  StatusTime$lHrs$r:rawData[i].StatusTime,
+                  // Customer$sDate:rawData[i].CustomerDate,
                    OpeStartTime:rawData[i].OpeStartTime,
-                    PerLayer:rawData[i].PreLayer,
+                    //Per$sLayer:rawData[i].PreLayer,
                     ChgUserID:rawData[i].ChgUserID,
                     ChgUserName:rawData[i].ChgUserName
                 });
             }
-            let filename="SHL_FLOW_"+this.LotID+".xls";
-            let tableHtml=FormExcelContext(data);
+            let filename="WIP_Chart.xls";
+            let tableHtml = FormExcelContext(data);
+            tableHtml = tableHtml.replace(/\$s/g, " ");
+            console.log(tableHtml)
             if(!tableHtml)return false;
             let ctx= { worksheet: "sheet1" , table: tableHtml };
             let dlink=this.$refs.dlink;

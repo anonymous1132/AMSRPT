@@ -17,7 +17,7 @@ Layout = "~/Views/Shared/_LayoutRptVue.cshtml";
             <el-collapse-item title="查询条件" name="1">
                 <el-row type="flex">
                     <el-col :lg="4" :md="12" :sm="12">
-                        <div><label>Department</label></div>
+                        <div><label>Module</label></div>
                         <el-select multiple v-model="selDepts" placeholder="默认全选">
                             <el-option v-for="item in DepartmentEntities" :key="item.Department"
                                 :value="item.Department" :label="item.Department"></el-option>

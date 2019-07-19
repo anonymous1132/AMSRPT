@@ -101,7 +101,7 @@
             </div>   
         </div>
     </el-main>
-    <el-dialog title="Sub Chart" :visible.sync="dialogSubChartVisible" width="80%" append-to-body v-on:opened="show">
+    <el-dialog title="Sub Chart" :visible.sync="dialogSubChartVisible" width="90%" append-to-body v-on:opened="show">
         <div class="chart">
                 <svg ref="subChart" class="subChart"></svg>
         </div>
@@ -112,30 +112,30 @@
         </div>
         <el-table :data="lotInfoEntities" border size="mini" style="width: 100%" stripe max-height="600">
                 <el-table-column type="index" width="50" align="center"></el-table-column>
-                <el-table-column property="EqpType" label="EqpType" align="center"></el-table-column>
+                <el-table-column property="EqpType" label="EqpType" width="100"  align="center"></el-table-column>
                 <el-table-column property="Priority" label="Pri" align="center"></el-table-column>
                 <el-table-column property="OpeNo" label="OpeNO" align="center"></el-table-column>
-                <el-table-column property="OpeName" label="Ope Name" align="center"></el-table-column>
-                <el-table-column property="ProductID" label="Prod ID" align="center"></el-table-column>
-                <el-table-column property="LotID" label="LotID" align="center"></el-table-column>
+                <el-table-column property="OpeName" label="Ope Name" width="150" align="center"></el-table-column>
+                <el-table-column property="ProductID" label="Prod ID" width="200" align="center"></el-table-column>
+                <el-table-column property="LotID" label="LotID" width="150" align="center"></el-table-column>
                 <el-table-column property="Foup" label="Foup" align="center"></el-table-column>
-                <el-table-column property="Location" label="Location" align="center"></el-table-column>
+                <el-table-column property="Location" label="Location" width="100" align="center"></el-table-column>
                 <el-table-column property="Status" label="Status" align="center"></el-table-column>
-                <el-table-column  label="Lot Proc Status" align="center">
+                <el-table-column  label="Lot Proc Status" width="150" align="center">
                     <template slot-scope="scope">
                         <div>{{scope.row.LotHoldStatus}}/{{ scope.row.LotProcStatus }}</div>
                     </template>
                 </el-table-column>
-                <el-table-column property="HoldReason" label="HoldReason" align="center"></el-table-column>
-                <el-table-column property="HoldReasonDesc" label="HoldReasonDesc" align="center"></el-table-column>
+                <el-table-column property="HoldReason" label="HoldReason" width="120" align="center"></el-table-column>
+                <el-table-column property="HoldReasonDesc" label="HoldClaimMemo" width="150" align="center"></el-table-column>
                 <el-table-column property="Qty" label="Qty" align="center"></el-table-column>
-                <el-table-column property="WaitTime" label="WaitTime(Hrs)" align="center"></el-table-column>
-                <el-table-column property="StatusTime" label="StatusTime(Hrs)" align="center"></el-table-column>
-                <el-table-column property="CustomerDate" label="Customer Date" align="center"></el-table-column>
-                <el-table-column property="OpeStartTime" label="OpeStartTime" align="center"></el-table-column>
-                <el-table-column property="PreLayer" label="Per Layer" align="center"></el-table-column>
-                <el-table-column property="ChgUserID" label="ChgUserID" align="center"></el-table-column>
-                <el-table-column property="ChgUserName" label="ChgUserID" align="center"></el-table-column>
+                @*<el-table-column property="WaitTime" width="150" label="WaitTime(Hrs)" align="center"></el-table-column>
+                <el-table-column property="StatusTime" width="150" label="StatusTime(Hrs)" align="center"></el-table-column>*@
+                @*<el-table-column property="CustomerDate" label="Customer Date" width="110"  align="center"></el-table-column>*@
+                <el-table-column property="OpeStartTime" label="OpeStartTime" width="150" align="center"></el-table-column>
+                @*<el-table-column property="PreLayer" label="Per Layer" align="center" width="100"></el-table-column>*@
+                <el-table-column property="ChgUserID" label="ChgUserID" width="100" align="center"></el-table-column>
+                <el-table-column property="ChgUserName" label="ChgUserID" width="100" align="center"></el-table-column>
         </el-table>
     </el-dialog>
 </el-container>

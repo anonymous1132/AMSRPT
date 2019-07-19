@@ -142,17 +142,17 @@ WHEN NOT MATCHED THEN
             List<RPT_FLOW_SUM> UpdateList = new List<RPT_FLOW_SUM>();
             foreach (var item in newFlowList)
             {
-                //添加一个try-catch块处理异常
                 try
                 {
                     SetEqpInfo(item, FlowEqpList);
-                   // SetLRcpInfo(item, LRcpList);
+                    // SetLRcpInfo(item, LRcpList);
                     bool hasGet = SetMRcpInfoBySset(item, SetList);
                     if (!hasGet) { SetMRcpInfoByDset(item, MR_LRList); }
                     if (item.Eqp_Type == "") SetEqpType(item, EqpType_LRList);
 
                     var rawFlow = FlowSumList.Where(w => w.ProdSpec_ID == item.ProdSpec_ID && w.MainPD_ID == item.MainPD_ID && w.Ope_No == item.Ope_No).First();
                     if (!(rawFlow.Eqp_Type == item.Eqp_Type && rawFlow.LRecipe == item.LRecipe && rawFlow.MRecipe_List == item.MRecipe_List && rawFlow.Eqp_List == item.Eqp_List)) UpdateList.Add(item);
+
                 }
                 catch (Exception e)
                 {
@@ -161,16 +161,23 @@ WHEN NOT MATCHED THEN
             }
 
             List<string> sqlList = UpdateList.Select(s => string.Format("UPDATE MMVIEW.RPT_FLOW_SUM SET EQP_TYPE ='{0}',EQP_LIST='{1}',MRECIPE_LIST='{3}',LAST_UPDATE_TIME=CURRENT TIMESTAMP WHERE PRODSPEC_ID='{4}' AND MAINPD_ID='{5}' AND OPE_NO='{6}'",s.Eqp_Type,s.Eqp_List,s.LRecipe,s.MRecipe_List,s.ProdSpec_ID,s.MainPD_ID,s.Ope_No)).ToList();
+
             Db2.UpdateBatchCommand(sqlList);
         }
 
         private void SetEqpInfo(RPT_FLOW_SUM flow,IList<RPT_FLOW_SUM_EQPBASE>FlowEqpList)
         {
-            var list = FlowEqpList.Where(w => w.ProdSpec_ID == flow.ProdSpec_ID && w.PD_ID == flow.PD_ID || w.Origin == "4" && w.PD_ID == flow.PD_ID);
+            //test
+            if (flow.PD_ID =="APAAPD0180.00")
+            {
+                string test = "";
+            }
+            var list = FlowEqpList.Where(w =>( w.ProdSpec_ID == flow.ProdSpec_ID || w.Origin == "4") && w.PD_ID == flow.PD_ID);
             if(!list.Any())return ;
             var firstItem = list.First();
             flow.Eqp_Type = firstItem.Eqp_Type;
-            flow.Eqp_List = string.Join("|", list.Where(w => w.Origin == firstItem.Origin).Select(s => s.Eqp_ID).Distinct());
+             flow.Eqp_List = FormatListToStringWithinMaxLenth (list.Where(w => w.Origin == firstItem.Origin).Select(s => s.Eqp_ID).Distinct().OrderBy(o=>o).ToList(),255);
+            //flow.Eqp_List = FormatListToStringWithinMaxLenth(list.Select(s => s.Eqp_ID).Distinct().OrderBy(o => o).ToList(), 255);
         }
 
         private void SetLRcpInfo(RPT_FLOW_SUM flow,IList<RPT_FLOW_SUM_LRCP>LRcpList)
@@ -188,13 +195,13 @@ WHEN NOT MATCHED THEN
             if (!list.Any()) return false;
             if (flow.Eqp_Type == "")
             {
-                flow.Eqp_List = string.Join("|", list.Select(s => s.EQP_IDENT).Distinct().OrderBy(o => o));
-                flow.MRecipe_List = string.Join("|", list.Select(s => s.RCP_IDENT).Distinct().OrderBy(o => o));
+                flow.Eqp_List = FormatListToStringWithinMaxLenth(list.Select(s => s.EQP_IDENT).Distinct().OrderBy(o => o).ToList(),255);
+                flow.MRecipe_List =FormatListToStringWithinMaxLenth(list.Select(s => s.RCP_IDENT).Distinct().OrderBy(o => o).ToList(),255);
             }
             else
             {
                 list = list.Where(w => flow.Eqp_List.Contains(w.EQP_IDENT));
-                flow.MRecipe_List = list.Any() ? string.Join("|", list.Select(s => s.RCP_IDENT).OrderBy(o => o)) : "";
+                flow.MRecipe_List = list.Any() ? FormatListToStringWithinMaxLenth( list.Select(s => s.RCP_IDENT).OrderBy(o => o).ToList(),255) : "";
             }
             return true;
         }
@@ -206,13 +213,13 @@ WHEN NOT MATCHED THEN
             if (!list.Any()) return;
             if (flow.Eqp_Type == "")
             {
-                flow.Eqp_List = string.Join("|", list.Select(s => s.EQP_ID).Distinct().OrderBy(o => o));
-                flow.MRecipe_List = string.Join("|", list.Select(s => s.MRecipe).Distinct().OrderBy(o => o));
+                flow.Eqp_List =FormatListToStringWithinMaxLenth(list.Select(s => s.EQP_ID).Distinct().OrderBy(o => o).ToList(),255);
+                flow.MRecipe_List = FormatListToStringWithinMaxLenth(list.Select(s => s.MRecipe).Distinct().OrderBy(o => o).ToList(),255);
             }
             else
             {
                 list = list.Where(w => flow.Eqp_List.Contains(w.EQP_ID));
-                flow.MRecipe_List = list.Any() ? string.Join("|", list.Select(s => s.MRecipe).Distinct().OrderBy(o => o)) : "";
+                flow.MRecipe_List = list.Any() ? FormatListToStringWithinMaxLenth(list.Select(s => s.MRecipe).Distinct().OrderBy(o => o).ToList(),255) : "";
             }
         }
 
@@ -223,11 +230,26 @@ WHEN NOT MATCHED THEN
             if (!list.Any()) return;
             flow.Eqp_Type = list.First().EQP_Type;
         }
+
+        string FormatListToStringWithinMaxLenth(List<string>list,int maxLength)
+        {
+            string str = "";
+            for (var i = 0; i < list.Count; i++)
+            {
+                string temp = str + list[i] ;
+                if (temp.Length > maxLength)
+                {
+                    return str.TrimEnd('|');
+                }
+                str = temp + "|";
+            }
+            return str.TrimEnd('|');
+        }
         
     }
 
     class CycleTimeRunningConfig
     {
-        public string LastUpdateTime { get; set; }
+        public string LastRunTime { get; set; }
     }
 }

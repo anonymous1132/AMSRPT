@@ -159,14 +159,18 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
         private List<ReqRpt036EqpHistoryEntity> MergedHistoryEntities(List<ReqRpt036EqpHistoryEntity>rawEntities)
         {
             rawEntities= rawEntities.OrderBy(o=>o.StartTime).ToList();
-            for (int i = rawEntities.Count; i >1; i--)
-            {
-                if (rawEntities[i-1].EqpState == rawEntities[i - 2].EqpState)
-                {
-                    rawEntities[i - 2].EndTime = rawEntities[i-1].EndTime;
-                    rawEntities.RemoveAt(i-1);
-                }
-            }
+
+            //2019-6-12修改，不合并
+            //for (int i = rawEntities.Count; i >1; i--)
+            //{
+            //    if (rawEntities[i-1].EqpState == rawEntities[i - 2].EqpState)
+            //    {
+            //        rawEntities[i - 2].EndTime = rawEntities[i-1].EndTime;
+            //        rawEntities.RemoveAt(i-1);
+            //    }
+            //}
+
+
             //2019-5-23 caojin 新增以下内容，用以调整Change Comment、Change User对应的操作记录
             for (int i = rawEntities.Count; i > 1; i--)
             {

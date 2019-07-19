@@ -70,6 +70,37 @@ function FormExcelContextOfMutiTables(tableData,caption) {
     return tableHtml;
 }
 
+
+function getDateStr(date) {
+    let y = date.getFullYear();
+    let m = date.getMonth() + 1;
+    m = m < 10 ? "0" + m : m;
+    let d = date.getDate();
+    d = d < 10 ? "0" + d : d;
+    return y + "-" + m + "-" + d;
+  }
+
+  function getCurDate() {
+    let date = new Date();
+    return getDateStr(date);
+  }
+
+  function getCurTime() {
+    let date = new Date();
+    let y = date.getFullYear();
+    let m = date.getMonth() + 1;
+    m = m < 10 ? "0" + m : m;
+    let d = date.getDate();
+    d = d < 10 ? "0" + d : d;
+    let h = date.getHours();
+    h = h < 10 ? "0" + h : h;
+    let min = date.getMinutes();
+    min = min < 10 ? "0" + min : min;
+    let s = date.getSeconds();
+    s = s < 10 ? "0" + s : s;
+    return y + "-" + m + "-" + d + " " + h + ":" + min + ":" + s;
+  }
+
 var uri = 'data:application/vnd.ms-excel;base64,';
 var template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"' +
     'xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>'

@@ -86,6 +86,10 @@
     <Compile Include="Models\BLL\RPTFlowSumTranslator.cs" />
     <Compile Include="Models\BLL\RptTrackInUpdaterForSplitLot.cs" />
     <Compile Include="Models\DAL\BrprivilegeClickCount.cs" />
+    <Compile Include="Models\DAL\Eda_Eqp_HostoryModel.cs" />
+    <Compile Include="Models\DAL\EDA_Inline_Data.cs" />
+    <Compile Include="Models\DAL\EDA_Lot_Wafer_HistModel.cs" />
+    <Compile Include="Models\DAL\EDA_Prod_Lot_MappingModel.cs" />
     <Compile Include="Models\DAL\FBLRCP_SSET_M.cs" />
     <Compile Include="Models\DAL\FBReasonCode.cs" />
     <Compile Include="Models\DAL\FHESCHSModel.cs" />
@@ -99,6 +103,8 @@
     <Compile Include="Models\DAL\FHOPEHS_Turn_Daily.cs" />
     <Compile Include="Models\DAL\FHOPEHS_WipChart.cs" />
     <Compile Include="Models\DAL\FHScrap_SummaryModel.cs" />
+    <Compile Include="Models\DAL\FRProdModel.cs" />
+    <Compile Include="Models\DAL\FVCast_LotModel.cs" />
     <Compile Include="Models\DAL\Report001_LotDetail.cs" />
     <Compile Include="Models\DAL\Report11_LotDetail.cs" />
     <Compile Include="Models\DAL\Report11_WaferOut_LotDetail.cs" />
