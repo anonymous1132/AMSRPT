@@ -32,6 +32,7 @@ var wipChart = new Vue({
         selGroups: [],
         remSec: 300,
         loading: false,
+        subLoading:false,
         curChart: [],
         curTable: [],
         ystdChart: [],
@@ -50,7 +51,7 @@ var wipChart = new Vue({
             top: 50,
             left: 60,
             right: 60,
-            bottom: 150
+            bottom: 160
         },
         options: {
             height: 600,
@@ -59,7 +60,7 @@ var wipChart = new Vue({
             day:'',
             prod: []
         },
-        colors: ['blue', 'pink', 'DarkGreen', 'gray', 'LightSalmon', 'Olive', 'LawnGreen'],
+        colors: ['blue', 'pink', 'DarkGreen', 'gray', 'LightSalmon', 'Olive', 'LawnGreen', 'Teal','	Indigo'],
         dialogSubChartVisible:false,
         wipSvg:null,
         subSvg:null,
@@ -89,6 +90,13 @@ var wipChart = new Vue({
                 if (this.remSec > 0) this.remSec--;
             }, 1000)
         },
+        getWipByLots(lotEntities) {
+            let wip = 0
+            for (let i = 0; i < lotEntities.length; i++) {
+                wip+=lotEntities[i].Qty
+            }
+            return wip
+        },
         update() {
             var url = "GetChartData";
             wipChart.loading = true;
@@ -112,6 +120,7 @@ var wipChart = new Vue({
             var chartSvg=this.wipSvg;
             this.removeChart(this.wipSvg);
             var chartData = this.chartData;
+           // console.log(chartData);
             if ((!chartData)|| chartData.length==0) return;
            // 设置图表数据，宽度、高度、边值
             var height = this.options.height;
@@ -138,18 +147,21 @@ var wipChart = new Vue({
                     return d.stage + '(' + d.ct + ')'
                 }))
                 .rangeRound([0, xWidth])
-
+            let max = d3.max(chartData.map(function (d) {
+                return d.accWip
+            }))
+            max=Math.ceil(max/10)*10
             var y2Scale = d3.scaleLinear()
-                .domain([0, d3.max(chartData.map(function (d) {
-                    return d.accWip
-                }))])
-                .rangeRound([height - marge.top - marge.bottom, 0])
-
+                .domain([0, max])
+                .rangeRound([yHeight, 0])
+            max = d3.max(chartData.map(function (d) {
+                //return d.holdLot + d.superHot + d.hot + d.holdSuperLot + eval(d.other.join('+'));
+                return d.holdLot + d.superHot + d.hot + eval(d.other.join('+'));
+            }))
+            max = Math.ceil(max/10)*10 
             var y1Scale = d3.scaleLinear()
-                .domain([0, d3.max(chartData.map(function (d) {
-                    return d.holdLot + d.superHot + d.hot + eval(d.other.join('+'));
-                }))])
-                .rangeRound([height - marge.top - marge.bottom, 0])
+                .domain([0,max])
+                .rangeRound([yHeight, 0])
             // 添加x轴、y轴
             var xAxis = d3.axisBottom(xScale)
             var y1Axis = d3.axisLeft(y1Scale)
@@ -157,12 +169,17 @@ var wipChart = new Vue({
             var y2Axis = d3.axisRight(y2Scale)
                 .ticks(10)
             svgContainer.append('g')
-                .attr('transform', 'translate(0,' + (height - marge.top - marge.bottom) + ')')
+                .attr('transform', 'translate(0,' + (yHeight) + ')')
                 .call(xAxis)
                 .selectAll("text")
                 .style("text-anchor", "start")
                 .attr("dx", ".8em")
-                .attr("dy", "-.55em")
+                .attr("dy", "-.25em")
+                .attr("font-size", "1.3rem")
+                .attr("stroke", "black")
+                .attr("stroke-width", ".4")
+                //.attr("textLength", marge.bottom - 20)
+               // .attr("lengthAdjust","spacingAndGlyphs")
                 .attr("transform", "rotate(90)");
 
             svgContainer.append('g')
@@ -189,7 +206,9 @@ var wipChart = new Vue({
             tuli_x += 100 + barWidth;
             this.renderTuli(svgContainer, tuli_x, 0 - marge.top / 2, 'line', 'green', 'StageOut Move');
             tuli_x += 130 + barWidth;
-            this.renderTuli(svgContainer, tuli_x, 0 - marge.top / 2, 'bar', 'red', 'Hold Lot');
+            //this.renderTuli(svgContainer, tuli_x, 0 - marge.top / 2, 'bar', 'black', 'Hold Super Lot');
+            //tuli_x += 100 + barWidth;
+            this.renderTuli(svgContainer, tuli_x, 0 - marge.top / 2, 'dashBar', 'red', 'Hold Lot');
             tuli_x += 100 + barWidth;
             this.renderTuli(svgContainer, tuli_x, 0 - marge.top / 2, 'bar', 'gold', 'S.Hot Lot');
             tuli_x += 100 + barWidth;
@@ -237,54 +256,87 @@ var wipChart = new Vue({
                 .data(chartData)
                 .enter()
                 .append('g')
-            gs.append('rect')
+          /*  
+                //hold super bar
+                gs.append('rect')
                 .attr('class', 'myRect')
+                .attr('x', function (d, i) {
+                    return xScale(d.stage + '(' + d.ct + ')') + (xScale.step() - barWidth) / 2
+                })
+                .attr('y', function (d) {
+                    return y1Scale(d.holdSuperLot)
+                })
+                .attr('width', barWidth)
+                .attr('height', function (d) {
+                    return height - marge.top - marge.bottom - y1Scale(d.holdSuperLot)
+                })
+                .attr('fill', 'black') */
+
+            //hold bar
+            gs.append('rect')
+               // .attr('class', 'myRect')
                 .attr('x', function (d, i) {
                     return xScale(d.stage+'('+d.ct+')')+(xScale.step()-barWidth)/2
                 })
                 .attr('y', function (d) {
+                    //return y1Scale(d.holdLot+d.holdSuperLot)
                     return y1Scale(d.holdLot)
                 })
                 .attr('width', barWidth)
                 .attr('height', function (d) {
-                    return height - marge.top - marge.bottom - y1Scale(d.holdLot)
+                    //return y1Scale(d.holdSuperLot) - y1Scale(d.holdLot+d.holdSuperLot)
+                    return yHeight - y1Scale(d.holdLot)
                 })
-                .attr('fill', 'red')
+                .attr('stroke', 'red')
+                .attr("stroke-width", 1.5)
+                .attr('stroke-dasharray', '4,2')
+                .attr('fill', 'none')
+
+
+            //super hot bar
             gs.append('rect')
-                .attr('class', 'myRect')
+              //  .attr('class', 'myRect')
                 .attr('x', function (d, i) {
                     return xScale(d.stage+'('+d.ct+')')+(xScale.step()-barWidth)/2
                 })
                 .attr('y', function (d) {
+                   // return y1Scale(d.holdLot + d.superHot+d.holdSuperLot)
                     return y1Scale(d.holdLot + d.superHot)
                 })
                 .attr('width', barWidth)
                 .attr('height', function (d) {
+                   // return y1Scale(d.holdLot+d.holdSuperLot) - y1Scale(d.holdLot + d.superHot+d.holdSuperLot)
                     return y1Scale(d.holdLot) - y1Scale(d.holdLot + d.superHot)
                 })
                 .attr('fill', 'gold')
+
+            //hot bar
             gs.append('rect')
-                .attr('class', 'myRect')
+               // .attr('class', 'myRect')
                 .attr('x', function (d, i) {
                     return xScale(d.stage+'('+d.ct+')')+(xScale.step()-barWidth)/2
                 })
                 .attr('y', function (d) {
+                    //return y1Scale(d.holdLot + d.superHot + d.hot+d.holdSuperLot)
                     return y1Scale(d.holdLot + d.superHot + d.hot)
                 })
                 .attr('width', barWidth)
                 .attr('height', function (d) {
-                    return y1Scale(d.holdLot + d.superHot) - y1Scale(d.holdLot + d.superHot + d.hot)
+                   // return y1Scale(d.holdLot + d.superHot+d.holdSuperLot) - y1Scale(d.holdLot + d.superHot + d.hot+d.holdSuperLot)
+                    return y1Scale(d.holdLot + d.superHot ) - y1Scale(d.holdLot + d.superHot + d.hot)
                 })
                 .attr('fill', 'purple')
 
+            //other prod bar
             for (let i = 0; i < prod.length; i++) {
                 gs.append('rect')
-                    .attr('class', 'myRect')
+                   // .attr('class', 'myRect')
                     .attr('x', function (d, i) {
                         return xScale(d.stage+'('+d.ct+')')+(xScale.step()-barWidth)/2
                     })
 
                     .attr('y', function (d) {
+                      //  let res = d.holdLot + d.superHot + d.hot+d.holdSuperLot;
                         let res = d.holdLot + d.superHot + d.hot;
                         for (let j = 0; j <= i; j++) {
                             res += d.other[i];
@@ -293,7 +345,8 @@ var wipChart = new Vue({
                     })
                     .attr('width', barWidth)
                     .attr('height', function (d) {
-                        let res = d.holdLot + d.superHot + d.hot;
+                        //let res = d.holdLot + d.superHot + d.hot+d.holdSuperLot;
+                        let res = d.holdLot + d.superHot + d.hot ;
                         for (let j = 1; j <= i; j++) {
                             res += d.other[i - 1];
                         }
@@ -301,6 +354,30 @@ var wipChart = new Vue({
                     })
                     .attr('fill', function (d) { return i >= colors.length ? 'black' : colors[i] })
             }
+
+            //透明层，用于move on时显示边框
+            gs.append('rect')
+                .attr('class', 'myRect')
+                .attr('x', function (d, i) {
+                    return xScale(d.stage + '(' + d.ct + ')') + (xScale.step() - barWidth) / 2
+                })
+                .attr('y', function (d) {
+                    let res = d.holdLot + d.superHot + d.hot;
+                    for (let j = 0; j < d.other.length; j++) {
+                        res += d.other[j];
+                    }
+                    return y1Scale(res)
+                })
+                .attr('width', barWidth)
+                .attr('height', function (d) {
+                    let res = d.holdLot + d.superHot + d.hot;
+                    for (let j = 0; j < d.other.length; j++) {
+                        res += d.other[j];
+                    }
+                    return yHeight - y1Scale(res)
+                })
+                .attr('fill', 'Aqua')
+                .attr('fill-opacity', 0)
 
             // 绘制折线
             var line_generator1 = d3.line()
@@ -351,14 +428,16 @@ var wipChart = new Vue({
             chartSvg.selectAll('.myRect')
                 .on('dblclick', function (d) {
                     wipChart.subRenderPara=d;
-                    wipChart.dialogSubChartVisible=true;
+                    wipChart.dialogSubChartVisible = true;
                 })
-                .on('mouseover', function () {
+                .on('mouseover', function (d) {
                     this.setAttribute('stroke', 'red')
                     this.setAttribute('stroke-opacity', 0.5)
+                    this.setAttribute('fill-opacity', 0.2)
                 })
-                .on('mouseout', function () {
+                .on('mouseout', function (d) {
                     this.setAttribute('stroke-opacity', 0)
+                    this.setAttribute('fill-opacity', 0)
                 })
         },
         renderTuli(container, x, y, type, color, label) {
@@ -371,7 +450,7 @@ var wipChart = new Vue({
                     .attr("stroke", color)
                     .attr("stroke-width", 2);
 
-            } else {
+            } else if (type === 'bar') {
                 container.append('rect')
                     .attr("x", x)
                     .attr("y", y - 7.5)
@@ -380,8 +459,19 @@ var wipChart = new Vue({
                     .attr("stroke", 'black')
                     .attr("stroke-width", 1)
                     .attr('fill', color)
+            } else {
+                //dashBar
+                container.append('rect')
+                    .attr("x", x)
+                    .attr("y", y - 7.5)
+                    .attr('height', 15)
+                    .attr('width', 20)
+                    .attr("stroke", color)
+                    .attr("stroke-width", 1)
+                    .attr('stroke-dasharray', '3,3')
+                    .attr('fill', "none")
             }
-            let offset = type === 'bar' ? 25 : 30;
+            let offset = type === 'line' ? 30 : 25;
             container.append('text')
                 .style('font-size', '11px')
                 .attr('x', x + offset)
@@ -410,7 +500,8 @@ var wipChart = new Vue({
         renderSubChart(entity){
            var chartSvg=this.subSvg;
            this.removeChart(chartSvg);
-           let chartData=this.formSubChartData(entity);
+            let chartData = this.formSubChartData(entity);
+           // console.log(chartData);
            let stage=entity.stage;
              // 设置图表数据，宽度、高度、边值
             var height = this.options.height;
@@ -436,16 +527,19 @@ var wipChart = new Vue({
                 }))
                 .rangeRound([0, xWidth])
 
+            let max = d3.max(chartData.ChartEntities.map(function (d) {
+                return d.lotEntities.length * 25
+            }))
+            max=Math.ceil(max/10)*10
             var y2Scale = d3.scaleLinear()
-                .domain([0, d3.max(chartData.ChartEntities.map(function (d) {
-                    return d.lotEntities.length*25
-                }))])
+                .domain([0, max])
                 .rangeRound([yHeight, 0])
-
+            max = d3.max(chartData.ChartEntities.map(function (d) {
+                return d.lotEntities.length;
+            }))
+            max=Math.ceil(max/10)*10
             var y1Scale = d3.scaleLinear()
-                .domain([0, d3.max(chartData.ChartEntities.map(function (d) {
-                    return d.lotEntities.length;
-                }))])
+                .domain([0, max])
                 .rangeRound([yHeight, 0])
             // 添加x轴、y轴
             var xAxis = d3.axisBottom(xScale)
@@ -459,7 +553,12 @@ var wipChart = new Vue({
                 .selectAll("text")
                 .style("text-anchor", "start")
                 .attr("dx", ".8em")
-                .attr("dy", "-.55em")
+                .attr("dy", "-.25em")
+                .attr("font-size", "1.3rem")
+                .attr("stroke", "black")
+                .attr("stroke-width", ".4")
+                //.attr("textLength", marge.bottom - 20)
+                // .attr("lengthAdjust","spacingAndGlyphs")
                 .attr("transform", "rotate(90)");
 
             svgContainer.append('g')
@@ -480,7 +579,9 @@ var wipChart = new Vue({
 
                  //添加图例
             let tuli_x = marge.left + barWidth;
-            this.renderTuli(svgContainer, tuli_x, 0 - marge.top / 2, 'bar', 'red', 'Hold Lot');
+           // this.renderTuli(svgContainer, tuli_x, 0 - marge.top / 2, 'bar', 'black', 'Hold Super Lot');
+           // tuli_x += 100 + barWidth;
+            this.renderTuli(svgContainer, tuli_x, 0 - marge.top / 2, 'dashBar', 'red', 'Hold Lot');
             tuli_x += 100 + barWidth;
             this.renderTuli(svgContainer, tuli_x, 0 - marge.top / 2, 'bar', 'gold', 'S.Hot Lot');
             tuli_x += 100 + barWidth;
@@ -489,61 +590,82 @@ var wipChart = new Vue({
                 tuli_x += 100 + barWidth;
                 this.renderTuli(svgContainer, tuli_x, 0 - marge.top / 2, 'bar', colors[i], prod[i]);
             }
-              
               // 添加矩形
               var gs = svgContainer.selectAll('.rect')
                   .data(chartData.ChartEntities)
                   .enter()
-                  .append('g')
+                .append('g')
+           /* gs.append('rect')
+                .attr('class', 'myRect')
+                .attr('x', function (d) {
+                    return xScale(d.step + '(' + d.ct + ')') + (xScale.step() - barWidth) / 2
+                })
+                .attr('y', function (d) {
+                    return y1Scale(d.holdSuperLot)
+                })
+                .attr('width', barWidth)
+                .attr('height', function (d) {
+                    return yHeight - y1Scale(d.holdSuperLot)
+                })
+                .attr('fill', 'black') */
               gs.append('rect')
-                  .attr('class', 'myRect')
+                //  .attr('class', 'myRect')
                   .attr('x', function (d) {
                       return xScale(d.step+'('+d.ct+')')+(xScale.step()-barWidth)/2
                   })
                   .attr('y', function (d) {
+                      //return y1Scale(d.holdLot+d.holdSuperLot)
                       return y1Scale(d.holdLot)
                   })
                   .attr('width', barWidth)
                   .attr('height', function (d) {
+                      //return y1Scale(d.holdSuperLot)- y1Scale(d.holdLot+d.holdSuperLot)
                       return yHeight - y1Scale(d.holdLot)
                   })
-                  .attr('fill', 'red')
+                  .attr('stroke', 'red')
+                  .attr("stroke-width", 1.5)
+                  .attr('stroke-dasharray', '4,2')
+                  .attr('fill', 'none')
+
               gs.append('rect')
-                  .attr('class', 'myRect')
+                 // .attr('class', 'myRect')
                   .attr('x', function (d) {
                       return xScale(d.step+'('+d.ct+')')+(xScale.step()-barWidth)/2
                   })
                   .attr('y', function (d) {
+                      //return y1Scale(d.holdLot + d.superHot+d.holdSuperLot)
                       return y1Scale(d.holdLot + d.superHot)
                   })
                   .attr('width', barWidth)
                   .attr('height', function (d) {
-                      return y1Scale(d.holdLot) - y1Scale(d.holdLot + d.superHot)
+                      //return y1Scale(d.holdLot+d.holdSuperLot) - y1Scale(d.holdLot + d.superHot+d.holdSuperLot)
+                      return y1Scale(d.holdLot ) - y1Scale(d.holdLot + d.superHot)
                   })
                   .attr('fill', 'gold')
               gs.append('rect')
-                  .attr('class', 'myRect')
+                 // .attr('class', 'myRect')
                   .attr('x', function (d, i) {
                       return xScale(d.step+'('+d.ct+')')+(xScale.step()-barWidth)/2
                   })
                   .attr('y', function (d) {
-                      return y1Scale(d.holdLot + d.superHot + d.hot)
+                      //return y1Scale(d.holdLot + d.superHot + d.hot+d.holdSuperLot)
+                      return y1Scale(d.holdLot + d.superHot + d.hot )
                   })
                   .attr('width', barWidth)
                   .attr('height', function (d) {
-                      return y1Scale(d.holdLot + d.superHot) - y1Scale(d.holdLot + d.superHot + d.hot)
+                    //  return y1Scale(d.holdLot + d.superHot+d.holdSuperLot) - y1Scale(d.holdLot + d.superHot + d.hot+d.holdSuperLot)
+                      return y1Scale(d.holdLot + d.superHot ) - y1Scale(d.holdLot + d.superHot + d.hot )
                   })
                   .attr('fill', 'purple')
-  
               for (let i = 0; i < prod.length; i++) {
                   gs.append('rect')
-                      .attr('class', 'myRect')
+                     // .attr('class', 'myRect')
                       .attr('x', function (d) {
                           return xScale(d.step+'('+d.ct+')')+(xScale.step()-barWidth)/2
                       })
-  
                       .attr('y', function (d) {
-                          let res = d.holdLot + d.superHot + d.hot;
+                          //let res = d.holdLot + d.superHot + d.hot+d.holdSuperLot;
+                          let res = d.holdLot + d.superHot + d.hot ;
                           for (let j = 0; j <= i; j++) {
                               res += d.other[i];
                           }
@@ -551,6 +673,7 @@ var wipChart = new Vue({
                       })
                       .attr('width', barWidth)
                       .attr('height', function (d) {
+                          //let res = d.holdLot + d.superHot + d.hot+d.holdSuperLot;
                           let res = d.holdLot + d.superHot + d.hot;
                           for (let j = 1; j <= i; j++) {
                               res += d.other[i - 1];
@@ -558,8 +681,33 @@ var wipChart = new Vue({
                           return y1Scale(res) - y1Scale(res + d.other[i]);
                       })
                       .attr('fill', function (d) { return i >= colors.length ? 'black' : colors[i] })
-              }
-              svgContainer.append('text')
+            }
+
+            //透明层，用于move on时显示边框
+            gs.append('rect')
+                .attr('class', 'myRect')
+                .attr('x', function (d, i) {
+                    return xScale(d.step + '(' + d.ct + ')') + (xScale.step() - barWidth) / 2
+                })
+                .attr('y', function (d) {
+                    let res = d.holdLot + d.superHot + d.hot;
+                    for (let j = 0; j < d.other.length; j++) {
+                        res += d.other[j];
+                    }
+                    return y1Scale(res)
+                })
+                .attr('width', barWidth)
+                .attr('height', function (d) {
+                    let res = d.holdLot + d.superHot + d.hot;
+                    for (let j = 0; j < d.other.length; j++) {
+                        res += d.other[j];
+                    }
+                    return yHeight - y1Scale(res)
+                })
+                .attr('fill', 'Aqua')
+                .attr('fill-opacity', 0)
+
+            svgContainer.append('text')
                 .attr('x',xWidth/2)
                 .attr('y',5)
                 .style('font-size', '14px')
@@ -578,9 +726,11 @@ var wipChart = new Vue({
             .on('mouseover', function () {
                 this.setAttribute('stroke', 'red')
                 this.setAttribute('stroke-opacity', 0.5)
+                this.setAttribute('fill-opacity', 0.2)
             })
             .on('mouseout', function () {
                 this.setAttribute('stroke-opacity', 0)
+                this.setAttribute('fill-opacity', 0)
             })
 
         },
@@ -590,7 +740,7 @@ var wipChart = new Vue({
             let data=[];
             let ChartData={prodList:[],ChartEntities:[]};
             this.queryResault.chart.forEach(element => {
-                let arry= element.ChartEntities.filter(f=>f.Stage==stage&&f.RemainCT==ct);
+                let arry= element.ChartEntities.filter(f=>f.Stage==stage);
                 if(arry.length>0){
                     let obj={product:element.Product,ChartEntities:[]}
                     arry.forEach(f => {                       
@@ -600,21 +750,26 @@ var wipChart = new Vue({
                             Step:f.Step,
                             Wip:f.Wip,
                             LotEntities:f.LotEntities,
-                            HoldLot:f.LotEntities.filter(fi=>fi.HoldState=='HOLD').length,
-                            SuperHot:f.LotEntities.filter(fi=>fi.Priority==1&&fi.HoldState!='HOLD').length,
-                            Hot:f.LotEntities.filter(fi=>fi.Priority==2&&fi.HoldState!='HOLD').length
+                            //HoldLot:f.LotEntities.filter(fi=>fi.HoldState=='ONHOLD'&&fi.Priority>1).length,
+                            HoldLot: f.LotEntities.filter(fi => fi.HoldState == 'ONHOLD').length,
+                            SuperHot:f.LotEntities.filter(fi=>fi.Priority==1&&fi.HoldState!='ONHOLD').length,
+                            Hot: f.LotEntities.filter(fi => fi.Priority == 2 && fi.HoldState != 'ONHOLD').length,
+                           // HoldSuperLot: f.LotEntities.filter(fi => fi.HoldState == 'ONHOLD'&&fi.Priority===1).length
                         });
                     });
-                     obj.ChartEntities.map(m=>{m.Other=m.LotEntities.length-m.HoldLot-m.SuperHot-m.Hot});
+                     //obj.ChartEntities.map(m=>{m.Other=m.LotEntities.length-m.HoldLot-m.SuperHot-m.Hot-m.HoldSuperLot});
+                    obj.ChartEntities.map(m => { m.Other = m.LotEntities.length - m.HoldLot - m.SuperHot - m.Hot  });
                     data.push(obj);
                 }
             });
-          ChartData.prodList=data.map(m=>m.product);
+            ChartData.prodList = data.map(m => m.product);
+            if (data.length === 0) return ChartData;
+            //console.log(data);
           data[0].ChartEntities.forEach(element => {
             let arry=[];
             data.forEach(f=>{
-               arry.push(f.ChartEntities.filter(fi=>fi.OpeNo==element.OpeNo)[0]) 
-            });
+               arry.push(f.ChartEntities.filter(fi=>fi.OpeNo===element.OpeNo)[0]) 
+              });
             let model={
                 opeNo:element.OpeNo,
                 ct:element.Ct,
@@ -622,7 +777,8 @@ var wipChart = new Vue({
                 wip:eval(arry.map(m=>m.Wip).join('+')),
                 holdLot:eval(arry.map(m=>m.HoldLot).join('+')),
                 superHot:eval(arry.map(m=>m.SuperHot).join('+')),
-                hot:eval(arry.map(m=>m.Hot).join('+')),
+                hot: eval(arry.map(m => m.Hot).join('+')),
+               // holdSuperLot: eval(arry.map(m => m.HoldSuperLot).join('+')),
                 other:[],
                 lotEntities:[]
             };  
@@ -639,18 +795,21 @@ var wipChart = new Vue({
         show(){
             this.subSvg=d3.select(this.$refs.subChart);
             this.renderSubChart(this.subRenderPara);
-            //alert(123)
+            this.lotInfoEntities = [];
         },
         handleSubChartBarDbl(data){
-            let url='GetLotDetail';
+            let url = 'GetLotDetail';
+            this.subLoading = true;
             PostAjaxGetJson(data,url,function(response){
                 if(response.success){
                     wipChart.lotInfoEntities=response.lotInfoEntities;
                 }else{
                     wipChart.$message.error(response.msg);
                 }
+                wipChart.subLoading = false;
             },function(response){
                 wipChart.$message.error(response);
+                wipChart.subLoading = false;
             });
         },
         outputExcel(){
@@ -672,11 +831,7 @@ var wipChart = new Vue({
                    HoldReason:rawData[i].HoldReason,
                    HoldClaimMemo:rawData[i].HoldReasonDesc,
                    Qty:rawData[i].Qty,
-                 //  WaitTime$lHrs$r:rawData[i].WaitTime,
-                 //  StatusTime$lHrs$r:rawData[i].StatusTime,
-                  // Customer$sDate:rawData[i].CustomerDate,
                    OpeStartTime:rawData[i].OpeStartTime,
-                    //Per$sLayer:rawData[i].PreLayer,
                     ChgUserID:rawData[i].ChgUserID,
                     ChgUserName:rawData[i].ChgUserName
                 });
@@ -684,7 +839,6 @@ var wipChart = new Vue({
             let filename="WIP_Chart.xls";
             let tableHtml = FormExcelContext(data);
             tableHtml = tableHtml.replace(/\$s/g, " ");
-            console.log(tableHtml)
             if(!tableHtml)return false;
             let ctx= { worksheet: "sheet1" , table: tableHtml };
             let dlink=this.$refs.dlink;
@@ -721,6 +875,7 @@ var wipChart = new Vue({
                 for (let i = 0; i < chart.length; i++) {
                     for (let j = 0; j < chart[i].ChartEntities.length; j++) {
                         chart[i].ChartEntities[j].LotEntities = chart[i].ChartEntities[j].LotEntities.filter(f => f.InBank === false);
+                        chart[i].ChartEntities[j].Wip = this.getWipByLots(chart[i].ChartEntities[j].LotEntities)
                     }
                 }
                 return { chart: chart, table: table };
@@ -728,6 +883,7 @@ var wipChart = new Vue({
                 for (let i = 0; i < chart.length; i++) {
                     for (let j = 0; j < chart[i].ChartEntities.length; j++) {
                         chart[i].ChartEntities[j].LotEntities = chart[i].ChartEntities[j].LotEntities.filter(f => f.InBank === true);
+                        chart[i].ChartEntities[j].Wip = this.getWipByLots(chart[i].ChartEntities[j].LotEntities)
                     }
                 }
                 return { chart: chart, table: table };
@@ -744,22 +900,27 @@ var wipChart = new Vue({
                     if (data.length > 0 && data[data.length - 1].stage == entity.Stage) {
                         let d = data[data.length - 1];
                         d.stageMove = entity.LotEntities.length;
-                        d.holdLot += entity.LotEntities.filter(f => f.HoldState == 'HOLD').length;
-                        d.superHot += entity.LotEntities.filter(f => f.Priority == 1 && f.HoldState != 'HOLD').length;
-                        d.hot += entity.LotEntities.filter(f => f.Priority == 2 && f.HoldState != 'HOLD').length;
-                        d.other[i] += entity.LotEntities.filter(f => f.Priority != 1 && f.Priority != 2 && f.HoldState != 'HOLD').length;
+                        d.holdLot += entity.LotEntities.filter(f => f.HoldState == 'ONHOLD').length;
+                        //d.holdLot += entity.LotEntities.filter(f => f.HoldState == 'ONHOLD' && f.Priority > 1).length;
+                       // d.holdSuperLot += entity.LotEntities.filter(f => f.HoldState == 'ONHOLD' && f.Priority == 1).length;
+                        d.superHot += entity.LotEntities.filter(f => f.Priority == 1 && f.HoldState != 'ONHOLD').length;
+                        d.hot += entity.LotEntities.filter(f => f.Priority == 2 && f.HoldState != 'ONHOLD').length;
+                        d.other[i] += entity.LotEntities.filter(f => f.Priority != 1 && f.Priority != 2 && f.HoldState != 'ONHOLD').length;
                         d.accWip+=entity.Wip;
                     } else {
                         let d = {
                             stage: entity.Stage,
                             ct: entity.RemainCT,
                             stageMove: entity.LotEntities.length,
-                            holdLot: entity.LotEntities.filter(f => f.HoldState == 'HOLD').length,
-                            superHot: entity.LotEntities.filter(f => f.Priority == 1 && f.HoldState != 'HOLD').length,
-                            hot: entity.LotEntities.filter(f => f.Priority == 2 && f.HoldState != 'HOLD').length,
+                            holdLot: entity.LotEntities.filter(f => f.HoldState == 'ONHOLD').length,
+                            //holdLot : entity.LotEntities.filter(f => f.HoldState == 'ONHOLD' && f.Priority > 1).length,
+                            //holdSuperLot : entity.LotEntities.filter(f => f.HoldState == 'ONHOLD' && f.Priority == 1).length,
+                            superHot: entity.LotEntities.filter(f => f.Priority == 1 && f.HoldState != 'ONHOLD').length,
+                            hot: entity.LotEntities.filter(f => f.Priority == 2 && f.HoldState != 'ONHOLD').length,
                             other: new Array(chart.length).fill(0),
                             accWip: entity.Wip
                         };
+                        //d.other[i] = entity.LotEntities.length - d.holdLot - d.hot - d.superHot-d.holdSuperLot;
                         d.other[i] = entity.LotEntities.length - d.holdLot - d.hot - d.superHot;
                         data.push(d);
                     }
@@ -767,7 +928,7 @@ var wipChart = new Vue({
                 }
             }
             let data0=data.filter(f=>f.ct==0);
-            let data1=data.filter(f=>f.ct>0).sort((a,b)=>{return a.ct>=b.ct?a:b});
+            let data1 = data.filter(f => f.ct > 0).sort((a, b) => { if (a.ct > b.ct) return -1; if (a.ct == b.ct) return 0; else return 1;});
             data0.forEach(element => {
                 data1.push(element)
             });

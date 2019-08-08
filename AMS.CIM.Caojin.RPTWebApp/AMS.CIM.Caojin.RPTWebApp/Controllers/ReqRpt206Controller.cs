@@ -32,18 +32,18 @@ namespace AMS.CIM.Caojin.RPTWebApp.Controllers
 
         public JsonResult ManualQuery(string lot, string startDate, string endDate)
         {
-            //try
-            //{
+            try
+            {
                 var model = new ReqRpt206DataBuilder();
                 model.GetTableDataByManual(lot, startDate, endDate);
                 var data = model.RowEntities;
                 var response = new { success = true, RowEntities = data, model.LotStr, model.StartDate, model.EndDate };
                 return Json(response);
-            //}
-            //catch (Exception ex)
-            //{
-            //    return Json(new {success=false,msg=ex.Message });
-            //}
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, msg = ex.Message });
+            }
         }
     }
 }

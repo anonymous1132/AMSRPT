@@ -14,9 +14,13 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
 
         public int Ctype { get; set; }
 
+        public string Gname { get; set; }
+
         public string Dept_ID { get; set; }
 
         public string Eqp_ID { get; set; }
+
+        public string Product_ID { get; set; }
 
         public string Ctitle { get; set; }
         

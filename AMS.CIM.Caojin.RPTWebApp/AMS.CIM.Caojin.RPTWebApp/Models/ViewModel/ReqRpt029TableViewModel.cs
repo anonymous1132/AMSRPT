@@ -13,7 +13,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
             Initialize();
         }
         public List<ReqRpt029TableEntity> Entities { get; set; } = new List<ReqRpt029TableEntity>();
-        DB2DataCatcher<ReqRpt029_Lot> LotCatcher { get; set; } = new DB2DataCatcher<ReqRpt029_Lot>("ISTRPT.Report29_Lot") { Conditions="where from_ope_no != null"};
+        DB2DataCatcher<ReqRpt029_Lot> LotCatcher { get; set; } = new DB2DataCatcher<ReqRpt029_Lot>("ISTRPT.Report29_Lot") { Conditions="where from_ope_no is not null"};
         DB2DataCatcher<ReqRpt029_Flow> FlowCatcher { get; set; } = new DB2DataCatcher<ReqRpt029_Flow>("ISTRPT.Report29_Flow");
         DB2DataCatcher<FHOPEHS_Qtime> HsCatcher { get; set; } = new DB2DataCatcher<FHOPEHS_Qtime>("MMVIEW.FHOPEHS");
 
@@ -21,7 +21,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
         {
             var lotList = LotCatcher.GetEntities().EntityList;
             if (!lotList.Any()) throw new Exception("没有触发Qtime的Lot");
-            FlowCatcher.Conditions = string.Format("where mainpd_id in '{0}'",string.Join("','",lotList.Select(s=>s.MainPD_ID).Distinct()));
+            FlowCatcher.Conditions = string.Format("where mainpd_id in ('{0}')",string.Join("','",lotList.Select(s=>s.MainPD_ID).Distinct()));
             FlowCatcher.GetEntities();
           //  HsCatcher.Conditions = string.Format("where lot_family_id",string.Join("','",lotList.Select(s=>s.Lot_ID)));
             foreach (var lot in lotList)
@@ -81,7 +81,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                     //如果是分批的情况
                     entity.FirstStepInTime = GetTargetStepInTime(lot.Lot_ID,lot.MainPD_ID,lot.From_Ope_No);
                 }
-
+                Entities.Add(entity);
             }
         }
 
@@ -100,7 +100,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                 templot = temList.First().Split_Lot_ID;
                 lotList.Add(templot);
             }
-            HsCatcher.Conditions = string.Format("where lot_id in '{0}' and ope_category in ('OperationComplete','STB','Split') order by claim_time",string.Join("','",lotList) );
+            HsCatcher.Conditions = string.Format("where lot_id in ('{0}') and ope_category in ('OperationComplete','STB','Split') order by claim_time",string.Join("','",lotList) );
             HsCatcher.GetEntities();
             var hsList = HsCatcher.entities.EntityList.TakeWhile(t => t.Lot_ID != lot).Union(HsCatcher.entities.EntityList.Where(w => w.Lot_ID == lot));
            return  hsList.Where(w => w.MainPD_ID == mainPD && w.Ope_No ==openo).First().Claim_Time;

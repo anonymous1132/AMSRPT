@@ -85,12 +85,13 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                         }
                     }
                     entity.WaferMean =Math.Round( entity.SiteValue.Average()??0,3);
-                    if (ThkHead.Any(a => entity.MeasItem.ToUpper().IndexOf(a) == 0))
+                    if (ThkHead.Any(a => entity.MeasItem.ToUpper().IndexOf(a) == 0)|| entity.MeasItem.ToUpper().Contains("$THK"))
                     {
                         //thk
                         var range = dr.Select(s => new { item = s.DcItem_Name.ToUpper(), s.DcItem_Value,s.RangeUC }).Where(w => w.item.Contains("T") && w.item.Contains("K") && w.item.Contains("RANGE"));
                         if (range.Any()) { entity.MeanRange =Math.Round( Convert.ToDouble(range.First().DcItem_Value),3); entity.RangeUC = range.First().RangeUC; }
-       
+                        var mean = dr.Select(s => new { item = s.DcItem_Name.ToUpper(), s.DcItem_Value, s.Cntl_Lower_Limit, s.Cntl_Upper_Limit }).Where(w =>  w.item.Contains("MEAN"));
+                        if (mean.Any()) { entity.LC = mean.First().Cntl_Lower_Limit;entity.UC = mean.First().Cntl_Upper_Limit; }
                     }
                     else if (CdHead.Any(a => entity.MeasItem.ToUpper().IndexOf(a) == 0)) 
                     {

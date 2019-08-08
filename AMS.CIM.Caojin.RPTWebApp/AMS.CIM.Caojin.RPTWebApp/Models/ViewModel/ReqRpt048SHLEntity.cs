@@ -57,7 +57,8 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         public string strQuotaType { get { return QuotaType==1 ? "Project" : "Normal"; } }
 
-        public string strWaferStart { get { return WaferStart.ToString("yyyy-MM-dd HH:mm"); } }
+        //public string strWaferStart { get { return WaferStart.ToString("yyyy-MM-dd HH:mm"); } }
+        public string strWaferStart { get { return WaferStart.ToString("yyyy-MM-dd"); } }
 
         public string strWAT { get { return WAT.ToString("yyyy-MM-dd"); } }
 

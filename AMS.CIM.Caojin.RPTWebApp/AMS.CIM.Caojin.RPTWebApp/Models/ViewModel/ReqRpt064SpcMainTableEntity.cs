@@ -17,6 +17,10 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         public string EqpID { get; set; }
 
+        //public string Prod { get; set; }
+
+        public string Gname { get; set; }
+        
         public string ChartTitle{ get; set; }
 
         public string ChartType { get; set; }

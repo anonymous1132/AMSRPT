@@ -38,6 +38,10 @@ width:100%;
     left: 48%;
 }
 
+.el-table {
+    font-size:13px;
+}
+
 .show-later {
     display: none;
 }

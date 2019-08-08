@@ -739,7 +739,7 @@ var stage2View=new Vue({
             }
         },
         tableCellStyle({row,column,rowIndex,columnIndex}){
-            return 'border: 1px solid black;'
+            return 'border: 0.5px solid black;'
         },
         outputExcel(){
             if(this.filterdEntities.length==0)return false;

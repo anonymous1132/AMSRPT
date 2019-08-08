@@ -63,10 +63,10 @@ Layout = "~/Views/Shared/_LayoutRptVue.cshtml";
             <el-table-column Property="RemainQt" label="Remain Q-Time" align="center" min-width="120" sortable></el-table-column>
             <el-table-column label="Flow Factor" align="center" min-width="120">
                 <template  slot-scope="scope">
-                    <div v-if="scope.row.FlowFactor<0" style="color:red">{{ StrFlowFactor }}</div>
-                    <div v-else-if="scope.row.FlowFactor<1.3" style="color:purple">{{ StrFlowFactor }}</div>
-                    <div v-else-if="scope.row.FlowFactor<1.6" style="color:orange">{{ StrFlowFactor }}</div>
-                    <div v-else>{{ StrFlowFactor }}</div>
+                    <div v-if="scope.row.FlowFactor<0" style="color:red">{{ scope.row.StrFlowFactor }}</div>
+                    <div v-else-if="scope.row.FlowFactor<1.3" style="color:purple">{{ scope.row.StrFlowFactor }}</div>
+                    <div v-else-if="scope.row.FlowFactor<1.6" style="color:orange">{{ scope.row.StrFlowFactor }}</div>
+                    <div v-else>{{ scope.row.StrFlowFactor }}</div>
                 </template>
             </el-table-column>
             <el-table-column Property="Dept" label="Department" align="center" min-width="120"></el-table-column>

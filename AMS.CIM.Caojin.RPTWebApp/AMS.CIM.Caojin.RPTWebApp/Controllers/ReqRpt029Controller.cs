@@ -32,7 +32,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, Msg= ex.Message});
+                return Json(new { success = false, Msg = ex.Message });
             }
         }
 

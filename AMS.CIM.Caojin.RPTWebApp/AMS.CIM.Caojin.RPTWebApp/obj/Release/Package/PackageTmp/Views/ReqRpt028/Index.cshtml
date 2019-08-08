@@ -101,7 +101,7 @@
             </div>   
         </div>
     </el-main>
-    <el-dialog title="Sub Chart" :visible.sync="dialogSubChartVisible" width="90%" append-to-body v-on:opened="show">
+    <el-dialog title="Sub Chart" :visible.sync="dialogSubChartVisible" width="90%" :modal-append-to-body="false" :append-to-body="true"  v-on:opened="show" >
         <div class="chart">
                 <svg ref="subChart" class="subChart"></svg>
         </div>
@@ -110,7 +110,7 @@
                     aria-controls="DataTables_Table_0" v-on:click.stop="outputExcel"><span>
                         <img src="~/themes/icons/excel_2007.gif" /></span></a> <a ref="dlink" style="display: none;"></a></div>
         </div>
-        <el-table :data="lotInfoEntities" border size="mini" style="width: 100%" stripe max-height="600">
+        <el-table :data="lotInfoEntities" border size="mini" style="width: 100%" stripe max-height="600" v-if="!subLoading">
                 <el-table-column type="index" width="50" align="center"></el-table-column>
                 <el-table-column property="EqpType" label="EqpType" width="100"  align="center"></el-table-column>
                 <el-table-column property="Priority" label="Pri" align="center"></el-table-column>
@@ -118,7 +118,7 @@
                 <el-table-column property="OpeName" label="Ope Name" width="150" align="center"></el-table-column>
                 <el-table-column property="ProductID" label="Prod ID" width="200" align="center"></el-table-column>
                 <el-table-column property="LotID" label="LotID" width="150" align="center"></el-table-column>
-                <el-table-column property="Foup" label="Foup" align="center"></el-table-column>
+                <el-table-column property="Foup" label="Foup" align="center" width="100" show-overflow-tooltip></el-table-column>
                 <el-table-column property="Location" label="Location" width="100" align="center"></el-table-column>
                 <el-table-column property="Status" label="Status" align="center"></el-table-column>
                 <el-table-column  label="Lot Proc Status" width="150" align="center">
@@ -127,7 +127,7 @@
                     </template>
                 </el-table-column>
                 <el-table-column property="HoldReason" label="HoldReason" width="120" align="center"></el-table-column>
-                <el-table-column property="HoldReasonDesc" label="HoldClaimMemo" width="150" align="center"></el-table-column>
+                <el-table-column property="HoldReasonDesc" label="HoldClaimMemo" width="150"  show-overflow-tooltip align="center"></el-table-column>
                 <el-table-column property="Qty" label="Qty" align="center"></el-table-column>
                 @*<el-table-column property="WaitTime" width="150" label="WaitTime(Hrs)" align="center"></el-table-column>
                 <el-table-column property="StatusTime" width="150" label="StatusTime(Hrs)" align="center"></el-table-column>*@
@@ -137,6 +137,9 @@
                 <el-table-column property="ChgUserID" label="ChgUserID" width="100" align="center"></el-table-column>
                 <el-table-column property="ChgUserName" label="ChgUserID" width="100" align="center"></el-table-column>
         </el-table>
+        <div v-else>
+            数据请求中，请稍候。。。
+        </div>
     </el-dialog>
 </el-container>
 

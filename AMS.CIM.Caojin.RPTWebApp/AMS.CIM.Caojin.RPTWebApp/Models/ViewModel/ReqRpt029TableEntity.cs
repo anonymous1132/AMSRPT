@@ -32,7 +32,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
         public double RemainCt { get; set; }
         public DateTime FirstStepInTime { get; set; }
       //  public DateTime CurrentStepInTime { get; set; }
-        public double FlowFactor { get { return RemainQt / RemainCt; } }
+        public double FlowFactor { get { return RemainCt==0?0: RemainQt / RemainCt; } }
         public string StrFlowFactor { get { return string.Format("{0}/{1}",RemainQt.ToString("0.0"),RemainCt.ToString("0.0")); } }
 
     }

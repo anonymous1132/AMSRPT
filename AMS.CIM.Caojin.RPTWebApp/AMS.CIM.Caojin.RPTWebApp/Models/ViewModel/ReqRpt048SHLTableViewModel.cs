@@ -50,6 +50,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         private readonly DB2DataCatcher<FRCodeModel> CodeCatcher = new DB2DataCatcher<FRCodeModel>("MMVIEW.FRCODE");
 
+        private readonly DB2DataCatcher<FREQP_CurStatus> EqpCatcher = new DB2DataCatcher<FREQP_CurStatus>("MMVIEW.FREQP");
 
         #region DBDatas
 
@@ -69,6 +70,8 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
         IList<FVCast_LotModel> castList;
         //FRPDModel集合
         IList<SHLFRPDModel> pdList;
+        //FREQP集合
+        IList<FREQP_CurStatus> eqpList;
         //Report_Lot_OwnerDepartment_Mapping集合
         IList<Report_Lot_OwnerDepartment_Mapping> ownerDeptList;
         //Rpt_Lot_Quota_Mapping集合
@@ -145,7 +148,8 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
             //QuotaDefine Query
             //QuotaDefineCatcher.Conditions = "";
             quotaDefineList = QuotaDefineCatcher.GetEntities().EntityList;
-
+            EqpCatcher.Conditions = string.Format("where eqp_type !=''");
+            eqpList = EqpCatcher.GetEntities().EntityList;
             watPds = pdList.Where(w => w.Department == "I");
         }
 
@@ -214,6 +218,10 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
             shl.PriChgStage = stages.Any() ? stages.First().Stage_ID : "";
             var types = ctList_prod.Where(w => w.Ope_No == lot_pd.Ope_No);
             shl.EqpType =types.Count()>0?types .First().Eqp_Type:"";
+            var eqps = eqpList.Where(w => w.Eqp_Type == shl.EqpType);
+            int total = eqps.Count();
+            int ava = eqps.Where(w => w.E10_State == "PRD" || w.E10_State == "SBY").Count();
+            shl.EqpType += string.Format(" {2}/{0}/{1}",ava,total-ava,total);
             SHLEntities.Add(shl);
         }
 

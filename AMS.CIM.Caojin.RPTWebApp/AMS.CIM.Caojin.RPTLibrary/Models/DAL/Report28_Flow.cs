@@ -20,6 +20,8 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
 
         public string ModulePD_ID { get; set; }
 
+        public string ModulePD_Name { get; set; }
+
         public string PD_ID { get; set; }
 
         public double PD_Std_Cycle_Time_Min { get; set; }

@@ -49,7 +49,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
             lotList = LotCatcher.GetEntities().EntityList;
          //   if (lotList.Count() == 0) throw new Exception("没有Active的Production Lot");
             var cond = string.Join("','", ProdList);
-            FlowCatcher = new DB2OperDataCatcher<Report28_Flow>("ISTRPT.Report48_Forecast", DB2) { Conditions = string.Format("where prodspec_id in ('{0}') order by mainpd_id,ope_no", cond) };
+            FlowCatcher = new DB2OperDataCatcher<Report28_Flow>("ISTRPT.Report28_Flow", DB2) { Conditions = string.Format("where prodspec_id in ('{0}') order by mainpd_id,ope_no", cond) };
             flowList = FlowCatcher.GetEntities().EntityList;
             OutCatcher = new DB2OperDataCatcher<RPT_WipChart_TargetOut>("ISTRPT.RPT_WIPCHART_TARGETOUT",DB2);
             outList=  OutCatcher.GetEntities().EntityList;
@@ -71,10 +71,11 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                 {
                     var entity = new ReqRpt028ChartEntity()
                     {
-                        Stage = flow.ModulePD_ID,
+                        Stage = flow.ModulePD_Name,
                         Step = flow.PD_ID,
-                        OpeNo=flow.Ope_No,
-                        RemainCT =FixRemianCT((flow.PD_Std_Cycle_Time_Min + (model1.ChartEntities.Any() ? model1.ChartEntities.Last().RemainCT : 0)) / (24 * 60))
+                        OpeNo = flow.Ope_No,
+                        // RemainCT =FixRemianCT((flow.PD_Std_Cycle_Time_Min + (model1.ChartEntities.Any() ? model1.ChartEntities.Last().RemainCT : 0)) / (24 * 60))
+                        RemainCT = flow.PD_Std_Cycle_Time_Min + (model1.ChartEntities.Any() ? model1.ChartEntities.Last().RemainCT : 0)
                     };
                     var lot_cur_flow = lot_cur.Where(w=>w.MainPD_ID==flow.MainPD_ID&&w.Ope_No==flow.Ope_No);
                     foreach (var lot in lot_cur_flow)
@@ -84,7 +85,13 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                     //entity.AccWip = entity.GetCurWip() +( model1.ChartEntities.Any() ? model1.ChartEntities.Last().AccWip : 0);
                     entity.Wip = entity.GetCurWip();
                     model1.ChartEntities.Add(entity);
-                    var entity2 = new ReqRpt028ChartEntity() { Stage=entity.Stage,Step=entity.Step,OpeNo=entity.OpeNo,RemainCT=entity.RemainCT};
+                    var entity2 = new ReqRpt028ChartEntity() {
+                        Stage =entity.Stage,
+                        Step =entity.Step,
+                        OpeNo =entity.OpeNo,
+                        //RemainCT =entity.RemainCT
+                        RemainCT= flow.PD_Std_Cycle_Time_Min + (model2.ChartEntities.Any() ? model2.ChartEntities.Last().RemainCT : 0)
+                    };
                     var lot_ystd_flow = lot_ystd.Where(w => w.MainPD_ID == flow.MainPD_ID && w.Ope_No == flow.Ope_No);
                     foreach (var lot in lot_ystd_flow)
                     {
@@ -97,6 +104,8 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                 model1.ChartEntities.Reverse();
                 model2.ChartEntities.Reverse();
                 if (model2.ChartEntities.Any()) {
+                    model1.ChartEntities.ForEach(el=>el.RemainCT=FixRemianCT(el.RemainCT/(24*60)));
+                    model2.ChartEntities.ForEach(el => el.RemainCT = FixRemianCT(el.RemainCT / (24 * 60)));
                     CurModels.Add(model1);
                     YstdModels.Add(model2);
                 }
@@ -181,7 +190,8 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         private double FixRemianCT(double ct)
         {
-            return Math.Round(ct,1,MidpointRounding.AwayFromZero);
+            //return Math.Round(ct,1,MidpointRounding.AwayFromZero);
+            return Math.Round(ct,1);
         }
     }
 }

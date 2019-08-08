@@ -19,8 +19,10 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 select cm.gno,
 cm.cno,
 gm2.dept_id,
+gm2.gname,
 cm.eqp_id,
 cm.ctitle,
+--gm1.product_id,
 cd.usl_value,
 cd.ucl_value,
 cd.target_value,
@@ -31,6 +33,10 @@ t1.mean_value,
 t1.value_list 
 from
     spcview.spccm cm
+   -- left join spcview.spcgm1 gm1
+   -- on cm.gno=gm1.gno
+   -- and cm.collection_type=gm1.collection_type
+   -- and gm1.sub_gno=1
     left join spcview.spcgm2 gm2
     on cm.gno=gm2.gno
     and cm.collection_type=gm2.collection_type
@@ -39,7 +45,7 @@ from
     and cm.cno=cd.cno
     and cm.collection_type=cd.collection_type
     left join (
-    select gno,cno,ctype,avg(point_value) mean_value,listagg(point_value,'|')  value_list  from spcview.spc_data
+    select gno,cno,ctype,avg(point_value) mean_value,listagg(cast( point_value as varchar(30000)),'|')  value_list  from spcview.spc_data
     where tx_datetime between '{0} 00:00:00' and '{1} 23:59:59'
     and collection_type=1
     and LTRIM(RTRIM(HIDE_FLAG))=''
@@ -80,7 +86,9 @@ from
                     Sigma=l.GetStrSigma(),
                     Ca=l.GetStrCa(),
                     Cp=l.GetStrCp(),
-                    Cpk=l.GetStrCpk()
+                    Cpk=l.GetStrCpk(),
+                    Gname=l.Gname
+                   // Prod=l.Product_ID
                 };
                 entity.SetChartType(l.Ctype);
                 TableEntities.Add(entity);
@@ -89,3 +97,15 @@ from
 
     }
 }
+
+/*改进方向：假如以后30000也不够一个月的数据量，则可以考虑以下sql，筛选出1500条以下的data，用当前方法，超过1500条的数据单独拉出来计算
+select gno,cno,ctype,avg(point_value) mean_value,listagg(cast( point_value as varchar(30000)),'|')  value_list from spcview.spc_data
+    where tx_datetime between '2019-7-1 00:00:00' and '2019-7-29 23:59:59'
+    and collection_type=1
+    and LTRIM(RTRIM(HIDE_FLAG))=''
+    and (gno,cno,ctype) in ( select gno,cno,ctype from spcview.spc_data    where tx_datetime between '2019-7-1 00:00:00' and '2019-7-29 23:59:59'
+    and collection_type=1
+    and LTRIM(RTRIM(HIDE_FLAG))=''
+    group by gno,cno,ctype having count(*)<=1500)
+    group by gno,cno,ctype 
+ */

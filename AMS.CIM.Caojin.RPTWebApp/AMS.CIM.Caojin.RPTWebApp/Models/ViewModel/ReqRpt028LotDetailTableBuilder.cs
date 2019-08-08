@@ -72,7 +72,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                     Foup = detail.Cast_ID,
                     Location = detail.Location,
                     Status = detail.State,
-                    OpeStartTime = detail.Claim_Time.Split('.')[0],
+                    OpeStartTime = detail.Claim_Time is null?"": detail.Claim_Time.Split('.')[0],
                     //WaitTime =Math.Round( (DateTime.Now - detail.Claim_Time).TotalHours,2,MidpointRounding.AwayFromZero),
                     //StatusTime = 0,
                     CustomerDate="",

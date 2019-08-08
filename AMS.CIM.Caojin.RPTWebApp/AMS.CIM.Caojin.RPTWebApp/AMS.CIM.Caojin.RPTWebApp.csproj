@@ -190,14 +190,17 @@
     <Compile Include="Controllers\ReqRpt207Controller.cs" />
     <Compile Include="Controllers\ReqRpt209Controller.cs" />
     <Compile Include="Controllers\ReqRpt211Controller.cs" />
+    <Compile Include="Controllers\ReqRpt212Controller.cs" />
     <Compile Include="Controllers\RptController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DB2OperateBase.cs" />
     <Compile Include="Models\ExcelApp.cs" />
-    <Compile Include="Models\ReqRpt211RowEntity.cs" />
-    <Compile Include="Models\ReqRpt211TableDataBuilder.cs" />
+    <Compile Include="Models\ReqRpt212DataBuilder.cs" />
+    <Compile Include="Models\ReqRpt212RowEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt211RowEntity.cs" />
+    <Compile Include="Models\ViewModel\ReqRpt211TableDataBuilder.cs" />
     <Compile Include="Models\ViewModel\ReqRpt207DataBuilder.cs" />
     <Compile Include="Models\ViewModel\ReqRpt207RowEntity.cs" />
     <Compile Include="Models\ViewModel\ReqRpt206DataBuilder.cs" />
@@ -547,6 +550,8 @@
     <Content Include="Scripts\demo\upm.js" />
     <Content Include="Scripts\demo\wafer-out.js" />
     <Content Include="Scripts\demo\wafer-start.js" />
+    <Content Include="Scripts\demo\wipchart.bak.js" />
+    <Content Include="Scripts\demo\wipchart.bak20190803.js" />
     <Content Include="Scripts\demo\wipchart.js" />
     <Content Include="Scripts\FileSaver.js" />
     <Content Include="Scripts\inspinia.js" />
@@ -956,17 +961,19 @@
     <Content Include="static\css\summernote-bs3.css" />
     <Content Include="static\css\summernote.css" />
     <Content Include="static\eda-inlinebywafer\app.5f723f82477703d82afd27653896b4af.css" />
-    <Content Include="static\eda-inlinebywafer\app.7435c09352de4f0b0179.js" />
+    <Content Include="static\eda-inlinebywafer\app.d6dd3af516fd0eadb0cc.js" />
     <Content Include="static\eda-inlinebywafer\manifest.2ae2e69a05c33dfc65f8.js" />
     <Content Include="static\eda-inlinebywafer\vendor.3a884a357e34e8a5d3b4.js" />
     <Content Include="static\eda-lotcompare\app.137778f81d5f40cad129035afe3f8878.css" />
-    <Content Include="static\eda-lotcompare\app.66eb3ca428c77f394c78.js" />
+    <Content Include="static\eda-lotcompare\app.d0a07865655d13792995.js" />
     <Content Include="static\eda-lotcompare\manifest.2ae2e69a05c33dfc65f8.js" />
     <Content Include="static\eda-lotcompare\vendor.3a884a357e34e8a5d3b4.js" />
     <Content Include="static\eda-split\app.5389b2edf0790fbb21ea6e768d591877.css" />
     <Content Include="static\eda-split\app.9089e7fbaef80231f44e.js" />
     <Content Include="static\eda-split\manifest.2ae2e69a05c33dfc65f8.js" />
     <Content Include="static\eda-split\vendor.3a884a357e34e8a5d3b4.js" />
+    <Content Include="static\eda-toolcompare\app.de9c9bb01a14d4eedbedaecea6c1af63.css" />
+    <Content Include="static\eda-toolcompare\app.fc8ba635178b3a7c04a2.js" />
     <Content Include="static\eda-toolhist\app.0ec3108f4d10dcec9ae4.js" />
     <Content Include="static\eda-toolhist\app.b8111b5c4dfaf773805a197ce502514e.css" />
     <Content Include="static\eda-toolhist\manifest.2ae2e69a05c33dfc65f8.js" />
@@ -977,7 +984,11 @@
     <Content Include="static\it-stoker\vendor.69ea919bfbecf6e09518.js" />
     <Content Include="static\js\ams.commontool.js" />
     <Content Include="static\js\jquery-3.1.1.min.js" />
+    <Content Include="static\js\manifest.2ae2e69a05c33dfc65f8.js" />
     <Content Include="static\js\summernote.min.js" />
+    <Content Include="static\js\vendor.2e9e602c826a35d7875c.js" />
+    <Content Include="static\js\vendor.3a884a357e34e8a5d3b4.js" />
+    <Content Include="static\js\vendor.69ea919bfbecf6e09518.js" />
     <Content Include="static\js\vendor.js" />
     <Content Include="static\lotholdreview\app.140385f7eeebffbd80e0.js" />
     <Content Include="static\lotholdreview\app.45be0ad7fa9f78a2bac4c5fe1e782954.css" />
@@ -988,7 +999,7 @@
     <Content Include="static\scraplist\manifest.2ae2e69a05c33dfc65f8.js" />
     <Content Include="static\scraplist\vendor.3a884a357e34e8a5d3b4.js" />
     <Content Include="static\spc\app.7f127f4150e0d3a05edfbe45e703e2bf.css" />
-    <Content Include="static\spc\app.ef429b67ee14ff7a8218.js" />
+    <Content Include="static\spc\app.daa03be2af249513c046.js" />
     <Content Include="static\spc\manifest.2ae2e69a05c33dfc65f8.js" />
     <Content Include="static\spc\vendor.3a884a357e34e8a5d3b4.js" />
     <Content Include="static\test\app.6810d6bebc69992312963c0bff8479f6.css" />
@@ -1553,6 +1564,7 @@
     <Content Include="Views\ReqRpt207\index.cshtml" />
     <Content Include="Views\ItStokerLogView\index.cshtml" />
     <Content Include="Views\ReqRpt211\index.cshtml" />
+    <Content Include="Views\ReqRpt212\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Compnent\vue\" />

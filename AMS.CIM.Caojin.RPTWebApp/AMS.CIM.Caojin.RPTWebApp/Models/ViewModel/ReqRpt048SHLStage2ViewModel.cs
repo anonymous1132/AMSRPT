@@ -89,12 +89,12 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
             foreach (var hist in lotInHists)
             {
                 ReqRpt048Stage2Entity entity = new ReqRpt048Stage2Entity();
-                flow = ForecastCatcher.entities.EntityList.Where(w => w.Ope_NO == hist.Ope_NO && w.MainPD_ID == hist.MainPD_ID).First();
+                flow = ForecastCatcher.entities.EntityList.Where(w => w.Ope_NO == hist.Ope_NO && w.MainPD_ID == hist.MainPD_ID).FirstOrDefault()??new Report48_Forecast();
                 entity.OpeNO = hist.Ope_NO;
                 entity.Department = flow.Department;
                 entity.EqpType = flow.Eqp_Type;
                 //EqpList
-                var eqps = flow.Eqp_List.Split('|').ToList();
+                var eqps = (flow.Eqp_List==null)?new List<string> (): flow.Eqp_List.Split('|').ToList();
                 foreach (var eqp in eqps)
                 {
                     entity.EqpList.Add(new ReqRpt048EqpEntity() {
@@ -138,9 +138,16 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                         ReqRpt048GapComputerEntity computerEntity = new ReqRpt048GapComputerEntity();
                         computerEntity.ReasonCode = hold.Hold_Reason_Code;
                         computerEntity.StartTime = hold.Claim_Time;
-                        var firstRelease = release.Where(w => w.Hold_Reason_Code == hold.Hold_Reason_Code).First();
-                        computerEntity.EndTime =firstRelease.Claim_Time;
-                        release.Remove(firstRelease);
+                        var firstRelease = release.Where(w => w.Hold_Reason_Code == hold.Hold_Reason_Code).FirstOrDefault();
+                        if (firstRelease == null)
+                        {
+                            computerEntity.EndTime = DateTime.Now;
+                        }
+                        else
+                        {
+                            computerEntity.EndTime = firstRelease.Claim_Time;
+                            release.Remove(firstRelease);
+                        }
                         computer.GapComputerEntities.Add(computerEntity);
                     }
                     entity.GapModels= computer.GetResault();
