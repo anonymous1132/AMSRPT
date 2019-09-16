@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS.CIM.Caojin.RPTDataUpdat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS.CIM.Caojin.RPTLibrary", "AMS.CIM.Caojin.RPTLibrary\AMS.CIM.Caojin.RPTLibrary.csproj", "{D2D95CC9-D226-4DB6-9F45-40A3755825DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonUtilsLibrary", "..\..\AMSDotNetWebAPI\CommonUtilsLibrary\CommonUtilsLibrary.csproj", "{C28D1898-85E1-4FE4-95D7-8D459200BE2D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonUtilsLibrary", "CommonUtilsLibrary\CommonUtilsLibrary.csproj", "{C28D1898-85E1-4FE4-95D7-8D459200BE2D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

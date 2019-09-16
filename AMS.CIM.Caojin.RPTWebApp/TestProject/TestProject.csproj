@@ -7,7 +7,7 @@
     <ProjectGuid>{097CA827-BC3B-408F-91DB-64353ACB18A7}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>TestProject</RootNamespace>
-    <AssemblyName>CTRunOnce</AssemblyName>
+    <AssemblyName>WipChartRunner</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -76,6 +76,7 @@
     <Compile Include="TestMultiTask.cs" />
     <Compile Include="TestProcess.cs" />
     <Compile Include="TestUser.cs" />
+    <Compile Include="TestUUm.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -90,13 +91,13 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\AMSDotNetWebAPI\CommonUtilsLibrary\CommonUtilsLibrary.csproj">
-      <Project>{c28d1898-85e1-4fe4-95d7-8d459200be2d}</Project>
-      <Name>CommonUtilsLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AMS.CIM.Caojin.RPTLibrary\AMS.CIM.Caojin.RPTLibrary.csproj">
       <Project>{d2d95cc9-d226-4db6-9f45-40a3755825db}</Project>
       <Name>AMS.CIM.Caojin.RPTLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonUtilsLibrary\CommonUtilsLibrary.csproj">
+      <Project>{c28d1898-85e1-4fe4-95d7-8d459200be2d}</Project>
+      <Name>CommonUtilsLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

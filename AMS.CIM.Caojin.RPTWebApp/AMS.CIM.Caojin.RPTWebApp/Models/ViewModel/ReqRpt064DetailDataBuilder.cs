@@ -22,7 +22,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
     and cm.cno=cd.cno
     and cm.collection_type=cd.collection_type
     left join (
-    select gno,cno,ctype,avg(point_value) mean_value,listagg(point_value,'|')  value_list,listagg(tx_datetime,'|') time_list from spcview.spc_data 
+    select gno,cno,ctype,avg(point_value) mean_value,listagg(cast(point_value as varchar(30000)),'|')  value_list,listagg(cast(tx_datetime as varchar(30000)),'|') time_list from spcview.spc_data 
     where tx_datetime between '{0} 00:00:00' and '{1} 23:59:59' 
     and collection_type=1 
     and LTRIM(RTRIM(HIDE_FLAG))=''

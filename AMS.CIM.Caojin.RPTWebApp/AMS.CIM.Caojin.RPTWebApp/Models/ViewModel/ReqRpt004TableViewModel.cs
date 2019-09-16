@@ -26,8 +26,8 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         private DateTime DTargetDate { get { return DateTime.Parse(TargetDate); } }
         private DateTime DFromDate { get { return DTargetDate.AddDays(-30); } }
-        private string StrStartTime { get { return DFromDate.ToString("yyyy/MM/dd HH:mm:ss"); } }
-        private string StrEndTime { get { return DTargetDate.AddHours(32).ToString("yyyy/MM/dd HH:mm:ss"); } }
+        private string StrStartTime { get { return DFromDate.ToString("yyyy-MM-dd HH:mm:ss"); } }
+        private string StrEndTime { get { return DTargetDate.AddHours(32).ToString("yyyy-MM-dd HH:mm:ss"); } }
 
         private List<string> ProductList { get { return Products.Split(',').ToList(); } }
 

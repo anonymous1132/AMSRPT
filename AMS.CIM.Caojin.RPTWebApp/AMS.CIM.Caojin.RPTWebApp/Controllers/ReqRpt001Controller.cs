@@ -93,10 +93,10 @@ namespace AMS.CIM.Caojin.RPTWebApp.Controllers
         //验证口令
         public JsonResult CheckKey(string key)
         {
-            ReqKeyOperateModel model = new ReqKeyOperateModel();
-            bool res = model.CheckKey("ReqRpt00001", key);
-            string msg = res ? "验证成功" : "口令验证失败";
-            return Json(new { success = res, msg });
+                ReqKeyOperateModel model = new ReqKeyOperateModel();
+                bool res = model.CheckKey("ReqRpt00001", key);
+                string msg = res ? "验证成功" : "口令验证失败";
+                return Json(new { success = res, msg });
         }
 
         //更改口令

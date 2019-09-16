@@ -32,9 +32,10 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
         //For Test Stage（已经转正了。。。）
         private readonly DB2DataCatcher<SHLLotModel> LotCatcher = new DB2DataCatcher<SHLLotModel>("ISTRPT.Report48_Lot_Test");
         //For Prod Stage
-       // private readonly DB2DataCatcher<SHLLotModel> LotCatcher = new DB2DataCatcher<SHLLotModel>("ISTRPT.Report48_Lot");
+        // private readonly DB2DataCatcher<SHLLotModel> LotCatcher = new DB2DataCatcher<SHLLotModel>("ISTRPT.Report48_Lot");
 
-        private readonly DB2DataCatcher<SHLFHOpehsModel> OpehsCatcher = new DB2DataCatcher<SHLFHOpehsModel>("MMVIEW.FHOPEHS");
+        //SHLV2 private readonly DB2DataCatcher<SHLFHOpehsModel> OpehsCatcher = new DB2DataCatcher<SHLFHOpehsModel>("MMVIEW.FHOPEHS");
+        private readonly DB2DataCatcher<SHLFHOpehsModel> OpehsCatcher = new DB2DataCatcher<SHLFHOpehsModel>("istrpt.report48_lot_history"); //SHLV2
 
         private readonly DB2DataCatcher<FVCast_LotModel> FoupCatcher = new DB2DataCatcher<FVCast_LotModel>("ISTRPT.FVCAST_LOT");
 

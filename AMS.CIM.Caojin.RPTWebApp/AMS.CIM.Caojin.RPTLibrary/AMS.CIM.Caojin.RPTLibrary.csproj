@@ -86,6 +86,7 @@
     <Compile Include="Models\BLL\RPTFlowSumTranslator.cs" />
     <Compile Include="Models\BLL\RptTrackInUpdaterForSplitLot.cs" />
     <Compile Include="Models\DAL\BrprivilegeClickCount.cs" />
+    <Compile Include="Models\DAL\EDAFuranceOPHSModel.cs" />
     <Compile Include="Models\DAL\EDA_Compare_Process_ToolModel.cs" />
     <Compile Include="Models\DAL\Eda_Eqp_HostoryModel.cs" />
     <Compile Include="Models\DAL\EDA_Inline_Data.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Models\DAL\Report_Lot_OwnerDepartment_Mapping.cs" />
     <Compile Include="Models\DAL\Report_SpecialDetail.cs" />
     <Compile Include="Models\DAL\Report_SplitLot.cs" />
+    <Compile Include="Models\DAL\ReqRpt018GroupModelTest.cs" />
     <Compile Include="Models\DAL\ReqRpt029_Flow.cs" />
     <Compile Include="Models\DAL\ReqRpt029_Lot.cs" />
     <Compile Include="Models\DAL\RPTFuncUsage.cs" />

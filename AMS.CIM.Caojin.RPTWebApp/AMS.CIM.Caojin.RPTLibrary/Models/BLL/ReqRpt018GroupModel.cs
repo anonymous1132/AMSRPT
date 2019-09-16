@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AMS.CIM.Caojin.RPTLibrary.Models;
 
 
 namespace AMS.CIM.Caojin.RPTLibrary.Models

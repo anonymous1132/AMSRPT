@@ -9,6 +9,6 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
     {
         public List<string> LotList { get; set; }
 
-        public string OpeNo { get; set; }
+       // public string OpeNo { get; set; }
     }
 }

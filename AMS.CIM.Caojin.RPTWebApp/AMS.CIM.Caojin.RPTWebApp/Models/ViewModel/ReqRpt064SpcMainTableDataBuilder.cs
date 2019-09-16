@@ -15,6 +15,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
         /// <param name="endDate">查询的结束日期，eg:2019-5-27</param>
         public ReqRpt064SpcMainTableDataBuilder(string startDate, string endDate)
         {
+            /*
             sql = string.Format(@"
 select cm.gno,
 cm.cno,
@@ -55,6 +56,58 @@ from
     and t1.cno=cm.cno
     and t1.ctype=cd.ctype
     ", startDate, endDate);
+    */
+            sql = string.Format(@"with tb as
+(
+select gno,cno,ctype,point_value,LSL_Value,USL_Value from spcview.spc_data 
+    where tx_datetime between '{0} 00:00:00' and '{1} 23:59:59' 
+    and collection_type=1 
+    and LTRIM(RTRIM(HIDE_FLAG))=''
+),
+t1 as (
+select gno,cno,ctype,avg(point_value) mean_value,listagg(cast( point_value as varchar(30000)),'|')  value_list  from tb group by gno,cno,ctype
+),
+t2 as (
+select gno,cno,ctype, count(*) as oos from tb
+where (point_value < LSL_Value and LSL_Value !=1.0E-37)
+or (point_value>USL_Value and USL_Value!=1.0E-37)
+group by gno,cno,ctype
+)
+select cm.gno,
+cm.cno,
+gm2.dept_id,
+gm2.gname,
+cm.eqp_id,
+cm.ctitle,
+--gm1.product_id,
+cd.usl_value,
+cd.ucl_value,
+cd.target_value,
+cd.lsl_value,
+cd.lcl_value,
+cd.ctype,
+t3.mean_value,
+t3.value_list ,
+t3.oos
+from
+    spcview.spccm cm
+   -- left join spcview.spcgm1 gm1
+   -- on cm.gno=gm1.gno
+   -- and cm.collection_type=gm1.collection_type
+   -- and gm1.sub_gno=1
+    left join spcview.spcgm2 gm2
+    on cm.gno=gm2.gno
+    and cm.collection_type=gm2.collection_type
+    left join spcview.spccd cd
+    on cm.gno=cd.gno
+    and cm.cno=cd.cno
+    and cm.collection_type=cd.collection_type
+    left join (
+        select t1.*,t2.oos from t1 left join t2 on t1.gno=t2.gno and t1.cno=t2.cno and t1.ctype=t2.ctype
+    ) t3
+    on t3.gno=cm.gno
+    and t3.cno=cm.cno
+    and t3.ctype=cd.ctype", startDate, endDate);
             SpcCatcher = new DB2DataCatcher<Report64_SPCModel>("", sql);
             Initialize();
         }
@@ -87,7 +140,8 @@ from
                     Ca=l.GetStrCa(),
                     Cp=l.GetStrCp(),
                     Cpk=l.GetStrCpk(),
-                    Gname=l.Gname
+                    Gname=l.Gname,
+                    OOSRate=l.GetOOSRate()
                    // Prod=l.Product_ID
                 };
                 entity.SetChartType(l.Ctype);

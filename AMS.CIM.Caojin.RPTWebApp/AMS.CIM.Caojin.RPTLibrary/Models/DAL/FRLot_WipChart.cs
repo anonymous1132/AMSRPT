@@ -17,5 +17,6 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
         public string MainPD_ID { get; set; }
         public string Ope_No { get; set; }
         public string Lot_Inv_State { get; set; }
+        public string Lot_Type { get; set; }
     }
 }

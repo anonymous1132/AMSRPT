@@ -29,7 +29,8 @@ var tableView0 = new Vue({
             oldKey:"",
             newKey:""
         },
-        loading:false
+        loading: false,
+        testShow:false
     },
     computed: {
         display: function () {
@@ -115,6 +116,11 @@ var tableView0 = new Vue({
         handleChangeKeyButtonClick(){
             this.dialogUpdateVisible=true;
         },
+        handleLogOutButtonClick() {
+            this.changeKeyButtonVisible = false;
+            this.form.inFlag = false;
+            this.form.key = undefined;
+        },
         handleUpdateCancel(){
             this.dialogUpdateVisible=false;
             this.update.oldKey="";
@@ -170,7 +176,7 @@ var tableView0 = new Vue({
             this.loading = true;
             PostAjaxGetJson(data, url, response=> {
                 if (response.success) {
-                    console.log(response)
+                   // console.log(response)
                     response.Entities.map(m => m.EditState = false);
                     stage2View.LotID=row.LotID;
                     stage2View.Entities=response.Entities;
@@ -200,6 +206,25 @@ var tableView0 = new Vue({
             dlink.href = uri + base64(format(template, ctx));
             dlink.download = "SHL.xls";
             dlink.click();
+        },
+        outputPNG() {
+            let _this = this;
+            this.testShow = true;
+            $("body,html").scrollTop(0);
+            this.$nextTick(() => {
+                html2canvas(_this.$refs.test, {
+                    backgroundColor: null,
+                }).then(canvas => {
+                    let _dataURL = canvas.toDataURL("image/png");
+                    let data = Canvas2Image.convertToPNG(canvas).getAttribute("src");
+                    let dlink = _this.$refs.dlink;
+                    dlink.href = data;
+                    dlink.download = "SHL.png";
+                    dlink.click();
+                    _this.testShow = false
+                });
+            })
+          
         }
     }
 });

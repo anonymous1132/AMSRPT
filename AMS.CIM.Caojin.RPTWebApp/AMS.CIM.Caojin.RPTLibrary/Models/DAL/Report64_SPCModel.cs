@@ -23,7 +23,7 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
         public string Product_ID { get; set; }
 
         public string Ctitle { get; set; }
-        
+
         public double? Usl_Value { get; set; }
 
         public double? Ucl_Value { get; set; }
@@ -37,6 +37,18 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
         public double? Mean_Value { get; set; }
 
         public string Value_List { get; set; }
+
+        public  int? OOS { get; set; }
+
+        private float[] _fList;
+        public float[] FList
+        {
+            get
+            {
+                if(_fList is null)_fList= Value_List.Split('|').Select(s => Convert.ToSingle(s)).ToArray();
+                return _fList;
+            }
+        }
 
         public string GetUsl()
         {
@@ -77,8 +89,8 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
         public float? GetSigma()
         {
             if (!Mean_Value.HasValue) return null;
-            var fList = Value_List.Split('|').Select(s => Convert.ToSingle(s)).ToArray();
-            return  StDev(fList);
+         //   var fList = Value_List.Split('|').Select(s => Convert.ToSingle(s)).ToArray();
+            return  StDev(FList);
         }
 
         public double? GetCa()
@@ -105,6 +117,12 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
             return null;
         }
 
+        public string GetOOSRate()
+        {
+            if (!OOS.HasValue) return "0";
+            else return (OOS.Value*1.0/FList.Length * 100).ToString("0.00") + "%";
+        }
+
         public string GetStrSigma()
         {
             return GetDouleToString(GetSigma());
@@ -124,7 +142,6 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
         {
             return GetDouleToString(GetCa());
         }
-
 
         //保留2位小数
         private string GetDouleToString(double? dValue)

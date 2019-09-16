@@ -49,19 +49,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>jMeFWdWwKxmBbgv92Bp0voy0TfsUHi7fUvcM6PW1c7s=</dsig:DigestValue>
+        <dsig:DigestValue>YrrnHwNcZbom+KmWOI9WIFTux5DbUHQhw0sjmUKn4dA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AMS.CIM.Caojin.RPTLibrary.dll" size="248832">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AMS.CIM.Caojin.RPTLibrary.dll" size="263168">
       <assemblyIdentity name="AMS.CIM.Caojin.RPTLibrary" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>P2PcVMV3f9uEk5clelBznzTNmUQ7KixOb+KJI76Ov94=</dsig:DigestValue>
+        <dsig:DigestValue>p5sLv3vZ91kW+0z9DKXL/UTZ3rmfOhdsLBzWKUA+VEc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

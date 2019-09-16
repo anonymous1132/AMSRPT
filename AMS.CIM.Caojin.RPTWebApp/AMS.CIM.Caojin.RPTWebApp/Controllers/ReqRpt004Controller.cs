@@ -37,12 +37,19 @@ namespace AMS.CIM.Caojin.RPTWebApp.Controllers
 
         public JsonResult GetJson(string Products,string TargetDate)
         {
-            var viewModel = new ReqRpt004TableViewModel(Products, TargetDate);
-            var barData = viewModel.ChartList;
-            var tableData =new { viewModel.TableRowEntities,viewModel.DateList,viewModel.DailyTotalTurn };
-            //var responseData = new {tableData,viewModel.FormatTargetDate};
-            var responseData = new { barData,tableData,viewModel.FormatTargetDate};
-            return Json(responseData,JsonRequestBehavior.DenyGet);
+            try
+            {
+                var viewModel = new ReqRpt004TableViewModel(Products, TargetDate);
+                var barData = viewModel.ChartList;
+                var tableData = new { viewModel.TableRowEntities, viewModel.DateList, viewModel.DailyTotalTurn };
+                //var responseData = new {tableData,viewModel.FormatTargetDate};
+                var responseData = new { barData, tableData, viewModel.FormatTargetDate };
+                return Json(responseData, JsonRequestBehavior.DenyGet);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
 
         }
     }

@@ -22,7 +22,14 @@
             font: 400;
         }
 </style>
-<table id="table" class="table"  >
+<div class="col-md-2">
+    <input type="button" onClick="exportDataToExcel()" value="导出到Excel"
+           class="btn btn-primary" />
+    <a id="dlink" style="display: none;"></a>
+</div>
+
+<table id="table" class="table">
+    <caption>OEE  EQP UPm UUm Report</caption>
     <thead>
         <tr>
             <th colspan="2" rowspan="2">EQPID</th>
@@ -58,3 +65,110 @@
         }
     </tbody>
 </table>
+<br />
+<br />
+<div>
+    <input type="button" onclick="exportDataToExcel2()" value="导出到Excel" class="btn btn-primary"/>
+</div>
+<table id="rtcTable" class="rtcTable">
+    <caption>Detail EQ Status</caption>
+    <thead>
+        <tr>
+            <th  rowspan="2">EQP_ID</th>
+            @foreach (string item in Model.Dates)
+            {
+                <th colspan="12">@item</th>
+            }
+        </tr>
+        <tr>
+            @foreach (string item in Model.Dates)
+            {
+                <th>PRD(Hrs)</th>
+                <th>SBY(Hrs)</th>
+                <th>ENG(Hrs)</th>
+                <th>SDT(Hrs)</th>
+                <th>UDT(Hrs)</th>
+                <th>NST(Hrs)</th>
+                <th>Total(Hrs)</th>
+                <th>UPm(%)</th>
+                <th>UUm(%)</th>
+                <th>UP(Hrs)</th>
+                <th>PRD Test(Hrs)</th>
+                <th>PM(Hrs)</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.entities)
+        {
+            <tr>
+                <td name="td0">@item.EqpID</td>
+                @foreach (var datas in item.Datas)
+                {
+                    <td>@datas.strPRDHour</td>
+                    <td>@datas.strSBYHour</td>
+                    <td>@datas.strENGHour</td>
+                    <td>@datas.strSDTHour</td>
+                    <td>@datas.strUDTHour</td>
+                    <td>@datas.strNSTHour</td>
+                    <td>@datas.strTotalHour</td>
+                    <td>@datas.strUPm</td>
+                    <td>@datas.strUUm</td>
+                    <td>@datas.strUPHour</td>
+                    <td>@datas.strPRDTestHour</td>
+                    <td>@datas.strPMHour</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    function exportDataToExcel() {
+
+        var sheetName = "sheet1";
+        var fileName = "EQPUPmUUmReport.xls";
+        tableToExcel("table", sheetName, fileName, "dlink");
+    }
+
+    var base64 = function (s) {
+        return window.btoa(unescape(encodeURIComponent(s)));
+    };
+    //替换table数据和worksheet名字
+    var format = function (s, c) {
+        return s.replace(/{(\w+)}/g,
+            function (m, p) {
+                return c[p];
+            });
+    }
+
+    function exportDataToExcel2() {
+        var sheetName = "sheet1";
+        var fileName = "RTCReport.xls";
+        tableToExcel("rtcTable",sheetName,fileName,"dlink");
+    }
+
+    function tableToExcel(tableid, sheetName,fileName,linkId) {
+        var uri = 'data:application/vnd.ms-excel;base64,';
+        var template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"' +
+            'xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>'
+            + '<x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets>'
+            + '</x:ExcelWorkbook></xml><![endif]-->' +
+            ' <style type="text/css">' +
+           'table th td{'+
+                'border-right: 1px solid #F00;'+
+        'border - bottom: 1px solid #F00;'+
+        'font - size: smaller;'+
+        '}'+
+            '</style>' +
+            '</head><body ><table class="excelTable">{table}</table></body></html>';
+        if (!tableid.nodeType) tableid = document.getElementById(tableid);
+        var ctx = { worksheet: sheetName || 'Worksheet', table: tableid.innerHTML };
+        var dlinkInfo = document.getElementById(linkId);
+        dlinkInfo.href = uri + base64(format(template, ctx));
+        dlinkInfo.download = fileName;
+        dlinkInfo.click();
+    }
+
+</script>
+

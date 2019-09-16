@@ -41,8 +41,8 @@ var wipChart = new Vue({
         timer: null,
         updateTime: "",
         sBtnCtx: "Stop",
-        queryProds: [],
-        wipType: "out",
+       // queryProds: [],
+        wipType: "all",
         timeType: "cur",
         barWidth: 8,
         subBarWidth:15,
@@ -60,7 +60,7 @@ var wipChart = new Vue({
             day:'',
             prod: []
         },
-        colors: ['blue', 'pink', 'DarkGreen', 'gray', 'LightSalmon', 'Olive', 'LawnGreen', 'Teal','	Indigo'],
+        colors: ['blue', 'pink', 'DarkGreen', 'LightSalmon', 'Olive', 'LawnGreen', 'Teal','	Indigo','brown'],
         dialogSubChartVisible:false,
         wipSvg:null,
         subSvg:null,
@@ -106,7 +106,7 @@ var wipChart = new Vue({
                     wipChart.ystdChart = data.YstdChart;
                     wipChart.curTable = data.CurTable;
                     wipChart.ystdTable = data.YstdTable;
-                    wipChart.prods = data.Prods;
+                    wipChart.prods = wipChart.curChart.map(m=>m.Product)
                 } else {
                     wipChart.$message.error(data.msg);
                 }
@@ -156,7 +156,7 @@ var wipChart = new Vue({
                 .rangeRound([yHeight, 0])
             max = d3.max(chartData.map(function (d) {
                 //return d.holdLot + d.superHot + d.hot + d.holdSuperLot + eval(d.other.join('+'));
-                return d.holdLot + d.superHot + d.hot + eval(d.other.join('+'));
+                return d.holdLot + d.superHot + d.hot +d.bank + eval(d.other.join('+'));
             }))
             max = Math.ceil(max/10)*10 
             var y1Scale = d3.scaleLinear()
@@ -208,6 +208,8 @@ var wipChart = new Vue({
             tuli_x += 130 + barWidth;
             //this.renderTuli(svgContainer, tuli_x, 0 - marge.top / 2, 'bar', 'black', 'Hold Super Lot');
             //tuli_x += 100 + barWidth;
+            this.renderTuli(svgContainer, tuli_x, 0 - marge.top / 2, 'bar', 'gray', 'In Bank');
+            tuli_x += 100 + barWidth;
             this.renderTuli(svgContainer, tuli_x, 0 - marge.top / 2, 'dashBar', 'red', 'Hold Lot');
             tuli_x += 100 + barWidth;
             this.renderTuli(svgContainer, tuli_x, 0 - marge.top / 2, 'bar', 'gold', 'S.Hot Lot');
@@ -327,6 +329,23 @@ var wipChart = new Vue({
                 })
                 .attr('fill', 'purple')
 
+            //inbank bar
+            gs.append('rect')
+                // .attr('class', 'myRect')
+                .attr('x', function (d, i) {
+                    return xScale(d.stage + '(' + d.ct + ')') + (xScale.step() - barWidth) / 2
+                })
+                .attr('y', function (d) {
+                    //return y1Scale(d.holdLot + d.superHot + d.hot+d.holdSuperLot)
+                    return y1Scale(d.holdLot + d.superHot + d.hot+d.bank)
+                })
+                .attr('width', barWidth)
+                .attr('height', function (d) {
+                    // return y1Scale(d.holdLot + d.superHot+d.holdSuperLot) - y1Scale(d.holdLot + d.superHot + d.hot+d.holdSuperLot)
+                    return y1Scale(d.holdLot + d.superHot+d.hot) - y1Scale(d.holdLot + d.superHot + d.hot+d.bank)
+                })
+                .attr('fill', 'gray')
+
             //other prod bar
             for (let i = 0; i < prod.length; i++) {
                 gs.append('rect')
@@ -337,7 +356,7 @@ var wipChart = new Vue({
 
                     .attr('y', function (d) {
                       //  let res = d.holdLot + d.superHot + d.hot+d.holdSuperLot;
-                        let res = d.holdLot + d.superHot + d.hot;
+                        let res = d.holdLot + d.superHot + d.hot+d.bank;
                         for (let j = 0; j <= i; j++) {
                             res += d.other[i];
                         }
@@ -346,7 +365,7 @@ var wipChart = new Vue({
                     .attr('width', barWidth)
                     .attr('height', function (d) {
                         //let res = d.holdLot + d.superHot + d.hot+d.holdSuperLot;
-                        let res = d.holdLot + d.superHot + d.hot ;
+                        let res = d.holdLot + d.superHot + d.hot +d.bank;
                         for (let j = 1; j <= i; j++) {
                             res += d.other[i - 1];
                         }
@@ -362,7 +381,7 @@ var wipChart = new Vue({
                     return xScale(d.stage + '(' + d.ct + ')') + (xScale.step() - barWidth) / 2
                 })
                 .attr('y', function (d) {
-                    let res = d.holdLot + d.superHot + d.hot;
+                    let res = d.holdLot + d.superHot + d.hot+d.bank;
                     for (let j = 0; j < d.other.length; j++) {
                         res += d.other[j];
                     }
@@ -370,7 +389,7 @@ var wipChart = new Vue({
                 })
                 .attr('width', barWidth)
                 .attr('height', function (d) {
-                    let res = d.holdLot + d.superHot + d.hot;
+                    let res = d.holdLot + d.superHot + d.hot+d.bank;
                     for (let j = 0; j < d.other.length; j++) {
                         res += d.other[j];
                     }
@@ -427,6 +446,7 @@ var wipChart = new Vue({
             // 交互事件
             chartSvg.selectAll('.myRect')
                 .on('dblclick', function (d) {
+                   // console.log(d)
                     wipChart.subRenderPara=d;
                     wipChart.dialogSubChartVisible = true;
                 })
@@ -581,6 +601,9 @@ var wipChart = new Vue({
             let tuli_x = marge.left + barWidth;
            // this.renderTuli(svgContainer, tuli_x, 0 - marge.top / 2, 'bar', 'black', 'Hold Super Lot');
            // tuli_x += 100 + barWidth;
+
+            this.renderTuli(svgContainer, tuli_x, 0 - marge.top / 2, 'bar', 'gray', 'In Bank');
+            tuli_x += 100 + barWidth;
             this.renderTuli(svgContainer, tuli_x, 0 - marge.top / 2, 'dashBar', 'red', 'Hold Lot');
             tuli_x += 100 + barWidth;
             this.renderTuli(svgContainer, tuli_x, 0 - marge.top / 2, 'bar', 'gold', 'S.Hot Lot');
@@ -656,7 +679,22 @@ var wipChart = new Vue({
                     //  return y1Scale(d.holdLot + d.superHot+d.holdSuperLot) - y1Scale(d.holdLot + d.superHot + d.hot+d.holdSuperLot)
                       return y1Scale(d.holdLot + d.superHot ) - y1Scale(d.holdLot + d.superHot + d.hot )
                   })
-                  .attr('fill', 'purple')
+                .attr('fill', 'purple')
+            gs.append('rect')
+                // .attr('class', 'myRect')
+                .attr('x', function (d, i) {
+                    return xScale(d.step + '(' + d.ct + ')') + (xScale.step() - barWidth) / 2
+                })
+                .attr('y', function (d) {
+                    //return y1Scale(d.holdLot + d.superHot + d.hot+d.holdSuperLot)
+                    return y1Scale(d.holdLot + d.superHot + d.hot+d.bank)
+                })
+                .attr('width', barWidth)
+                .attr('height', function (d) {
+                    //  return y1Scale(d.holdLot + d.superHot+d.holdSuperLot) - y1Scale(d.holdLot + d.superHot + d.hot+d.holdSuperLot)
+                    return y1Scale(d.holdLot + d.superHot + d.hot) - y1Scale(d.holdLot + d.superHot + d.hot + d.bank);
+                })
+                .attr('fill', 'gray')
               for (let i = 0; i < prod.length; i++) {
                   gs.append('rect')
                      // .attr('class', 'myRect')
@@ -665,7 +703,7 @@ var wipChart = new Vue({
                       })
                       .attr('y', function (d) {
                           //let res = d.holdLot + d.superHot + d.hot+d.holdSuperLot;
-                          let res = d.holdLot + d.superHot + d.hot ;
+                          let res = d.holdLot + d.superHot + d.hot +d.bank;
                           for (let j = 0; j <= i; j++) {
                               res += d.other[i];
                           }
@@ -674,7 +712,7 @@ var wipChart = new Vue({
                       .attr('width', barWidth)
                       .attr('height', function (d) {
                           //let res = d.holdLot + d.superHot + d.hot+d.holdSuperLot;
-                          let res = d.holdLot + d.superHot + d.hot;
+                          let res = d.holdLot + d.superHot + d.hot+d.bank;
                           for (let j = 1; j <= i; j++) {
                               res += d.other[i - 1];
                           }
@@ -690,7 +728,7 @@ var wipChart = new Vue({
                     return xScale(d.step + '(' + d.ct + ')') + (xScale.step() - barWidth) / 2
                 })
                 .attr('y', function (d) {
-                    let res = d.holdLot + d.superHot + d.hot;
+                    let res = d.holdLot + d.superHot + d.hot+d.bank;
                     for (let j = 0; j < d.other.length; j++) {
                         res += d.other[j];
                     }
@@ -698,7 +736,7 @@ var wipChart = new Vue({
                 })
                 .attr('width', barWidth)
                 .attr('height', function (d) {
-                    let res = d.holdLot + d.superHot + d.hot;
+                    let res = d.holdLot + d.superHot + d.hot+d.bank;
                     for (let j = 0; j < d.other.length; j++) {
                         res += d.other[j];
                     }
@@ -738,46 +776,61 @@ var wipChart = new Vue({
             let stage=entity.stage;
             let ct=entity.ct;
             let data=[];
-            let ChartData={prodList:[],ChartEntities:[]};
+            let ChartData = { prodList: [], ChartEntities: [] };
             this.queryResault.chart.forEach(element => {
                 let arry= element.ChartEntities.filter(f=>f.Stage==stage);
                 if(arry.length>0){
                     let obj={product:element.Product,ChartEntities:[]}
-                    arry.forEach(f => {                       
+                    arry.forEach(f => {
+                        let outBank = f.LotEntities.filter(fi => fi.InBank === false);
                         obj.ChartEntities.push({
                             OpeNo:f.OpeNo,
                             Ct:f.RemainCT,
                             Step:f.Step,
                             Wip:f.Wip,
-                            LotEntities:f.LotEntities,
+                            LotEntities: f.LotEntities,
+                            Bank: f.LotEntities.filter(fi => fi.InBank === true).length,
                             //HoldLot:f.LotEntities.filter(fi=>fi.HoldState=='ONHOLD'&&fi.Priority>1).length,
-                            HoldLot: f.LotEntities.filter(fi => fi.HoldState == 'ONHOLD').length,
-                            SuperHot:f.LotEntities.filter(fi=>fi.Priority==1&&fi.HoldState!='ONHOLD').length,
-                            Hot: f.LotEntities.filter(fi => fi.Priority == 2 && fi.HoldState != 'ONHOLD').length,
+                            HoldLot: outBank.filter(fi => fi.HoldState == 'ONHOLD').length,
+                            SuperHot:outBank.filter(fi=>fi.Priority==1&&fi.HoldState!='ONHOLD').length,
+                            Hot: outBank.filter(fi => fi.Priority == 2 && fi.HoldState != 'ONHOLD').length,
                            // HoldSuperLot: f.LotEntities.filter(fi => fi.HoldState == 'ONHOLD'&&fi.Priority===1).length
                         });
                     });
                      //obj.ChartEntities.map(m=>{m.Other=m.LotEntities.length-m.HoldLot-m.SuperHot-m.Hot-m.HoldSuperLot});
-                    obj.ChartEntities.map(m => { m.Other = m.LotEntities.length - m.HoldLot - m.SuperHot - m.Hot  });
+                    obj.ChartEntities.map(m => { m.Other = m.LotEntities.length - m.HoldLot - m.SuperHot - m.Hot-m.Bank  });
                     data.push(obj);
                 }
             });
-            ChartData.prodList = data.map(m => m.product);
             if (data.length === 0) return ChartData;
-            //console.log(data);
-          data[0].ChartEntities.forEach(element => {
+            ChartData.prodList = data.map(m => m.product);
+            //let allSteps = data.reduce((pre, cur) => { let res = pre.concat(cur.ChartEntities.map(m => { return { Ct: m.Ct, Step: m.Step, LotEntities: m.LotEntities } })); console.log(res); return res; })
+            let allSteps = []
+           // console.log(data)
+            data.forEach(Element => {
+                allSteps = allSteps.concat(Element.ChartEntities.map(m => { return { Ct: m.Ct, Step: m.Step, LotEntities: m.LotEntities } }));
+            })
+            //console.log(allSteps)
+            allSteps.sort((a, b) => { if (a.Ct > b.Ct) return -1; if (a.Ct === b.Ct) return 0; return 1; })
+          allSteps.forEach(element => {
             let arry=[];
-            data.forEach(f=>{
-               arry.push(f.ChartEntities.filter(fi=>fi.OpeNo===element.OpeNo)[0]) 
+              data.forEach(f => {
+                  let opes = f.ChartEntities.filter(fi => fi.Step === element.Step&&fi.Ct===element.Ct);
+                  if (opes.length > 0) {
+                      arry.push(opes[0])
+                  } else {
+                      arry.push({ Wip: 0, HoldLot: 0, SuperHot: 0, Hot: 0, Bank:0,Other: 0, LotEntities: [] });
+                  }
               });
             let model={
-                opeNo:element.OpeNo,
+               // opeNo:element.OpeNo,
                 ct:element.Ct,
                 step:element.Step,
-                wip:eval(arry.map(m=>m.Wip).join('+')),
-                holdLot:eval(arry.map(m=>m.HoldLot).join('+')),
-                superHot:eval(arry.map(m=>m.SuperHot).join('+')),
-                hot: eval(arry.map(m => m.Hot).join('+')),
+                wip:arry.length>0? eval(arry.map(m=>m.Wip).join('+')):0,
+                holdLot: arry.length > 0 ?eval(arry.map(m=>m.HoldLot).join('+')):0,
+                superHot: arry.length > 0 ?eval(arry.map(m=>m.SuperHot).join('+')):0,
+                hot: arry.length > 0 ? eval(arry.map(m => m.Hot).join('+')) : 0,
+                bank: arry.length > 0 ? eval(arry.map(m => m.Bank).join('+')) : 0,
                // holdSuperLot: eval(arry.map(m => m.HoldSuperLot).join('+')),
                 other:[],
                 lotEntities:[]
@@ -789,7 +842,7 @@ var wipChart = new Vue({
                 });
             }
             ChartData.ChartEntities.push(model);
-          });
+            });
           return ChartData;
         },
         show(){
@@ -797,7 +850,7 @@ var wipChart = new Vue({
             this.renderSubChart(this.subRenderPara);
             this.lotInfoEntities = [];
         },
-        handleSubChartBarDbl(data){
+        handleSubChartBarDbl(data) {
             let url = 'GetLotDetail';
             this.subLoading = true;
             PostAjaxGetJson(data,url,function(response){
@@ -849,15 +902,20 @@ var wipChart = new Vue({
     },
     computed: {
         avaGroups: function () {
-            let arry = this.prods.map(m => m.substr(5, 2));
+            let hasOther = this.prods.find(f=>f=='Others');
+            let arry=this.prods.filter(f=>f!=="Others").map(m => m.substr(5, 2));
             arry.distinct();
+            if (hasOther) arry.push('Others');
             return arry;
         },
         avaProds: function () {
             let list = [];
             if (this.selGroups.length > 0) {
                 for (let i = 0; i < this.selGroups.length; i++) {
-                    this.prods.map(m => { if (m.substr(5, 2) === this.selGroups[i]) list.push(m); });
+                    this.prods.map(m => {
+                        if (this.selGroups[i] === 'Others' && m === 'Others') list.push(m);
+                        else if (m.substr(5, 2) === this.selGroups[i]) list.push(m);
+                    });
                 }
             } else {
                 list = this.prods;
@@ -899,29 +957,33 @@ var wipChart = new Vue({
                     let entity = chart[i].ChartEntities[j];
                     if (data.length > 0 && data[data.length - 1].stage == entity.Stage) {
                         let d = data[data.length - 1];
-                        d.stageMove = entity.LotEntities.length;
-                        d.holdLot += entity.LotEntities.filter(f => f.HoldState == 'ONHOLD').length;
+                        d.stageMove += entity.LotEntities.length;
+                        d.bank += entity.LotEntities.filter(f => f.InBank === true).length;
+                        let outBank = entity.LotEntities.filter(f => f.InBank === false);
+                        d.holdLot += outBank.filter(f => f.HoldState == 'ONHOLD').length;
                         //d.holdLot += entity.LotEntities.filter(f => f.HoldState == 'ONHOLD' && f.Priority > 1).length;
                        // d.holdSuperLot += entity.LotEntities.filter(f => f.HoldState == 'ONHOLD' && f.Priority == 1).length;
-                        d.superHot += entity.LotEntities.filter(f => f.Priority == 1 && f.HoldState != 'ONHOLD').length;
-                        d.hot += entity.LotEntities.filter(f => f.Priority == 2 && f.HoldState != 'ONHOLD').length;
-                        d.other[i] += entity.LotEntities.filter(f => f.Priority != 1 && f.Priority != 2 && f.HoldState != 'ONHOLD').length;
+                        d.superHot += outBank.filter(f => f.Priority == 1 && f.HoldState != 'ONHOLD').length;
+                        d.hot += outBank.filter(f => f.Priority == 2 && f.HoldState != 'ONHOLD').length;
+                        d.other[i] += outBank.filter(f => f.Priority != 1 && f.Priority != 2 && f.HoldState != 'ONHOLD').length;
                         d.accWip+=entity.Wip;
                     } else {
+                        let outBank = entity.LotEntities.filter(f => f.InBank === false);
                         let d = {
                             stage: entity.Stage,
                             ct: entity.RemainCT,
                             stageMove: entity.LotEntities.length,
-                            holdLot: entity.LotEntities.filter(f => f.HoldState == 'ONHOLD').length,
+                            bank: entity.LotEntities.filter(f => f.InBank === true).length,
+                            holdLot: outBank.filter(f => f.HoldState == 'ONHOLD').length,
                             //holdLot : entity.LotEntities.filter(f => f.HoldState == 'ONHOLD' && f.Priority > 1).length,
                             //holdSuperLot : entity.LotEntities.filter(f => f.HoldState == 'ONHOLD' && f.Priority == 1).length,
-                            superHot: entity.LotEntities.filter(f => f.Priority == 1 && f.HoldState != 'ONHOLD').length,
-                            hot: entity.LotEntities.filter(f => f.Priority == 2 && f.HoldState != 'ONHOLD').length,
+                            superHot: outBank.filter(f => f.Priority == 1 && f.HoldState != 'ONHOLD').length,
+                            hot: outBank.filter(f => f.Priority == 2 && f.HoldState != 'ONHOLD').length,
                             other: new Array(chart.length).fill(0),
                             accWip: entity.Wip
                         };
                         //d.other[i] = entity.LotEntities.length - d.holdLot - d.hot - d.superHot-d.holdSuperLot;
-                        d.other[i] = entity.LotEntities.length - d.holdLot - d.hot - d.superHot;
+                        d.other[i] = outBank.length - d.holdLot - d.hot - d.superHot;
                         data.push(d);
                     }
 

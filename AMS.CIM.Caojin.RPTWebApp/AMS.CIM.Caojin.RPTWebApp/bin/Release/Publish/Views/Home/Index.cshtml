@@ -1,6 +1,11 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_LayoutRptBootStrap.cshtml";
 }
+
+<link rel="stylesheet" type="text/css" href="~/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="~/themes/icon.css">
+<script type="text/javascript" src="~/Scripts/jquery.easyui.min.js"></script>
 
 <div class="jumbotron">
     <h1>ASP.NET</h1>
@@ -28,4 +33,33 @@
         <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
+</div>
+
+
+<table id="tt1" class="easyui-datagrid" style="width:700px" data-options="
+                singleSelect:true,
+				url: '../Media/datagrid_data.json',
+				method: 'get',
+                 toolbar:'#tb'
+			">
+    <thead>
+    <tr>
+        <th data-options="field:'Claim_User_ID',width:100">Lot ID</th>
+        <th data-options="field:'Cast_ID',width:100">Foup</th>
+        <th data-options="field:'Status',width:100">Status</th>
+        <th data-options="field:'Location',width:100">Location</th>
+        <th data-options="field:'Eqp_ID',width:100">Ope Category</th>
+        <th data-options="field:'Cur_Wafer_Qty',width:100">Ope Categor</th>
+    </tr>
+        </thead>
+</table>
+<div id="tb" style="padding:5px;height:auto">
+    <div style="margin-bottom:5px">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true"></a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true"></a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true"></a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true"></a>
+    </div>
+
 </div>

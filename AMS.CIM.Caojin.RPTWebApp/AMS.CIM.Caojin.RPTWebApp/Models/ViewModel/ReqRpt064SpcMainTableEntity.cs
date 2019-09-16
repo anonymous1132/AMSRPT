@@ -45,6 +45,8 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         public string Cpk { get; set; }
 
+        public string OOSRate { get; set; }
+
         public  void SetChartType(int type)
         {
             Ctype = type;

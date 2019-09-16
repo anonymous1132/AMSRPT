@@ -19,7 +19,7 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
         DB2OperDataCatcher<FRLot_WipChart> LotCatcher { get; set; }
         DB2OperDataPusher<FRLot_WipChart> WipChartPusher { get; set; }
         readonly string DelOldRecords = "delete from ISTRPT.RPT_WIPCHART_YSTD";
-        string Condition { get { return "where lot_type='Production' and lot_state='ACTIVE'"; } }
+        string Condition { get { return "where (lot_type='Production' or priority_class in (1,2) ) and lot_state='ACTIVE'"; } }
         private void Initialize()
         {
             LotCatcher.DB2.GetSomeData(DelOldRecords);

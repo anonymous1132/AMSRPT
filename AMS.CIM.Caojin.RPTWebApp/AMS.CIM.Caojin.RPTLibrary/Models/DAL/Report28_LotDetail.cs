@@ -42,6 +42,8 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
 
         public string Claim_Time { get; set; }
 
+        public string Eqp_Type { get; set; }
+
         public int Priority_Class { get; set; }
     }
 }

@@ -1,10 +1,10 @@
 ﻿#query-pannel {
-width:100%;
+    width: 100%;
 }
 
     #query-pannel .btn-primary {
         width: 120px;
-        margin-top:20px;
+        margin-top: 20px;
     }
 
 .bootstrap-duallistbox-container label {
@@ -13,7 +13,7 @@ width:100%;
     font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.bootstrap-duallistbox-container .col-md-6{
+.bootstrap-duallistbox-container .col-md-6 {
     padding-left: 5px;
     padding-right: 5px;
 }
@@ -39,58 +39,77 @@ width:100%;
 }
 
 .el-table {
-    font-size:13px;
+    font-size: 13px;
+    color: black;
 }
+
+    .el-table thead {
+        color: black;
+    }
 
 .show-later {
     display: none;
 }
 
 .inline {
-    display:inline-block;
+    display: inline-block;
 }
 
 .block {
     display: block;
 }
-.block table{
-    margin-top:10px; 
-}
+
+    .block table {
+        margin-top: 10px;
+    }
 
 #fot-info {
-    float:right;
+    float: right;
 }
 
     #fot-info p {
-    font-weight:200;
+        font-weight: 200;
     }
 
 #myModal .modal-dialog {
-        min-width: 80%;
-        min-height: 600px;
-    }
+    min-width: 80%;
+    min-height: 600px;
+}
 
 #myModal .note-toolbar {
-        display: none;
+    display: none;
+}
+
+.el-table-add-row {
+    margin-top: 10px;
+    width: 100%;
+    height: 34px;
+    border: 1px dashed #c1c1cd;
+    border-radius: 3px;
+    cursor: pointer;
+    justify-content: center;
+    display: flex;
+    line-height: 34px;
+}
+
+#myModal select {
+    height: 40px;
+}
+
+.warning {
+    font-weight: bolder;
+    color: red;
+}
+
+.table-png {
+    white-space: nowrap;
+    overflow: auto;
+    text-align:center;
+}
+    .table-png th {
+        min-width: 100px;
+        text-align: center;
     }
 
-    .el-table-add-row {
-        margin-top: 10px;
-        width: 100%;
-        height: 34px;
-        border: 1px dashed #c1c1cd;
-        border-radius: 3px;
-        cursor: pointer;
-        justify-content: center;
-        display: flex;
-        line-height: 34px;
-        }
 
-        #myModal select{
-            height: 40px;
-        }
 
-        .warning{
-            font-weight: bolder;
-            color:red;
-        }

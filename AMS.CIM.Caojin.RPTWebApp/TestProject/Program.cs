@@ -15,41 +15,24 @@ namespace TestProject
     {
         static void Main(string[] args)
         {
-            Test25.Test();
-            //  TestCT.RunCT();
-            Console.WriteLine("OK");
+            //try
+            //{
+            //    LogUtils.InfoLog("Start To Run WipChartYSTD");
+            //    RunWipChartYstd.Run();
+            //    LogUtils.InfoLog("Success");
+            //}
+            //catch (Exception ex)
+            //{
+            //    LogUtils.ErrorLog(ex.Message);
+            //}
+            //Thread.Sleep(100);
+
+            TestUUm.Test();
+
             Console.ReadLine();
-        }
-
-        static TestMultiTask test = new TestMultiTask();
-
-
-        static void GetPutIn()
-        {
-            var text = Console.ReadLine();
-            if (text == "")
-            {
-                test.Active = false;
-                Console.WriteLine("stoped");
-            }
-            else {
-                GetPutIn();
-            }
 
         }
 
-
-        static void WriteSeqValue()
-        {
-            string exePath = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
-            string fullPath = Path.GetDirectoryName(exePath);
-            string path = Path.Combine(fullPath, "App", "task1", ".seq.json");
-            Console.WriteLine(path);
-        }
     }
 
-    class TestJson
-    {
-        public DateTime dt { get; set; }
-     }
 }

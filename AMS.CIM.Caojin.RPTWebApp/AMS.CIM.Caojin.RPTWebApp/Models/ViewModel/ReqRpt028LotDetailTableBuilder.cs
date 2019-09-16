@@ -16,7 +16,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
             DataHandle();
 
-            GetPreLay();
+           // GetPreLay();
         }
 
         ReqRpt028LotDetailQueryPostModel PostModel { get; set; }
@@ -38,16 +38,16 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         void GetDB()
         {
-            string x = PostModel.OpeNo;
-            LotCatcher = new DB2OperDataCatcher<Report28_LotDetail>("ISTRPT.Report28_LotDetail", DB2) { Conditions =string.Format( "where lot_id in ('{0}') and Ope_No='{1}'",string.Join("','",PostModel.LotList),PostModel.OpeNo) };
+           // string x = PostModel.OpeNo;
+            LotCatcher = new DB2OperDataCatcher<Report28_LotDetail>("ISTRPT.Report28_LotDetailV2", DB2) { Conditions =string.Format( "where lot_id in ('{0}') ",string.Join("','",PostModel.LotList)) };
             LotInfoList = LotCatcher.GetEntities().EntityList;
-            var lotList_1 = LotInfoList.Select(s => s.Lot_ID).Distinct();
-            if (PostModel.LotList.Count() > lotList_1.Count())
-            {
-                var splitLots = PostModel.LotList.Except(lotList_1);
-                SplitCaseCatcher = new DB2OperDataCatcher<Report28_LotDetail>("ISTRPT.Report28_SplitLotDetail", DB2) { Conditions = string.Format("where lot_id in ('{0}') and ope_no='{1}'", string.Join("','", splitLots),PostModel.OpeNo) };
-                SplitInfoList = SplitCaseCatcher.GetEntities().EntityList;
-            }
+            //var lotList_1 = LotInfoList.Select(s => s.Lot_ID).Distinct();
+            //if (PostModel.LotList.Count() > lotList_1.Count())
+            //{
+            //    var splitLots = PostModel.LotList.Except(lotList_1);
+            //    SplitCaseCatcher = new DB2OperDataCatcher<Report28_LotDetail>("ISTRPT.Report28_SplitLotDetail", DB2) { Conditions = string.Format("where lot_id in ('{0}') and ope_no='{1}'", string.Join("','", splitLots),PostModel.OpeNo) };
+            //    SplitInfoList = SplitCaseCatcher.GetEntities().EntityList;
+            //}
         }
 
         void DataHandle()
@@ -56,16 +56,17 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
             {
                 Report28_LotDetail detail = new Report28_LotDetail();
                 var list = LotInfoList.Where(w => w.Lot_ID == lot);
-                if (!list.Any())
-                {
-                    list = SplitInfoList.Where(w => w.Lot_ID == lot && w.Ope_No == PostModel.OpeNo);
-                    if (!list.Any()) continue;
-                }
+                //if (!list.Any())
+                //{
+                //    list = SplitInfoList.Where(w => w.Lot_ID == lot && w.Ope_No == PostModel.OpeNo);
+                //    if (!list.Any()) continue;
+                //}
+                if (!list.Any()) continue;
                 detail = list.Last();
                 var entity = new ReqRpt028LotInfoEntity
                 {
                     LotID = lot,
-                    OpeNo =  PostModel.OpeNo,
+                    OpeNo =  detail.Ope_No,
                     ChgUserID = detail.Claim_User_ID,
                     ChgUserName = detail.User_Name,
                     OpeName = detail.PD_Name,
@@ -82,26 +83,28 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                     LotHoldStatus=detail.Lot_Hold_State,
                     Priority=detail.Priority_Class,
                     ProductID=detail.ProdSpec_ID,
-                    Qty=detail.Cur_Wafer_Qty
+                    Qty=detail.Cur_Wafer_Qty,
+                    EqpType=detail.Eqp_Type
                 };
                 LotInfoEntities.Add(entity);
             }
         }
 
-        void GetPreLay()
-        {
-            string sql = string.Format("select eqp_type  from mmview.rpt_flow_sum where prodspec_id='{0}' and ope_no='{1}'", Products.First(), PostModel.OpeNo);
-            DB2.GetSomeData(sql);
-           // Stage = DB2.dt.DefaultView[0][0].ToString();
-            string EqpType = DB2.dt.DefaultView[0][0].ToString();
-            DB2OperDataCatcher<FHOPEHS_LotEqp> eqpCatcher = new DB2OperDataCatcher<FHOPEHS_LotEqp>("MMVIEW.FHOPEHS", DB2) { Conditions = string.Format("where  lot_id in ('{0}') and ope_category = 'OperationStart' and ope_no < '{1}' ", string.Join("','", PostModel.LotList), PostModel.OpeNo) };
-            var eqpList = eqpCatcher.GetEntities().EntityList;
-            foreach (var lot in LotInfoEntities)
-            {
-                lot.EqpType = EqpType;
-                var list = eqpList.Where(w => w.Lot_ID == lot.LotID);
-                lot.PreLayer = list.Any() ? list.Last().Eqp_ID : "";
-            }
-        }
+        //void GetPreLay()
+        //{
+        //    if (!LotInfoEntities.Any()) return;
+        //    string sql = string.Format("select eqp_type  from mmview.rpt_flow_sum where prodspec_id='{0}' and ope_no='{1}'", Products.First(),LotInfoEntities.Select(s=>s.s) );
+        //    DB2.GetSomeData(sql);
+        //    // Stage = DB2.dt.DefaultView[0][0].ToString();
+        //    string EqpType = DB2.dt.DefaultView[0][0].ToString();
+        //    DB2OperDataCatcher<FHOPEHS_LotEqp> eqpCatcher = new DB2OperDataCatcher<FHOPEHS_LotEqp>("MMVIEW.FHOPEHS", DB2) { Conditions = string.Format("where  lot_id in ('{0}') and ope_category = 'OperationStart' and ope_no < '{1}' ", string.Join("','", PostModel.LotList), PostModel.OpeNo) };
+        //    var eqpList = eqpCatcher.GetEntities().EntityList;
+        //    foreach (var lot in LotInfoEntities)
+        //    {
+        //        lot.EqpType = EqpType;
+        //          var list = eqpList.Where(w => w.Lot_ID == lot.LotID);
+        //        lot.PreLayer = list.Any() ? list.Last().Eqp_ID : "";
+        //    }
+        //}
     }
 }

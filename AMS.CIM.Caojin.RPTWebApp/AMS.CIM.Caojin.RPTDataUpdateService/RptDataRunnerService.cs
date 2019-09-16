@@ -51,7 +51,13 @@ namespace AMS.CIM.Caojin.RPTDataUpdateService
                 System.Timers.Timer tt = (System.Timers.Timer)source;
                 //可防止重复执行程序
                 tt.Enabled = false;
-                EQP_UPm_018Runner.Run();
+
+                //EQP_UPm_018Runner不可在8:00至8:10之间执行,以确保隔日数据全部更新
+                if (DateTime.Now.Hour != 8 || DateTime.Now.Minute > 10)
+                {
+                    EQP_UPm_018Runner.Run();
+                }
+                
                 Lin_RealTime_025Runner.Run();
                 if(DateTime.Now.Hour==0&&DateTime.Now.Minute<20)
                 {

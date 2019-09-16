@@ -17,16 +17,16 @@ namespace AMS.CIM.Caojin.RPTWebApp.Controllers
 
         public JsonResult GetMainTable(string startDate, string endDate)
         {
-            try
-            {
+           // try
+            //{
                 var builder = new ReqRpt064SpcMainTableDataBuilder(startDate, endDate);
                 var response = new { success = true, tableEntities = builder.TableEntities };
                 return Json(response);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, msg = ex.Message });
-            }
+           // }
+            //catch (Exception ex)
+           // {
+             //   return Json(new { success = false, msg = ex.Message });
+            //}
         }
 
         public JsonResult GetDetail(string gno, string cno, string ctype, string startDate, string endDate)

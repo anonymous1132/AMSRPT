@@ -30,6 +30,8 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
 
         public string Lot_Inv_State { get; set; }
 
+        public string Lot_Type { get; set; }//wipchart v2
+
         public string Source { get; set; }
     }
 }
