@@ -1,6 +1,0 @@
-{
-    "Provider": "IBMDADB2",
-    "DataSource": "AMRPTDB",
-    "UID": "rptprod",
-    "PWD": "rptprod"
-}
