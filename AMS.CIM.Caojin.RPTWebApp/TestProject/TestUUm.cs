@@ -15,7 +15,7 @@ namespace TestProject
             model.TestGetData();
             Console.WriteLine("Date:{0};EQP:{1};TotalMins:{2}", model.Entity.Date,model.Entity.EqpID,model.Entity.PRDMin+model.Entity.SBYMin+model.Entity.SDTMin+model.Entity.UDTMin+model.Entity.NSTMin+model.Entity.ENGMin);
 
-            Console.WriteLine("{0}-{1}-{2}-{3}", model.Entity.PRDMin, model.Entity.SBYMin, model.Entity.ENGMin, model.Entity.SDTMin);
+            Console.WriteLine("{0}-{1}-{2}-{3}", model.Entity.PRDMin/60.0, model.Entity.SBYMin/60.0, model.Entity.ENGMin, model.Entity.SDTMin);
         }
     }
 }

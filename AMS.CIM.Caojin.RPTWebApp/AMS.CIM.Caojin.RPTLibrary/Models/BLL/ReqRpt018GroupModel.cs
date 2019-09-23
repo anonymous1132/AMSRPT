@@ -14,7 +14,7 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
         { get; set; }
 
         private DateTime lastRecordTime = DateTime.MinValue;
-
+        private DateTime Now = DateTime.Now;
         private bool IsFirstRun
         {
             get;
@@ -73,8 +73,8 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
 
         private void GetStatusList()
         {
-            lastRecordTime = ShareDataEntity.GetSingleEntity().db.EQP_UPm_018.Any() ? ShareDataEntity.GetSingleEntity().db.EQP_UPm_018.Max(m => m.Date) : lastRecordTime;
             IsFirstRun = ShareDataEntity.GetSingleEntity().db.EQP_UPm_018.Any() ? false : true;
+            lastRecordTime = ShareDataEntity.GetSingleEntity().db.EQP_UPm_018.Any() ? ShareDataEntity.GetSingleEntity().db.EQP_UPm_018.Max(m => m.Date) : lastRecordTime;
             ShareDataEntity.GetSingleEntity().FHESCHSCatcher.Conditions = "where End_Time > '" + lastRecordTime.ToString("yyyy-MM-dd-HH.mm.ss.ffffff")+"'";
             ShareDataEntity.GetSingleEntity().FHOPEHSCatcher.Conditions = "where ope_category='OperationComplete' and Claim_Time >'" + lastRecordTime.ToString("yyyy-MM-dd-HH.mm.ss.ffffff") + "'";
             var HistoryEqpList = ShareDataEntity.GetSingleEntity().FHESCHSCatcher.GetEntities().EntityList;
@@ -98,7 +98,7 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
                 E10_State = p.E10_State,
                 Eqp_State = p.Cur_State_ID,
                 Start_Time = p.State_History_Time,
-                End_Time = DateTime.Now,
+                End_Time = Now,
                 Owner_ID = p.Owner_ID
             });
 
@@ -118,7 +118,7 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
                 firstTime = firstTime.Date + SplitTimeOfDay;
             }
 
-            DateTime lastTime = DateTime.Now;
+            DateTime lastTime = Now;
             if (lastTime.TimeOfDay < SplitTimeOfDay)
             {
                 lastTime = lastTime.Date + SplitTimeOfDay;

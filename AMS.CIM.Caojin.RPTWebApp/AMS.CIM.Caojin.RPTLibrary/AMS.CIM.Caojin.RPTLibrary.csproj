@@ -85,6 +85,7 @@
     <Compile Include="Models\BLL\RPTCycleTimeTranslator.cs" />
     <Compile Include="Models\BLL\RPTFlowSumTranslator.cs" />
     <Compile Include="Models\BLL\RptTrackInUpdaterForSplitLot.cs" />
+    <Compile Include="Models\Daixinya\EDAPhototDetailModel.cs" />
     <Compile Include="Models\DAL\BrprivilegeClickCount.cs" />
     <Compile Include="Models\DAL\EDAFuranceOPHSModel.cs" />
     <Compile Include="Models\DAL\EDA_Compare_Process_ToolModel.cs" />

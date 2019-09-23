@@ -4,7 +4,10 @@
   </div>
 </template>
 
-<script>
+<script>   
+
+
+
 import * as d3 from 'd3'
 export default {
   name: 'lineChart',

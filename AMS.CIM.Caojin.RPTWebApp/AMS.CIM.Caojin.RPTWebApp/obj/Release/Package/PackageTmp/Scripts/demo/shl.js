@@ -822,7 +822,7 @@ function query(){
 }
 
 function queryClick(){
-    tableView0.Conditions=checkselect("bootstrap-duallistbox-selected-list_");
+    tableView0.Conditions = checkselect("bootstrap-duallistbox-selected-list_");
 }
 
 function showDialog(){

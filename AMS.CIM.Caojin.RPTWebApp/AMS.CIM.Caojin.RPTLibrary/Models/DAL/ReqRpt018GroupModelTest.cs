@@ -15,10 +15,8 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
         {
             GetStatusList();
             GetModelList();
-            foreach (var model in ReqRpt018Models)
-            {
-                if (model.EqpID == "MT-TPD-01")
-                {
+            var testModel = ReqRpt018Models.Where(w => w.EqpID == "TC-PLS-01");
+            var model = testModel.First();
                     Entity = new EQP_UPm_018Entity()
                     {
                         EqpID = model.EqpID,
@@ -33,15 +31,12 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
                         PRDTestMin = model.PRDTestTimeSpan,
                         PMMin = model.PMTimeSpan
                     };
-
-                }
-            }
         }
 
         private TimeSpan SplitTimeOfDay
         { get { return TimeSpan.Parse("8:00:00"); } }
 
-        private DateTime lastRecordTime = DateTime.Parse("2019-8-12 08:00:00");
+        private DateTime lastRecordTime = DateTime.Parse("2019-9-9 08:00:00");
 
         private bool IsFirstRun = false;
 

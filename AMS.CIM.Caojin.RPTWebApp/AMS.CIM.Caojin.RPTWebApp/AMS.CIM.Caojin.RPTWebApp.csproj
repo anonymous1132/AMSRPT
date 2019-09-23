@@ -192,10 +192,13 @@
     <Compile Include="Controllers\ReqRpt211Controller.cs" />
     <Compile Include="Controllers\ReqRpt212Controller.cs" />
     <Compile Include="Controllers\ReqRpt213Controller.cs" />
+    <Compile Include="Controllers\ReqRpt214Controller.cs" />
     <Compile Include="Controllers\RptController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Daixinya\ReqRpt214DataBuilder.cs" />
+    <Compile Include="Models\Daixinya\ReqRpt214TableRowEntity.cs" />
     <Compile Include="Models\DB2OperateBase.cs" />
     <Compile Include="Models\ExcelApp.cs" />
     <Compile Include="Models\ViewModel\ReqRpt213DataBuilder.cs" />
@@ -975,8 +978,8 @@
     <Content Include="static\eda-lotcompare\app.d0a07865655d13792995.js" />
     <Content Include="static\eda-lotcompare\manifest.2ae2e69a05c33dfc65f8.js" />
     <Content Include="static\eda-lotcompare\vendor.3a884a357e34e8a5d3b4.js" />
-    <Content Include="static\eda-photo\app.a2cedb24fc789e6edac1248ac08ae7f0.css" />
-    <Content Include="static\eda-photo\app.f8f1d5f1ddfbafc546e2.js" />
+    <Content Include="static\eda-photo\app.3ebc99a1cfe3d0abf0f1.js" />
+    <Content Include="static\eda-photo\app.cc0b5c876cc113538bee6bb5d9ea079c.css" />
     <Content Include="static\eda-split\app.5389b2edf0790fbb21ea6e768d591877.css" />
     <Content Include="static\eda-split\app.9089e7fbaef80231f44e.js" />
     <Content Include="static\eda-split\manifest.2ae2e69a05c33dfc65f8.js" />
@@ -996,6 +999,7 @@
     <Content Include="static\js\jquery-3.1.1.min.js" />
     <Content Include="static\js\manifest.2ae2e69a05c33dfc65f8.js" />
     <Content Include="static\js\summernote.min.js" />
+    <Content Include="static\js\user.js" />
     <Content Include="static\js\vendor.2e9e602c826a35d7875c.js" />
     <Content Include="static\js\vendor.3a884a357e34e8a5d3b4.js" />
     <Content Include="static\js\vendor.69ea919bfbecf6e09518.js" />
