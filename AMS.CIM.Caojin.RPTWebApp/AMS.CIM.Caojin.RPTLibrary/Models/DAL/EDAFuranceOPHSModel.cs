@@ -30,16 +30,21 @@ namespace AMS.CIM.Caojin.RPTLibrary.Models
 
         public string PH_Recipe_ID { get; set; }
 
-        public string Pos
-        {
-            get
-            {
-                if (PH_Recipe_ID == "CHPLY_500A") return "Bottom";
-                if (PH_Recipe_ID == "CHPLY_800A") return "Center";
-                if (PH_Recipe_ID == "CHPLY_3000A") return "Top";
-                else return "Undefined";
-            }
-        }
+        //public string Pos
+        //{
+        //    get
+        //    {
+        //        if (PH_Recipe_ID == "CHPLY_500A") return "Bottom";
+        //        if (PH_Recipe_ID == "CHPLY_800A") return "Center";
+        //        if (PH_Recipe_ID == "CHPLY_3000A") return "Top";
+        //        else return "Undefined";
+        //    }
+        //}
+        public string Wafer_ID { get; set; } = "";
+
+        public string Wafer_Position { get; set; }
+
+      //  public string Pos_List { get; set; }
 
         public string Claim_User_ID { get; set; }
 

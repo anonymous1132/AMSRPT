@@ -33,7 +33,11 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
 
         public string RecipeID { get; set; }
 
-        public string Position { get; set; }
+        //public string Position { get; set; }
+
+        public string Wafer_ID { get; set; }
+
+        public List<string> WaferValue { get; set; } = new List<string>();
 
         public string OpeStartTime { get; set; }
 

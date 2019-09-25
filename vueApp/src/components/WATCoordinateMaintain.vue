@@ -72,7 +72,6 @@
 </el-row>
 </div>
 
-
 <div>
 <!-- <div v-if="queryvisable"> -->
     <el-table id="queryData" 
@@ -102,22 +101,26 @@
       <el-table-column width="200" label="Time"
       prop="CREATETIME">
       </el-table-column>
-      <el-table-column width="200" label="X">
+      <el-table-column width="100" label="X">
       <template slot-scope="scope">
         <el-input  placeholder="请输入X坐标" v-model="scope.row.COORDINATEX"></el-input>
       </template>
       </el-table-column>
-      <el-table-column width="200" label="Y">
+      <el-table-column width="100" label="Y">
       <template slot-scope="scope">
         <el-input  placeholder="请输入y坐标" v-model="scope.row.COORDINATEY"></el-input>         
       </template>
       </el-table-column>
       <el-table-column label="操作">
-      <template slot-scope="scope">
+      <template slot-scope="scope" v-if="scope.$index+1==queryData.length">
         <el-button
           size="mini"
           type="danger"
           @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          <el-button
+          size="mini"
+          type="success"
+          @click="handleAdd(scope.$index, scope.row)">添加</el-button>
       </template>
     </el-table-column>
     </el-table>
@@ -162,6 +165,35 @@
       },
       createtable:function(){
           let _this=this;
+
+        let url = this.URL_PREFIX + "/ReqRpt216/checkrecipeisexist";
+        var checkvalue=0;
+        $.ajax({
+                    url: url,
+                    type: "post",
+                    contentType: "application/x-www-form-urlencoded; ", //默认，表单提交格式
+                    dataType: "json",
+                    data: {RecipeName:_this.rname} ,
+                    success: function (data,status) {
+                        if(data=="exist")
+                          {
+                            alert("该RecipeName已经存在，请重新输入");
+                            checkvalue=1;
+                          }
+                    },
+                    error:function (data,status)
+                    {
+                        alert("系统错误，请重新输入或联系IT");
+                    },
+                    async: false
+            });
+
+          if(checkvalue!=0)
+          {
+            return ;
+          }
+
+
           var reg = /^[1-9]\d*$/;
           if(_this.rname==""||_this.rname==null)
           {
@@ -340,13 +372,26 @@
                 _this.queryData[i]["CREATETIME"]=nowtime;
                 needchangearray.push(_this.queryData[i]);
               }
-                
+              if(_this.queryData[i]["COORDINATE"]=="")
+              {
+                if(!(_this.queryData[i]["COORDINATEX"]!=""&&_this.queryData[i]["COORDINATEX"]!=null))
+                {
+                   alert("新增的Site需要输入xy坐标");
+                        return;
+                }
+                if(!(_this.queryData[i]["COORDINATEX"]!=""&&_this.queryData[i]["COORDINATEX"]!=null))
+                {
+                   alert("新增的Site需要输入xy坐标");
+                        return;
+                }
+              }
             }
             if(needchangearray.length==0)
             {
               alert("请先输入想要修改的值，再修改！");
               return;
             }
+
             let changedata={changelist:needchangearray};
             $.ajax({
                     url: url,
@@ -402,6 +447,15 @@
                 return;
               }
             }
+      },
+      handleAdd:function(index, row){
+          let _this=this;
+          var o=JSON.parse(JSON.stringify(_this.queryData[Number(index)]));
+          o.SITENAME="Site"+(index+2);
+          console.log(o.SITENAME);
+          o.COORDINATE="";
+          _this.queryData.push(o);
+
       }
       
     }

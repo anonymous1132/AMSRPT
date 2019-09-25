@@ -17,7 +17,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
         public string EndDate { get; set; }
         public List<ReqRpt213TableRowEntity> RowEntities { get; set; } = new List<ReqRpt213TableRowEntity>();
 
-        DB2DataCatcher<EDAFuranceOPHSModel> HisCatcher { get; set; } = new DB2DataCatcher<EDAFuranceOPHSModel>("ISTRPT.EDA_Furance_OPHS");
+        DB2DataCatcher<EDAFuranceOPHSModel> HisCatcher { get; set; } = new DB2DataCatcher<EDAFuranceOPHSModel>("ISTRPT.EDA_Furance_OPHS12");
 
         public void GetTableDataByManual(string lot,string startDate,string endDate)
         {
@@ -44,7 +44,7 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                     Qty = opeStart.Cur_Wafer_Qty,
                     OperID = opeStart.ModulePD_ID,
                     EqpID = opeStart.Eqp_ID,
-                    Position = opeStart.Pos,
+                    //Position = opeStart.Pos_List,
                     OperName = opeStart.PD_Name,
                     OperNo = opeStart.Ope_NO,
                     OpeStartTime = opeStart.Claim_Time.ToString("yyyy-MM-dd HH:mm:ss"),
@@ -57,6 +57,34 @@ namespace AMS.CIM.Caojin.RPTWebApp.Models
                     UserID=opeStart.Claim_User_ID,
                     Prod=opeStart.ProdSpec_ID,
                 };
+
+                //var aa = opeStart.Pos_List.Split(',');
+                //    string waferid = "";
+                //    string waferpos = "";
+                //    for (var j = 0; j < aa.Length - 1; j++)
+                //    {
+                //        waferid = aa[j].Substring(0, aa[j].IndexOf(':'));
+                //        waferpos = aa[j].Substring(aa[j].IndexOf(':') + 1);
+                //        for (var i = 0; i < 25; i++)
+                //        {
+                //            string wafernumber = i < 10 ? "0" + i.ToString() : i.ToString();
+                //            if (waferid.Length > 2 && waferid.Substring(waferid.Length - 2) == wafernumber)
+                //            {
+
+                //                entity.WaferValue.Add(waferpos);
+                //            }
+                //            // entity.WaferValue.Add(aa.Where(w => w.waferid.Length > 2 && w.waferid.Substring(w.waferid.Length - 2) == wafernumber).Select(s => s.waferpos).FirstOrDefault());
+                //            //entity.wafervalue.add("");
+                //        }
+                //    }
+
+                for (var i = 0; i < 25; i++)
+                {
+                    string waferNumber = i < 10 ? "0" + i.ToString() : i.ToString();
+
+                    entity.WaferValue.Add(g.Where(w => w.Wafer_ID.Length > 2 && w.Wafer_ID.Substring(w.Wafer_ID.Length - 2) == waferNumber).Select(s => s.Wafer_Position).FirstOrDefault());
+                    //entity.WaferValue.Add("");
+                }
                 RowEntities.Add(entity);
             }
         }
