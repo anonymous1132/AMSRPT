@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/WATPage'
+import HelloWorld from '@/components/SpcReportPageForPIE'
 
 Vue.use(Router)
 

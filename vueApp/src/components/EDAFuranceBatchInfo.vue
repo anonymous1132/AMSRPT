@@ -95,6 +95,7 @@
                   <th>Eqp Type</th>
                   <th>Eqp ID</th>
                   <th>Recipe ID</th>
+                  <th v-for="wafer in allWaferID" :key="'h'+wafer" v-text="wafer"></th>
                   <th>Furance Position</th>
                   <th>Oper Start Time</th>
                   <th>Oper Complete Time</th>
@@ -117,6 +118,16 @@
                   <td v-text="row.EqpType"></td>
                   <td v-text="row.EqpID"></td>
                   <td v-text="row.RecipeID"></td>
+                  <td
+                    v-for="(wafer,idx) in allWaferID"
+                    :key="'s'+wafer"
+                    v-text="row.WaferValue[idx]"
+                  ></td>
+                  <!-- <td 
+                    v-for="(pos,idx) in allWaferID"
+                    :key="'c'+pos"
+                    v-text="row.Position[idx]"
+                    ></td> -->
                   <td v-text="row.Position"></td>
                   <td v-text="row.OpeStartTime"></td>
                   <td v-text="row.OpeCompleteTime"></td>
@@ -150,6 +161,11 @@
                   <th>Eqp Type</th>
                   <th>Eqp ID</th>
                   <th>Recipe ID</th>
+                  <th
+                    v-for="wafer in viewWaferID"
+                    :key="'h'+allWaferID[wafer]"
+                    v-text="allWaferID[wafer]"
+                  ></th>
                   <th>Furance Position</th>
                   <th>Oper Start Time</th>
                   <th>Oper Complete Time</th>
@@ -172,6 +188,16 @@
                   <td v-text="row.EqpType"></td>
                   <td v-text="row.EqpID"></td>
                   <td v-text="row.RecipeID"></td>
+                  <td
+                    v-for="wafer in viewWaferID"
+                    :key="'s'+allWaferID[wafer]"
+                    v-text="row.WaferValue[wafer]"
+                  ></td>
+                  <!-- <td 
+                    v-for="pos in allPosition"
+                    :key="allPosition[pos]"
+                    v-text="row.Position[idx]" 
+                    ></td> -->
                   <td v-text="row.Position"></td>
                   <td v-text="row.OpeStartTime"></td>
                   <td v-text="row.OpeCompleteTime"></td>
@@ -207,18 +233,27 @@ export default {
       prod: "",
       operName: [],
       position: [],
-      allPosition: ["Top", "Center", "Bottom"],
+      //allPosition: [],
       lotID: [],
       manualTableData: [],
       manualTitle: "",
       autoTableData: [],
-      autoTitle: ""
+      autoTitle: "",
+      allWaferID: [],
+      waferID: [],
+      
     };
   },
   computed: {
     allProds: function() {
+      let data = this.autoTableData.map(m => m.Prod);
       if (this.autoTableData.length === 0) return [];
-      return this.autoTableData.map(m => m.Prod);
+      data.distinct();
+      data.sort(function(a, b) {
+        return a.length - b.length;
+      });
+      return data;
+      // return this.autoTableData.map(m => m.Prod);
     },
     prodFilteredData: function() {
       let ary = this.autoTableData;
@@ -248,6 +283,22 @@ export default {
       this.operName = [];
       return data;
     },
+    allPosition:function(){
+      let data = this.operNameFilteredData.map(m => m.Position);
+      data.distinct();
+      data.sort();
+      this.position = [];
+      return data;
+    },
+    // pp:function (Position) {
+    //   var temp=[];
+    //   for(var i = 0; i < Position.length; i++){
+    //     if(temp.indexOf(Position[i]) == -1){
+    //         temp.push(Position[i]);
+    //     }
+    // }
+    // return temp; 
+    // },
     allLotId: function() {
       let data = this.positionFilteredData.map(m => m.LotID);
       data.distinct();
@@ -265,7 +316,13 @@ export default {
     showTable: function() {
       if (this.manualInput) return this.manualTitle !== "";
       else return this.autoTitle !== "";
-    }
+    },
+    viewWaferID: function() {
+      return this.waferID.length == 0
+        ? this.allWaferID.map((m, idx) => idx)
+        : this.waferID.sort();
+    },
+   
   },
   methods: {
     querySearch(queryString, cb) {
@@ -352,15 +409,24 @@ export default {
           "From:" + response.data.StartDate + " To:" + response.data.EndDate;
         this.autoTableData = response.data.RowEntities;
       });
+      console.log(this.autoTableData)
+     // console.log(this.allPosition)
     },
     handleClear() {
       this.lotID = [];
       this.position = [];
       this.operName = [];
-      this.prod=""
+      this.prod = "";
     }
   },
   created() {
+    for (let i = 1; i < 26; i++) {
+      this.allWaferID.push(i < 10 ? "#0" + i : "#" + i);
+    }
+    // for (let j = 1; j <4; j++) {
+    //   this.allPosition.push("");
+    // }
+    
     Array.prototype.distinct = function() {
       var ret = [];
       for (var i = 0; i < this.length; i++) {
@@ -401,7 +467,8 @@ export default {
   margin-top: 10px;
 }
 
-.eda-inline-select-group .el-select,.el-autocomplete {
+.eda-inline-select-group .el-select,
+.el-autocomplete {
   min-width: 220px;
 }
 .eda-table-div {

@@ -1,17 +1,19 @@
 <template>
     <div class="c1">
-        <div style="background-color: #00B0F0;">
+        <div style="background-color: #00B0F0;height:50px;">
             <el-row >
-                    <el-col :span="3">
+                    <el-col :span="4">
                         <div >
                             <el-dropdown trigger="click"  class="dropdown1">
-                                <span class="el-dropdown-link">
+                                <span class="el-dropdown-link" style="font-size: 25px;" width="300px">
                                     {{datatypename}}<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                 <el-dropdown-menu slot="dropdown" class="dropdown1">
-                                    <el-dropdown-item @click.native="funcalldata"><span >
+                                    <el-dropdown-item @click.native="funcalldata">
+                                        <span style="font-size: 10px;">
                                         WAT all data
-                                        </span></el-dropdown-item>
+                                        </span>
+                                    </el-dropdown-item>
                                     <el-dropdown-item @click.native="funcoutspecdata">
                                         <span>WAT out of Spec</span></el-dropdown-item>
                                 </el-dropdown-menu>
@@ -24,31 +26,45 @@
                 <div style="height:5px;background-color:#F3F3F4;"></div>
                 <div style="background-color:#D78D3C;height:30px;"></div>
                 <div style="height:50px; margin-top:10px;">
-                    <el-row :gutter="20">
+                    <el-row :gutter="10">
                         <el-col :span="2" style="padding-top:12px;">
                                     Lot ID :
                         </el-col>
-                        <el-col :span="6" >
-                                    <el-input id="in1"></el-input>
+                        <el-col :span="3" >
+                                    <el-select v-model="value" placeholder="请选择">
+                                        <el-option
+                                        v-for="item in lotnameitems"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.name">
+                                        </el-option>
+                                    </el-select>
                         </el-col>
                          <el-col :span="2" style="padding-top:12px;">
                                     Recipe :
                         </el-col>
                         <el-col :span="6">
-                               <el-input id="in1" v-model="rname"></el-input> 
+                               <el-select v-model="value" placeholder="请选择">
+                                        <el-option
+                                        v-for="item in lotnameitems"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.name">
+                                        </el-option>
+                                    </el-select> 
                         </el-col>
                         <el-col :span="2" style="padding-top:12px;">
                                     Version :
                         </el-col>
                         <el-col :span="6">
-                                <el-input id="in1" v-model="rname"></el-input> 
+                                <el-input id="in1" ></el-input> 
                         </el-col>
                         </el-row>
                 </div>
                 <div>
                     <el-row :gutter="20">
                         <el-col :span="10"><div class="grid-content"> </div></el-col>
-                        <el-col :span="2"><el-button type="info">query</el-button></el-col>
+                        <el-col :span="2"><el-button type="info" @click="queryData">query</el-button></el-col>
                         <el-col :span="2"><el-button type="info">clear</el-button></el-col>
                         <el-col :span="10"><div class="grid-content"></div></el-col>
                   </el-row>
@@ -156,7 +172,9 @@ export default {
 
           }],
           datatype:true,//alldata或者out of spec data,默认时alldata
-          datatypename:'WAT all data'
+          datatypename:'WAT all data',
+          lotnameitems:[],
+          value: ''
         }
     },
      methods:{
@@ -179,7 +197,52 @@ export default {
 
             _this.showdata=_this.outspecdata;
 
+        },queryData:function(){
+            let url = this.URL_PREFIX + "/ReqRpt217/analysisdata";
+            $.ajax({
+                        url: url,
+                        type: "post",
+                        contentType: "application/x-www-form-urlencoded; ", //默认，表单提交格式
+                        dataType: "json",
+                        data: {RecipeName:''} ,
+                        success: function (data,status) {
+                            console.log(data);
+                        },
+                        error:function (data,status)
+                        {
+                            alert("系统错误，请重新输入或联系IT");
+                        },
+                        async: false
+                });
         }
+    },
+    beforeMount:function(){
+        var _this=this;
+        let url = this.URL_PREFIX + "/ReqRpt217/analysisdata";
+        $.ajax({
+                    url: url,
+                    type: "post",
+                    contentType: "application/x-www-form-urlencoded; ", //默认，表单提交格式
+                    dataType: "json",
+                    data: '' ,
+                    success: function (data,status) {
+                        // var array=new Array();
+                        // for(var i=0;i<data.length;i++)
+                        // {
+                        //     var o=new Object();
+                        //     o.name=data[i];
+                        //     array.push(o);
+                        // }
+                        // _this.lotnameitems=JSON.parse(JSON.stringify(array));
+                        console.log(data);
+                    },
+                    error:function (data,status)
+                    {
+                        alert("系统错误，请重新输入或联系IT");
+                    },
+                    async: false
+            });
+
     },
     created:function(){
         // for(var i=0;i<this.tableData.length;i++)
@@ -195,6 +258,7 @@ export default {
 
         // }
     }
+    
 }
 </script>
 
@@ -216,6 +280,8 @@ export default {
     min-height: 36px;
     margin-top:5px;
     padding-top: 5px; 
+
+    
   }
   .row-bg {
     padding: 5px 0;
